@@ -1,0 +1,5 @@
+<div class="space-y-4" data-form-target="fields">
+  <%#= f.select :exercise_id, Exercise.all.map { |i| [i.name, i.id] }, include_blank: "Select Exercise" %>
+  <%= f.text_field :name %>
+  <%= f.check_box :_destroy, title: "Check to delete exercise", data: { action: 'click->form#hide'} %>
+</div>
