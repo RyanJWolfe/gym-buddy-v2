@@ -5,4 +5,8 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   has_many :workouts
+
+  def display_name
+    email
+  end
 end

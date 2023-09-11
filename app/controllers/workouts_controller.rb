@@ -27,7 +27,7 @@ class WorkoutsController < ApplicationController
 
     respond_to do |format|
       if @workout.save
-        redirect_path = @user ? user_workout_exercises_path(@user, @workout) : root_path
+        redirect_path = @user ? user_workout_path(@user, @workout) : root_path
         format.html { redirect_to redirect_path, notice: "Workout was successfully created." }
         format.json { render :show, status: :created, location: @workout }
       else
