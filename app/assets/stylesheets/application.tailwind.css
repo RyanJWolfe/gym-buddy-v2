@@ -1,13 +1,108 @@
+@import url('base.tailwind.css');
+@import url('hover-transitions.css');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/*
-
 @layer components {
+  .btn {
+    @apply inline-block px-5 py-3 outline-none tracking-wider text-sm sm:text-base text-based font-medium rounded-lg shadow-lg cursor-pointer
+  }
+  .btn:focus {
+    @apply outline-none ring
+  }
   .btn-primary {
-    @apply py-2 px-4 bg-blue-200;
+    @apply bg-primary hover:bg-primary-hover active:bg-primary-press text-inverted
+  }
+  .btn-primary:focus {
+    @apply outline-none ring-primary;
+  }
+  .btn-secondary {
+    @apply bg-secondary hover:bg-secondary-hover focus:ring-secondary active:bg-secondary-press border border-black
+  }
+  .btn-tertiary {
+    @apply bg-none border border-primary hover:bg-gray-400 hover:dark:bg-gray-800 dark:hover:text-based  hover:bg-opacity-25 text-primary dark:text-primary-hover focus:ring-primary focus:ring-opacity-50
+  }
+  .link {
+    @apply hover-underline text-sm sm:text-base
+  }
+  .link-primary {
+    @apply after:bg-primary text-primary
+  }
+  .link-based {
+    @apply text-based hover:text-based after:bg-primary
+  }
+  .link-blue {
+    @apply text-blue-500 hover:text-blue-400 active:text-blue-600 dark:text-blue-400 dark:hover:text-blue-300 dark:active:text-blue-500 after:bg-blue-500 dark:after:bg-blue-400
+  }
+  .link-muted {
+    @apply text-muted hover:text-based-hover after:bg-primary
+  }
+  .icon {
+    @apply inline-block hover-scale hover:text-primary active:text-primary-press
+  }
+  .invalid-feedback {
+    @apply text-red-500 text-sm
+  }
+  .contact-form-text-area {
+    @apply px-1 py-2 bg-transparent w-full border-b-2 border-b-gray-500 focus:outline-none focus:border-primary text-area-transition
+  }
+  .form-label {
+    @apply font-bold text-xl text-based mb-1
+  }
+
+  .form-text-area {
+    @apply block bg-surface shadow rounded-md border border-surface-alt outline-none px-3 py-2 mt-2 w-full
+  }
+
+  .input-field {
+    @apply h-[50px] w-full text-based border border-surface-alt rounded-full px-6 dark:bg-surface
+  }
+
+  .input-field.is-invalid {
+    @apply border-red-500
+  }
+  .flash {
+    @apply w-screen sm:w-full -mx-5 sm:rounded sm:mx-0 py-2 sticky text-sm sm:text-base text-white text-center font-semibold
+  }
+  .success {
+    @apply bg-green-500
+  }
+  .notice {
+    @apply bg-blue-500
+  }
+  .alert {
+    @apply bg-red-500
+  }
+  .contents {
+    @apply w-full h-full flex flex-col justify-center items-center space-y-4 md:space-y-8
   }
 }
 
-*/
+@layer utilities {
+  .header {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-items: center; /* making vertical center on of all children */
+  }
+
+  .header::before, .header::after {
+    content: '';
+    flex: 1 1 auto; /* the first digit is 'flex-grow: 1', helps element to occupy all free space */
+    border-bottom: solid 3px;
+    border-color: rgb(var(--color-text-muted));
+  }
+
+  .text-area-transition {
+    transition: border-bottom 250ms ease-in-out, padding 250ms ease-out;
+  }
+
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus,
+  input:-webkit-autofill:active {
+    transition: all 10000s ease-in-out 0s;
+  }
+}

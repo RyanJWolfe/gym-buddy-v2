@@ -1,0 +1,146 @@
+/* hamburger menu with animation into X */
+.menu-btn {
+    position: relative;
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: start;
+    align-items: center;
+    z-index: 50;
+    width: 35px;
+    height: 35px;
+    cursor: pointer;
+    transform: scaleX(-1)
+}
+.burger {
+    position: relative;
+    width: 28px;
+    height: 3px;
+    background: rgb(var(--color-text-based));
+    transition: transform .275s, background-color .275s, width .275s;
+}
+.burger::before,
+.burger::after {
+    content: '';
+    position: absolute;
+    height: 100%;
+    background: rgb(var(--color-text-based));
+    transition: transform .275s;
+}
+.burger::before {
+    width: 35px;
+    transform: translateY(-9px);
+}
+.burger::after {
+    width: 21px;
+    transform: translateY(9px);
+}
+/* ANIMATION */
+.menu-btn.open .burger {
+    transform: translateX(10px);
+    background: transparent;
+}
+
+.menu-btn.open .burger::before,
+.menu-btn.open .burger::after {
+    width: 28px;
+    transition: transform .275s, background-color .275s;
+    background: white;
+
+}
+
+.menu-btn.open .burger::before {
+    transform: translate(-10px) rotate(-45deg);
+}
+.menu-btn.open .burger::after {
+    transform: translate(-10px) rotate(45deg);
+}
+
+/* Mobile menu derived from https://codepen.io/GeoffreyCrofte/pen/ajKVRq */
+.mobile-menu {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    text-align: center;
+    background: rgb(28, 28, 28, .65);
+    opacity: 0;
+    visibility: hidden;
+    transition: all .375s;
+    height: 100vh;
+}
+.mobile-menu.open {
+    opacity: 1;
+    z-index: 1;
+    visibility: visible;
+}
+/* Yellow band effect */
+.mobile-menu::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: -15px;
+    background-image: linear-gradient(to bottom right, rebeccapurple, darkslateblue);
+    transform-origin: 0 0;
+    opacity: 0;
+    transform: skew(-14deg) translateX(-120%);
+    transition: all .275s .1s;
+}
+
+.mobile-menu.open::before {
+    transform: skew(-14deg) translateX(0);
+    opacity: 1;
+}
+
+/* Skewing effect on menu links */
+.mobile-menu-list {
+    display: inline-flex;
+    flex-direction: column;
+    height: 90%;
+    align-items: flex-end;
+    justify-content: center;
+    transform: translateX(-18%) skew(-16deg);
+}
+
+.mobile-menu-item {
+    display: block;
+    /*margin: 20px auto;*/
+    text-align: right;
+    transform: skew(16deg);
+}
+
+/* Apparition effect on links */
+.mobile-menu .mobile-menu-link {
+    display: inline-block;
+    opacity: 0;
+    transform: translateY(-20px);
+}
+
+.mobile-menu.open .mobile-menu-link {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.mobile-menu.open .mobile-menu-item .mobile-menu-link:hover {
+    transition: all 150ms 0ms ease-in-out;
+    color: rgb(var(--color-primary));
+    transform: scale(1.15);
+}
+
+.mobile-menu .mobile-menu-item:nth-child(1) .mobile-menu-link {
+    transition: all 275ms 175ms
+}
+.mobile-menu .mobile-menu-item:nth-child(2) .mobile-menu-link {
+    transition: all 275ms 225ms
+}
+.mobile-menu .mobile-menu-item:nth-child(3) .mobile-menu-link {
+    transition: all 275ms 275ms
+}
+.mobile-menu .mobile-menu-item:nth-child(4) .mobile-menu-link {
+    transition: all 275ms 325ms
+}
+.mobile-menu .mobile-menu-item:nth-child(5) .mobile-menu-link {
+    transition: all 275ms 375ms
+}

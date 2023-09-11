@@ -1,0 +1,10 @@
+<footer class="flex flex-col items-center justify-center w-full p-3 mt-8 sm:mt-12 bg-nav">
+  <div class="text-xs sm:text-sm text-center text-muted flex flex-wrap space-x-2">
+    <%= link_to 'https://ryanjwolfe.com', target: '_blank', class: "hover-underline hover:text-based" do %>
+      <div class="flex space-x-1 items-center">
+        <%= render 'shared/svgs/git_branch', size: 20 %>
+        <div>Developed by Ryan Wolfe.</div>
+      </div>
+    <% end %>
+  </div>
+</footer>

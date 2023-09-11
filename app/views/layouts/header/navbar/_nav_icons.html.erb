@@ -1,0 +1,17 @@
+<div class="flex space-x-3 items-center">
+  <% if user_signed_in? %>
+    <%#= link_to profile_path(current_user.id), class: 'icon' do %>
+    <%= link_to root_path, class: 'icon' do %>
+      <%= render 'shared/svgs/user', size: 28 %>
+    <% end %>
+  <% else %>
+    <%= link_to new_user_session_path, class: 'icon' do %>
+      <%= render 'shared/svgs/user', size: 28 %>
+    <% end %>
+  <% end %>
+  <%= render 'shared/theme_toggle_btn' %>
+
+  <div class="lg:hidden justify-self-end">
+    <%= render 'layouts/header/mobile_menu/mobile_menu_btn' %>
+  </div>
+</div>

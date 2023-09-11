@@ -1,0 +1,24 @@
+<div id="nav-background"
+     data-header-target="background"
+     class="w-screen h-14 sm:h-16 absolute left-2/4 -translate-x-2/4 pointer-events-none top-[-70px] z-0
+            transition-[top] duration-[2000ms] ease-in-out shadow-lg bg-gradient-to-br from-bg-nav dark:from-bg-nav dark:to-purple-900 to-purple-300">
+</div>
+
+<nav class="h-14 sm:h-16 container mx-auto px-5" data-header-target="nav">
+  <div class="flex items-center justify-between 2xl:justify-around h-full w-full">
+    <%= link_to root_path, class: "hover-underline" do %>
+      <div class="flex space-x-1 items-center tracking-widest uppercase">
+        <h2 class="font-display font-bold text-lg md:text-2xl">Gym</h2>
+        <h2 class="font-display font-bold text-lg md:text-2xl text-bg-base bg-primary/90 py-0.5 px-1.5">Buddy</h2>
+      </div>
+    <% end %>
+    <div class="flex space-x-4">
+      <div id="navbar-links" class="hidden lg:flex items-center space-x-4">
+        <% navigation_links.each do |locals| %>
+          <%= render 'layouts/header/navbar/link', locals %>
+        <% end %>
+      </div>
+      <%= render 'layouts/header/navbar/nav_icons' %>
+    </div>
+  </div>
+</nav>

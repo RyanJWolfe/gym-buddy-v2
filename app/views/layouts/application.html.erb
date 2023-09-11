@@ -1,21 +1,28 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>GymBuddyV2</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
-    <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
+<html class="dark theme-dark scroll-smooth box-border" lang="en">
+<head>
+  <title>Gym Buddy</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+  <%= render 'layouts/theme_toggle' %>
+  <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
 
-    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
-    <%= javascript_importmap_tags %>
-  </head>
+  <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+  <%= javascript_importmap_tags %>
+  <%= favicon_link_tag 'icons/wolf.ico' %>
+</head>
 
-  <body>
-    <main class="container mx-auto mt-28 px-5 flex">
-      <p class="notice"><%= notice %></p>
-      <p class="alert"><%= alert %></p>
+<body class="bg-base text-based">
+<div class="flex flex-col justify-between min-h-screen">
+  <div>
+    <%= render 'layouts/header/header' %>
+    <main class="container mx-auto px-5">
+      <%= render 'layouts/alerts' %>
       <%= yield %>
     </main>
-  </body>
+  </div>
+  <%= render 'layouts/footer/footer' %>
+</div>
+</body>
 </html>
