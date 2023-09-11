@@ -1,0 +1,32 @@
+<div id="<%= dom_id exercise_set %>">
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Reps:</strong>
+    <%= exercise_set.reps %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Weight:</strong>
+    <%= exercise_set.weight %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Distance:</strong>
+    <%= exercise_set.distance %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Duration:</strong>
+    <%= exercise_set.duration %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Exercise:</strong>
+    <%= exercise_set.exercise_id %>
+  </p>
+
+  <% if action_name != "show" %>
+    <%= link_to "Show this exercise set", exercise_set, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+    <%= link_to 'Edit this exercise set', edit_exercise_set_path(exercise_set), class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %>
+    <hr class="mt-6">
+  <% end %>
+</div>
