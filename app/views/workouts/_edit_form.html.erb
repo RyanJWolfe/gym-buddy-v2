@@ -1,4 +1,32 @@
-<%= form_with(model: [current_user, workout], class: "contents") do |form| %>
+<script>
+    // Replace 'form' with the actual selector for your form element(s)
+    // TODO: move to stimulus
+    document.addEventListener('click', function(event) {
+        var target = event.target;
+
+        // Handle click events on elements with the class 'remove_fields'
+        if (target.classList.contains('remove_fields')) {
+            var hiddenInput = target.previousElementSibling;
+
+            if (hiddenInput && hiddenInput.getAttribute('type') === 'hidden') {
+                hiddenInput.value = '1';
+                target.closest('fieldset').style.display = 'none';
+                event.preventDefault();
+            }
+        }
+
+        // Handle click events on elements with the class 'add_fields'
+        if (target.classList.contains('add_fields')) {
+            var time = new Date().getTime();
+            var regexp = new RegExp(target.getAttribute('data-id'), 'g');
+            var fields = target.getAttribute('data-fields').replace(regexp, time);
+
+            target.insertAdjacentHTML('beforebegin', fields);
+            event.preventDefault();
+        }
+    });
+</script>
+<%= form_with(model: [current_user, workout], class: "contents space-y-4") do |form| %>
   <% if workout.errors.any? %>
     <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3">
       <h2><%= pluralize(workout.errors.count, "error") %> prohibited this workout from being saved:</h2>
@@ -11,33 +39,31 @@
     </div>
   <% end %>
 
-  <div class="my-5">
+  <div>
     <%= form.hidden_field :user_id, value: current_user.id %>
   </div>
 
-  <div class="my-5">
-    <%= form.label :workout_type_id %>
-    <%= form.collection_select :workout_type_id, WorkoutType.all, :id, :name, {prompt: "Select a workout type"}, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
+  <div class="grid grid-cols-2 gap-x-4">
+    <div>
+      <%= form.label :date, class: 'font-bold' %>
+      <%= form.date_field :date, value: Date.today, class: "select-field" %>
+    </div>
+    <div>
+      <%= form.label :workout_type_id, class: 'font-bold' %>
+      <%= form.collection_select :workout_type_id, WorkoutType.all, :id, :name, {prompt: "Select a workout type"}, class: "select-field" %>
+    </div>
   </div>
 
-  <div class="my-5">
-    <%= form.label :date %>
-    <%= form.date_field :date, value: Date.today, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
-  </div>
-
-  <div class="my-5 hidden">
+  <div class=" hidden">
     <%= form.label :duration %>
     <%= form.number_field :duration, placeholder: 'optional', class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
   </div>
 
   <div class="space-y-4" data-controller="form">
-    <!--# NOTE: this `id` will be the target of the turbo stream-->
-    <%= tag.div id: :workout_exercises do %>
-      <%= form.fields_for :workout_exercises do |f| %>
-        <%= render 'workouts/workout_exercise_fields', f: %>
-      <% end %>
+    <%= form.fields_for :workout_exercises do |f| %>
+      <%= render 'workouts/workout_exercise_fields', f:, workout: %>
     <% end %>
-    <%= link_to 'Add exercise', user_workout_add_exercise_path(current_user, workout), data: { turbo_method: :post }, class: 'link link-blue' %>
+    <%= link_to_add_fields "Add exercise", form, :workout_exercises, class: 'btn btn-primary' %>
   </div>
 
   <div class="inline">

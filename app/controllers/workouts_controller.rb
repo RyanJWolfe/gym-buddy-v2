@@ -68,14 +68,23 @@ class WorkoutsController < ApplicationController
     workout = @workouts.find(params[:workout_id])
     # routine.routine_exercises.build
     helpers.fields model: workout do |f|
-      f.fields_for :workout_exercises, WorkoutExercise.new, child_index: Time.now.to_f do |ff|
+      we = WorkoutExercise.new
+      we.exercise_sets.build
+      f.fields_for :workout_exercises, we, child_index: Time.now.to_f do |ff|
         render turbo_stream: turbo_stream.append(
           'workout_exercises',
           partial: 'workouts/workout_exercise_fields',
-          locals: { f: ff }
+          locals: { f: ff, workout: }
         )
       end
     end
+  end
+
+  def remove_exercise
+    # TODO: This was generated and is untested
+    workout = @workouts.find(params[:workout_id])
+    workout.workout_exercises.find(params[:id]).destroy
+    redirect_to edit_user_workout_path(current_user, workout)
   end
 
   private

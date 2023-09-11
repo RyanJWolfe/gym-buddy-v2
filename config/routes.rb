@@ -5,6 +5,10 @@ Rails.application.routes.draw do
     resources :workouts do
       post :add_exercise
       delete :remove_exercise
+      resources :workout_exercises, only: [] do
+        post :add_set
+        delete :remove_set
+      end
       resources :exercise_sets
     end
 

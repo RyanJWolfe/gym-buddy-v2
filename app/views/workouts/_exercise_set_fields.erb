@@ -1,0 +1,16 @@
+<div class="space-y-2" data-form-target="fields">
+  <h5 class="font-semibold">Set #<%= f.options[:child_index] + 1 %></h5>
+  <div class="grid grid-cols-11 gap-x-4 items-center">
+    <div class="flex space-x-2 items-center col-span-5">
+      <%= f.label 'Reps:', class: '' %>
+      <%= f.number_field :reps, placeholder: "Reps", class: "form-field" %>
+    </div>
+    <div class="flex space-x-2 items-center col-span-5">
+      <%= f.label 'Weight (lb):', class: '' %>
+      <%= f.text_field :weight, placeholder: "Weight", class: "form-field" %>
+    </div>
+    <%= f.check_box :_destroy, title: "Check to delete set", data: { action: 'click->form#hide'} %>
+
+  </div>
+  <%#= f.text_field :rest, placeholder: "Rest", class: "form-control" %>
+</div>

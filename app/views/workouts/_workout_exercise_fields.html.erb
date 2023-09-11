@@ -1,4 +1,16 @@
-<div class="space-y-4" data-form-target="fields">
-  <%= f.select :exercise_id, current_user.exercises.map { |i| [i.name, i.id] }, include_blank: "Select Exercise" %>
-  <%= f.check_box :_destroy, title: "Check to delete exercise", data: { action: 'click->form#hide'} %>
+<div class="space-y-2" data-form-target="fields">
+  <h4 class="font-bold text-lg">Exercise #<%= f.options[:child_index] + 1 %></h4>
+  <div class="flex space-x-4 items-center">
+    <%= f.select :exercise_id, current_user.exercises.map { |i| [i.name, i.id] }, {include_blank: "Select Exercise"}, class: 'select-field' %>
+    <%= f.check_box :_destroy, title: "Check to delete exercise", data: { action: 'click->form#hide'} %>
+  </div>
 </div>
+
+<div class="space-y-4">
+  <%= f.fields_for :exercise_sets do |nested_f| %>
+    <%= render 'exercise_set_fields', f: nested_f %>
+  <% end %>
+  <%= link_to_add_fields "Add set", f, :exercise_sets, class: 'btn btn-secondary' %>
+
+</div>
+
