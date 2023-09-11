@@ -3,6 +3,6 @@
 
   <%= render "form", workout: @workout %>
 
-  <%= link_to "Show this workout", @workout, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-  <%= link_to "Back to workouts", workouts_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+  <%= link_to "Show this workout", user_workout_path(current_user, @workout), class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+  <%= link_to "Back to workouts", user_workouts_path(current_user), class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
 </div>

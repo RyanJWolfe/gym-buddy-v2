@@ -9,7 +9,7 @@
 
   <div>
     <h2 class="font-bold text-2xl">Your Workouts</h2>
-    <%= link_to 'New Workout', new_workout_path %>
+    <%= link_to 'New Workout', new_user_workout_path(current_user) %>
     <%= render current_user.workouts %>
   </div>
 </div>
