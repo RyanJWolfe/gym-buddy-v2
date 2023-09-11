@@ -33,11 +33,11 @@
   <div class="space-y-4" data-controller="form">
     <!--# NOTE: this `id` will be the target of the turbo stream-->
     <%= tag.div id: :workout_exercises do %>
-      <%= form.fields_for :exercises do |f| %>
+      <%= form.fields_for :workout_exercises do |f| %>
         <%= render 'workouts/workout_exercise_fields', f: %>
       <% end %>
     <% end %>
-    <%= link_to 'Add exercise', add_exercise_routines_path(routine_id: routine.id), data: { turbo_method: :post }, class: 'link link-blue' %>
+    <%= link_to 'Add exercise', user_workout_add_exercise_path(current_user, workout), data: { turbo_method: :post }, class: 'link link-blue' %>
   </div>
 
   <div class="inline">

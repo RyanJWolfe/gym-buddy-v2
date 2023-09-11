@@ -64,6 +64,20 @@ class WorkoutsController < ApplicationController
     end
   end
 
+  def add_exercise
+    workout = @workouts.find(params[:workout_id])
+    # routine.routine_exercises.build
+    helpers.fields model: workout do |f|
+      f.fields_for :workout_exercises, WorkoutExercise.new, child_index: Time.now.to_f do |ff|
+        render turbo_stream: turbo_stream.append(
+          'workout_exercises',
+          partial: 'workouts/workout_exercise_fields',
+          locals: { f: ff }
+        )
+      end
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_workout
@@ -77,6 +91,6 @@ class WorkoutsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def workout_params
-      params.require(:workout).permit(:user_id, :workout_type_id, :date, :duration)
+      params.require(:workout).permit(:user_id, :workout_type_id, :date, :duration, workout_exercises_attributes: {})
     end
 end

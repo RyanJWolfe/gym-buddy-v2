@@ -4,14 +4,9 @@
     <%= exercise.name %>
   </p>
 
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Workout:</strong>
-    <%= exercise.workout_id %>
-  </p>
-
   <% if action_name != "show" %>
-    <%= link_to "Show this exercise", exercise, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-    <%= link_to 'Edit this exercise', edit_exercise_path(exercise), class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %>
+    <%= link_to "Show this exercise", user_exercise_path(current_user, exercise), class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+    <%= link_to 'Edit this exercise', edit_user_exercise_path(current_user, exercise), class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %>
     <hr class="mt-6">
   <% end %>
 </div>

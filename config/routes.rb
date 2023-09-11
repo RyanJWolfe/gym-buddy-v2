@@ -1,13 +1,15 @@
 Rails.application.routes.draw do
+  devise_for :users
+
   resources :users do
     resources :workouts do
-      resources :exercises do
-        resources :exercise_sets
-      end
+      post :add_exercise
+      delete :remove_exercise
+      resources :exercise_sets
     end
-  end
 
-  devise_for :users
+    resources :exercises
+  end
 
   devise_scope :user do
     get '/users/sign_out' => 'devise/sessions#destroy'

@@ -20,3 +20,7 @@ workout_types = WorkoutType.create([
   { name: "Climb" },
   { name: "Other" }
 ])
+
+# create test user
+user = User.find_by(email: 'xryanwolfe@gmail.com')
+user ||= User.create!(email: 'xryanwolfe@gmail.com', password: 'password', password_confirmation: 'password')

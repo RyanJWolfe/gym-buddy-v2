@@ -26,7 +26,7 @@ class ExercisesController < ApplicationController
 
     respond_to do |format|
       if @exercise.save
-        redirect_path = @user ? user_workout_path(@user, @workout) : root_path
+        redirect_path = @user ? user_exercises_path(@user) : root_path
         format.html { redirect_to redirect_path, notice: "Exercise was successfully created." }
         format.json { render :show, status: :created, location: @exercise }
       else
@@ -40,7 +40,7 @@ class ExercisesController < ApplicationController
   def update
     respond_to do |format|
       if @exercise.update(exercise_params)
-        redirect_path = @user ? user_workout_path(@user, @workout) : root_path
+        redirect_path = @user ? user_exercises_path(@user) : root_path
         format.html { redirect_to redirect_path, notice: "Exercise was successfully updated." }
         format.json { render :show, status: :ok, location: @exercise }
       else
@@ -53,8 +53,7 @@ class ExercisesController < ApplicationController
   # DELETE /exercises/1 or /exercises/1.json
   def destroy
     @exercise.destroy
-    redirect_path = @user ? user_workout_path(@user, @workout) : root_path
-
+    redirect_path = @user ? user_exercises_path(@user) : root_path
 
     respond_to do |format|
       format.html { redirect_to redirect_path, notice: "Exercise was successfully destroyed." }
@@ -65,14 +64,13 @@ class ExercisesController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_exercise
-      @exercise = @workout ? @exercises.find_by_id(params[:id]) : Exercise.find(params[:id])
+      @exercise = @user ? @exercises.find_by_id(params[:id]) : Exercise.find(params[:id])
     end
 
     def load_user
       # todo validate user id against workout id (i.e. if user has access to workout)
       @user = User.find(params[:user_id]) if params[:user_id]
-      @workout = Workout.find(params[:workout_id]) if params[:workout_id]
-      @exercises = @workout.exercises if @workout
+      @exercises = @user ? @user.exercises : Exercise.all
     end
 
     # Only allow a list of trusted parameters through.

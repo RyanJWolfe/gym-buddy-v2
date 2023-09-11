@@ -5,7 +5,7 @@ class CreateExerciseSets < ActiveRecord::Migration[7.0]
       t.float :weight
       t.float :distance
       t.integer :duration
-      t.references :exercise, null: false, foreign_key: true, index: true
+      t.references :workout_exercise, null: false, foreign_key: true, index: true
 
       t.timestamps
     end

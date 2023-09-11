@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_09_11_013157) do
+ActiveRecord::Schema[7.0].define(version: 2023_09_11_040624) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -19,18 +19,18 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_11_013157) do
     t.float "weight"
     t.float "distance"
     t.integer "duration"
-    t.bigint "exercise_id", null: false
+    t.bigint "workout_exercise_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["exercise_id"], name: "index_exercise_sets_on_exercise_id"
+    t.index ["workout_exercise_id"], name: "index_exercise_sets_on_workout_exercise_id"
   end
 
   create_table "exercises", force: :cascade do |t|
     t.string "name"
-    t.bigint "workout_id", null: false
+    t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["workout_id"], name: "index_exercises_on_workout_id"
+    t.index ["user_id"], name: "index_exercises_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -48,6 +48,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_11_013157) do
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  end
+
+  create_table "workout_exercises", force: :cascade do |t|
+    t.bigint "exercise_id", null: false
+    t.bigint "workout_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["exercise_id"], name: "index_workout_exercises_on_exercise_id"
+    t.index ["workout_id"], name: "index_workout_exercises_on_workout_id"
   end
 
   create_table "workout_types", force: :cascade do |t|
@@ -68,8 +77,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_11_013157) do
     t.index ["workout_type_id"], name: "index_workouts_on_workout_type_id"
   end
 
-  add_foreign_key "exercise_sets", "exercises"
-  add_foreign_key "exercises", "workouts"
+  add_foreign_key "exercise_sets", "workout_exercises"
+  add_foreign_key "exercises", "users"
+  add_foreign_key "workout_exercises", "exercises"
+  add_foreign_key "workout_exercises", "workouts"
   add_foreign_key "workouts", "users"
   add_foreign_key "workouts", "workout_types"
 end
