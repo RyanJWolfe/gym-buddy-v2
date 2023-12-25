@@ -10,9 +10,41 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_09_11_010803) do
+ActiveRecord::Schema[7.0].define(version: 2023_12_25_004721) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "exercise_instances", force: :cascade do |t|
+    t.integer "reps"
+    t.float "weight"
+    t.text "notes"
+    t.bigint "user_id", null: false
+    t.bigint "exercise_template_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["exercise_template_id"], name: "index_exercise_instances_on_exercise_template_id"
+    t.index ["user_id"], name: "index_exercise_instances_on_user_id"
+  end
+
+  create_table "exercise_templates", force: :cascade do |t|
+    t.string "name"
+    t.string "muscle_group"
+    t.string "equipment"
+    t.text "notes"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "sets", force: :cascade do |t|
+    t.integer "reps"
+    t.float "weight"
+    t.bigint "workout_id", null: false
+    t.bigint "exercise_instance_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["exercise_instance_id"], name: "index_sets_on_exercise_instance_id"
+    t.index ["workout_id"], name: "index_sets_on_workout_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -31,4 +63,27 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_11_010803) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  create_table "workout_templates", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "workouts", force: :cascade do |t|
+    t.date "date"
+    t.integer "duration"
+    t.bigint "user_id", null: false
+    t.bigint "workout_template_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_workouts_on_user_id"
+    t.index ["workout_template_id"], name: "index_workouts_on_workout_template_id"
+  end
+
+  add_foreign_key "exercise_instances", "exercise_templates"
+  add_foreign_key "exercise_instances", "users"
+  add_foreign_key "sets", "exercise_instances"
+  add_foreign_key "sets", "workouts"
+  add_foreign_key "workouts", "users"
+  add_foreign_key "workouts", "workout_templates"
 end
