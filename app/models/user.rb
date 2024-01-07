@@ -7,5 +7,6 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   has_many :workouts, dependent: :destroy
-
+  has_many :workout_templates, dependent: :destroy
+  has_many :exercise_instances, through: :workouts
 end

@@ -6,3 +6,10 @@
 #
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
+
+ExerciseTemplate.create!(
+  name: "Bench Press",
+  muscle_group: "Chest",
+  equipment: "Barbell",
+  notes: "get big"
+)
