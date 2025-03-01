@@ -1,6 +1,6 @@
 class ExerciseLogsController < ApplicationController
   before_action :set_workout
-  before_action :set_exercise_log, only: [:show, :edit, :update, :destroy]
+  before_action :set_exercise_log, only: [:edit, :update, :destroy]
   
   def new
     @exercise_log = @workout.exercise_logs.build
