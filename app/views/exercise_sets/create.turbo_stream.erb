@@ -1,0 +1,3 @@
+<%= turbo_stream.append "#{dom_id(@exercise_log, :sets)}" do %>
+  <%= render partial: "exercise_sets/set", locals: { set: @set, workout: @workout, exercise_log: @exercise_log } %>
+<% end %> 

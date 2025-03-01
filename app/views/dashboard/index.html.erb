@@ -1,0 +1,129 @@
+<div class="mb-6">
+  <h1 class="text-2xl font-bold mb-4">Dashboard</h1>
+  
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+    <div class="bg-white rounded-lg shadow p-4">
+      <h2 class="text-lg font-semibold mb-2">Total Workouts</h2>
+      <p class="text-3xl font-bold text-indigo-600"><%= @workout_count %></p>
+    </div>
+    
+    <div class="bg-white rounded-lg shadow p-4">
+      <h2 class="text-lg font-semibold mb-2">Total Volume Lifted</h2>
+      <p class="text-3xl font-bold text-indigo-600"><%= number_with_delimiter(@total_volume) %> kg</p>
+    </div>
+    
+    <div class="bg-white rounded-lg shadow p-4">
+      <h2 class="text-lg font-semibold mb-2">Last Workout</h2>
+      <% if @recent_workouts.any? %>
+        <p class="text-xl font-bold"><%= @recent_workouts.first.name %></p>
+        <p class="text-gray-600"><%= @recent_workouts.first.date.strftime("%b %d, %Y") %></p>
+      <% else %>
+        <p class="text-gray-600">No workouts yet</p>
+      <% end %>
+    </div>
+  </div>
+  
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+    <div class="bg-white rounded-lg shadow p-4">
+      <h2 class="text-lg font-semibold mb-4">Recent Workouts</h2>
+      
+      <% if @recent_workouts.any? %>
+        <div class="space-y-3">
+          <% @recent_workouts.each do |workout| %>
+            <%= link_to workout_path(workout), class: "block p-3 border rounded hover:bg-gray-50" do %>
+              <div class="flex justify-between items-center">
+                <div>
+                  <h3 class="font-medium"><%= workout.name %></h3>
+                  <p class="text-sm text-gray-600"><%= workout.date.strftime("%b %d, %Y") %></p>
+                </div>
+                <div class="text-right">
+                  <p class="text-sm"><%= pluralize(workout.exercise_logs.count, 'exercise') %></p>
+                  <p class="text-sm text-gray-600"><%= number_with_delimiter(workout.total_volume) %> kg</p>
+                </div>
+              </div>
+            <% end %>
+          <% end %>
+        </div>
+        
+        <div class="mt-4 text-center">
+          <%= link_to "View All Workouts", workouts_path, class: "text-indigo-600 hover:text-indigo-800" %>
+        </div>
+      <% else %>
+        <div class="text-center py-6">
+          <p class="text-gray-600 mb-4">You haven't logged any workouts yet.</p>
+          <%= link_to "Create Your First Workout", new_workout_path, class: "bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700" %>
+        </div>
+      <% end %>
+    </div>
+    
+    <div class="bg-white rounded-lg shadow p-4">
+      <h2 class="text-lg font-semibold mb-4">Exercise Progress</h2>
+      
+      <div class="mb-4">
+        <%= form_with url: dashboard_path, method: :get, class: "flex space-x-2" do |f| %>
+          <%= f.select :exercise_id, 
+                      Exercise.joins(:exercise_logs)
+                             .where(exercise_logs: { workout: current_user.workouts })
+                             .distinct.order(:name).map { |e| [e.name, e.id] },
+                      { include_blank: "Select an exercise" },
+                      { class: "border rounded px-3 py-2 flex-grow", onchange: "this.form.submit()" } %>
+        <% end %>
+      </div>
+      
+      <% if @selected_exercise && @progress_data.any? %>
+        <div class="h-64">
+          <!-- This would be replaced with a chart using Chart.js or similar -->
+          <div class="bg-gray-100 h-full flex items-center justify-center">
+            <p>Progress chart for <%= @selected_exercise.name %> would appear here</p>
+          </div>
+        </div>
+        
+        <div class="mt-4">
+          <h3 class="font-medium mb-2">Progress Summary</h3>
+          <div class="grid grid-cols-3 gap-2 text-center">
+            <div>
+              <p class="text-sm text-gray-600">Max Weight</p>
+              <p class="font-bold"><%= @progress_data.map { |d| d[:max_weight] }.max %> kg</p>
+            </div>
+            <div>
+              <p class="text-sm text-gray-600">Max Volume</p>
+              <p class="font-bold"><%= @progress_data.map { |d| d[:total_volume] }.max %> kg</p>
+            </div>
+            <div>
+              <p class="text-sm text-gray-600">Max Reps</p>
+              <p class="font-bold"><%= @progress_data.map { |d| d[:total_reps] }.max %></p>
+            </div>
+          </div>
+        </div>
+      <% elsif @selected_exercise %>
+        <div class="text-center py-6">
+          <p class="text-gray-600">No data available for this exercise yet.</p>
+        </div>
+      <% else %>
+        <div class="text-center py-6">
+          <p class="text-gray-600">Select an exercise to view your progress.</p>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+    <div class="bg-white rounded-lg shadow p-4">
+      <h2 class="text-lg font-semibold mb-4">Workout Frequency</h2>
+      <%= column_chart @workout_frequency, 
+                      colors: ["#4f46e5"], 
+                      xtitle: "Week", 
+                      ytitle: "Workouts",
+                      height: "250px" %>
+    </div>
+    
+    <div class="bg-white rounded-lg shadow p-4">
+      <h2 class="text-lg font-semibold mb-4">Volume Progression</h2>
+      <%= line_chart @volume_progression, 
+                    colors: ["#4f46e5"], 
+                    xtitle: "Week", 
+                    ytitle: "Total Volume (kg)",
+                    height: "250px" %>
+    </div>
+  </div>
+</div> 

@@ -10,9 +10,47 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_02_03_003147) do
+ActiveRecord::Schema[8.0].define(version: 2025_03_01_003149) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
+
+  create_table "exercise_logs", force: :cascade do |t|
+    t.bigint "workout_id", null: false
+    t.bigint "exercise_id", null: false
+    t.text "notes"
+    t.string "equipment_brand"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["exercise_id"], name: "index_exercise_logs_on_exercise_id"
+    t.index ["workout_id", "exercise_id"], name: "index_exercise_logs_on_workout_id_and_exercise_id"
+    t.index ["workout_id"], name: "index_exercise_logs_on_workout_id"
+  end
+
+  create_table "exercise_sets", force: :cascade do |t|
+    t.bigint "exercise_log_id", null: false
+    t.integer "set_number", null: false
+    t.integer "reps", null: false
+    t.decimal "weight", precision: 8, scale: 2, null: false
+    t.integer "rest_seconds"
+    t.integer "duration_seconds"
+    t.string "notes"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["exercise_log_id", "set_number"], name: "index_exercise_sets_on_exercise_log_id_and_set_number"
+    t.index ["exercise_log_id"], name: "index_exercise_sets_on_exercise_log_id"
+  end
+
+  create_table "exercises", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "category", null: false
+    t.string "equipment_type", null: false
+    t.text "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["category"], name: "index_exercises_on_category"
+    t.index ["equipment_type"], name: "index_exercises_on_equipment_type"
+    t.index ["name"], name: "index_exercises_on_name", unique: true
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -37,8 +75,16 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_03_003147) do
     t.text "notes"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "name", null: false
+    t.date "date", null: false
+    t.datetime "start_time"
+    t.datetime "end_time"
+    t.index ["date"], name: "index_workouts_on_date"
     t.index ["user_id"], name: "index_workouts_on_user_id"
   end
 
+  add_foreign_key "exercise_logs", "exercises"
+  add_foreign_key "exercise_logs", "workouts"
+  add_foreign_key "exercise_sets", "exercise_logs"
   add_foreign_key "workouts", "users"
 end

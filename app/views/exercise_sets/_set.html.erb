@@ -1,0 +1,15 @@
+<tr id="<%= dom_id(set) %>" class="hover:bg-gray-50">
+  <td class="px-3 py-2 whitespace-nowrap text-sm text-gray-900"><%= set.set_number %></td>
+  <td class="px-3 py-2 whitespace-nowrap text-sm text-gray-900"><%= set.weight %> kg</td>
+  <td class="px-3 py-2 whitespace-nowrap text-sm text-gray-900"><%= set.reps %></td>
+  <td class="px-3 py-2 whitespace-nowrap text-sm text-gray-900"><%= set.volume %> kg</td>
+  <td class="px-3 py-2 whitespace-nowrap text-sm text-gray-500"><%= set.rest_seconds ? "#{set.rest_seconds} sec" : "-" %></td>
+  <td class="px-3 py-2 whitespace-nowrap text-sm text-gray-500"><%= set.duration_seconds ? "#{set.duration_seconds} sec" : "-" %></td>
+  <td class="px-3 py-2 whitespace-nowrap text-sm text-gray-500"><%= set.notes.present? ? truncate(set.notes, length: 20) : "-" %></td>
+  <td class="px-3 py-2 whitespace-nowrap text-right text-sm font-medium">
+    <div class="flex space-x-2">
+      <%= link_to "Edit", edit_workout_exercise_log_exercise_set_path(workout, exercise_log, set), class: "text-indigo-600 hover:text-indigo-900" %>
+      <%= button_to "Delete", workout_exercise_log_exercise_set_path(workout, exercise_log, set), method: :delete, class: "text-red-600 hover:text-red-900", form: { data: { turbo_confirm: "Are you sure?" } } %>
+    </div>
+  </td>
+</tr> 

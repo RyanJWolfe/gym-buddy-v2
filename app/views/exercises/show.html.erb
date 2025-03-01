@@ -1,0 +1,122 @@
+<div class="mb-6">
+  <div class="flex justify-between items-center mb-4">
+    <div>
+      <h1 class="text-2xl font-bold"><%= @exercise.name %></h1>
+      <p class="text-gray-600"><%= @exercise.category %> | <%= @exercise.equipment_type %></p>
+    </div>
+    
+    <div class="flex space-x-2">
+      <%= link_to "Edit Exercise", edit_exercise_path(@exercise), class: "bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700" %>
+      <%= link_to "Back to Exercises", exercises_path, class: "bg-gray-200 text-gray-700 px-4 py-2 rounded hover:bg-gray-300" %>
+    </div>
+  </div>
+  
+  <% if @exercise.description.present? %>
+    <div class="bg-white rounded-lg shadow p-4 mb-6">
+      <h2 class="text-lg font-semibold mb-2">Description</h2>
+      <p class="text-gray-700"><%= simple_format(@exercise.description) %></p>
+    </div>
+  <% end %>
+  
+  <div class="bg-white rounded-lg shadow p-4 mb-6">
+    <h2 class="text-lg font-semibold mb-4">Progress Chart</h2>
+    
+    <% if @exercise_logs.any? %>
+      <div class="h-64">
+        <%= line_chart [
+          {
+            name: "Max Weight (kg)",
+            data: @exercise_logs.map { |log| [log.workout.date.strftime("%b %d"), log.max_weight] }
+          },
+          {
+            name: "Total Volume (kg)",
+            data: @exercise_logs.map { |log| [log.workout.date.strftime("%b %d"), log.total_volume] }
+          }
+        ], 
+        colors: ["#4f46e5", "#10b981"],
+        height: "100%" %>
+      </div>
+      
+      <div class="mt-4 grid grid-cols-1 md:grid-cols-3 gap-4 text-center">
+        <div class="bg-gray-50 p-3 rounded">
+          <p class="text-sm text-gray-600">Max Weight</p>
+          <p class="text-xl font-bold text-indigo-600">
+            <%= @exercise_logs.map(&:max_weight).compact.max || 0 %> kg
+          </p>
+        </div>
+        <div class="bg-gray-50 p-3 rounded">
+          <p class="text-sm text-gray-600">Max Volume (Single Workout)</p>
+          <p class="text-xl font-bold text-indigo-600">
+            <%= @exercise_logs.map(&:total_volume).compact.max || 0 %> kg
+          </p>
+        </div>
+        <div class="bg-gray-50 p-3 rounded">
+          <p class="text-sm text-gray-600">Total Workouts</p>
+          <p class="text-xl font-bold text-indigo-600">
+            <%= @exercise_logs.count %>
+          </p>
+        </div>
+      </div>
+    <% else %>
+      <div class="text-center py-6 text-gray-500">
+        <p>You haven't logged this exercise in any workouts yet.</p>
+      </div>
+    <% end %>
+  </div>
+  
+  <div class="bg-white rounded-lg shadow overflow-hidden">
+    <div class="p-4 border-b">
+      <h2 class="text-lg font-semibold">Workout History</h2>
+    </div>
+    
+    <% if @exercise_logs.any? %>
+      <div class="divide-y">
+        <% @exercise_logs.each do |log| %>
+          <div class="p-4">
+            <div class="flex justify-between items-center mb-2">
+              <div>
+                <h3 class="font-medium">
+                  <%= link_to log.workout.name, workout_path(log.workout), class: "text-indigo-600 hover:text-indigo-800" %>
+                </h3>
+                <p class="text-sm text-gray-600"><%= log.workout.date.strftime("%b %d, %Y") %></p>
+              </div>
+              <div class="text-right">
+                <p class="text-sm"><%= pluralize(log.sets.count, 'set') %></p>
+                <p class="text-sm text-gray-600"><%= number_with_delimiter(log.total_volume) %> kg total</p>
+              </div>
+            </div>
+            
+            <% if log.sets.any? %>
+              <div class="mt-2 overflow-x-auto">
+                <table class="min-w-full divide-y divide-gray-200 text-sm">
+                  <thead>
+                    <tr>
+                      <th class="px-3 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Set</th>
+                      <th class="px-3 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Weight</th>
+                      <th class="px-3 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Reps</th>
+                      <th class="px-3 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Volume</th>
+                    </tr>
+                  </thead>
+                  <tbody class="divide-y divide-gray-200">
+                    <% log.sets.each do |set| %>
+                      <tr>
+                        <td class="px-3 py-2 whitespace-nowrap"><%= set.set_number %></td>
+                        <td class="px-3 py-2 whitespace-nowrap"><%= set.weight %> kg</td>
+                        <td class="px-3 py-2 whitespace-nowrap"><%= set.reps %></td>
+                        <td class="px-3 py-2 whitespace-nowrap"><%= set.volume %> kg</td>
+                      </tr>
+                    <% end %>
+                  </tbody>
+                </table>
+              </div>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+    <% else %>
+      <div class="text-center py-8 text-gray-500">
+        <p>No workout history for this exercise.</p>
+      </div>
+    <% end %>
+  </div>
+</div> 

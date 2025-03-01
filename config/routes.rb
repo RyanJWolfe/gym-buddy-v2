@@ -1,6 +1,22 @@
 Rails.application.routes.draw do
-  resources :workouts
   devise_for :users
+  
+  authenticated :user do
+    root to: 'dashboard#index', as: :authenticated_root
+  end
+  
+  root to: 'static_pages#home'
+  
+  resources :workouts do
+    resources :exercise_logs, except: [:index, :show] do
+      resources :exercise_sets, except: [:index, :show]
+    end
+  end
+  
+  resources :exercises
+  
+  get 'dashboard', to: 'dashboard#index'
+
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
@@ -13,5 +29,11 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "posts#index"
-  root "workouts#index"
+
+  # Add these routes
+  resource :profile, only: [:show, :edit, :update]
+
+  namespace :exports do
+    get :workouts
+  end
 end

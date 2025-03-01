@@ -58,6 +58,7 @@ end
 group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
+  gem 'faker'
 end
 
 group :test do
@@ -67,3 +68,13 @@ group :test do
 end
 
 gem "devise", "~> 4.9"
+
+# For charts and data visualization
+gem 'chartkick'
+gem 'groupdate'
+
+# For pagination
+gem 'pagy'
+
+# For better forms
+gem 'simple_form'

@@ -1,9 +1,8 @@
-<%= form_with(model: workout, class: "contents") do |form| %>
+<%= form_with(model: workout, class: "space-y-4") do |form| %>
   <% if workout.errors.any? %>
-    <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-md mt-3">
-      <h2><%= pluralize(workout.errors.count, "error") %> prohibited this workout from being saved:</h2>
-
-      <ul class="list-disc ml-6">
+    <div class="bg-red-50 text-red-700 p-4 rounded mb-4">
+      <h2 class="font-bold mb-2"><%= pluralize(workout.errors.count, "error") %> prohibited this workout from being saved:</h2>
+      <ul class="list-disc pl-5">
         <% workout.errors.each do |error| %>
           <li><%= error.full_message %></li>
         <% end %>
@@ -11,22 +10,35 @@
     </div>
   <% end %>
 
-  <div class="my-5">
-    <%= form.label :user_id %>
-    <%= form.text_field :user_id, class: ["block shadow rounded-md border outline-none px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": workout.errors[:user_id].none?, "border-red-400 focus:outline-red-600": workout.errors[:user_id].any?}] %>
+  <div>
+    <%= form.label :name, class: "block text-sm font-medium text-gray-700 mb-1" %>
+    <%= form.text_field :name, class: "w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" %>
   </div>
 
-  <div class="my-5">
-    <%= form.label :workout_date %>
-    <%= form.datetime_field :workout_date, class: ["block shadow rounded-md border outline-none px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": workout.errors[:workout_date].none?, "border-red-400 focus:outline-red-600": workout.errors[:workout_date].any?}] %>
+  <div>
+    <%= form.label :date, class: "block text-sm font-medium text-gray-700 mb-1" %>
+    <%= form.date_field :date, class: "w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" %>
   </div>
 
-  <div class="my-5">
-    <%= form.label :notes %>
-    <%= form.textarea :notes, rows: 4, class: ["block shadow rounded-md border outline-none px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": workout.errors[:notes].none?, "border-red-400 focus:outline-red-600": workout.errors[:notes].any?}] %>
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <div>
+      <%= form.label :start_time, class: "block text-sm font-medium text-gray-700 mb-1" %>
+      <%= form.time_field :start_time, class: "w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" %>
+    </div>
+
+    <div>
+      <%= form.label :end_time, class: "block text-sm font-medium text-gray-700 mb-1" %>
+      <%= form.time_field :end_time, class: "w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" %>
+    </div>
   </div>
 
-  <div class="inline">
-    <%= form.submit class: "rounded-md px-3.5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white inline-block font-medium cursor-pointer" %>
+  <div>
+    <%= form.label :notes, class: "block text-sm font-medium text-gray-700 mb-1" %>
+    <%= form.text_area :notes, rows: 4, class: "w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" %>
+  </div>
+
+  <div class="flex justify-end space-x-2">
+    <%= link_to "Cancel", workout.new_record? ? workouts_path : workout_path(workout), class: "bg-gray-200 text-gray-700 px-4 py-2 rounded hover:bg-gray-300" %>
+    <%= form.submit class: "bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700" %>
   </div>
 <% end %>
