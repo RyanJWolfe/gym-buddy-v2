@@ -16,10 +16,12 @@ module ApplicationHelper
       "text-indigo-100 hover:bg-indigo-800 hover:text-white"
     end
   end
-  
+
   def format_weight(weight)
-    return 0 if weight.nil?
-    weight.round(1)
+    return "-" if weight.nil?
+
+    formatted = weight.to_f
+    formatted % 1 == 0 ? formatted.to_i : formatted
   end
 
   def format_duration(minutes)
