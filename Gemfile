@@ -78,3 +78,5 @@ gem 'pagy'
 
 # For better forms
 gem 'simple_form'
+
+gem "inline_svg"
