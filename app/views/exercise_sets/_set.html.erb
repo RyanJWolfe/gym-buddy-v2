@@ -1,8 +1,8 @@
 <tr id="<%= dom_id(set) %>" class="hover:bg-gray-50">
   <td class="px-3 py-2 text-sm text-gray-900"><%= set.set_number %></td>
-  <td class="px-3 py-2 text-sm text-gray-900"><%= set.weight %> kg</td>
+  <td class="px-3 py-2 text-sm text-gray-900"><%= format_weight(set.weight) %> kg</td>
   <td class="px-3 py-2 text-sm text-gray-900"><%= set.reps %></td>
-  <td class="px-3 py-2 text-sm text-gray-900"><%= set.volume %> kg</td>
+  <td class="px-3 py-2 text-sm text-gray-900"><%= format_weight(set.volume) %> kg</td>
   <td class="px-3 py-2 text-sm text-gray-500"><%= set.rest_seconds ? "#{set.rest_seconds}s" : "-" %></td>
   <td class="px-3 py-2 text-sm text-gray-500 hidden sm:table-cell"><%= set.notes.present? ? truncate(set.notes, length: 20) : "-" %></td>
   <td class="px-3 py-2 text-right text-sm">
