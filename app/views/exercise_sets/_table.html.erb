@@ -1,0 +1,30 @@
+<%# Sets table %>
+<div id="<%= dom_id(exercise_log, :sets) %>">
+  <% if exercise_log.sets.any? %>
+    <div class="overflow-x-auto -mx-4 sm:mx-0">
+      <div class="inline-block min-w-full align-middle">
+        <table class="min-w-full divide-y divide-gray-200">
+          <thead>
+            <tr class="bg-gray-50">
+              <th class="px-3 py-2 text-left text-xs font-medium text-gray-500 uppercase">Set</th>
+              <th class="px-3 py-2 text-left text-xs font-medium text-gray-500 uppercase">Weight</th>
+              <th class="px-3 py-2 text-left text-xs font-medium text-gray-500 uppercase">Reps</th>
+              <th class="px-3 py-2 text-left text-xs font-medium text-gray-500 uppercase">Volume</th>
+              <th class="px-3 py-2 text-left text-xs font-medium text-gray-500 uppercase">Rest</th>
+              <th class="px-3 py-2 text-left text-xs font-medium text-gray-500 uppercase hidden sm:table-cell">Notes</th>
+              <th class="px-3 py-2 text-right text-xs font-medium text-gray-500 uppercase">Actions</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-gray-200 bg-white">
+            <%= render partial: "exercise_sets/set", collection: exercise_log.sets, locals: { workout: workout, exercise_log: exercise_log } %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  <% else %>
+    <div class="text-center py-4 text-gray-500">
+      <p class="mb-2">No sets recorded yet</p>
+      <%= link_to "Add your first set", new_workout_exercise_log_exercise_set_path(workout, exercise_log), class: "text-indigo-600 hover:text-indigo-800" %>
+    </div>
+  <% end %>
+</div> 

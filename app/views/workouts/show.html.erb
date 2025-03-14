@@ -2,40 +2,10 @@
 
 <%# Mobile-first workout details page %>
 <div class="max-w-4xl mx-auto px-4 py-6">
-  <%# Header section %>
   <div class="mb-6">
-    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-4">
-      <div>
-        <h1 class="text-2xl font-bold text-gray-900"><%= @workout.name %></h1>
-        <p class="text-gray-600"><%= @workout.date.strftime("%B %d, %Y") %></p>
-      </div>
-      <div class="flex gap-2 w-full sm:w-auto">
-        <%= link_to edit_workout_path(@workout), class: "flex-1 sm:flex-none text-center bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition-colors" do %>
-          <span>Edit Workout</span>
-        <% end %>
-        <%= link_to workouts_path, class: "flex-1 sm:flex-none text-center bg-gray-100 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-200 transition-colors" do %>
-          <span>Back</span>
-        <% end %>
-      </div>
-    </div>
+    <%= render "header", workout: @workout %>
+    <%= render "stats_cards", workout: @workout, exercise_logs: @exercise_logs %>
 
-    <%# Stats cards %>
-    <div class="grid grid-cols-2 sm:grid-cols-3 gap-4 mb-6">
-      <div class="bg-white rounded-xl shadow p-4">
-        <p class="text-sm text-gray-600 mb-1">Total Volume</p>
-        <p class="text-xl font-bold text-indigo-600"><%= number_with_delimiter(@workout.total_volume) %> kg</p>
-      </div>
-      <div class="bg-white rounded-xl shadow p-4">
-        <p class="text-sm text-gray-600 mb-1">Duration</p>
-        <p class="text-xl font-bold text-indigo-600"><%= @workout.duration_minutes ? "#{@workout.duration_minutes} min" : "N/A" %></p>
-      </div>
-      <div class="bg-white rounded-xl shadow p-4 col-span-2 sm:col-span-1">
-        <p class="text-sm text-gray-600 mb-1">Exercises</p>
-        <p class="text-xl font-bold text-indigo-600"><%= @exercise_logs.count %></p>
-      </div>
-    </div>
-
-    <%# Notes section %>
     <% if @workout.notes.present? %>
       <div class="bg-white rounded-xl shadow p-4 mb-6">
         <h2 class="text-lg font-semibold mb-2">Notes</h2>
@@ -54,92 +24,7 @@
 
       <% if @exercise_logs.any? %>
         <div class="divide-y" id="exercise-logs">
-          <% @exercise_logs.each do |log| %>
-            <div id="<%= dom_id(log) %>" class="p-4">
-              <div class="flex flex-col sm:flex-row justify-between sm:items-center gap-2 mb-3">
-                <div>
-                  <h3 class="text-lg font-medium"><%= log.exercise.name %></h3>
-                  <div class="flex flex-wrap gap-2 text-sm text-gray-600">
-                    <span><%= log.exercise.category %></span>
-                    <span>•</span>
-                    <span><%= log.exercise.equipment_type %></span>
-                    <% if log.equipment_brand.present? %>
-                      <span>•</span>
-                      <span>Brand: <%= log.equipment_brand %></span>
-                    <% end %>
-                  </div>
-                </div>
-                <div class="flex gap-2">
-                  <%= link_to new_workout_exercise_log_exercise_set_path(@workout, log), class: "text-indigo-600 hover:text-indigo-800 text-sm" do %>
-                    Add Set
-                  <% end %>
-                  <%= button_to workout_exercise_log_path(@workout, log),
-                                method: :delete,
-                                class: "text-red-600 hover:text-red-800 text-sm",
-                                form: { data: { turbo_confirm: "Are you sure you want to delete this exercise?" } } do %>
-                    Delete
-                  <% end %>
-                </div>
-              </div>
-
-              <% if log.notes.present? %>
-                <div class="bg-gray-50 rounded-lg p-3 mb-3 text-sm">
-                  <p class="font-medium mb-1">Notes:</p>
-                  <p class="text-gray-700"><%= log.notes %></p>
-                </div>
-              <% end %>
-
-              <%# Sets table %>
-              <div id="<%= dom_id(log, :sets) %>">
-                <% if log.sets.any? %>
-                  <div class="overflow-x-auto -mx-4 sm:mx-0">
-                    <div class="inline-block min-w-full align-middle">
-                      <table class="min-w-full divide-y divide-gray-200">
-                        <thead>
-                        <tr class="bg-gray-50">
-                          <th class="px-3 py-2 text-left text-xs font-medium text-gray-500 uppercase">Set</th>
-                          <th class="px-3 py-2 text-left text-xs font-medium text-gray-500 uppercase">Weight</th>
-                          <th class="px-3 py-2 text-left text-xs font-medium text-gray-500 uppercase">Reps</th>
-                          <th class="px-3 py-2 text-left text-xs font-medium text-gray-500 uppercase">Volume</th>
-                          <th class="px-3 py-2 text-left text-xs font-medium text-gray-500 uppercase">Rest</th>
-                          <th class="px-3 py-2 text-left text-xs font-medium text-gray-500 uppercase hidden sm:table-cell">Notes</th>
-                          <th class="px-3 py-2 text-right text-xs font-medium text-gray-500 uppercase">Actions</th>
-                        </tr>
-                        </thead>
-                        <tbody class="divide-y divide-gray-200 bg-white">
-                        <% log.sets.each do |set| %>
-                          <tr id="<%= dom_id(set) %>" class="hover:bg-gray-50">
-                            <td class="px-3 py-2 text-sm text-gray-900"><%= set.set_number %></td>
-                            <td class="px-3 py-2 text-sm text-gray-900"><%= set.weight %> kg</td>
-                            <td class="px-3 py-2 text-sm text-gray-900"><%= set.reps %></td>
-                            <td class="px-3 py-2 text-sm text-gray-900"><%= set.volume %> kg</td>
-                            <td class="px-3 py-2 text-sm text-gray-500"><%= set.rest_seconds ? "#{set.rest_seconds}s" : "-" %></td>
-                            <td class="px-3 py-2 text-sm text-gray-500 hidden sm:table-cell"><%= set.notes.present? ? truncate(set.notes, length: 20) : "-" %></td>
-                            <td class="px-3 py-2 text-right text-sm">
-                              <div class="flex justify-end gap-2">
-                                <%= link_to "Edit", edit_workout_exercise_log_exercise_set_path(@workout, log, set), class: "text-indigo-600 hover:text-indigo-800" %>
-                                <%= button_to "Delete",
-                                              workout_exercise_log_exercise_set_path(@workout, log, set),
-                                              method: :delete,
-                                              class: "text-red-600 hover:text-red-800",
-                                              form: { data: { turbo_confirm: "Are you sure you want to delete this set?" } } %>
-                              </div>
-                            </td>
-                          </tr>
-                        <% end %>
-                        </tbody>
-                      </table>
-                    </div>
-                  </div>
-                <% else %>
-                  <div class="text-center py-4 text-gray-500">
-                    <p class="mb-2">No sets recorded yet</p>
-                    <%= link_to "Add your first set", new_workout_exercise_log_exercise_set_path(@workout, log), class: "text-indigo-600 hover:text-indigo-800" %>
-                  </div>
-                <% end %>
-              </div>
-            </div>
-          <% end %>
+          <%= render partial: "exercise_logs/exercise_log", collection: @exercise_logs, locals: { workout: @workout } %>
         </div>
       <% else %>
         <div class="text-center py-8">
