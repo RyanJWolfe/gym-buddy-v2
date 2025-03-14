@@ -19,4 +19,11 @@ module ApplicationHelper
     formatted = weight.to_f
     formatted % 1 == 0 ? formatted.to_i : formatted
   end
+
+  def format_duration(minutes)
+    return "N/A" if minutes.nil?
+    
+    formatted = minutes.to_f
+    "#{formatted % 1 == 0 ? formatted.to_i : formatted} min"
+  end
 end

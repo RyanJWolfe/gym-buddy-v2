@@ -6,7 +6,7 @@
   </div>
   <div class="bg-white rounded-xl shadow p-4">
     <p class="text-sm text-gray-600 mb-1">Duration</p>
-    <p class="text-xl font-bold text-indigo-600"><%= workout.duration_minutes ? "#{workout.duration_minutes} min" : "N/A" %></p>
+    <p class="text-xl font-bold text-indigo-600"><%= format_duration(workout.duration_minutes) %></p>
   </div>
   <div class="bg-white rounded-xl shadow p-4 col-span-2 sm:col-span-1">
     <p class="text-sm text-gray-600 mb-1">Exercises</p>
