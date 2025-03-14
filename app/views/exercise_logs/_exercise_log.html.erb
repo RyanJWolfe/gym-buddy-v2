@@ -22,14 +22,17 @@
       </div>
     </div>
     <div class="flex gap-2">
-      <%= link_to new_workout_exercise_log_exercise_set_path(workout, exercise_log), class: "text-indigo-600 hover:text-indigo-800 text-sm" do %>
-        Add Set
+      <%= link_to new_workout_exercise_log_exercise_set_path(workout, exercise_log), 
+          class: "text-indigo-600 hover:text-indigo-800 p-1.5 rounded-lg hover:bg-indigo-50",
+          title: "Add Set" do %>
+        <%= inline_svg_tag "icons/plus.svg", class: "h-5 w-5" %>
       <% end %>
       <%= button_to workout_exercise_log_path(workout, exercise_log),
-                    method: :delete,
-                    class: "text-red-600 hover:text-red-800 text-sm",
-                    form: { data: { turbo_confirm: "Are you sure you want to delete this exercise?" } } do %>
-        Delete
+          method: :delete,
+          class: "text-red-600 hover:text-red-800 p-1.5 rounded-lg hover:bg-red-50",
+          title: "Delete Exercise",
+          form: { data: { turbo_confirm: "Are you sure you want to delete this exercise?" } } do %>
+        <%= inline_svg_tag "icons/trash.svg", class: "h-5 w-5" %>
       <% end %>
     </div>
   </div>
