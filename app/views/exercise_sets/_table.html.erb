@@ -21,10 +21,21 @@
         </table>
       </div>
     </div>
+    <div class="mt-4 text-center">
+      <%= link_to new_workout_exercise_log_exercise_set_path(workout, exercise_log), 
+          class: "inline-flex items-center gap-2 text-indigo-600 hover:text-indigo-800 px-4 py-2 rounded-lg hover:bg-indigo-50 text-sm font-medium" do %>
+        <%= inline_svg_tag "icons/plus.svg", class: "h-4 w-4" %>
+        Add Set
+      <% end %>
+    </div>
   <% else %>
     <div class="text-center py-4 text-gray-500">
       <p class="mb-2">No sets recorded yet</p>
-      <%= link_to "Add your first set", new_workout_exercise_log_exercise_set_path(workout, exercise_log), class: "text-indigo-600 hover:text-indigo-800" %>
+      <%= link_to new_workout_exercise_log_exercise_set_path(workout, exercise_log), 
+          class: "inline-flex items-center gap-2 text-indigo-600 hover:text-indigo-800" do %>
+        <%= inline_svg_tag "icons/plus.svg", class: "h-4 w-4" %>
+        Add your first set
+      <% end %>
     </div>
   <% end %>
 </div> 
