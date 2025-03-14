@@ -16,4 +16,8 @@ class ExerciseLog < ApplicationRecord
   def total_reps
     sets.sum(:reps)
   end
+
+  def total_sets
+    sets.size
+  end
 end 
