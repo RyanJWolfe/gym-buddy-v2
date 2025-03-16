@@ -25,7 +25,7 @@ class WorkoutsController < ApplicationController
     @workout = current_user.workouts.build(workout_params)
 
     if @workout.save
-      redirect_to @workout, notice: 'Workout was successfully created.'
+      redirect_to @workout, notice: "Workout was successfully created."
     else
       render :new, status: :unprocessable_entity
     end
@@ -34,7 +34,7 @@ class WorkoutsController < ApplicationController
   # PATCH/PUT /workouts/1 or /workouts/1.json
   def update
     if @workout.update(workout_params)
-      redirect_to @workout, notice: 'Workout was successfully updated.'
+      redirect_to @workout, notice: "Workout was successfully updated."
     else
       render :edit, status: :unprocessable_entity
     end
@@ -43,7 +43,7 @@ class WorkoutsController < ApplicationController
   # DELETE /workouts/1 or /workouts/1.json
   def destroy
     @workout.destroy
-    redirect_to workouts_path, notice: 'Workout was successfully deleted.'
+    redirect_to workouts_path, notice: "Workout was successfully deleted."
   end
 
   private

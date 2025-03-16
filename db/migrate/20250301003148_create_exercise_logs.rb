@@ -5,10 +5,10 @@ class CreateExerciseLogs < ActiveRecord::Migration[8.0]
       t.references :exercise, null: false, foreign_key: true
       t.text :notes
       t.string :equipment_brand
-      
+
       t.timestamps
     end
-    
+
     add_index :exercise_logs, [:workout_id, :exercise_id]
   end
-end 
+end

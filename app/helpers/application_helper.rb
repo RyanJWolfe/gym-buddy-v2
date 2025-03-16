@@ -1,6 +1,6 @@
 module ApplicationHelper
   include Pagy::Frontend
-  
+
   def page_title(title = nil)
     if title.present?
       "#{title} - GymTracker"
@@ -8,7 +8,7 @@ module ApplicationHelper
       "GymTracker"
     end
   end
-  
+
   def active_link_class(path)
     if current_page?(path)
       "bg-indigo-800 text-white"
@@ -26,13 +26,13 @@ module ApplicationHelper
 
   def format_duration(minutes)
     return "0 min" if minutes.nil? || minutes.zero?
-    
+
     if minutes < 60
       "#{minutes} min"
     else
       hours = (minutes / 60).to_i
       remaining_minutes = (minutes % 60).to_i
-      
+
       if remaining_minutes.zero?
         "#{hours} hr"
       else

@@ -1,21 +1,21 @@
 class ExportsController < ApplicationController
   def workouts
     @workouts = current_user.workouts.includes(exercise_logs: [:exercise, :sets])
-    
+
     respond_to do |format|
       format.csv { send_data generate_workouts_csv, filename: "workouts-#{Date.today}.csv" }
       format.json { send_data JSON.pretty_generate(generate_workouts_json), filename: "workouts-#{Date.today}.json" }
     end
   end
-  
+
   private
-  
+
   def generate_workouts_csv
-    require 'csv'
-    
+    require "csv"
+
     CSV.generate(headers: true) do |csv|
       csv << ["Workout Name", "Date", "Exercise", "Set", "Weight (kg)", "Reps", "Volume (kg)", "Notes"]
-      
+
       @workouts.each do |workout|
         workout.exercise_logs.each do |log|
           log.sets.each do |set|
@@ -34,7 +34,7 @@ class ExportsController < ApplicationController
       end
     end
   end
-  
+
   def generate_workouts_json
     @workouts.map do |workout|
       {
@@ -69,4 +69,4 @@ class ExportsController < ApplicationController
       }
     end
   end
-end 
+end

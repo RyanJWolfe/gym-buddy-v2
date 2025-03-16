@@ -16,7 +16,6 @@ RSpec.describe "workouts/edit", type: :view do
     render
 
     assert_select "form[action=?][method=?]", workout_path(workout), "post" do
-
       assert_select "input[name=?]", "workout[user_id]"
 
       assert_select "textarea[name=?]", "workout[notes]"

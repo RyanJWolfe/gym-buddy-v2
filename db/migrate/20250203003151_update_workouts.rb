@@ -5,7 +5,7 @@ class UpdateWorkouts < ActiveRecord::Migration[8.0]
     add_column :workouts, :date, :date, null: false
     add_column :workouts, :start_time, :datetime
     add_column :workouts, :end_time, :datetime
-    
+
     add_index :workouts, :date
   end
-end 
+end

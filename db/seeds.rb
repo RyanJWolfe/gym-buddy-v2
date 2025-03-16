@@ -55,10 +55,10 @@ if Rails.env.development? && User.count.zero?
     password: "password",
     password_confirmation: "password"
   )
-  
+
   # Create some sample workouts
   puts "Creating sample workouts..."
-  
+
   # Push workout
   push_workout = user.workouts.create!(
     name: "Push Day",
@@ -67,14 +67,14 @@ if Rails.env.development? && User.count.zero?
     end_time: 2.days.ago.beginning_of_day + 18.hours + 30.minutes,
     notes: "Felt strong today. Increased bench press weight."
   )
-  
+
   # Add exercises to push workout
   bench_press = Exercise.find_by(name: "Bench Press")
   bench_log = push_workout.exercise_logs.create!(
     exercise: bench_press,
     notes: "Focused on form and controlled descent"
   )
-  
+
   # Add sets to bench press
   [
     { set_number: 1, weight: 60, reps: 10, rest_seconds: 90 },
@@ -84,14 +84,14 @@ if Rails.env.development? && User.count.zero?
   ].each do |set_data|
     bench_log.sets.create!(set_data)
   end
-  
+
   # Add overhead press
   overhead_press = Exercise.find_by(name: "Overhead Press")
   overhead_log = push_workout.exercise_logs.create!(
     exercise: overhead_press,
     notes: "Shoulders felt a bit tight"
   )
-  
+
   # Add sets to overhead press
   [
     { set_number: 1, weight: 40, reps: 10, rest_seconds: 90 },
@@ -100,7 +100,7 @@ if Rails.env.development? && User.count.zero?
   ].each do |set_data|
     overhead_log.sets.create!(set_data)
   end
-  
+
   # Pull workout
   pull_workout = user.workouts.create!(
     name: "Pull Day",
@@ -109,14 +109,14 @@ if Rails.env.development? && User.count.zero?
     end_time: 1.day.ago.beginning_of_day + 19.hours + 15.minutes,
     notes: "Great back pump today."
   )
-  
+
   # Add deadlift
   deadlift = Exercise.find_by(name: "Deadlift")
   deadlift_log = pull_workout.exercise_logs.create!(
     exercise: deadlift,
     notes: "Used mixed grip for heavy sets"
   )
-  
+
   # Add sets to deadlift
   [
     { set_number: 1, weight: 100, reps: 8, rest_seconds: 120 },
@@ -125,14 +125,14 @@ if Rails.env.development? && User.count.zero?
   ].each do |set_data|
     deadlift_log.sets.create!(set_data)
   end
-  
+
   # Add pull-ups
   pullup = Exercise.find_by(name: "Pull-up")
   pullup_log = pull_workout.exercise_logs.create!(
     exercise: pullup,
     notes: "Used neutral grip"
   )
-  
+
   # Add sets to pull-ups (bodyweight)
   [
     { set_number: 1, weight: 0, reps: 10, rest_seconds: 90 },
@@ -141,7 +141,7 @@ if Rails.env.development? && User.count.zero?
   ].each do |set_data|
     pullup_log.sets.create!(set_data)
   end
-  
+
   # Leg workout
   leg_workout = user.workouts.create!(
     name: "Leg Day",
@@ -150,14 +150,14 @@ if Rails.env.development? && User.count.zero?
     end_time: Date.today.beginning_of_day + 18.hours,
     notes: "Legs are going to be sore tomorrow!"
   )
-  
+
   # Add squats
   squat = Exercise.find_by(name: "Squat")
   squat_log = leg_workout.exercise_logs.create!(
     exercise: squat,
     notes: "Focused on depth and keeping chest up"
   )
-  
+
   # Add sets to squats
   [
     { set_number: 1, weight: 80, reps: 10, rest_seconds: 120 },
@@ -167,7 +167,7 @@ if Rails.env.development? && User.count.zero?
   ].each do |set_data|
     squat_log.sets.create!(set_data)
   end
-  
+
   # Add leg press
   leg_press = Exercise.find_by(name: "Leg Press")
   leg_press_log = leg_workout.exercise_logs.create!(
@@ -175,7 +175,7 @@ if Rails.env.development? && User.count.zero?
     equipment_brand: "Hammer Strength",
     notes: "Feet high on platform to target glutes more"
   )
-  
+
   # Add sets to leg press
   [
     { set_number: 1, weight: 150, reps: 12, rest_seconds: 90 },
@@ -185,7 +185,7 @@ if Rails.env.development? && User.count.zero?
   ].each do |set_data|
     leg_press_log.sets.create!(set_data)
   end
-  
+
   puts "Created #{user.workouts.count} sample workouts with exercises and sets"
 end
 

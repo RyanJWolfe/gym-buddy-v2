@@ -1,21 +1,21 @@
 Rails.application.routes.draw do
   devise_for :users
-  
+
   authenticated :user do
-    root to: 'dashboard#index', as: :authenticated_root
+    root to: "dashboard#index", as: :authenticated_root
   end
-  
-  root to: 'static_pages#home'
-  
+
+  root to: "static_pages#home"
+
   resources :workouts do
     resources :exercise_logs, except: [:index, :show] do
       resources :exercise_sets, except: [:index, :show]
     end
   end
-  
+
   resources :exercises
-  
-  get 'dashboard', to: 'dashboard#index'
+
+  get "dashboard", to: "dashboard#index"
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

@@ -8,10 +8,10 @@ class CreateExerciseSets < ActiveRecord::Migration[8.0]
       t.integer :rest_seconds
       t.integer :duration_seconds
       t.string :notes
-      
+
       t.timestamps
     end
-    
+
     add_index :exercise_sets, [:exercise_log_id, :set_number]
   end
-end 
+end
