@@ -11,6 +11,10 @@ class Workout < ApplicationRecord
     exercise_logs.sum(&:total_volume)
   end
 
+  def total_sets
+    exercise_logs.sum(&:total_sets)
+  end
+
   def duration_minutes
     (end_time - start_time) / 60 if end_time && start_time
   end

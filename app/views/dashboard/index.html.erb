@@ -38,7 +38,7 @@
                 </div>
                 <div class="text-right">
                   <p class="text-sm"><%= pluralize(workout.exercise_logs.count, 'exercise') %></p>
-                  <p class="text-sm text-gray-600"><%= number_with_delimiter(format_weight(workout.total_volume)) %> kg</p>
+                  <p class="text-sm text-gray-600"><%= pluralize(workout.total_sets, 'set') %> </p>
                 </div>
               </div>
             <% end %>
