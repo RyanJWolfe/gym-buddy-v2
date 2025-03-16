@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html class="h-full">
   <head>
     <title><%= page_title(yield(:title)) %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -30,10 +30,10 @@
     <%= favicon_link_tag 'favicon.ico' %>
   </head>
 
-  <body class="bg-gray-100 min-h-screen">
+  <body class="h-full flex flex-col bg-gray-100">
     <%= render 'shared/navbar' %>
     
-    <main class="container mx-auto px-4 py-6">
+    <main class="flex-grow container mx-auto px-4 py-6">
       <%= render 'shared/flash' %>
       <%= yield %>
     </main>
