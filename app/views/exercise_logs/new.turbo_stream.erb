@@ -1,0 +1,10 @@
+<%= turbo_stream.update "modal" do %>
+  <%= turbo_frame_tag "modal" do %>
+    <div data-controller="modal">
+      <%= render "shared/modal" do %>
+        <h2 class="text-lg font-semibold mb-4">Add Exercise</h2>
+        <%= render "form" %>
+      <% end %>
+    </div>
+  <% end %>
+<% end %> 

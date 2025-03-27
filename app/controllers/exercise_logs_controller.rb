@@ -5,16 +5,31 @@ class ExerciseLogsController < ApplicationController
   def new
     @exercise_log = @workout.exercise_logs.build
     @exercises = Exercise.all.order(:name)
+
+    respond_to do |format|
+      format.html
+      format.turbo_stream
+    end
   end
 
   def create
     @exercise_log = @workout.exercise_logs.build(exercise_log_params)
 
     if @exercise_log.save
-      redirect_to workout_path(@workout), notice: "Exercise was successfully added."
+      respond_to do |format|
+        format.html { redirect_to edit_workout_path(@workout), notice: "Exercise added." }
+        format.turbo_stream {
+          render turbo_stream: [
+            turbo_stream.append("exercise-logs", partial: "exercise_logs/exercise_log", locals: { exercise_log: @exercise_log, workout: @workout }),
+            turbo_stream.remove("modal")
+          ]
+        }
+      end
     else
-      @exercises = Exercise.all.order(:name)
-      render :new, status: :unprocessable_entity
+      respond_to do |format|
+        format.html { render :new, status: :unprocessable_entity }
+        format.turbo_stream { render :new, status: :unprocessable_entity }
+      end
     end
   end
 
