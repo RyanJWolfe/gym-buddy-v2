@@ -16,19 +16,41 @@ class WorkoutsController < ApplicationController
     @workout = current_user.workouts.build(date: Date.current)
   end
 
-  # GET /workouts/1/edit
-  def edit
+  def new_logged
+    @workout = current_user.workouts.build(date: Date.current)
+    render "new_logged"
   end
 
-  # POST /workouts or /workouts.json
-  def create
-    @workout = current_user.workouts.build(workout_params)
+  def new_realtime
+    @workout = current_user.workouts.build(date: Date.current)
+    render "new_realtime"
+  end
+
+  def create_logged
+    @workout = current_user.workouts.build(logged_workout_params)
+    @workout.calculate_duration if @workout.start_time && @workout.end_time
 
     if @workout.save
-      redirect_to @workout, notice: "Workout was successfully created."
+      redirect_to edit_workout_path(@workout), notice: "Workout created. Add your exercises."
     else
-      render :new, status: :unprocessable_entity
+      render :new_logged, status: :unprocessable_entity
     end
+  end
+
+  def create_realtime
+    @workout = current_user.workouts.build(realtime_workout_params)
+    @workout.start_time = Time.current
+    @workout.date = Date.current
+
+    if @workout.save
+      redirect_to edit_workout_path(@workout), notice: "Workout started! Add your exercises."
+    else
+      render :new_realtime, status: :unprocessable_entity
+    end
+  end
+
+  # GET /workouts/1/edit
+  def edit
   end
 
   # PATCH/PUT /workouts/1 or /workouts/1.json
@@ -55,5 +77,13 @@ class WorkoutsController < ApplicationController
     # Only allow a list of trusted parameters through.
     def workout_params
       params.require(:workout).permit(:name, :date, :start_time, :end_time, :notes)
+    end
+
+    def logged_workout_params
+      params.require(:workout).permit(:name, :date, :start_time, :end_time, :notes)
+    end
+
+    def realtime_workout_params
+      params.require(:workout).permit(:name, :notes)
     end
 end
