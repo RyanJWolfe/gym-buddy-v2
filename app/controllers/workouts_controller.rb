@@ -44,7 +44,6 @@ class WorkoutsController < ApplicationController
 
   # GET /workouts/1/edit
   def edit
-    @exercise_logs = @workout.exercise_logs.includes(:exercise, :sets)
   end
 
   # PATCH/PUT /workouts/1 or /workouts/1.json
@@ -52,7 +51,6 @@ class WorkoutsController < ApplicationController
     if @workout.update(workout_params)
       redirect_to @workout, notice: "Workout was successfully updated."
     else
-      @exercise_logs = @workout.exercise_logs.includes(:exercise, :sets)
       render :edit, status: :unprocessable_entity
     end
   end
