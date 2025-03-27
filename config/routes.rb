@@ -8,13 +8,6 @@ Rails.application.routes.draw do
   root to: "static_pages#home"
 
   resources :workouts do
-    collection do
-      get "new_logged"
-      get "new_realtime"
-      post "create_logged"
-      post "create_realtime"
-    end
-
     resources :exercise_logs, except: [:index, :show] do
       resources :exercise_sets, except: [:index, :show]
     end

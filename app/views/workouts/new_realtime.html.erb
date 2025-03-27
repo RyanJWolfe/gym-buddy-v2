@@ -4,7 +4,9 @@
     <%= link_to "← Back", new_workout_path, class: "text-gray-600 hover:text-gray-900" %>
   </div>
 
-  <%= form_with(model: @workout, url: create_realtime_workouts_path, class: "bg-white rounded-lg shadow-sm p-6 space-y-4") do |form| %>
+  <%= form_with(model: @workout, class: "bg-white rounded-lg shadow-sm p-6 space-y-4") do |form| %>
+    <%= hidden_field_tag :type, 'realtime' %>
+    
     <% if @workout.errors.any? %>
       <div class="bg-red-50 text-red-700 p-4 rounded mb-4">
         <h2 class="font-bold mb-2"><%= pluralize(@workout.errors.count, "error") %> prohibited this workout from being saved:</h2>

@@ -3,6 +3,8 @@ class Workout < ApplicationRecord
   has_many :exercise_logs, dependent: :destroy
   has_many :exercises, through: :exercise_logs
 
+  attr_accessor :logged_workout
+
   validates :name, presence: true
   validates :date, presence: true
   validates :start_time, presence: true, if: :logged_workout?
@@ -19,13 +21,17 @@ class Workout < ApplicationRecord
     exercise_logs.sum(&:total_sets)
   end
 
+  def duration_minutes
+    calculate_duration
+  end
+
   def calculate_duration
     return unless start_time && end_time
-    self.duration = ((end_time - start_time) / 60).round # Duration in minutes
+    ((end_time - start_time) / 60).round # Duration in minutes
   end
 
   def logged_workout?
-    start_time.present? || end_time.present?
+    logged_workout.present?
   end
 
   private

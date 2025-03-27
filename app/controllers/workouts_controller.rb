@@ -14,38 +14,31 @@ class WorkoutsController < ApplicationController
   # GET /workouts/new
   def new
     @workout = current_user.workouts.build(date: Date.current)
-  end
+    @workout.logged_workout = (params[:type] == "logged")
 
-  def new_logged
-    @workout = current_user.workouts.build(date: Date.current)
-    render "new_logged"
-  end
-
-  def new_realtime
-    @workout = current_user.workouts.build(date: Date.current)
-    render "new_realtime"
-  end
-
-  def create_logged
-    @workout = current_user.workouts.build(logged_workout_params)
-    @workout.calculate_duration if @workout.start_time && @workout.end_time
-
-    if @workout.save
-      redirect_to edit_workout_path(@workout), notice: "Workout created. Add your exercises."
-    else
-      render :new_logged, status: :unprocessable_entity
+    if params[:type].present?
+      render workout_type == "logged" ? "new_logged" : "new_realtime"
     end
   end
 
-  def create_realtime
-    @workout = current_user.workouts.build(realtime_workout_params)
-    @workout.start_time = Time.current
-    @workout.date = Date.current
+  # POST /workouts
+  def create
+    @workout = current_user.workouts.build(workout_params)
+    @workout.logged_workout = (params[:type] == "logged")
+
+    if workout_type == "logged"
+      @workout.calculate_duration if @workout.start_time && @workout.end_time
+    else
+      @workout.start_time = Time.current
+      @workout.date = Date.current
+    end
 
     if @workout.save
-      redirect_to edit_workout_path(@workout), notice: "Workout started! Add your exercises."
+      redirect_to edit_workout_path(@workout),
+        notice: workout_type == "logged" ? "Workout created. Add your exercises." : "Workout started! Add your exercises."
     else
-      render :new_realtime, status: :unprocessable_entity
+      render workout_type == "logged" ? "new_logged" : "new_realtime",
+        status: :unprocessable_entity
     end
   end
 
@@ -74,16 +67,17 @@ class WorkoutsController < ApplicationController
       @workout = current_user.workouts.find(params[:id])
     end
 
+    def workout_type
+      params[:type]&.to_s == "logged" ? "logged" : "realtime"
+    end
+    helper_method :workout_type
+
     # Only allow a list of trusted parameters through.
     def workout_params
-      params.require(:workout).permit(:name, :date, :start_time, :end_time, :notes)
-    end
-
-    def logged_workout_params
-      params.require(:workout).permit(:name, :date, :start_time, :end_time, :notes)
-    end
-
-    def realtime_workout_params
-      params.require(:workout).permit(:name, :notes)
+      if workout_type == "logged"
+        params.require(:workout).permit(:name, :date, :start_time, :end_time, :notes)
+      else
+        params.require(:workout).permit(:name, :notes)
+      end
     end
 end

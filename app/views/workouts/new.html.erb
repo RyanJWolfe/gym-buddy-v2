@@ -4,7 +4,7 @@
   <h1 class="text-2xl font-bold text-center mb-8">Create Workout</h1>
   
   <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-    <%= link_to new_logged_workouts_path, 
+    <%= link_to new_workout_path(type: 'logged'), 
         class: "flex flex-col items-center p-8 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow duration-200" do %>
       <div class="h-12 w-12 bg-indigo-100 rounded-full flex items-center justify-center mb-4">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -15,7 +15,7 @@
       <p class="text-gray-600 text-center">Record a workout you've already completed</p>
     <% end %>
 
-    <%= link_to new_realtime_workouts_path,
+    <%= link_to new_workout_path(type: 'realtime'),
         class: "flex flex-col items-center p-8 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow duration-200" do %>
       <div class="h-12 w-12 bg-green-100 rounded-full flex items-center justify-center mb-4">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
