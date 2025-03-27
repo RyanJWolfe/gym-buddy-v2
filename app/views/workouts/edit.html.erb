@@ -1,9 +1,49 @@
 <% content_for :title, "Editing workout" %>
 
-<div class="max-w-2xl mx-auto">
-  <h1 class="text-2xl font-bold mb-6">Edit Workout</h1>
-  
-  <div class="bg-white rounded-lg shadow p-6">
-    <%= render "form", workout: @workout %>
+<div class="max-w-4xl mx-auto px-4 py-6">
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+    <%# Workout Details Form %>
+    <div class="lg:col-span-1">
+      <div class="bg-white rounded-lg shadow p-6">
+        <h2 class="text-lg font-semibold mb-4">Workout Details</h2>
+        <%= render "form", workout: @workout %>
+      </div>
+    </div>
+
+    <%# Exercise Logging Section %>
+    <div class="lg:col-span-2">
+      <div class="bg-white rounded-lg shadow">
+        <div class="flex justify-between items-center p-4 border-b">
+          <h2 class="text-lg font-semibold">Exercises</h2>
+          <%= link_to new_workout_exercise_log_path(@workout), 
+              class: "bg-indigo-600 text-white px-3 py-1.5 text-sm rounded-lg hover:bg-indigo-700 transition-colors" do %>
+            Add Exercise
+          <% end %>
+        </div>
+
+        <% if @exercise_logs.any? %>
+          <div class="divide-y" id="exercise-logs">
+            <%= render partial: "exercise_logs/exercise_log", 
+                collection: @exercise_logs, 
+                locals: { workout: @workout } %>
+          </div>
+        <% else %>
+          <div class="text-center py-8">
+            <p class="text-gray-500 mb-4">No exercises added to this workout yet</p>
+            <%= link_to "Add your first exercise", 
+                new_workout_exercise_log_path(@workout), 
+                class: "bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition-colors" %>
+          </div>
+        <% end %>
+      </div>
+
+      <%# View Complete Workout Link %>
+      <div class="mt-4 text-center">
+        <%= link_to workout_path(@workout), 
+            class: "text-indigo-600 hover:text-indigo-800" do %>
+          View Complete Workout Summary →
+        <% end %>
+      </div>
+    </div>
   </div>
 </div>
