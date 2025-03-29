@@ -35,10 +35,10 @@ class WorkoutsController < ApplicationController
 
     if @workout.save
       redirect_to edit_workout_path(@workout),
-        notice: workout_type == "logged" ? "Workout created. Add your exercises." : "Workout started! Add your exercises."
+                  notice: workout_type == "logged" ? "Workout created. Add your exercises." : "Workout started! Add your exercises."
     else
       render workout_type == "logged" ? "new_logged" : "new_realtime",
-        status: :unprocessable_entity
+             status: :unprocessable_entity
     end
   end
 
@@ -64,22 +64,24 @@ class WorkoutsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_workout
-      @workout = current_user.workouts.find(params[:id])
-    end
 
-    def workout_type
-      params[:type]&.to_s == "logged" ? "logged" : "realtime"
-    end
-    helper_method :workout_type
+  # Use callbacks to share common setup or constraints between actions.
+  def set_workout
+    @workout = current_user.workouts.find(params[:id])
+  end
 
-    # Only allow a list of trusted parameters through.
-    def workout_params
-      if workout_type == "logged"
-        params.require(:workout).permit(:name, :date, :start_time, :end_time, :notes)
-      else
-        params.require(:workout).permit(:name, :notes)
-      end
+  def workout_type
+    params[:type]&.to_s == "logged" ? "logged" : "realtime"
+  end
+
+  helper_method :workout_type
+
+  # Only allow a list of trusted parameters through.
+  def workout_params
+    if workout_type == "logged"
+      params.require(:workout).permit(:name, :date, :start_time, :end_time, :notes)
+    else
+      params.require(:workout).permit(:name, :notes)
     end
+  end
 end
