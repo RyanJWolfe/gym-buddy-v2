@@ -1,9 +1,9 @@
 <% content_for :title, "Editing workout" %>
 
 <div class="max-w-4xl mx-auto px-4 py-6">
-  <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+  <div class="grid grid-cols-1 lg:grid-cols-5 gap-6">
     <%# Workout Details Form %>
-    <div class="lg:col-span-1">
+    <div class="lg:col-span-2">
       <div class="bg-white rounded-lg shadow p-6">
         <h2 class="text-lg font-semibold mb-4">Workout Details</h2>
         <%= render "form", workout: @workout %>
@@ -11,7 +11,7 @@
     </div>
 
     <%# Exercise Logging Section %>
-    <div class="lg:col-span-2">
+    <div class="lg:col-span-3">
       <div class="col-span-2 bg-white rounded-lg shadow p-6">
         <div class="flex justify-between items-center mb-4">
           <h2 class="text-xl font-semibold">Exercise Log</h2>
