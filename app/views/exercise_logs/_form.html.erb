@@ -14,7 +14,7 @@
     <%= form.label :exercise_id, class: "form-label" %>
     <%= form.collection_select :exercise_id, @exercises, :id, :name, { prompt: "Select an exercise" },
                                { class: "form-input" } %>
-    <div class="mt-1 text-sm text-gray-500">
+    <div class="form-muted-label">
       <%= link_to "Can't find your exercise? Create a new one", new_exercise_path, target: "_blank", class: "text-indigo-600 hover:text-indigo-900" %>
     </div>
   </div>
@@ -22,13 +22,13 @@
   <div>
     <%= form.label :equipment_brand, class: "form-label" %>
     <%= form.text_field :equipment_brand, class: "form-input" %>
-    <div class="mt-1 text-sm text-gray-500">Optional: e.g., "Hammer Strength", "Rogue", etc.</div>
+    <div class="form-muted-label">Optional: e.g., "Hammer Strength", "Rogue", etc.</div>
   </div>
 
   <div>
     <%= form.label :notes, class: "form-label" %>
     <%= form.text_area :notes, rows: 3, class: "form-input" %>
-    <div class="mt-1 text-sm text-gray-500">Optional: any notes about this exercise</div>
+    <div class="form-muted-label">Optional: any notes about this exercise</div>
   </div>
 
   <div class="flex justify-end space-x-2">

@@ -32,20 +32,20 @@
     <div>
       <%= form.label :rest_seconds, "Rest (seconds)", class: "form-label" %>
       <%= form.number_field :rest_seconds, class: "form-input" %>
-      <div class="mt-1 text-sm text-gray-500">Optional</div>
+      <div class="form-muted-label">Optional</div>
     </div>
 
     <div>
       <%= form.label :duration_seconds, "Duration (seconds)", class: "form-label" %>
       <%= form.number_field :duration_seconds, class: "form-input" %>
-      <div class="mt-1 text-sm text-gray-500">Optional</div>
+      <div class="form-muted-label">Optional</div>
     </div>
   </div>
 
   <div>
     <%= form.label :notes, class: "form-label" %>
     <%= form.text_field :notes, class: "form-input" %>
-    <div class="mt-1 text-sm text-gray-500">Optional: e.g., "slow negative", "drop set", etc.</div>
+    <div class="form-muted-label">Optional: e.g., "slow negative", "drop set", etc.</div>
   </div>
 
   <div class="flex justify-end space-x-2">
