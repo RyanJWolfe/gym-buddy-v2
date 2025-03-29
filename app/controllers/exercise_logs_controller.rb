@@ -1,10 +1,10 @@
 class ExerciseLogsController < ApplicationController
   before_action :set_workout
   before_action :set_exercise_log, only: [:edit, :update, :destroy]
+  before_action :set_exercises, only: [:new, :edit]
 
   def new
     @exercise_log = @workout.exercise_logs.build
-    @exercises = Exercise.all.order(:name)
 
     respond_to do |format|
       format.html
@@ -21,14 +21,12 @@ class ExerciseLogsController < ApplicationController
         format.turbo_stream
       end
     else
-      @exercises = Exercise.all.order(:name)
+      set_exercises
       render :new, status: :unprocessable_entity
     end
   end
 
-  def edit
-    @exercises = Exercise.all.order(:name)
-  end
+  def edit; end
 
   def update
     if @exercise_log.update(exercise_log_params)
@@ -37,7 +35,7 @@ class ExerciseLogsController < ApplicationController
         format.turbo_stream
       end
     else
-      @exercises = Exercise.all.order(:name)
+      set_exercises
       render :edit, status: :unprocessable_entity
     end
   end
@@ -55,6 +53,10 @@ class ExerciseLogsController < ApplicationController
 
   def set_exercise_log
     @exercise_log = @workout.exercise_logs.find(params[:id])
+  end
+
+  def set_exercises
+    @exercises = Exercise.all.alphabetical
   end
 
   def exercise_log_params
