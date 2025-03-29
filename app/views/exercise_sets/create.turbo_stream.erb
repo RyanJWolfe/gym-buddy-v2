@@ -1,5 +1,11 @@
-<%= turbo_stream.append "#{dom_id(@exercise_log, :sets)}" do %>
-  <%= render partial: "exercise_sets/set", locals: { set: @set, workout: @workout, exercise_log: @exercise_log } %>
+<% if @exercise_log.total_sets == 1 %>
+  <%= turbo_stream.replace "#{dom_id(@exercise_log, :sets_table)}" do %>
+    <%= render "exercise_sets/table", workout: @exercise_log.workout, exercise_log: @exercise_log %>
+  <% end %>
+<% else %>
+  <%= turbo_stream.append "#{dom_id(@exercise_log, :sets_table_row)}" do %>
+    <%= render partial: "exercise_sets/set", locals: { set: @set, workout: @workout, exercise_log: @exercise_log } %>
+  <% end %>
 <% end %>
 
 <%= turbo_stream.update "modal" %>
