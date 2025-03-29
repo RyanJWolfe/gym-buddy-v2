@@ -18,12 +18,7 @@ class ExerciseLogsController < ApplicationController
     if @exercise_log.save
       respond_to do |format|
         format.html { redirect_to edit_workout_path(@workout), notice: "Exercise added." }
-        format.turbo_stream {
-          render turbo_stream: [
-            turbo_stream.append("exercise-logs", partial: "exercise_logs/exercise_log", locals: { exercise_log: @exercise_log, workout: @workout }),
-            turbo_stream.remove("modal")
-          ]
-        }
+        format.turbo_stream
       end
     else
       @exercises = Exercise.all.order(:name)
@@ -39,12 +34,7 @@ class ExerciseLogsController < ApplicationController
     if @exercise_log.update(exercise_log_params)
       respond_to do |format|
         format.html { redirect_to edit_workout_path(@workout), notice: "Exercise added." }
-        format.turbo_stream {
-          render turbo_stream: [
-            turbo_stream.append("exercise-logs", partial: "exercise_logs/exercise_log", locals: { exercise_log: @exercise_log, workout: @workout }),
-            turbo_stream.remove("modal")
-          ]
-        }
+        format.turbo_stream
       end
     else
       @exercises = Exercise.all.order(:name)
