@@ -42,7 +42,11 @@ class ExerciseLogsController < ApplicationController
 
   def destroy
     @exercise_log.destroy
-    redirect_to workout_path(@workout), notice: "Exercise was successfully removed."
+
+    respond_to do |format|
+      format.html { redirect_to workout_path(@workout), notice: "Exercise was successfully removed." }
+      format.turbo_stream { render turbo_stream: turbo_stream.remove(@exercise_log) }
+    end
   end
 
   private
