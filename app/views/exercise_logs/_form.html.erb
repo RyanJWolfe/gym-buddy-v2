@@ -1,8 +1,8 @@
-<%= form_with(model: [@workout, @exercise_log], class: "space-y-4") do |form| %>
+<%= form_with(model: [@workout, @exercise_log], class: "space-y-6") do |form| %>
   <% if @exercise_log.errors.any? %>
-    <div class="bg-red-50 text-red-700 p-4 rounded mb-4">
-      <h2 class="font-bold mb-2"><%= pluralize(@exercise_log.errors.count, "error") %> prohibited this exercise from being saved:</h2>
-      <ul class="list-disc pl-5">
+    <div class="bg-red-50 border-l-4 border-red-400 p-4 rounded mb-4">
+      <h2 class="font-bold text-red-700 mb-2"><%= pluralize(@exercise_log.errors.count, "error") %> prohibited this exercise from being saved:</h2>
+      <ul class="list-disc pl-5 text-red-700">
         <% @exercise_log.errors.each do |error| %>
           <li><%= error.full_message %></li>
         <% end %>
@@ -12,10 +12,10 @@
 
   <div>
     <%= form.label :exercise_id, class: "block text-sm font-medium text-gray-700 mb-1" %>
-    <%= form.collection_select :exercise_id, @exercises, :id, :name, { prompt: "Select an exercise" }, 
-                              { class: "w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" } %>
+    <%= form.collection_select :exercise_id, @exercises, :id, :name, { prompt: "Select an exercise" },
+                               { class: "w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" } %>
     <div class="mt-1 text-sm text-gray-500">
-      <%= link_to "Can't find your exercise? Create a new one", new_exercise_path, target: "_blank" %>
+      <%= link_to "Can't find your exercise? Create a new one", new_exercise_path, target: "_blank", class: "text-indigo-600 hover:text-indigo-900" %>
     </div>
   </div>
 
@@ -33,6 +33,6 @@
 
   <div class="flex justify-end space-x-2">
     <%= link_to "Cancel", workout_path(@workout), class: "bg-gray-200 text-gray-700 px-4 py-2 rounded hover:bg-gray-300" %>
-    <%= form.submit class: "bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700" %>
+    <%= form.submit "Save", class: "bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700" %>
   </div>
-<% end %> 
+<% end %>

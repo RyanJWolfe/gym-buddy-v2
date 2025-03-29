@@ -26,6 +26,7 @@ class ExerciseLogsController < ApplicationController
         }
       end
     else
+      @exercises = Exercise.all.order(:name)
       respond_to do |format|
         format.html { render :new, status: :unprocessable_entity }
         format.turbo_stream { render :new, status: :unprocessable_entity }
