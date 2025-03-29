@@ -2,4 +2,4 @@
   <%= render partial: "exercise_sets/set", locals: { set: @set, workout: @workout, exercise_log: @exercise_log } %>
 <% end %>
 
-<%= turbo_stream.remove "modal" %>
+<%= turbo_stream.update "modal" %>
