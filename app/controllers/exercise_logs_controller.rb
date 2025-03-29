@@ -40,10 +40,21 @@ class ExerciseLogsController < ApplicationController
 
   def update
     if @exercise_log.update(exercise_log_params)
-      redirect_to workout_path(@workout), notice: "Exercise was successfully updated."
+      respond_to do |format|
+        format.html { redirect_to edit_workout_path(@workout), notice: "Exercise added." }
+        format.turbo_stream {
+          render turbo_stream: [
+            turbo_stream.append("exercise-logs", partial: "exercise_logs/exercise_log", locals: { exercise_log: @exercise_log, workout: @workout }),
+            turbo_stream.remove("modal")
+          ]
+        }
+      end
     else
       @exercises = Exercise.all.order(:name)
-      render :edit, status: :unprocessable_entity
+      respond_to do |format|
+        format.html { render :new, status: :unprocessable_entity }
+        format.turbo_stream { render :new, status: :unprocessable_entity }
+      end
     end
   end
 
