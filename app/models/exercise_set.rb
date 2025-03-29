@@ -9,7 +9,7 @@ class ExerciseSet < ApplicationRecord
   validates :rest_seconds, numericality: { greater_than_or_equal_to: 0 }, allow_nil: true
   validates :duration_seconds, numericality: { greater_than: 0 }, allow_nil: true
 
-  default_scope { order(set_number: :asc) }
+  # default_scope { order(set_number: :asc) }
 
   def volume
     reps * weight
