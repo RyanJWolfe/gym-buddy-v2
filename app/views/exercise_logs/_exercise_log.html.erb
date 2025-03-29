@@ -29,4 +29,13 @@
       <% end %>
     </div>
   </div>
+
+  <% if exercise_log.notes.present? %>
+    <div class="bg-gray-50 rounded-lg p-3 mb-3 text-sm">
+      <p class="font-medium mb-1">Notes:</p>
+      <p class="text-gray-700"><%= exercise_log.notes %></p>
+    </div>
+  <% end %>
+
+  <%= render "exercise_sets/table", workout: exercise_log.workout, exercise_log: exercise_log %>
 </div> 
