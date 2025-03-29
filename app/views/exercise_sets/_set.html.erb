@@ -7,16 +7,17 @@
   <td class="px-3 py-2 text-sm text-gray-500 hidden sm:table-cell"><%= set.notes.present? ? truncate(set.notes, length: 20) : "-" %></td>
   <td class="px-3 py-2 text-right text-sm">
     <div class="flex justify-end gap-2">
-      <%= link_to edit_workout_exercise_log_exercise_set_path(workout, exercise_log, set), 
-          class: "text-indigo-600 hover:text-indigo-800 p-1.5 rounded-lg hover:bg-indigo-50",
-          title: "Edit Set" do %>
+      <%= link_to edit_workout_exercise_log_exercise_set_path(workout, exercise_log, set),
+                  data: { turbo_stream: true },
+                  class: "text-indigo-600 hover:text-indigo-800 p-1.5 rounded-lg hover:bg-indigo-50",
+                  title: "Edit Set" do %>
         <%= inline_svg_tag "icons/edit.svg", class: "h-4 w-4" %>
       <% end %>
       <%= button_to workout_exercise_log_exercise_set_path(workout, exercise_log, set),
-          method: :delete,
-          class: "text-red-600 hover:text-red-800 p-1.5 rounded-lg hover:bg-red-50",
-          title: "Delete Set",
-          form: { data: { turbo_confirm: "Are you sure you want to delete this set?" } } do %>
+                    method: :delete,
+                    class: "text-red-600 hover:text-red-800 p-1.5 rounded-lg hover:bg-red-50",
+                    title: "Delete Set",
+                    form: { data: { turbo_confirm: "Are you sure you want to delete this set?" } } do %>
         <%= inline_svg_tag "icons/trash.svg", class: "h-4 w-4" %>
       <% end %>
     </div>
