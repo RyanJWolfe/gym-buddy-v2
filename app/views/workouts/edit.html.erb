@@ -15,11 +15,11 @@
       <div class="col-span-2 bg-white rounded-lg shadow p-6">
         <div class="flex justify-between items-center mb-4">
           <h2 class="text-xl font-semibold">Exercise Log</h2>
-          <%= link_to "Add Exercise", new_workout_exercise_log_path(@workout), 
-              data: { turbo_frame: "modal", turbo_stream: true },
-              class: "inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700" %>
+          <%= link_to "Add Exercise", new_workout_exercise_log_path(@workout),
+                      data: { turbo_frame: "modal", turbo_stream: true },
+                      class: "inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700" %>
         </div>
-        
+
         <div id="exercise-logs">
           <% if @exercise_logs.any? %>
             <% @exercise_logs.each do |log| %>
@@ -27,14 +27,14 @@
             <% end %>
           <% else %>
             <p class="text-gray-500 text-center py-4">
-              No exercises added yet. 
-              <%= link_to "Add your first exercise", new_workout_exercise_log_path(@workout), 
-                  data: { turbo_frame: "modal", turbo_stream: true },
-                  class: "text-indigo-600 hover:text-indigo-800" %>
+              No exercises added yet.
+              <%= link_to "Add your first exercise", new_workout_exercise_log_path(@workout),
+                          data: { turbo_frame: "modal", turbo_stream: true },
+                          class: "text-indigo-600 hover:text-indigo-800" %>
             </p>
           <% end %>
         </div>
-        
+
         <div class="mt-4 text-center">
           <%= link_to "View Complete Workout Summary", workout_path(@workout), class: "text-indigo-600 hover:text-indigo-800" %>
         </div>
@@ -44,4 +44,4 @@
 </div>
 
 <%# Modal container %>
-  <%= turbo_frame_tag "modal" %>
+<%= turbo_frame_tag "modal" %>
