@@ -13,38 +13,38 @@
   <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
     <div>
       <%= form.label :set_number, class: "form-label" %>
-      <%= form.text_field :set_number, disabled: true, class: "form-field" %>
+      <%= form.text_field :set_number, disabled: true, class: "form-input" %>
       <%= form.hidden_field :set_number %> <!-- Hidden field to submit set_number -->
     </div>
 
     <div>
       <%= form.label :weight, "Weight (kg)", class: "form-label" %>
-      <%= form.number_field :weight, step: 1, class: "form-field" %>
+      <%= form.number_field :weight, step: 1, class: "form-input" %>
     </div>
 
     <div>
       <%= form.label :reps, class: "form-label" %>
-      <%= form.number_field :reps, class: "form-field" %>
+      <%= form.number_field :reps, class: "form-input" %>
     </div>
   </div>
 
   <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
     <div>
       <%= form.label :rest_seconds, "Rest (seconds)", class: "form-label" %>
-      <%= form.number_field :rest_seconds, class: "form-field" %>
+      <%= form.number_field :rest_seconds, class: "form-input" %>
       <div class="mt-1 text-sm text-gray-500">Optional</div>
     </div>
 
     <div>
       <%= form.label :duration_seconds, "Duration (seconds)", class: "form-label" %>
-      <%= form.number_field :duration_seconds, class: "form-field" %>
+      <%= form.number_field :duration_seconds, class: "form-input" %>
       <div class="mt-1 text-sm text-gray-500">Optional</div>
     </div>
   </div>
 
   <div>
     <%= form.label :notes, class: "form-label" %>
-    <%= form.text_field :notes, class: "form-field" %>
+    <%= form.text_field :notes, class: "form-input" %>
     <div class="mt-1 text-sm text-gray-500">Optional: e.g., "slow negative", "drop set", etc.</div>
   </div>
 
