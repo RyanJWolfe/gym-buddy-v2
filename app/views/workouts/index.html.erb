@@ -10,7 +10,7 @@
       <h1 class="text-2xl font-bold">Your Workouts</h1>
       <div class="flex space-x-2">
         <div class="relative" data-controller="dropdown">
-          <button data-action="click->dropdown#toggle" class="bg-gray-200 text-gray-700 px-4 py-2 rounded hover:bg-gray-300 flex items-center">
+          <button data-action="click->dropdown#toggle" class="btn btn-tertiary flex items-center">
             <span>Export</span>
             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
@@ -23,7 +23,7 @@
             </div>
           </div>
         </div>
-        <%= link_to "New Workout", new_workout_path, class: "bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700" %>
+        <%= link_to "New Workout", new_workout_path, class: "btn btn-primary" %>
       </div>
     </div>
     
@@ -72,7 +72,7 @@
     <% else %>
       <div class="bg-white rounded-lg shadow p-6 text-center">
         <p class="text-gray-600 mb-4">You haven't logged any workouts yet.</p>
-        <%= link_to "Create Your First Workout", new_workout_path, class: "bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700" %>
+        <%= link_to "Create Your First Workout", new_workout_path, class: "btn btn-primary" %>
       </div>
     <% end %>
   </div>

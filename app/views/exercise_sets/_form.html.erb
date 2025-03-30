@@ -49,7 +49,7 @@
   </div>
 
   <div class="flex justify-end space-x-2">
-    <%= link_to "Cancel", workout_path(@workout), class: "bg-gray-200 text-gray-700 px-4 py-2 rounded hover:bg-gray-300" %>
-    <%= form.submit "Save", class: "bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700 cursor-pointer" %>
+    <%= link_to "Cancel", workout_path(@workout), class: "btn btn-tertiary" %>
+    <%= form.submit "Save", class: "btn btn-primary" %>
   </div>
 <% end %>

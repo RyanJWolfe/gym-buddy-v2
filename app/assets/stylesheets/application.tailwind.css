@@ -12,4 +12,14 @@
   .form-muted-label {
     @apply mt-1 text-sm text-gray-500;
   }
+
+  .btn {
+    @apply px-4 py-2 rounded cursor-pointer;
+  }
+  .btn-primary {
+    @apply bg-indigo-600 text-white btn hover:bg-indigo-700
+  }
+  .btn-tertiary {
+    @apply bg-gray-200 text-gray-700 btn hover:bg-gray-300
+  }
 }

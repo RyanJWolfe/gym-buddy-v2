@@ -1,7 +1,7 @@
 <div class="mb-6">
   <div class="flex justify-between items-center mb-4">
     <h1 class="text-2xl font-bold">Exercises</h1>
-    <%= link_to "New Exercise", new_exercise_path, class: "bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700" %>
+    <%= link_to "New Exercise", new_exercise_path, class: "btn btn-primary" %>
   </div>
   
   <div class="bg-white rounded-lg shadow p-4 mb-6">
@@ -24,9 +24,9 @@
       </div>
       
       <div class="md:col-span-2 flex justify-end">
-        <%= f.submit "Filter", class: "bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700" %>
+        <%= f.submit "Filter", class: "btn btn-primary" %>
         <% if params[:category].present? || params[:equipment_type].present? %>
-          <%= link_to "Clear Filters", exercises_path, class: "ml-2 bg-gray-200 text-gray-700 px-4 py-2 rounded hover:bg-gray-300" %>
+          <%= link_to "Clear Filters", exercises_path, class: "ml-2 btn btn-tertiary" %>
         <% end %>
       </div>
     <% end %>
@@ -66,7 +66,7 @@
   <% else %>
     <div class="bg-white rounded-lg shadow p-6 text-center">
       <p class="text-gray-600 mb-4">No exercises found.</p>
-      <%= link_to "Create Your First Exercise", new_exercise_path, class: "bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700" %>
+      <%= link_to "Create Your First Exercise", new_exercise_path, class: "btn btn-primary" %>
     </div>
   <% end %>
 </div> 

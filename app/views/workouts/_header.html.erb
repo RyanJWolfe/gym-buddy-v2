@@ -5,10 +5,10 @@
     <p class="text-gray-600"><%= workout.date.strftime("%B %d, %Y") %></p>
   </div>
   <div class="flex gap-2 w-full sm:w-auto">
-    <%= link_to edit_workout_path(workout), class: "flex-1 sm:flex-none text-center bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition-colors" do %>
+    <%= link_to edit_workout_path(workout), class: "flex-1 sm:flex-none text-center bg-indigo-600 text-white btn-lg hover:bg-indigo-700 transition-colors" do %>
       <span>Edit Workout</span>
     <% end %>
-    <%= link_to workouts_path, class: "flex-1 sm:flex-none text-center bg-gray-100 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-200 transition-colors" do %>
+    <%= link_to workouts_path, class: "flex-1 sm:flex-none text-center bg-gray-100 text-gray-700 btn-lg hover:bg-gray-200 transition-colors" do %>
       <span>Back</span>
     <% end %>
   </div>
