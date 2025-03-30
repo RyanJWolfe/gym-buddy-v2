@@ -23,16 +23,16 @@
               <%= render log %>
             <% end %>
             <div class="flex items-center justify-center">
-            <%= link_to "Add Exercise", new_workout_exercise_log_path(@workout),
-                        data: { turbo_frame: "modal", turbo_stream: true },
-                        class: "inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700" %>
+              <%= link_to "Add Exercise", new_workout_exercise_log_path(@workout),
+                          data: { turbo_frame: "modal", turbo_stream: true },
+                          class: "btn btn-primary" %>
             </div>
           <% else %>
             <p class="text-gray-500 text-center py-4 flex flex-col items-center justify-center gap-y-2">
               No exercises added yet.
               <%= link_to "Add your first exercise", new_workout_exercise_log_path(@workout),
                           data: { turbo_frame: "modal", turbo_stream: true },
-                          class: "inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700" %>
+                          class: "btn btn-primary" %>
             </p>
           <% end %>
         </div>
@@ -40,7 +40,13 @@
 
       </div>
       <div class="mt-4 text-center">
-        <%= link_to "View Complete Workout Summary", workout_path(@workout), class: "text-indigo-600 hover:text-indigo-800" %>
+        <% if @workout.in_progress? %>
+
+          <%= link_to "Finish Workout", finish_workout_path(@workout), method: :put,
+                      class: "btn btn-primary" %>
+        <% else %>
+          <%= link_to "View Complete Workout Summary", workout_path(@workout), class: "text-indigo-600 hover:text-indigo-800" %>
+        <% end %>
       </div>
     </div>
   </div>

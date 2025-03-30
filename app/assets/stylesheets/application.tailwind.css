@@ -19,6 +19,9 @@
   .btn-primary {
     @apply bg-indigo-600 text-white btn hover:bg-indigo-700
   }
+  .btn-secondary {
+    @apply bg-gray-800 text-white btn hover:bg-gray-900
+  }
   .btn-tertiary {
     @apply bg-gray-100 text-gray-700 btn hover:bg-gray-200
   }

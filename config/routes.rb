@@ -8,6 +8,9 @@ Rails.application.routes.draw do
   root to: "static_pages#home"
 
   resources :workouts do
+    member do
+      post :finish
+    end
     resources :exercise_logs, except: [:index, :show] do
       resources :exercise_sets, except: [:index, :show]
     end

@@ -5,7 +5,7 @@ class Workout < ApplicationRecord
 
   attr_accessor :logged_workout
 
-  enum :status [:active, :completed]
+  enum :status, [:in_progress, :completed]
 
   validates :name, presence: true
   validates :date, presence: true
