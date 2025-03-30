@@ -13,7 +13,13 @@ class Workout < ApplicationRecord
   validates :end_time, presence: true, if: :logged_workout?
   validate :end_time_after_start_time, if: :logged_workout?
 
+  before_save :finish_workout, if: :status_changed?, unless: :new_record? || :in_progress?
+
   scope :recent, -> { order(date: :desc) }
+
+  def finish_workout
+    self.end_time = Time.current
+  end
 
   def total_volume
     exercise_logs.sum(&:total_volume)

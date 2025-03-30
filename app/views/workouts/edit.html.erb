@@ -29,7 +29,10 @@
       </div>
       <div class="mt-4 text-center">
         <% if @workout.in_progress? %>
-          <%= link_to "Finish Workout", finish_workout_path(@workout), method: :post, class: "btn-lg btn-primary" %>
+          <%= form_for @workout, url: workout_path(@workout), method: :patch do |f| %>
+            <%= f.hidden_field :status, value: "completed" %>
+            <%= f.submit "Complete Workout", class: "btn btn-primary" %>
+          <% end %>
         <% else %>
           <%= link_to "View Complete Workout Summary", workout_path(@workout), class: "text-indigo-600 hover:text-indigo-800" %>
         <% end %>
