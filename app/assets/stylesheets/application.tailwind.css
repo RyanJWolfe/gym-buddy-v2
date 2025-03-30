@@ -14,7 +14,7 @@
   }
 
   .btn {
-    @apply inline-block px-4 py-2 rounded-lg cursor-pointer;
+    @apply inline-block px-4 py-2 rounded-lg cursor-pointer font-medium text-sm;
   }
   .btn-lg {
     @apply inline-block px-6 py-3 rounded-lg cursor-pointer text-lg;
@@ -26,6 +26,6 @@
     @apply bg-slate-600 hover:bg-slate-700 text-white
   }
   .btn-tertiary {
-    @apply bg-gray-100 text-gray-700 hover:bg-gray-200
+    @apply text-gray-700 bg-white border border-gray-300 hover:bg-gray-50
   }
 }
