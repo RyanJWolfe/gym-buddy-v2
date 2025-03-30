@@ -81,7 +81,7 @@ class WorkoutsController < ApplicationController
     if workout_type == "logged"
       params.require(:workout).permit(:name, :date, :start_time, :end_time, :notes)
     else
-      params.require(:workout).permit(:name, :notes)
+      params.require(:workout).permit(:name, :notes, :status)
     end
   end
 end
