@@ -18,32 +18,18 @@
         </div>
 
         <div id="exercise-logs">
-          <% if @exercise_logs.any? %>
-            <% @exercise_logs.each do |log| %>
-              <%= render log %>
-            <% end %>
-            <div class="flex items-center justify-center">
-              <%= link_to "Add Exercise", new_workout_exercise_log_path(@workout),
-                          data: { turbo_frame: "modal", turbo_stream: true },
-                          class: "btn btn-primary" %>
-            </div>
-          <% else %>
-            <p class="text-gray-500 text-center py-4 flex flex-col items-center justify-center gap-y-2">
-              No exercises added yet.
-              <%= link_to "Add your first exercise", new_workout_exercise_log_path(@workout),
-                          data: { turbo_frame: "modal", turbo_stream: true },
-                          class: "btn btn-secondary" %>
-            </p>
-          <% end %>
+          <%= render 'exercise_logs' %>
+        </div>
+
+        <div id="add-exercise-button">
+          <%= render 'add_exercise' %>
         </div>
 
 
       </div>
       <div class="mt-4 text-center">
         <% if @workout.in_progress? %>
-
-          <%= link_to "Finish Workout", finish_workout_path(@workout), method: :put,
-                      class: "btn btn-primary" %>
+          <%= link_to "Finish Workout", finish_workout_path(@workout), method: :post, class: "btn-lg btn-primary" %>
         <% else %>
           <%= link_to "View Complete Workout Summary", workout_path(@workout), class: "text-indigo-600 hover:text-indigo-800" %>
         <% end %>

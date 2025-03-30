@@ -1,3 +1,9 @@
+<% if @workout.exercise_logs.size == 1 %>
+  <% @exercise_logs = @workout.exercise_logs %>
+  <%= turbo_stream.update "add-exercise-button" do %>
+    <%= render 'workouts/add_exercise' %>
+  <% end %>
+<% end %>
 <%= turbo_stream.append "exercise-logs" do %>
   <%= render @exercise_log %>
 <% end %>

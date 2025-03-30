@@ -14,7 +14,10 @@
   }
 
   .btn {
-    @apply px-4 py-2 rounded-lg cursor-pointer;
+    @apply inline-block px-4 py-2 rounded-lg cursor-pointer;
+  }
+  .btn-lg {
+    @apply inline-block px-6 py-3 rounded-lg cursor-pointer text-lg;
   }
   .btn-primary {
     @apply bg-indigo-600 text-white hover:bg-indigo-700
