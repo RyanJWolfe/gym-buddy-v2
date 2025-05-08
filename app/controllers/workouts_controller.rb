@@ -14,10 +14,10 @@ class WorkoutsController < ApplicationController
   # GET /workouts/new
   def new
     @workout = current_user.workouts.build(date: Date.current)
-    @workout.logged_workout = (params[:type] == "logged")
+    @workout.logged_workout = (workout_type == "logged")
 
     if params[:type].present?
-      render workout_type == "logged" ? "new_logged" : "new_realtime"
+      render "new_#{workout_type}"
     end
   end
 
@@ -71,7 +71,7 @@ class WorkoutsController < ApplicationController
   end
 
   def workout_type
-    params[:type]&.to_s == "logged" ? "logged" : "realtime"
+    params[:type]&.to_s || "logged"
   end
 
   helper_method :workout_type

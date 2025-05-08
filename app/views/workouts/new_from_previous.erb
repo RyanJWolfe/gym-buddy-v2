@@ -1,0 +1,40 @@
+<div class="max-w-2xl mx-auto mt-8">
+  <div class="flex items-center justify-between mb-6">
+    <h1 class="text-2xl font-bold">Use Previous Workout</h1>
+    <%= link_to "← Back", new_workout_path, class: "text-gray-600 hover:text-gray-900" %>
+  </div>
+
+  <%= form_with(model: @workout, class: "bg-white rounded-lg shadow-sm p-6 space-y-4") do |form| %>
+    <%= hidden_field_tag :type, 'from_previous' %>
+    
+    <% if @workout.errors.any? %>
+      <div class="bg-red-50 text-red-700 p-4 rounded mb-4">
+        <h2 class="font-bold mb-2"><%= pluralize(@workout.errors.count, "error") %> prohibited this workout from being saved:</h2>
+        <ul class="list-disc pl-5">
+          <% @workout.errors.each do |error| %>
+            <li><%= error.full_message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div>
+      <%= form.label :name, class: "form-label" %>
+      <%= form.text_field :name, class: "form-input",
+          placeholder: "e.g., Today's Workout" %>
+    </div>
+
+    <div>
+      <%= form.label :notes, class: "form-label" %>
+      <%= form.text_area :notes, rows: 3, class: "form-input",
+          placeholder: "Optional notes about your workout" %>
+    </div>
+
+    <%= form.hidden_field :status, value: :in_progress %>
+
+    <div class="flex justify-end space-x-2 pt-4">
+      <%= link_to "Cancel", new_workout_path, class: "px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50" %>
+      <%= form.submit "Start Workout", class: "px-4 py-2 text-sm font-medium text-white bg-green-600 rounded-md hover:bg-green-700" %>
+    </div>
+  <% end %>
+</div> 
