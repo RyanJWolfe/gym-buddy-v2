@@ -8,14 +8,32 @@
   <div class="bg-white rounded-lg shadow p-4">
     <div class="grid gap-4">
       <% @workouts.each do |workout| %>
-        <div class="border p-4 rounded hover:bg-gray-50">
-          <div class="flex justify-between items-center">
-            <div>
+        <div class="relative group">
+          <!-- For md screens and below: entire card is clickable -->
+          <%= link_to duplicate_workout_path(workout), method: :post, class: "md:hidden block border p-4 rounded hover:bg-gray-50 active:bg-gray-100 shadow-sm hover:shadow transition-all duration-200" do %>
+            <div class="flex flex-col">
               <h3 class="font-bold"><%= workout.name %></h3>
               <p class="text-sm text-gray-600"><%= workout.date.strftime("%b %d, %Y") %></p>
               <p class="text-sm"><%= pluralize(workout.exercise_logs.count, 'exercise') %></p>
+              <div class="mt-2 text-sm text-blue-600 flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" viewBox="0 0 20 20" fill="currentColor">
+                  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-8.707l-3-3a1 1 0 00-1.414 0l-3 3a1 1 0 001.414 1.414L9 9.414V13a1 1 0 102 0V9.414l1.293 1.293a1 1 0 001.414-1.414z" clip-rule="evenodd" />
+                </svg>
+                Use as Template
+              </div>
             </div>
-            <%= button_to "Use as Template", duplicate_workout_path(workout), class: "btn btn-primary text-sm" %>
+          <% end %>
+
+          <!-- For lg screens: card with separate button -->
+          <div class="hidden md:block border p-4 rounded hover:bg-gray-50">
+            <div class="flex justify-between items-center">
+              <div>
+                <h3 class="font-bold"><%= workout.name %></h3>
+                <p class="text-sm text-gray-600"><%= workout.date.strftime("%b %d, %Y") %></p>
+                <p class="text-sm"><%= pluralize(workout.exercise_logs.count, 'exercise') %></p>
+              </div>
+              <%= button_to "Use as Template", duplicate_workout_path(workout), class: "btn btn-primary text-sm" %>
+            </div>
           </div>
         </div>
       <% end %>
