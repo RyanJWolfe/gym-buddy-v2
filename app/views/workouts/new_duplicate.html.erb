@@ -16,7 +16,6 @@
               <p class="text-sm"><%= pluralize(workout.exercise_logs.count, 'exercise') %></p>
             </div>
             <%= button_to "Use as Template", duplicate_workout_path(workout), class: "btn btn-primary text-sm" %>
-            <%#= link_to "Use as Template", duplicate_workout_path(workout), method: :post, class: "btn btn-primary text-sm" %>
           </div>
         </div>
       <% end %>
