@@ -1,5 +1,7 @@
 class Workout < ApplicationRecord
   belongs_to :user
+  belongs_to :template, class_name: "Workout", optional: true
+  has_many :derived_workouts, class_name: "Workout", foreign_key: "template_id"
   has_many :exercise_logs, dependent: :destroy
   has_many :exercises, through: :exercise_logs
 
@@ -40,6 +42,12 @@ class Workout < ApplicationRecord
 
   def logged_workout?
     logged_workout.present?
+  end
+
+  def template_family
+    base_template = template || self
+    template_name = base_template.template_name || base_template.name
+    user.workouts.where("template_name = ? OR id = ?", template_name, base_template.id)
   end
 
   private

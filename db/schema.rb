@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_03_30_084048) do
+ActiveRecord::Schema[8.0].define(version: 2025_05_11_003610) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -80,7 +80,10 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_30_084048) do
     t.datetime "start_time"
     t.datetime "end_time"
     t.integer "status", default: 1
+    t.bigint "template_id"
+    t.string "template_name"
     t.index ["date"], name: "index_workouts_on_date"
+    t.index ["template_id"], name: "index_workouts_on_template_id"
     t.index ["user_id"], name: "index_workouts_on_user_id"
   end
 
@@ -88,4 +91,5 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_30_084048) do
   add_foreign_key "exercise_logs", "workouts"
   add_foreign_key "exercise_sets", "exercise_logs"
   add_foreign_key "workouts", "users"
+  add_foreign_key "workouts", "workouts", column: "template_id"
 end
