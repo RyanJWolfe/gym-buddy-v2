@@ -5,6 +5,10 @@ class ExerciseLog < ApplicationRecord
 
   validates :notes, length: { maximum: 500 }
 
+  amoeba do
+    enable
+  end
+
   def total_volume
     sets.sum(&:volume)
   end

@@ -17,6 +17,9 @@ class WorkoutsController < ApplicationController
     @workout.logged_workout = (workout_type == "logged")
 
     if params[:type].present?
+      if workout_type == "duplicate"
+        @workouts = current_user.workouts.order(date: :desc)
+      end
       render "new_#{workout_type}"
     end
   end
@@ -61,6 +64,23 @@ class WorkoutsController < ApplicationController
   def destroy
     @workout.destroy
     redirect_to workouts_path, notice: "Workout was successfully deleted."
+  end
+
+  def create_duplicate
+    @source_workout = current_user.workouts.find(params[:id])
+    # clone the workout
+    @workout = @source_workout.amoeba_dup
+    @workout.date = Date.current
+    @workout.start_time = Time.current
+    @workout.end_time = nil
+    @workout.template = @source_workout
+    @workout.template_name = @source_workout.template_name
+
+    if @workout.save
+      redirect_to edit_workout_path(@workout), notice: "Workout duplicated successfully!"
+    else
+      render :new_duplicate, status: :unprocessable_entity
+    end
   end
 
   private

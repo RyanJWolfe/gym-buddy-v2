@@ -19,6 +19,10 @@ class Workout < ApplicationRecord
 
   scope :recent, -> { order(date: :desc) }
 
+  amoeba do
+    enable
+  end
+
   def finish_workout
     self.end_time = Time.current
   end

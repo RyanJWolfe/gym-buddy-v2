@@ -80,3 +80,6 @@ gem "pagy"
 gem "simple_form"
 
 gem "inline_svg"
+
+# For cloning objects
+gem "amoeba"

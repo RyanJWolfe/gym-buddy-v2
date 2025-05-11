@@ -11,6 +11,10 @@ Rails.application.routes.draw do
     resources :exercise_logs, except: [:index, :show] do
       resources :exercise_sets, except: [:index, :show]
     end
+
+    member do
+      post "duplicate", to: "workouts#create_duplicate"
+    end
   end
 
   resources :exercises
