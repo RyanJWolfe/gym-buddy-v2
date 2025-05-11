@@ -11,21 +11,21 @@
         <!-- For md screens and below: entire card is clickable -->
         <%= link_to duplicate_workout_path(workout), method: :post, class: "md:hidden block bg-white border border-gray-200 p-4 rounded-lg hover:bg-blue-50 active:bg-blue-100 shadow-sm hover:shadow transition-all duration-200" do %>
           <div class="flex flex-col">
-            <h3 class="font-bold text-gray-800 text-center mb-2"><%= workout.name %></h3>
-
-            <div class="grid grid-cols-2 gap-2 mb-3">
-              <div class="bg-gray-50 p-2 rounded text-center">
-                <span class="block text-xs text-gray-500">Date</span>
-                <span class="font-medium text-gray-700"><%= workout.date.strftime("%b %d, %Y") %></span>
-              </div>
-
-              <div class="bg-gray-50 p-2 rounded text-center">
-                <span class="block text-xs text-gray-500">Exercises</span>
-                <span class="font-medium text-gray-700"><%= workout.exercise_logs.count %></span>
-              </div>
+            <div class="flex justify-between items-center mb-2">
+              <h3 class="font-bold text-gray-800"><%= workout.name %></h3>
+              <span class="text-xs text-gray-500">
+                <%= relative_time_ago(workout.date) %>
+              </span>
             </div>
 
-            <div class="mt-2 text-center text-blue-600 flex items-center justify-center border-t border-gray-100 pt-2">
+            <div class="bg-gray-50 p-2.5 rounded mb-3">
+              <span class="block text-xs text-gray-500 mb-0.5">Exercises</span>
+              <span class="text-sm text-gray-700 line-clamp-2">
+                <%= workout.exercises.map(&:name).join(", ") %>
+              </span>
+            </div>
+
+            <div class="mt-1 text-center text-blue-600 flex items-center justify-center border-t border-gray-100 pt-2">
               <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" viewBox="0 0 20 20" fill="currentColor">
                 <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-8.707l-3-3a1 1 0 00-1.414 0l-3 3a1 1 0 001.414 1.414L9 9.414V13a1 1 0 102 0V9.414l1.293 1.293a1 1 0 001.414-1.414z" clip-rule="evenodd" />
               </svg>
@@ -37,13 +37,17 @@
         <!-- For md screens and above: card with separate button -->
         <div class="hidden md:block bg-white border border-gray-200 p-4 rounded-lg shadow-sm">
           <div class="flex justify-between items-center">
-            <div>
-              <h3 class="font-bold text-gray-800"><%= workout.name %></h3>
-              <p class="text-sm text-gray-600"><%= workout.date.strftime("%b %d, %Y") %></p>
-              <p class="text-sm text-gray-700"><%= pluralize(workout.exercise_logs.count, 'exercise') %></p>
+            <div class="flex-grow mr-4">
+              <div class="flex justify-between items-center mb-1">
+                <h3 class="font-bold text-gray-800"><%= workout.name %></h3>
+                <span class="text-xs text-gray-500"><%= relative_time_ago(workout.date) %></span>
+              </div>
+              <p class="text-sm text-gray-700 line-clamp-1">
+                <%= workout.exercises.map(&:name).join(", ") %>
+              </p>
             </div>
             <%= button_to duplicate_workout_path(workout),
-                          class: "px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium rounded-md transition-colors duration-200" do %>
+                          class: "flex-shrink-0 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium rounded-md transition-colors duration-200" do %>
               Use as Template
             <% end %>
           </div>
