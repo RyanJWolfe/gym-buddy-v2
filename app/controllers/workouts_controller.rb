@@ -80,7 +80,7 @@ class WorkoutsController < ApplicationController
     @workout.sequence_number = max_sequence + 1
 
     @workout.template = @source_workout
-    @workout.template_name = @source_workout.template_name
+    @workout.template_name = @source_workout.template_name || @source_workout.name
 
     if @workout.save
       redirect_to edit_workout_path(@workout), notice: "Workout duplicated successfully!"

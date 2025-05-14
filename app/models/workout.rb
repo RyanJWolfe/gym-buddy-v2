@@ -16,11 +16,22 @@ class Workout < ApplicationRecord
   validate :end_time_after_start_time, if: :logged_workout?
 
   before_save :finish_workout, if: :status_changed?, unless: :new_record? || :in_progress?
+  before_create :set_template_name
 
   scope :recent, -> { order(date: :desc) }
 
   amoeba do
     enable
+  end
+
+  def set_template_name
+    return if template_name.present?
+
+    if template
+      self.template_name = template.template_name || template.name
+    else
+      self.template_name = name
+    end
   end
 
   def finish_workout
