@@ -68,11 +68,17 @@ class WorkoutsController < ApplicationController
 
   def create_duplicate
     @source_workout = current_user.workouts.find(params[:id])
+
+    # Find the last workout in the template family
+    max_sequence = @source_workout.template_family.maximum(:sequence_number) || 0
+
     # clone the workout
     @workout = @source_workout.amoeba_dup
     @workout.date = Date.current
     @workout.start_time = Time.current
     @workout.end_time = nil
+    @workout.sequence_number = max_sequence + 1
+
     @workout.template = @source_workout
     @workout.template_name = @source_workout.template_name
 
