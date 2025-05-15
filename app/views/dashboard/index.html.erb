@@ -1,6 +1,9 @@
 <div class="mb-6">
-  <h1 class="text-2xl font-bold mb-4">Dashboard</h1>
-  
+  <div class="flex items-center justify-between mb-4">
+    <h1 class="text-2xl font-bold">Dashboard</h1>
+    <%= link_to "New Workout", new_workout_path, class: "btn btn-primary" %>
+  </div>
+
   <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
     <div class="bg-white rounded-lg shadow p-4">
       <h2 class="text-lg font-semibold mb-2">Total Workouts</h2>
