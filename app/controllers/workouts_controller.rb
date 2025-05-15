@@ -1,5 +1,5 @@
 class WorkoutsController < ApplicationController
-  before_action :set_workout, only: [:show, :edit, :update, :destroy]
+  before_action :set_workout, only: [:edit, :update, :destroy]
 
   # GET /workouts or /workouts.json
   def index
@@ -8,7 +8,8 @@ class WorkoutsController < ApplicationController
 
   # GET /workouts/1 or /workouts/1.json
   def show
-    @exercise_logs = @workout.exercise_logs.includes(:exercise, :sets)
+    @workout = current_user.workouts.includes(exercise_logs: [:exercise, :sets]).find(params[:id])
+    @exercise_logs = @workout.exercise_logs
   end
 
   # GET /workouts/new
