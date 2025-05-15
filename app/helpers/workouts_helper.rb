@@ -16,4 +16,12 @@ module WorkoutsHelper
       date.strftime("%b %d, %Y")
     end
   end
+
+  def render_sequence_number(workout, font_size: "")
+    if workout.sequence_number > 1
+      content_tag(:span, "##{workout.sequence_number}", class: "text-gray-500 #{font_size}")
+    else
+      ""
+    end
+  end
 end

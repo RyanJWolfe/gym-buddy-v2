@@ -17,9 +17,7 @@
       </td>
       <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
         <%= link_to workout.name, workout_path(workout), class: "text-indigo-600 hover:text-indigo-900" %>
-        <% if workout.sequence_number && workout.sequence_number > 1 %>
-          <span class="text-gray-500">#<%= workout.sequence_number %></span>
-        <% end %>
+        <%= render_sequence_number(workout) %>
       </td>
       <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
         <%= workout.total_exercises %>

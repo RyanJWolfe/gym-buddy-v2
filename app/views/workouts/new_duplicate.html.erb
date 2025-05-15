@@ -14,9 +14,7 @@
             <div class="flex justify-between items-center mb-2">
               <h3 class="font-bold text-gray-800">
                 <%= workout.name %>
-                <% if workout.sequence_number && workout.sequence_number > 1 %>
-                  <span class="text-gray-500">#<%= workout.sequence_number %></span>
-                <% end %>
+                <%= render_sequence_number(workout) %>
               </h3>
               <span class="text-xs text-gray-500">
                 <%= relative_time_ago(workout.date) %>
@@ -44,10 +42,8 @@
           <div class="flex justify-between items-center">
             <div class="flex-grow mr-4">
               <div class="flex justify-between items-center mb-1">
-                <h3 class="font-bold text-gray-800"><%= workout.name %>
-                  <% if workout.sequence_number && workout.sequence_number > 1 %>
-                    <span class="text-gray-500">#<%= workout.sequence_number %></span>
-                  <% end %>
+                <h3 class="font-bold text-gray-800">
+                  <%= workout.name %> <%= render_sequence_number(workout) %>
                 </h3>
                 <span class="text-xs text-gray-500"><%= relative_time_ago(workout.date) %></span>
               </div>

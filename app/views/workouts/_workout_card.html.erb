@@ -3,9 +3,7 @@
     <div class="flex flex-col">
       <h3 class="font-medium text-lg text-indigo-600">
         <%= link_to workout.name, workout_path(workout) %>
-        <% if workout.sequence_number && workout.sequence_number > 1 %>
-          <span class="text-gray-500 text-sm">#<%= workout.sequence_number %></span>
-        <% end %>
+        <%= render_sequence_number(workout, font_size: "text-sm") %>
       </h3>
       <span class="text-sm text-gray-500"><%= workout.date.strftime("%b %d, %Y") %></span>
     </div>
