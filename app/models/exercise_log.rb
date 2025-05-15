@@ -1,5 +1,5 @@
 class ExerciseLog < ApplicationRecord
-  belongs_to :workout
+  belongs_to :workout, counter_cache: true
   belongs_to :exercise
   has_many :sets, class_name: "ExerciseSet", dependent: :destroy
 

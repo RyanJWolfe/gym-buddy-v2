@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_05_14_203408) do
+ActiveRecord::Schema[8.0].define(version: 2025_05_15_191923) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -83,6 +83,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_14_203408) do
     t.bigint "template_id"
     t.string "template_name"
     t.integer "sequence_number", default: 1
+    t.integer "exercise_logs_count", default: 0, null: false
     t.index ["date"], name: "index_workouts_on_date"
     t.index ["template_id"], name: "index_workouts_on_template_id"
     t.index ["user_id"], name: "index_workouts_on_user_id"

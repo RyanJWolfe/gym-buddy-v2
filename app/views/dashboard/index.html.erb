@@ -40,7 +40,7 @@
                   <p class="text-sm text-gray-600"><%= workout.date.strftime("%b %d, %Y") %></p>
                 </div>
                 <div class="text-right">
-                  <p class="text-sm"><%= pluralize(workout.exercise_logs.count, 'exercise') %></p>
+                  <p class="text-sm"><%= pluralize(workout.total_exercises, 'exercise') %></p>
                   <p class="text-sm text-gray-600"><%= pluralize(workout.total_sets, 'set') %> </p>
                 </div>
               </div>

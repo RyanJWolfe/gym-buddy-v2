@@ -42,6 +42,10 @@ class Workout < ApplicationRecord
     exercise_logs.sum(&:total_volume)
   end
 
+  def total_exercises
+    exercise_logs_count
+  end
+
   def total_sets
     exercise_logs.sum(&:total_sets)
   end
