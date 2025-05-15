@@ -19,7 +19,7 @@ class WorkoutsController < ApplicationController
 
     if params[:type].present?
       if workout_type == "duplicate"
-        @workouts = current_user.workouts.order(date: :desc)
+        @workouts = current_user.workouts.includes(:exercises).order(date: :desc)
       end
       render "new_#{workout_type}"
     end
