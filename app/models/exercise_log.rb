@@ -7,6 +7,7 @@ class ExerciseLog < ApplicationRecord
 
   amoeba do
     enable
+    set exercise_sets_count: 0
   end
 
   def total_volume

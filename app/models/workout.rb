@@ -22,6 +22,7 @@ class Workout < ApplicationRecord
 
   amoeba do
     enable
+    set exercise_logs_count: 0
   end
 
   def set_template_name
