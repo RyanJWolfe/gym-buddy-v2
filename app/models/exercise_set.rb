@@ -1,5 +1,5 @@
 class ExerciseSet < ApplicationRecord
-  belongs_to :exercise_log
+  belongs_to :exercise_log, counter_cache: true
 
   validates :reps, presence: true, numericality: { greater_than: 0 }
   validates :weight, presence: true, numericality: { greater_than_or_equal_to: 0 }

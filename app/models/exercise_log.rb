@@ -22,6 +22,6 @@ class ExerciseLog < ApplicationRecord
   end
 
   def total_sets
-    sets.size
+    exercise_sets_count
   end
 end
