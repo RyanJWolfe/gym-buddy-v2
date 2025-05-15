@@ -8,6 +8,11 @@
     </div>
     
     <div class="bg-white rounded-lg shadow p-4">
+      <h2 class="text-lg font-semibold mb-2">Total Volume Lifted</h2>
+      <p class="text-3xl font-bold text-indigo-600"><%= number_with_delimiter(format_weight(@total_volume)) %> kg</p>
+    </div>
+    
+    <div class="bg-white rounded-lg shadow p-4">
       <h2 class="text-lg font-semibold mb-2">Last Workout</h2>
       <% if @recent_workouts.any? %>
         <p class="text-xl font-bold"><%= @recent_workouts.first.name %></p>
