@@ -85,3 +85,5 @@ gem "inline_svg"
 
 # For cloning objects
 gem "amoeba"
+
+gem "view_component"
