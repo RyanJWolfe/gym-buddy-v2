@@ -1,11 +1,16 @@
-<nav class="bg-indigo-600 text-white">
+<nav class="bg-indigo-600 text-white theme-dark" data-controller="mobile-menu">
   <div class="container mx-auto px-4">
     <div class="flex justify-between items-center py-3">
       <div class="flex items-center space-x-4">
-        <%= link_to "GymTracker", root_path, class: "text-xl font-bold" %>
-        
+        <div class="flex items-center gap-x-4">
+          <div class="lg:hidden justify-self-end">
+            <%= render 'shared/mobile_menu/mobile_menu_btn' %>
+          </div>
+          <%= link_to "GymTracker", root_path, class: "text-xl font-bold" %>
+        </div>
+
         <% if user_signed_in? %>
-          <div class="hidden md:flex space-x-4">
+          <div class="hidden lg:flex space-x-4">
             <%= link_to "Dashboard", dashboard_path, class: "hover:text-indigo-200" %>
             <%= link_to "Workouts", workouts_path, class: "hover:text-indigo-200" %>
             <%= link_to "Exercises", exercises_path, class: "hover:text-indigo-200" %>
@@ -16,7 +21,7 @@
       
       <div class="flex items-center space-x-4">
         <% if user_signed_in? %>
-          <span class="hidden md:inline"><%= current_user.email %></span>
+          <span class="hidden lg:inline"><%= current_user.email %></span>
           <%= button_to "Log Out", destroy_user_session_path, method: :delete, class: "bg-indigo-700 px-3 py-1 rounded hover:bg-indigo-800" %>
         <% else %>
           <%= link_to "Sign In", new_user_session_path, class: "hover:text-indigo-200" %>
@@ -24,16 +29,7 @@
         <% end %>
       </div>
     </div>
-    
-    <% if user_signed_in? %>
-      <div class="md:hidden pb-3">
-        <div class="flex space-x-4">
-          <%= link_to "Dashboard", dashboard_path, class: "hover:text-indigo-200" %>
-          <%= link_to "Workouts", workouts_path, class: "hover:text-indigo-200" %>
-          <%= link_to "Exercises", exercises_path, class: "hover:text-indigo-200" %>
-          <%= link_to "Profile", profile_path, class: "hover:text-indigo-200" %>
-        </div>
-      </div>
-    <% end %>
+
+    <%= render 'shared/mobile_menu/mobile_menu' %>
   </div>
 </nav> 

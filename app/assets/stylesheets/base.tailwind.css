@@ -1,0 +1,29 @@
+@tailwind base;
+
+@layer base {
+  :root {
+    --color-primary: 168 85 247;              /* purple-500 */
+    --color-primary-hover: 192 132 252;       /* purple-400 */
+    --color-primary-press: 147 51 234;        /* purple-600 */
+    --color-text-based: 0 0 0;                /* black */
+    --color-text-muted: 75 85 99;             /* gray-600 */
+
+    --color-bg: 255 255 255;                  /* #ffffff */
+    --color-bg-nav: 224 224 224;              /* #dbdde0 */
+    --color-bg-surface: 255 255 255;          /* #ffffff */
+    --color-bg-surface-alt: 225 225 225;      /* #e1e1e1 */
+  }
+
+  .theme-dark {
+    --color-primary: 192 132 252;             /* purple-400 */
+    --color-primary-hover: 216 180 254;       /* purple-300 */
+    --color-primary-press: 168 85 247;        /* purple-500 */
+    --color-text-based: 255 255 255;          /* white */
+    --color-text-muted: 170 170 180;
+
+    --color-bg: 12 12 12;
+    --color-bg-nav: 18 18 18;
+    --color-bg-surface: 24 24 24;
+    --color-bg-surface-alt: 28 28 28;
+  }
+}
