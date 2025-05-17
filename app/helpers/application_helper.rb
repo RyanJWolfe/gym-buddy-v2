@@ -24,6 +24,17 @@ module ApplicationHelper
     formatted % 1 == 0 ? formatted.to_i : formatted
   end
 
+  def abbreviate_weight(weight)
+    return "-" if weight.nil?
+
+    weight = weight.to_f
+    if weight >= 1000
+      "#{(weight / 1000).round(1)}k"
+    else
+      weight.to_i
+    end
+  end
+
   def format_duration(minutes)
     return "0 min" if minutes.nil? || minutes.zero?
 
