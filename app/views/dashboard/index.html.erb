@@ -32,7 +32,7 @@
             <div class="text-base lg:text-base text-gray-500">Previous Workout</div>
             <% if @recent_workouts.any? %>
               <div>
-                <p class="text-lg md:text-xl font-bold"><%= @recent_workouts.first.name %> <%= render_sequence_number(@recent_workouts.first) %></p>
+                <p class="text-lg md:text-xl font-semibold"><%= @recent_workouts.first.name %> <%= render_sequence_number(@recent_workouts.first) %></p>
                 <p><%= @recent_workouts.first.exercise_logs_count %> exercises completed</p>
               </div>
             <% else %>
@@ -51,12 +51,15 @@
 
   <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
     <div class="bg-white rounded-lg shadow p-4">
-      <h2 class="text-lg font-semibold mb-4">Recent Workouts</h2>
+      <div class="flex items-center justify-between mb-4">
+        <h2 class="text-lg font-semibold">Recent Workouts</h2>
+        <%= link_to "Show All", workouts_path, class: "text-indigo-600 hover:text-indigo-800 hover:bg-indigo-50" %>
+      </div>
 
       <% if @recent_workouts.any? %>
         <div class="space-y-3">
           <% @recent_workouts.each do |workout| %>
-            <%= link_to workout_path(workout), class: "block p-3 border rounded hover:bg-gray-50 shadow-sm" do %>
+            <%= link_to workout_path(workout), class: "block p-4 bg-gray-50 border border-gray-200 rounded-xl hover:bg-gray-100 transition-shadow shadow-sm" do %>
               <div class="flex justify-between items-center">
                 <div>
                   <h3 class="font-medium">
@@ -64,17 +67,13 @@
                   </h3>
                   <p class="text-sm text-gray-600"><%= workout.date.strftime("%b %d, %Y") %></p>
                 </div>
-                <div class="text-right">
-                  <p class="text-sm"><%= pluralize(workout.total_exercises, 'exercise') %></p>
-                  <p class="text-sm text-gray-600"><%= pluralize(workout.total_sets, 'set') %> </p>
+                <div class="text-right text-sm text-gray-700">
+                  <p><%= pluralize(workout.total_exercises, 'exercise') %></p>
+                  <p class="text-gray-600"><%= pluralize(workout.total_sets, 'set') %> </p>
                 </div>
               </div>
             <% end %>
           <% end %>
-        </div>
-
-        <div class="mt-4 text-center">
-          <%= link_to "View All Workouts", workouts_path, class: "text-indigo-600 hover:text-indigo-800 btn-lg hover:bg-indigo-50" %>
         </div>
       <% else %>
         <div class="text-center py-6">
