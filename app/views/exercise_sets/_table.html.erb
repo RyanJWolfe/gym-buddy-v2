@@ -32,13 +32,13 @@
       <% end %>
     </div>
   <% else %>
-    <div class="text-center py-2 text-gray-500">
-      <p class="mb-2">No sets recorded yet</p>
+    <div class="text-gray-500 text-center py-4 flex flex-col items-center justify-center gap-y-2">
+      <p class="">No sets recorded yet</p>
       <%= link_to new_workout_exercise_log_exercise_set_path(workout, exercise_log),
                   data: { turbo_stream: true },
-                  class: "inline-flex items-center gap-2 text-indigo-600 hover:text-indigo-800 btn-lg hover:bg-indigo-50 text-sm font-medium" do %>
-        <%= inline_svg_tag "icons/plus.svg", class: "h-4 w-4" %>
-        Add your first set
+                  class: "btn btn-secondary w-full sm:w-fit" do %>
+        <%= inline_svg_tag "icons/plus.svg", class: "mr-1.5 inline h-4 w-4" %>
+        <span>Add your first set</span>
       <% end %>
     </div>
   <% end %>
