@@ -1,7 +1,7 @@
 <%# Sets table %>
 <div id="<%= dom_id(exercise_log, :sets_table) %>">
   <% if exercise_log.sets.any? %>
-    <div class="overflow-x-auto -mx-4 sm:mx-0">
+    <div class="overflow-x-auto">
       <div class="inline-block min-w-full align-middle">
         <table class="min-w-full divide-y divide-gray-200">
           <thead>
@@ -14,7 +14,7 @@
             <th class="px-3 py-1 lg:py-2 text-right text-xs font-medium uppercase">Actions</th>
           </tr>
           </thead>
-          <tbody id="<%= dom_id(exercise_log, :sets_table_row) %>" class="divide-y divide-gray-200 bg-white">
+          <tbody id="<%= dom_id(exercise_log, :sets_table_row) %>" class="divide-y divide-gray-200">
           <%= render partial: "exercise_sets/set", collection: exercise_log.sets, locals: { workout: workout, exercise_log: exercise_log } %>
           </tbody>
         </table>
