@@ -2,7 +2,6 @@
 
 <div class="max-w-5xl mx-auto">
   <%# Header with workout name and status %>
-<!--  <div class="bg-gradient-to-r from-indigo-600 to-indigo-700 text-white px-4 py-6 lg:p-6">-->
   <div class="">
     <div class="flex flex-col gap-y-2">
       <div class="flex justify-between items-center">
@@ -27,44 +26,49 @@
 
   <div class="">
     <%# Exercise Logging Section %>
-      <div class="flex justify-between items-center mb-4">
-        <h2 class="text-xl font-medium">Exercises</h2>
-        <% if @workout.in_progress? %>
-          <div class="flex-shrink-0">
-            <%= form_for @workout, url: workout_path(@workout), method: :patch do |f| %>
-              <%= f.hidden_field :status, value: "completed" %>
-              <%= button_tag type: 'submit', class: "inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500" do %>
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1.5" viewBox="0 0 20 20" fill="currentColor">
-                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
-                </svg>
-                Complete Workout
-              <% end %>
-            <% end %>
-          </div>
-        <% end %>
-      </div>
+    <div class="flex justify-between items-center mb-4">
+      <h2 class="text-xl font-medium">Exercises</h2>
+    </div>
 
-      <div id="exercise-logs" class="space-y-4">
-        <%= render 'exercise_logs' %>
-      </div>
+    <div id="exercise-logs" class="space-y-4">
+      <%= render 'exercise_logs' %>
+    </div>
 
-      <div id="add-exercise-button" class="mt-6">
-        <%= render 'add_exercise' %>
-      </div>
+    <div id="add-exercise-button" class="mt-4">
+      <%= render 'add_exercise' %>
+    </div>
   </div>
+
+  <hr class="my-4 border-gray-300"/>
+
+
+  <% unless @workout.in_progress? %>
+    <div class="mt-4 text-center">
+      <%= link_to workout_path(@workout), class: "inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" do %>
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1.5" viewBox="0 0 20 20" fill="currentColor">
+          <path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z"/>
+          <path fill-rule="evenodd" d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm3 4a1 1 0 000 2h.01a1 1 0 100-2H7zm3 0a1 1 0 000 2h3a1 1 0 100-2h-3zm-3 4a1 1 0 100 2h.01a1 1 0 100-2H7zm3 0a1 1 0 100 2h3a1 1 0 100-2h-3z" clip-rule="evenodd"/>
+        </svg>
+        View Complete Summary
+      <% end %>
+    </div>
+  <% end %>
+
+  <% if @workout.in_progress? %>
+    <div class="flex items-center justify-center">
+      <%= form_for @workout, url: workout_path(@workout), method: :patch do |f| %>
+        <%= f.hidden_field :status, value: "completed" %>
+        <%= button_tag type: 'submit', class: "btn btn-primary" do %>
+          <svg xmlns="http://www.w3.org/2000/svg" class="inline h-4 w-4 mr-1.5" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+          </svg>
+          <span>Complete Workout</span>
+        <% end %>
+      <% end %>
+    </div>
+  <% end %>
 </div>
 
-<% unless @workout.in_progress? %>
-  <div class="mt-6 text-center">
-    <%= link_to workout_path(@workout), class: "inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" do %>
-      <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1.5" viewBox="0 0 20 20" fill="currentColor">
-        <path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z"/>
-        <path fill-rule="evenodd" d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm3 4a1 1 0 000 2h.01a1 1 0 100-2H7zm3 0a1 1 0 000 2h3a1 1 0 100-2h-3zm-3 4a1 1 0 100 2h.01a1 1 0 100-2H7zm3 0a1 1 0 100 2h3a1 1 0 100-2h-3z" clip-rule="evenodd"/>
-      </svg>
-      View Complete Summary
-    <% end %>
-  </div>
-<% end %>
 
 <%# Modal container %>
 <%= turbo_frame_tag "modal" %>
