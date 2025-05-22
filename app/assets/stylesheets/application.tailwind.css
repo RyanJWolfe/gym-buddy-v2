@@ -26,7 +26,7 @@
     @apply bg-emerald-600 text-white hover:bg-emerald-700
   }
   .btn-secondary {
-    @apply bg-gray-300 hover:bg-gray-400 text-black
+    @apply bg-gray-200 hover:bg-gray-300 text-black
   }
   .btn-tertiary {
     @apply text-gray-700 bg-white border border-gray-300 hover:bg-gray-50
