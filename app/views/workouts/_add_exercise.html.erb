@@ -2,7 +2,7 @@
   <div class="flex items-center justify-center">
     <%= link_to "Add Exercise", new_workout_exercise_log_path(@workout),
                 data: { turbo_frame: "modal", turbo_stream: true },
-                class: "btn btn-primary" %>
+                class: "text-center btn btn-primary w-full sm:w-fit" %>
   </div>
 <% else %>
   <p class="text-gray-500 text-center py-4 flex flex-col items-center justify-center gap-y-2">
