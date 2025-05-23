@@ -13,19 +13,20 @@
       </div>
     <% end %>
 
-    <hr class="my-4 border-gray-300" />
+<!--    <hr class="my-4 border-gray-300" />-->
 
     <%# Exercises section %>
-    <div class="flex flex-col gap-y-4">
+    <div class="flex flex-col gap-y-4 bg-white rounded-xl shadow p-4 mb-6">
       <div class="flex justify-between items-center">
         <h2 class="text-xl font-medium">Exercises</h2>
         <%= link_to edit_workout_path(@workout), class: "btn btn-primary" do %>
           Edit Exercises
         <% end %>
       </div>
+      <hr class="border-gray-300 -mx-4 -mb-4" />
 
       <% if @exercise_logs.any? %>
-        <div class="flex flex-col gap-4 grid grid-cols-1 md:grid-cols-2" id="exercise-logs">
+        <div class="flex flex-col gap-4 grid grid-cols-1 divide-y divide-gray-300" id="exercise-logs">
           <%= render partial: "exercise_logs/exercise_log", collection: @exercise_logs, locals: { editing: false } %>
         </div>
       <% else %>
