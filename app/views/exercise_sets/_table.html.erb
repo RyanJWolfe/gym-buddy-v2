@@ -24,10 +24,10 @@
 
   <% if local_assigns[:editing] %>
     <% if exercise_log.sets.any? %>
-      <div class="mt-2 text-center">
+      <div class="mt-2 flex justify-center sm:justify-end">
         <%= link_to new_workout_exercise_log_exercise_set_path(workout, exercise_log),
                     data: { turbo_stream: true },
-                    class: "inline-flex items-center btn btn-secondary gap-x-2 w-full sm:max-w-64 justify-center" do %>
+                    class: "btn btn-icon btn-secondary w-full sm:w-fit" do %>
           <%= inline_svg_tag "icons/plus.svg", class: "h-4 w-4" %>
           Add Set
         <% end %>
