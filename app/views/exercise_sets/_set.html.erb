@@ -2,7 +2,7 @@
   <td class="px-3 py-1 lg:py-2 text-sm text-gray-900"><%= set.set_number %></td>
   <td class="px-3 py-1 lg:py-2 text-sm text-gray-900"><%= format_weight(set.weight) %> kg</td>
   <td class="px-3 py-1 lg:py-2 text-sm text-gray-900"><%= set.reps %></td>
-  <td class="px-3 py-1 lg:py-2 text-sm text-gray-500"><%= set.rest_seconds ? "#{set.rest_seconds}s" : "-" %></td>
+  <td class="px-3 py-1 lg:py-2 text-sm text-gray-500 text-right sm:text-left"><%= set.rest_seconds ? "#{set.rest_seconds}s" : "-" %></td>
   <td class="px-3 py-1 lg:py-2 text-sm text-gray-500 hidden sm:table-cell"><%= set.notes.present? ? truncate(set.notes, length: 20) : "-" %></td>
   <td class="px-3 py-1 lg:py-2 text-right text-sm <%= local_assigns[:editing] ? "hidden sm:table-cell" : "hidden" %>">
     <div class="flex justify-end gap-2">
