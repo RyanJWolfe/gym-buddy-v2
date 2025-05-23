@@ -26,7 +26,7 @@
     <div class="mt-2 text-center">
       <%= link_to new_workout_exercise_log_exercise_set_path(workout, exercise_log),
                   data: { turbo_stream: true },
-                  class: "inline-flex items-center btn btn-secondary gap-x-2 w-full sm:w-fit justify-center" do %>
+                  class: "inline-flex items-center btn btn-secondary gap-x-2 w-full sm:max-w-64 justify-center" do %>
         <%= inline_svg_tag "icons/plus.svg", class: "h-4 w-4" %>
         Add Set
       <% end %>
@@ -36,7 +36,7 @@
       <p class="">No sets recorded yet</p>
       <%= link_to new_workout_exercise_log_exercise_set_path(workout, exercise_log),
                   data: { turbo_stream: true },
-                  class: "btn btn-secondary w-full sm:w-fit" do %>
+                  class: "btn btn-secondary w-full sm:max-w-64" do %>
         <%= inline_svg_tag "icons/plus.svg", class: "mr-1.5 inline h-4 w-4" %>
         <span>Add your first set</span>
       <% end %>

@@ -2,13 +2,13 @@
   <div class="flex items-center justify-center">
     <%= link_to "Add Exercise", new_workout_exercise_log_path(@workout),
                 data: { turbo_frame: "modal", turbo_stream: true },
-                class: "text-center btn btn-primary w-full sm:w-fit" %>
+                class: "text-center btn btn-primary w-full sm:max-w-64" %>
   </div>
 <% else %>
   <p class="text-gray-500 text-center py-4 flex flex-col items-center justify-center gap-y-2">
     No exercises yet.
     <%= link_to "Add your first exercise", new_workout_exercise_log_path(@workout),
                 data: { turbo_frame: "modal", turbo_stream: true },
-                class: "btn btn-secondary w-full sm:w-fit" %>
+                class: "btn btn-secondary w-full sm:max-w-64" %>
   </p>
 <% end %>

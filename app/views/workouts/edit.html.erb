@@ -39,12 +39,12 @@
     </div>
   </div>
 
-  <hr class="my-4 border-gray-300"/>
+  <p class="my-1 text-center">or</p>
 
 
   <% unless @workout.in_progress? %>
-    <div class="mt-4 text-center">
-      <%= link_to workout_path(@workout), class: "inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" do %>
+    <div>
+      <%= link_to workout_path(@workout), class: "btn btn-green w-full sm:max-w-64 flex items-center justify-center" do %>
         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1.5" viewBox="0 0 20 20" fill="currentColor">
           <path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z"/>
           <path fill-rule="evenodd" d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm3 4a1 1 0 000 2h.01a1 1 0 100-2H7zm3 0a1 1 0 000 2h3a1 1 0 100-2h-3zm-3 4a1 1 0 100 2h.01a1 1 0 100-2H7zm3 0a1 1 0 100 2h3a1 1 0 100-2h-3z" clip-rule="evenodd"/>
@@ -57,7 +57,7 @@
   <% if @workout.in_progress? %>
     <%= form_for @workout, url: workout_path(@workout), method: :patch, html: { class: "flex items-center justify-center" } do |f| %>
       <%= f.hidden_field :status, value: "completed" %>
-      <%= button_tag type: 'submit', class: "btn btn-green w-full sm:w-fit" do %>
+      <%= button_tag type: 'submit', class: "btn btn-green w-full sm:max-w-64" do %>
         <svg xmlns="http://www.w3.org/2000/svg" class="inline h-4 w-4 mr-1.5" viewBox="0 0 20 20" fill="currentColor">
           <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
         </svg>
