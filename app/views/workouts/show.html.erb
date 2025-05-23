@@ -1,19 +1,16 @@
 <% content_for :title, "Showing workout" %>
 
-<%# Mobile-first workout details page %>
 <div class="max-w-4xl mx-auto">
-  <div class="mb-6">
+  <div class="flex flex-col gap-y-2 md:gap-y-4">
     <%= render "header", workout: @workout %>
     <%= render "stats_cards", workout: @workout, exercise_logs: @exercise_logs %>
 
     <% if @workout.notes.present? %>
-      <div class="bg-white rounded-xl shadow p-4 mb-6">
+      <div class="bg-white rounded-xl shadow p-4">
         <h2 class="text-lg font-semibold mb-2">Notes</h2>
         <p class="text-gray-700 whitespace-pre-wrap"><%= @workout.notes %></p>
       </div>
     <% end %>
-
-<!--    <hr class="my-4 border-gray-300" />-->
 
     <%# Exercises section %>
     <div class="flex flex-col gap-y-4 bg-white rounded-xl shadow p-4 mb-6">
@@ -40,7 +37,7 @@
   </div>
 
   <%# Delete workout button %>
-  <div class="mt-6 text-center">
+  <div class="text-center">
     <%= button_to workout_path(@workout),
                   method: :delete,
                   class: "inline-flex items-center justify-center text-red-600 hover:text-red-800 font-medium",
