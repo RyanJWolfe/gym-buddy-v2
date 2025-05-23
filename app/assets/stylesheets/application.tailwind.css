@@ -16,6 +16,9 @@
   .btn {
     @apply inline-block px-4 py-2 rounded-lg cursor-pointer font-medium text-sm;
   }
+  .btn-icon {
+    @apply inline-flex items-center justify-center gap-x-1.5
+  }
   .btn-lg {
     @apply inline-block px-6 py-3 rounded-lg cursor-pointer text-lg;
   }
