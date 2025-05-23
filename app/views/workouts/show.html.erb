@@ -24,7 +24,7 @@
 
       <% if @exercise_logs.any? %>
         <div class="flex flex-col gap-4 grid grid-cols-1 md:grid-cols-2" id="exercise-logs">
-          <%= render partial: "exercise_logs/exercise_log", collection: @exercise_logs, locals: { workout: @workout, editing: false } %>
+          <%= render partial: "exercise_logs/exercise_log", collection: @exercise_logs, locals: { editing: false } %>
         </div>
       <% else %>
         <div class="text-center py-8">
