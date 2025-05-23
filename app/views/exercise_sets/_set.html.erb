@@ -4,7 +4,7 @@
   <td class="px-3 py-1 lg:py-2 text-sm text-gray-900"><%= set.reps %></td>
   <td class="px-3 py-1 lg:py-2 text-sm text-gray-500"><%= set.rest_seconds ? "#{set.rest_seconds}s" : "-" %></td>
   <td class="px-3 py-1 lg:py-2 text-sm text-gray-500 hidden sm:table-cell"><%= set.notes.present? ? truncate(set.notes, length: 20) : "-" %></td>
-  <td class="px-3 py-1 lg:py-2 text-right text-sm">
+  <td class="px-3 py-1 lg:py-2 text-right text-sm <%= local_assigns[:editing] ? "hidden sm:table-cell" : "hidden" %>">
     <div class="flex justify-end gap-2">
       <%= link_to edit_workout_exercise_log_exercise_set_path(workout, exercise_log, set),
                   data: { turbo_stream: true },

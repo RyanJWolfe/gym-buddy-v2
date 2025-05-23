@@ -11,35 +11,37 @@
             <th class="px-3 py-1 lg:py-2 text-left text-xs font-medium uppercase">Reps</th>
             <th class="px-3 py-1 lg:py-2 text-left text-xs font-medium uppercase">Rest</th>
             <th class="px-3 py-1 lg:py-2 text-left text-xs font-medium uppercase hidden sm:table-cell">Notes</th>
-            <th class="px-3 py-1 lg:py-2 text-right text-xs font-medium uppercase">Actions</th>
+            <th class="px-3 py-1 lg:py-2 text-right text-xs font-medium uppercase <%= local_assigns[:editing] ? "hidden sm:table-cell" : "hidden" %>">Actions</th>
           </tr>
           </thead>
           <tbody id="<%= dom_id(exercise_log, :sets_table_row) %>" class="divide-y divide-gray-200">
-          <%= render partial: "exercise_sets/set", collection: exercise_log.sets, locals: { workout: workout, exercise_log: exercise_log } %>
+          <%= render partial: "exercise_sets/set", collection: exercise_log.sets, locals: { workout: workout, exercise_log: exercise_log, editing: local_assigns[:editing] } %>
           </tbody>
         </table>
       </div>
     </div>
   <% end %>
 
-  <% if exercise_log.sets.any? %>
-    <div class="mt-2 text-center">
-      <%= link_to new_workout_exercise_log_exercise_set_path(workout, exercise_log),
-                  data: { turbo_stream: true },
-                  class: "inline-flex items-center btn btn-secondary gap-x-2 w-full sm:max-w-64 justify-center" do %>
-        <%= inline_svg_tag "icons/plus.svg", class: "h-4 w-4" %>
-        Add Set
-      <% end %>
-    </div>
-  <% else %>
-    <div class="text-gray-500 text-center py-4 flex flex-col items-center justify-center gap-y-2">
-      <p class="">No sets recorded yet</p>
-      <%= link_to new_workout_exercise_log_exercise_set_path(workout, exercise_log),
-                  data: { turbo_stream: true },
-                  class: "btn btn-secondary w-full sm:max-w-64" do %>
-        <%= inline_svg_tag "icons/plus.svg", class: "mr-1.5 inline h-4 w-4" %>
-        <span>Add your first set</span>
-      <% end %>
-    </div>
+  <% if local_assigns[:editing] %>
+    <% if exercise_log.sets.any? %>
+      <div class="mt-2 text-center">
+        <%= link_to new_workout_exercise_log_exercise_set_path(workout, exercise_log),
+                    data: { turbo_stream: true },
+                    class: "inline-flex items-center btn btn-secondary gap-x-2 w-full sm:max-w-64 justify-center" do %>
+          <%= inline_svg_tag "icons/plus.svg", class: "h-4 w-4" %>
+          Add Set
+        <% end %>
+      </div>
+    <% else %>
+      <div class="text-gray-500 text-center py-4 flex flex-col items-center justify-center gap-y-2">
+        <p class="">No sets recorded yet</p>
+        <%= link_to new_workout_exercise_log_exercise_set_path(workout, exercise_log),
+                    data: { turbo_stream: true },
+                    class: "btn btn-secondary w-full sm:max-w-64" do %>
+          <%= inline_svg_tag "icons/plus.svg", class: "mr-1.5 inline h-4 w-4" %>
+          <span>Add your first set</span>
+        <% end %>
+      </div>
+    <% end %>
   <% end %>
 </div>

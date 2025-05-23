@@ -14,22 +14,22 @@
     <% end %>
 
     <%# Exercises section %>
-    <div class="bg-white rounded-xl shadow overflow-hidden">
-      <div class="flex justify-between items-center p-4 border-b">
-        <h2 class="text-lg font-semibold">Exercises</h2>
-        <%= link_to new_workout_exercise_log_path(@workout), class: "bg-indigo-600 text-white px-3 py-1.5 text-sm rounded-lg hover:bg-indigo-700 transition-colors" do %>
-          Add Exercise
+    <div class="flex flex-col gap-y-4">
+      <div class="flex justify-between items-center">
+        <h2 class="text-xl font-medium">Exercises</h2>
+        <%= link_to edit_workout_path(@workout), class: "btn btn-primary" do %>
+          Edit Exercises
         <% end %>
       </div>
 
       <% if @exercise_logs.any? %>
-        <div class="divide-y" id="exercise-logs">
-          <%= render partial: "exercise_logs/exercise_log", collection: @exercise_logs, locals: { workout: @workout } %>
+        <div class="flex flex-col gap-4 grid grid-cols-1 md:grid-cols-2" id="exercise-logs">
+          <%= render partial: "exercise_logs/exercise_log", collection: @exercise_logs, locals: { workout: @workout, editing: false } %>
         </div>
       <% else %>
         <div class="text-center py-8">
           <p class="text-gray-500 mb-4">No exercises added to this workout yet</p>
-          <%= link_to "Add your first exercise", new_workout_exercise_log_path(@workout), class: "btn btn-secondary" %>
+          <%= link_to "Add your first exercise", edit_workout_path(@workout), class: "btn btn-secondary" %>
         </div>
       <% end %>
     </div>
