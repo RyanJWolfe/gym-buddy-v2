@@ -5,7 +5,7 @@
       <div class="inline-block min-w-full align-middle">
         <table class="min-w-full divide-y divide-gray-200">
           <thead>
-          <tr class="">
+          <tr>
             <th class="px-3 py-1 lg:py-2 text-left text-xs font-medium uppercase">Set</th>
             <th class="px-3 py-1 lg:py-2 text-left text-xs font-medium uppercase">Weight</th>
             <th class="px-3 py-1 lg:py-2 text-left text-xs font-medium uppercase">Reps</th>
@@ -14,7 +14,7 @@
             <th class="px-3 py-1 lg:py-2 text-right text-xs font-medium uppercase <%= local_assigns[:editing] ? "hidden sm:table-cell" : "hidden" %>">Actions</th>
           </tr>
           </thead>
-          <tbody id="<%= dom_id(exercise_log, :sets_table_row) %>" class="divide-y divide-gray-200">
+          <tbody id="<%= dom_id(exercise_log, :sets_table_row) %>">
           <%= render partial: "exercise_sets/set", collection: exercise_log.sets, locals: { workout: workout, exercise_log: exercise_log, editing: local_assigns[:editing] } %>
           </tbody>
         </table>
