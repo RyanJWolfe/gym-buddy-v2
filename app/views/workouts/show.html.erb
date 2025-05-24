@@ -13,7 +13,7 @@
     <% end %>
 
     <%# Exercises section %>
-    <div class="flex flex-col gap-y-4 bg-white rounded-xl shadow p-4">
+    <div class="flex flex-col ga-y-2 bg-white rounded-xl shadow p-4">
       <div class="flex justify-between items-center">
         <h2 class="text-xl font-medium">Exercises</h2>
         <%= link_to edit_workout_path(@workout), class: "text-indigo-600 hover:text-indigo-800 hover:underline" do %>
@@ -21,7 +21,7 @@
         <% end %>
       </div>
 
-      <hr class="border-gray-200 -mx-4 -mb-4" />
+      <hr class="border-gray-200 -mx-4 mt-4" />
 
       <% if @exercise_logs.any? %>
         <div class="grid grid-cols-1 divide-y divide-gray-200" id="exercise-logs">
