@@ -5,14 +5,16 @@
     <%= render "header", workout: @workout %>
     <%= render "stats_cards", workout: @workout, exercise_logs: @exercise_logs %>
 
-    <hr class="border-gray-300 mt-1" />
+    <hr class="border-gray-300 mt-1 -mx-4 sm:mx-0"/>
 
     <%# Exercises section %>
     <div class="flex flex-col gap-y-4">
       <div class="flex justify-between items-center">
         <h2 class="text-xl font-medium">Exercises</h2>
-        <%= link_to edit_workout_path(@workout), class: "btn btn-primary" do %>
-          Edit Exercises
+        <% if @exercise_logs.any? %>
+          <%= link_to edit_workout_path(@workout), class: "btn btn-primary" do %>
+            Edit Exercises
+          <% end %>
         <% end %>
       </div>
 
@@ -22,13 +24,15 @@
           <%= render partial: "exercise_logs/exercise_log", collection: @exercise_logs, locals: { editing: false } %>
         </div>
       <% else %>
-        <div class="text-center py-8">
+        <div class="text-center">
           <p class="text-gray-500 mb-4">No exercises added to this workout yet</p>
-          <%= link_to "Add your first exercise", edit_workout_path(@workout), class: "btn btn-tertiary" %>
+          <%= link_to "Add your first exercise", edit_workout_path(@workout), class: "btn btn-primary" %>
         </div>
       <% end %>
     </div>
   </div>
+
+  <hr class="border-gray-300 -mx-4 sm:mx-0"/>
 
   <%# Delete workout button %>
   <div class="text-center">
