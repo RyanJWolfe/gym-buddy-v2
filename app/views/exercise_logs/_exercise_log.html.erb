@@ -5,18 +5,18 @@
     <div class="flex flex-col gap-y-1">
       <h3 class="text-lg text-gray-900"><%= exercise_log.exercise.name %></h3>
       <div class="flex flex-wrap gap-2">
-        <span class="inline-flex items-center rounded-full text-xs font-medium text-blue-700">
+        <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-blue-50 text-blue-700">
           <%= inline_svg_tag "icons/book.svg", class: "h-3.5 w-3.5 mr-1" %>
           <%= exercise_log.exercise.category %>
         </span>
 
-        <span class="inline-flex items-center rounded-full text-xs font-medium text-purple-700">
+        <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-purple-50 text-purple-700">
           <%= inline_svg_tag "icons/triangle.svg", class: "h-3.5 w-3.5 mr-1" %>
           <%= exercise_log.exercise.equipment_type %>
         </span>
 
         <% if exercise_log.equipment_brand.present? %>
-          <span class="inline-flex items-center rounded-full text-xs font-medium text-green-700">
+          <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-green-50 text-green-700">
             <%= inline_svg_tag "icons/tag.svg", class: "h-3.5 w-3.5 mr-1" %>
             <%= exercise_log.equipment_brand %>
           </span>
