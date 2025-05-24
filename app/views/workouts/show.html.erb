@@ -1,6 +1,6 @@
 <% content_for :title, "Showing workout" %>
 
-<div class="max-w-4xl mx-auto">
+<div class="max-w-4xl mx-auto space-y-6">
   <div class="flex flex-col gap-y-2 md:gap-y-4">
     <%= render "header", workout: @workout %>
     <%= render "stats_cards", workout: @workout, exercise_logs: @exercise_logs %>
@@ -13,7 +13,7 @@
     <% end %>
 
     <%# Exercises section %>
-    <div class="flex flex-col gap-y-4 bg-white rounded-xl shadow p-4 mb-6">
+    <div class="flex flex-col gap-y-4 bg-white rounded-xl shadow p-4">
       <div class="flex justify-between items-center">
         <h2 class="text-xl font-medium">Exercises</h2>
         <%= link_to edit_workout_path(@workout), class: "text-indigo-600 hover:text-indigo-800 hover:underline" do %>
