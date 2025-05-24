@@ -24,7 +24,7 @@
 
   <% if local_assigns[:editing] %>
     <% if exercise_log.sets.any? %>
-      <div class="mt-2 flex justify-center sm:justify-start">
+      <div class="mt-2 flex justify-center sm:justify-end">
         <%= link_to new_workout_exercise_log_exercise_set_path(workout, exercise_log),
                     data: { turbo_stream: true },
                     class: "btn btn-icon btn-tertiary w-full sm:w-fit" do %>
