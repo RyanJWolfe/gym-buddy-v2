@@ -4,8 +4,8 @@
   <%# Header with workout name and status %>
   <div class="">
     <div class="flex flex-col gap-y-2">
-      <div class="flex items-center gap-x-2">
-        <%= link_to "←", workout_path(@workout), class: "text-2xl" %>
+      <div class="flex items-center">
+        <%= render 'shared/back_button', path: workout_path(@workout) %>
         <h1 class="text-2xl font-bold"><%= @workout.name %> <%= render_sequence_number(@workout) %></h1>
       </div>
 
