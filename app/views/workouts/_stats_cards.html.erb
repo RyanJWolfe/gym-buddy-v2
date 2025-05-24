@@ -1,5 +1,5 @@
 <%# Stats cards %>
-<div class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-2 md:gap-4">
+<div class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4">
   <div class="bg-white rounded-xl shadow-sm p-3 sm:p-4">
     <p class="text-sm sm:text-base text-gray-600 mb-1">Total Volume</p>
     <p class="text-lg sm:text-xl lg:text-2xl font-semibold text-indigo-600"><%= number_with_delimiter(format_weight(workout.total_volume)) %> kg</p>
@@ -19,4 +19,11 @@
     <p class="text-sm sm:text-base text-gray-600 mb-1">Sets</p>
     <p class="text-lg sm:text-xl lg:text-2xl font-semibold text-indigo-600"><%= exercise_logs.sum(&:total_sets) %></p>
   </div>
+
+  <% if @workout.notes.present? %>
+    <div class="bg-white rounded-xl shadow p-4 col-span-full">
+      <h2 class="text-lg font-semibold mb-1">Notes</h2>
+      <p class="text-sm md:text-base font-light whitespace-pre-wrap"><%= @workout.notes %></p>
+    </div>
+  <% end %>
 </div> 
