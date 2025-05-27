@@ -74,7 +74,7 @@ class WorkoutsController < ApplicationController
     max_sequence = @source_workout.template_family.maximum(:sequence_number) || 0
 
     # clone the workout
-    @workout = @source_workout.amoeba_dup
+    @workout = @source_workout.amoeba_dup # TODO: potential n+1 query here
     @workout.date = Date.current
     @workout.start_time = Time.current
     @workout.end_time = nil
