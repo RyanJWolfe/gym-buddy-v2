@@ -34,6 +34,40 @@
             </div>
           </div>
         </div>
+      <% elsif @workout.completed? && @workout.start_time.present? %>
+        <div class="flex flex-col sm:flex-row sm:items-center gap-2 mt-1">
+          <div class="px-2 py-1 bg-green-100 text-green-700 rounded-md inline-flex items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+            </svg>
+            <span class="font-medium">Completed</span>
+          </div>
+
+          <div class="text-gray-600 text-sm flex items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            Started: <%= format_time(@workout.start_time) %>
+          </div>
+
+          <% if @workout.end_time.present? %>
+            <div class="text-gray-600 text-sm flex items-center">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              Ended: <%= format_time(@workout.end_time) %>
+            </div>
+
+            <div class="text-gray-600 text-sm flex items-center">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              <div class="space-x-1">
+                Duration: <%= format_duration(@workout.end_time - @workout.start_time) %>
+              </div>
+            </div>
+          <% end %>
+        </div>
       <% end %>
 
       <% if @workout.notes.present? %>

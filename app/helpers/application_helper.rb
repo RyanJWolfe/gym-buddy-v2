@@ -52,8 +52,10 @@ module ApplicationHelper
     end
   end
 
+  # Format time to display in 12-hour format with AM/PM
   def format_time(time)
     return nil if time.nil?
+
     time.strftime("%l:%M %p").strip
   end
 end
