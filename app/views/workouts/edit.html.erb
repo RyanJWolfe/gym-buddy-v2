@@ -9,6 +9,33 @@
         <h1 class="text-2xl font-bold"><%= @workout.name %> <%= render_sequence_number(@workout) %></h1>
       </div>
 
+      <% if @workout.in_progress? %>
+        <div class="flex flex-col sm:flex-row sm:items-center gap-2 mt-1">
+          <div class="px-2 py-1 bg-blue-100 text-blue-700 rounded-md inline-flex items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+            </svg>
+            <span class="font-medium">In Progress</span>
+          </div>
+
+          <div class="text-gray-600 text-sm flex items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            Started at: <%= format_time(@workout.start_time) %>
+          </div>
+
+          <div class="text-gray-600 text-sm flex items-center" data-controller="workout-timer" data-workout-timer-start-value="<%= @workout.start_time.to_i %>">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <div class="space-x-1">
+              Duration: <span data-workout-timer-target="display">00:00:00</span>
+            </div>
+          </div>
+        </div>
+      <% end %>
+
       <% if @workout.notes.present? %>
         <p class="text-gray-600 text-sm">
           <%= @workout.notes %>
