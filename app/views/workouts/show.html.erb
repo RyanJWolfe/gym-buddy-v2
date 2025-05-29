@@ -1,6 +1,6 @@
 <% content_for :title, "Showing workout" %>
 
-<div class="max-w-4xl mx-auto space-y-6">
+<div class="max-w-4xl mx-auto space-y-4">
   <div class="flex flex-col gap-y-4">
     <%= render "header", workout: @workout %>
     <%= render "stats_cards", workout: @workout, exercise_logs: @exercise_logs %>
