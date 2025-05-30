@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_05_15_193054) do
+ActiveRecord::Schema[8.0].define(version: 2025_05_30_173416) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -53,6 +53,32 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_15_193054) do
     t.index ["name"], name: "index_exercises_on_name", unique: true
   end
 
+  create_table "routine_exercises", force: :cascade do |t|
+    t.bigint "routine_id", null: false
+    t.bigint "exercise_id", null: false
+    t.integer "position", default: 0, null: false
+    t.integer "suggested_sets", default: 3, null: false
+    t.integer "suggested_reps", default: 10, null: false
+    t.integer "rest_seconds"
+    t.text "notes"
+    t.string "equipment_brand"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["exercise_id"], name: "index_routine_exercises_on_exercise_id"
+    t.index ["routine_id", "position"], name: "index_routine_exercises_on_routine_id_and_position"
+    t.index ["routine_id"], name: "index_routine_exercises_on_routine_id"
+  end
+
+  create_table "routines", force: :cascade do |t|
+    t.string "name", null: false
+    t.text "description"
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id", "name"], name: "index_routines_on_user_id_and_name"
+    t.index ["user_id"], name: "index_routines_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -85,7 +111,9 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_15_193054) do
     t.string "template_name"
     t.integer "sequence_number", default: 1
     t.integer "exercise_logs_count", default: 0, null: false
+    t.bigint "routine_id"
     t.index ["date"], name: "index_workouts_on_date"
+    t.index ["routine_id"], name: "index_workouts_on_routine_id"
     t.index ["template_id"], name: "index_workouts_on_template_id"
     t.index ["user_id"], name: "index_workouts_on_user_id"
   end
@@ -93,6 +121,10 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_15_193054) do
   add_foreign_key "exercise_logs", "exercises"
   add_foreign_key "exercise_logs", "workouts"
   add_foreign_key "exercise_sets", "exercise_logs"
+  add_foreign_key "routine_exercises", "exercises"
+  add_foreign_key "routine_exercises", "routines"
+  add_foreign_key "routines", "users"
+  add_foreign_key "workouts", "routines"
   add_foreign_key "workouts", "users"
   add_foreign_key "workouts", "workouts", column: "template_id"
 end
