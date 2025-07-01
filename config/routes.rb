@@ -17,6 +17,12 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :routines do
+    resources :routine_exercises, except: [:index, :show] do
+      resources :exercises, only: [:new, :create]
+    end
+  end
+
   resources :exercises
 
   get "dashboard", to: "dashboard#index"

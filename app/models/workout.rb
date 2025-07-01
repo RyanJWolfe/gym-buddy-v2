@@ -10,7 +10,7 @@ class Workout < ApplicationRecord
 
   enum :status, [:in_progress, :completed]
 
-  validates :name, presence: true
+  validates :name, presence: true # TODO
   validates :date, presence: true
   validates :start_time, presence: true, if: :logged_workout?
   validates :end_time, presence: true, if: :logged_workout?

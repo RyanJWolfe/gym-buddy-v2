@@ -1,0 +1,62 @@
+<% content_for :title, @routine.name %>
+
+<div class="max-w-4xl mx-auto">
+  <div class="flex justify-between items-center mb-6">
+    <h1 class="text-2xl font-bold"><%= @routine.name %></h1>
+    <div class="flex space-x-4">
+      <%= link_to "Edit", edit_routine_path(@routine), class: "px-4 py-2 border border-gray-300 rounded text-gray-700 bg-white hover:bg-gray-50" %>
+      <%= button_to "Start Workout", start_workout_routine_path(@routine), method: :post,
+          class: "px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500" %>
+    </div>
+  </div>
+
+  <div class="bg-white rounded-lg shadow p-6 mb-6">
+    <div class="prose max-w-none">
+      <p><%= simple_format @routine.description %></p>
+    </div>
+  </div>
+
+  <div class="bg-white rounded-lg shadow overflow-hidden">
+    <div class="px-6 py-4 border-b border-gray-200">
+      <h2 class="text-lg font-semibold">Exercises (<%= @routine_exercises.count %>)</h2>
+    </div>
+
+    <% if @routine_exercises.any? %>
+      <div class="divide-y divide-gray-200">
+        <% @routine_exercises.each do |routine_exercise| %>
+          <div class="px-6 py-4">
+            <div class="flex flex-col md:flex-row md:justify-between md:items-center">
+              <div class="flex-1">
+                <h3 class="font-medium"><%= routine_exercise.exercise.name %></h3>
+                <div class="text-sm text-gray-500 mt-1">
+                  <%= routine_exercise.exercise.category %> • <%= routine_exercise.exercise.equipment_type %>
+                </div>
+              </div>
+              <div class="flex items-center mt-3 md:mt-0">
+                <span class="px-3 py-1 bg-gray-100 rounded-lg text-gray-700 text-sm">
+                  <%= pluralize(routine_exercise.suggested_sets, 'set') %> × <%= routine_exercise.suggested_reps %> reps
+                </span>
+                <% if routine_exercise.rest_seconds.present? %>
+                  <span class="ml-3 px-3 py-1 bg-gray-100 rounded-lg text-gray-700 text-sm">
+                    <%= routine_exercise.rest_seconds %>s rest
+                  </span>
+                <% end %>
+              </div>
+            </div>
+
+            <% if routine_exercise.notes.present? %>
+              <div class="mt-3 text-sm text-gray-600">
+                <%= simple_format routine_exercise.notes %>
+              </div>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+    <% else %>
+      <div class="p-6 text-center text-gray-500">
+        No exercises in this routine yet.
+        <%= link_to "Edit routine", edit_routine_path(@routine), class: "text-indigo-600" %> to add exercises.
+      </div>
+    <% end %>
+  </div>
+</div>

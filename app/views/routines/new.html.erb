@@ -1,0 +1,39 @@
+<% content_for :title, "New Routine" %>
+
+<div class="max-w-2xl mx-auto">
+  <h1 class="text-2xl font-bold mb-6">Create New Routine</h1>
+
+  <%= form_with model: @routine do |form| %>
+    <% if @routine.errors.any? %>
+      <div class="mb-4 p-4 bg-red-50 border-l-4 border-red-400 text-red-700">
+        <h2 class="text-lg font-medium"><%= pluralize(@routine.errors.count, "error") %> prohibited this routine from being saved:</h2>
+        <ul class="list-disc pl-5 mt-2">
+          <% @routine.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div>
+      <%= form.text_field :name, placeholder: "Routine name", autofocus: true, class: "form-input" %>
+    </div>
+
+    <hr class="text-gray-200 my-6">
+
+    <% if @routine.routine_exercises.any? %>
+      <div class="flex items-center justify-center">
+        <%= link_to "Add Exercise", root_path,
+                    data: { turbo_frame: "modal", turbo_stream: true },
+                    class: "text-center btn btn-primary w-full sm:max-w-64" %>
+      </div>
+    <% else %>
+      <p class="text-gray-500 text-center flex flex-col items-center justify-center gap-y-2">
+        No exercises yet.
+        <%= link_to "Add your first exercise", root_path,
+                    data: { turbo_frame: "modal", turbo_stream: true },
+                    class: "btn btn-primary w-full sm:max-w-64" %>
+      </p>
+    <% end %>
+  <% end %>
+</div>
