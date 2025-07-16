@@ -1,0 +1,19 @@
+<%= form_with model: @routine, html: {
+  class: "flex flex-col gap-y-4",
+  data: {
+    controller: "autosave",
+    "autosave-model-value": "routine",
+    "autosave-url-value": routine_path(@routine),
+    "autosave-debounce-value": 500,
+    "autosave-method-value": "PATCH"
+  }
+} do |f| %>
+  <div>
+    <%= f.label :name, "Name", class: "form-label" %>
+    <%= f.text_field :name, class: "form-input" %>
+  </div>
+  <div>
+    <%= f.label :description, "Description", class: "form-label" %>
+    <%= f.text_area :description, class: "form-input" %>
+  </div>
+<% end %>

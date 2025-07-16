@@ -3,27 +3,7 @@
 <div class="max-w-4xl mx-auto">
   <h1 class="text-2xl font-bold mb-6">Edit Routine</h1>
 
-  <div class="">
-    <%= form_with model: @routine, html: {
-      class: "flex flex-col gap-y-4",
-      data: {
-        controller: "autosave",
-        "autosave-model-value": "routine",
-        "autosave-url-value": routine_path(@routine),
-        "autosave-debounce-value": 500,
-        "autosave-method-value": "PATCH"
-      }
-    } do |f| %>
-      <div>
-        <%= f.label :name, "Name", class: "form-label" %>
-        <%= f.text_field :name, class: "form-input" %>
-      </div>
-      <div>
-        <%= f.label :description, "Description", class: "form-label" %>
-        <%= f.text_area :description, class: "form-input" %>
-      </div>
-    <% end %>
-  </div>
+  <%= render 'form' %>
 
   <div class="bg-white rounded-lg shadow mb-8">
     <div class="px-6 py-4 border-b border-gray-200 flex justify-between items-center">
