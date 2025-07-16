@@ -4,7 +4,7 @@ class Routine < ApplicationRecord
   has_many :exercises, through: :routine_exercises
   has_many :workouts
 
-  validates :name, presence: true
+  validates :name, presence: true, unless: :draft?
   validates :description, presence: true
 
   scope :recent, -> { order(updated_at: :desc) }
