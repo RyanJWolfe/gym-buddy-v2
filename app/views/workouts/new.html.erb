@@ -9,16 +9,16 @@
     <% end %>
 
     <h3 class="font-semibold text-xl">Programs & Routines</h3>
-    <div class="flex items-center gap-x-4">
+    <div class="grid grid-cols-2 items-center gap-x-4">
 
-    <%= link_to new_routine_path, class: "btn btn-icon btn-tertiary w-full" do %>
-      <%= inline_svg_tag "icons/book.svg", class: "h-4 w-4" %>
-      <span>New Program</span>
-    <% end %>
-    <%= link_to new_routine_path, class: "btn btn-icon btn-tertiary w-full" do %>
-      <%= inline_svg_tag "icons/clipboard.svg", class: "h-4 w-4" %>
-      <span>New Routine</span>
-    <% end %>
+      <%= link_to new_routine_path, class: "btn btn-icon btn-tertiary flex-1" do %>
+        <%= inline_svg_tag "icons/book.svg", class: "h-4 w-4" %>
+        <span>New Program</span>
+      <% end %>
+      <%= button_to routines_path, method: :post, form_class: "flex-1", class: 'w-full btn btn-tertiary btn-icon' do %>
+        <%= inline_svg_tag "icons/clipboard.svg", class: "h-4 w-4" %>
+        <span>New Routine</span>
+      <% end %>
     </div>
 
     <h3 class="font-semibold text-xl"> General Routines (<%= current_user.routines.size %>)</h3>
