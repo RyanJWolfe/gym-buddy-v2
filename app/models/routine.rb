@@ -5,7 +5,6 @@ class Routine < ApplicationRecord
   has_many :workouts
 
   validates :name, presence: true, unless: :draft?
-  validates :description, presence: true
 
   scope :recent, -> { order(updated_at: :desc) }
 

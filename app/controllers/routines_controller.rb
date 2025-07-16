@@ -9,17 +9,16 @@ class RoutinesController < ApplicationController
     @routine_exercises = @routine.routine_exercises.includes(:exercise)
   end
 
-  def new
-    @routine = current_user.routines.build
-  end
-
   def create
-    @routine = current_user.routines.build(routine_params)
+    @routine = current_user.routines.create!(
+      name: "Untitled Routine",
+      draft: true
+    )
 
     if @routine.save
-      redirect_to edit_routine_path(@routine), notice: 'Routine was successfully created. Now add exercises.'
+      redirect_to edit_routine_path(@routine), notice: "Routine was successfully created. Now add exercises."
     else
-      render :new, status: :unprocessable_entity
+      redirect_back fallback_location: new_workout_path, alert: "Failed to create routine: #{@routine.errors.full_messages.join(', ')}"
     end
   end
 
@@ -29,7 +28,10 @@ class RoutinesController < ApplicationController
 
   def update
     if @routine.update(routine_params)
-      redirect_to @routine, notice: 'Routine was successfully updated.'
+      respond_to do |format|
+        format.html { redirect_to @routine, notice: "Routine was successfully updated." }
+        format.json { render json: { status: "ok" }, status: :ok }
+      end
     else
       render :edit, status: :unprocessable_entity
     end
@@ -37,7 +39,7 @@ class RoutinesController < ApplicationController
 
   def destroy
     @routine.destroy
-    redirect_to routines_path, notice: 'Routine was successfully deleted.'
+    redirect_to routines_path, notice: "Routine was successfully deleted."
   end
 
   # Start a new workout based on this routine
@@ -45,9 +47,9 @@ class RoutinesController < ApplicationController
     @workout = @routine.create_workout(current_user)
 
     if @workout
-      redirect_to edit_workout_path(@workout), notice: 'New workout started from routine!'
+      redirect_to edit_workout_path(@workout), notice: "New workout started from routine!"
     else
-      redirect_to @routine, alert: 'Failed to create workout from routine.'
+      redirect_to @routine, alert: "Failed to create workout from routine."
     end
   end
 
