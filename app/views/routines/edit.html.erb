@@ -1,113 +1,22 @@
 <% content_for :title, "Edit Routine: #{@routine.name}" %>
 
 <div class="max-w-4xl mx-auto">
-  <h1 class="text-2xl font-bold mb-6">Edit Routine</h1>
+  <h1 class="text-2xl font-bold mb-4">Edit Routine</h1>
 
   <%= render 'form' %>
 
-  <div class="bg-white rounded-lg shadow mb-8">
-    <div class="px-6 py-4 border-b border-gray-200 flex justify-between items-center">
-      <h2 class="text-lg font-semibold">Exercises in Routine</h2>
-      <button type="button" id="add-exercise-btn" class="px-3 py-1.5 bg-indigo-600 text-white rounded hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm">
-        Add Exercise
-      </button>
+  <div class="mt-4 flex flex-col gap-y-4">
+    <h2 class="text-xl font-semibold">Exercises</h2>
+
+    <% if @routine_exercises.any? %>
+      <div id="exercise-logs" class="space-y-4">
+        <%= render @routine_exercises %>
+      </div>
+    <% end %>
+
+    <div id="add-exercise-button">
+      <%= render 'add_exercise' %>
     </div>
-
-    <div id="exercise-form" class="hidden px-6 py-4 border-b border-gray-200 bg-gray-50">
-      <%= form_with model: [@routine, RoutineExercise.new], class: "space-y-4" do |f| %>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div>
-            <%= f.label :exercise_id, "Exercise", class: "block text-sm font-medium text-gray-700 mb-1" %>
-            <%= f.collection_select :exercise_id, Exercise.order(:name), :id, :name,
-                                    { prompt: "Select Exercise" },
-                                    { class: "w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50" } %>
-          </div>
-          <div class="grid grid-cols-2 gap-4">
-            <div>
-              <%= f.label :suggested_sets, "Sets", class: "block text-sm font-medium text-gray-700 mb-1" %>
-              <%= f.number_field :suggested_sets, min: 1, value: 3, class: "w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50" %>
-            </div>
-            <div>
-              <%= f.label :suggested_reps, "Reps", class: "block text-sm font-medium text-gray-700 mb-1" %>
-              <%= f.number_field :suggested_reps, min: 1, value: 10, class: "w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50" %>
-            </div>
-          </div>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div>
-            <%= f.label :rest_seconds, "Rest (seconds)", class: "block text-sm font-medium text-gray-700 mb-1" %>
-            <%= f.number_field :rest_seconds, min: 0, placeholder: "Optional", class: "w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50" %>
-          </div>
-          <div>
-            <%= f.label :equipment_brand, "Equipment", class: "block text-sm font-medium text-gray-700 mb-1" %>
-            <%= f.text_field :equipment_brand, placeholder: "Optional", class: "w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50" %>
-          </div>
-        </div>
-
-        <div>
-          <%= f.label :notes, class: "block text-sm font-medium text-gray-700 mb-1" %>
-          <%= f.text_area :notes, rows: 2, placeholder: "Optional notes about form, technique, etc.", class: "w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50" %>
-        </div>
-
-        <div class="flex justify-end space-x-4">
-          <button type="button" id="cancel-add-exercise" class="px-4 py-2 border border-gray-300 rounded text-gray-700 bg-white hover:bg-gray-50">Cancel</button>
-          <%= f.submit "Add Exercise", class: "px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500" %>
-        </div>
-      <% end %>
-    </div>
-
-    <div id="routine-exercises" class="divide-y divide-gray-200">
-      <% if @routine_exercises.any? %>
-        <% @routine_exercises.each do |routine_exercise| %>
-          <div class="px-6 py-4 flex flex-wrap md:flex-nowrap md:justify-between md:items-center routine-exercise" data-id="<%= routine_exercise.id %>">
-            <div class="flex-1">
-              <h3 class="font-medium"><%= routine_exercise.exercise.name %></h3>
-              <div class="text-sm text-gray-500 mt-1">
-                <%= routine_exercise.exercise.category %> • <%= routine_exercise.exercise.equipment_type %>
-              </div>
-              <div class="mt-2 text-sm">
-                <span class="px-2 py-1 bg-gray-100 rounded text-gray-700">
-                  <%= pluralize(routine_exercise.suggested_sets, 'set') %> × <%= routine_exercise.suggested_reps %> reps
-                </span>
-                <% if routine_exercise.rest_seconds.present? %>
-                  <span class="ml-2 px-2 py-1 bg-gray-100 rounded text-gray-700">
-                    <%= routine_exercise.rest_seconds %>s rest
-                  </span>
-                <% end %>
-              </div>
-              <% if routine_exercise.notes.present? %>
-                <div class="mt-2 text-sm text-gray-600">
-                  <%= simple_format routine_exercise.notes %>
-                </div>
-              <% end %>
-            </div>
-            <div class="mt-3 md:mt-0 flex items-center">
-              <span class="cursor-move handle mr-4">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor">
-                  <path fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"/>
-                </svg>
-              </span>
-              <%= button_to routine_routine_exercise_path(@routine, routine_exercise), method: :delete,
-                            class: "text-red-600 hover:text-red-800",
-                            data: { turbo_confirm: "Are you sure you want to remove this exercise from the routine?" } do %>
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                  <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd"/>
-                </svg>
-              <% end %>
-            </div>
-          </div>
-        <% end %>
-      <% else %>
-        <div class="p-6 text-center text-gray-500">
-          No exercises in this routine yet. Click "Add Exercise" to get started.
-        </div>
-      <% end %>
-    </div>
-  </div>
-
-  <div class="flex justify-between">
-    <%= link_to "Back to Routine", @routine, class: "px-4 py-2 border border-gray-300 rounded text-gray-700 bg-white hover:bg-gray-50" %>
   </div>
 </div>
 
@@ -142,3 +51,7 @@
     }
   });
 </script>
+
+
+<%# Modal container %>
+<%= turbo_frame_tag "modal" %>

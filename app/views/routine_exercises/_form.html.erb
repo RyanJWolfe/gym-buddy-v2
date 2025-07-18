@@ -1,0 +1,36 @@
+<%= form_with(model: [@routine, @routine_exercise]) do |form| %>
+  <% if @routine_exercise.errors.any? %>
+    <div class="bg-red-50 border-l-4 border-red-400 p-4 rounded mb-4">
+      <h2 class="font-bold text-red-700 mb-2"><%= pluralize(@routine_exercise.errors.count, "error") %> prohibited this exercise from being saved:</h2>
+      <ul class="list-disc pl-5 text-red-700">
+        <% @routine_exercise.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="mb-6">
+    <%= form.label :exercise_id, "Exercise", class: "form-label" %>
+    <%= form.collection_select :exercise_id, Exercise.order(:name), :id, :name,
+                                { prompt: "Select Exercise" },
+                                { class: "form-input" } %>
+  </div>
+
+  <div class="mb-6">
+    <%= form.label :suggested_sets, "Suggested Sets", class: "form-label" %>
+    <%= form.number_field :suggested_sets, min: 1, value: 3,
+                          class: "form-input" %>
+  </div>
+
+  <div class="mb-6">
+    <%= form.label :suggested_reps, "Suggested Reps", class: "form-label" %>
+    <%= form.number_field :suggested_reps, min: 1, value: 10,
+                          class: "form-input" %>
+  </div>
+
+  <div class="flex justify-end space-x-2">
+    <%= link_to "Cancel", routine_path(@routine), class: "px-4 py-2 bg-gray-200 text-gray-700 rounded hover:bg-gray-300" %>
+    <%= form.submit "Add Exercise", class: "px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500" %>
+  </div>
+<% end %>

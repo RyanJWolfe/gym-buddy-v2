@@ -2,6 +2,16 @@ class RoutineExercisesController < ApplicationController
   before_action :set_routine
   before_action :set_routine_exercise, only: [:update, :destroy]
 
+  def new
+    @routine_exercise = @routine.routine_exercises.build
+    @routine_exercise.suggested_sets = 3
+    @routine_exercise.suggested_reps = 10
+
+    respond_to do |format|
+      format.html
+      format.turbo_stream
+    end
+  end
   def create
     @routine_exercise = @routine.routine_exercises.build(routine_exercise_params)
 
