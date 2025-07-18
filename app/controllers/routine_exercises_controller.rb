@@ -24,7 +24,10 @@ class RoutineExercisesController < ApplicationController
 
   def update
     if @routine_exercise.update(routine_exercise_params)
-      redirect_to edit_routine_path(@routine), notice: "Exercise updated."
+      respond_to do |format|
+        format.html { redirect_to edit_routine_path(@routine), notice: "Exercise updated successfully." }
+        format.turbo_stream
+      end
     else
       redirect_to edit_routine_path(@routine), alert: "Could not update exercise: #{@routine_exercise.errors.full_messages.join(', ')}"
     end
