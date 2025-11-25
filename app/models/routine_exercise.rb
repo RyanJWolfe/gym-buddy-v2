@@ -8,4 +8,3 @@ class RoutineExercise < ApplicationRecord
 
   default_scope { order(position: :asc) }
 end
-
