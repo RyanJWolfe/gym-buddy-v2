@@ -1,6 +1,4 @@
 module ApplicationHelper
-  include Pagy::Frontend
-
   def page_title(title = nil)
     if title.present?
       "#{title} - GymTracker"
