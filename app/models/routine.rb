@@ -7,6 +7,7 @@ class Routine < ApplicationRecord
   validates :name, presence: true, unless: :draft?
 
   scope :recent, -> { order(updated_at: :desc) }
+  scope :published, -> { where(draft: false) }
 
   # Create a workout based on this routine
   def create_workout(user)
