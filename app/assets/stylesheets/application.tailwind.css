@@ -37,4 +37,8 @@
   .btn-tertiary {
     @apply bg-gray-200 hover:bg-gray-300 text-black
   }
+
+  .field_with_errors > .form-input {
+    @apply border-red-500 bg-red-50 placeholder-red-300 focus:border-red-600 focus:ring-red-500;
+  }
 }
