@@ -1,0 +1,12 @@
+<h2>Select an Exercise</h2>
+
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+  <% Exercise.order(:name).each do |exercise| %>
+    <div class="border border-gray-300 rounded-lg p-4 hover:shadow-lg transition-shadow duration-200">
+      <h3 class="text-lg font-semibold mb-2"><%= exercise.name %></h3>
+      <p class="text-sm text-muted-dark mb-4"><%= exercise.description.truncate(100) %></p>
+      <button>Add Exercise (placeholder)</button>
+      <%#= button_to "Add Exercise", add_exercise_to_routine_path(exercise_id: exercise.id), method: :post, class: "btn btn-primary w-full" %>
+    </div>
+  <% end %>
+</div>

@@ -1,0 +1,7 @@
+<%= turbo_stream.update "modal" do %>
+  <div data-controller="modal">
+    <%= render "shared/modal" do %>
+      <%= render "routine_exercises/exercise_select" %>
+    <% end %>
+  </div>
+<% end %>

@@ -1,5 +1,5 @@
 class RoutineExercisesController < ApplicationController
-  before_action :set_routine
+  before_action :set_routine, except: [:exercise_select_modal]
   before_action :set_routine_exercise, only: [:update, :destroy]
 
   def new
@@ -43,6 +43,12 @@ class RoutineExercisesController < ApplicationController
       @routine.routine_exercises.find(id).update(position: index + 1)
     end
     head :no_content
+  end
+
+  def exercise_select_modal # TODO: find a better place for this action
+    # respond_to do |format|
+    #   format.turbo_stream
+    # end
   end
 
   private

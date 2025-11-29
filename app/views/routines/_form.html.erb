@@ -18,5 +18,7 @@
 
   <button type="button" data-action="nested-form#add" class="btn btn-primary">Add Exercise</button>
 
+  <%= link_to "Add Exercise", routine_exercise_select_modal_path, data: { turbo_method: :post }, class: "btn btn-primary" %>
+
   <%= f.submit 'Save', class: "btn btn-primary" %>
 <% end %>

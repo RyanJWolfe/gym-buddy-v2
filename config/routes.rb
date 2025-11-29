@@ -8,8 +8,8 @@ Rails.application.routes.draw do
   root to: "static_pages#home"
 
   resources :workouts do
-    resources :exercise_logs, except: [:index, :show] do
-      resources :exercise_sets, except: [:index, :show]
+    resources :exercise_logs, except: [ :index, :show ] do
+      resources :exercise_sets, except: [ :index, :show ]
     end
 
     member do
@@ -18,8 +18,10 @@ Rails.application.routes.draw do
   end
 
   resources :routines do
-    resources :routine_exercises, except: [:index, :show]
+    resources :routine_exercises, except: [ :index, :show ]
   end
+
+  post "routine_exercise_select_modal", to: "routine_exercises#exercise_select_modal"
 
   resources :exercises
 
@@ -39,7 +41,7 @@ Rails.application.routes.draw do
   # root "posts#index"
 
   # Add these routes
-  resource :profile, only: [:show, :edit, :update]
+  resource :profile, only: [ :show, :edit, :update ]
 
   namespace :exports do
     get :workouts
