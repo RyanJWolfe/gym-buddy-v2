@@ -1,24 +1,27 @@
 <%= form_with model: @routine, html: {
   class: "flex flex-col gap-y-4",
-  data: { controller: "nested-form", nested_form_wrapper_selector_value: ".nested-form-wrapper" }
+  data: { controller: "nested-exercise-select-form", nested_exercise_select_form_wrapper_selector_value: ".nested-form-wrapper" }
 } do |f| %>
   <%= f.text_field :name, placeholder: "Routine Title", class: "form-input" %>
 
-  <template data-nested-form-target="template">
+  <template data-nested-exercise-select-form-target="template">
     <%= f.fields_for :routine_exercises, RoutineExercise.new, child_index: "NEW_RECORD" do |re_fields| %>
       <%= render "routines/routine_exercise_form", f: re_fields %>
     <% end %>
   </template>
 
-  <%= f.fields_for :routine_exercises do |re_fields| %>
-    <%= render "routines/routine_exercise_form", f: re_fields %>
-  <% end %>
+  <%#= f.fields_for :routine_exercises do |re_fields| %>
+    <%#= render "routines/routine_exercise_form", f: re_fields %>
+  <%# end %>
 
-  <div data-nested-form-target="target"></div>
+  <div data-nested-exercise-select-form-target="target"></div>
 
-  <button type="button" data-action="nested-form#add" class="btn btn-primary">Add Exercise</button>
+  <button type="button" data-action="nested-exercise-select-form#add" class="btn btn-primary">Add Exercise</button>
 
   <%= link_to "Add Exercise", routine_exercise_select_modal_path, data: { turbo_method: :post }, class: "btn btn-primary" %>
 
   <%= f.submit 'Save', class: "btn btn-primary" %>
+
+  <%# for displaying exercise selector %>
+  <%= turbo_frame_tag "modal" %>
 <% end %>

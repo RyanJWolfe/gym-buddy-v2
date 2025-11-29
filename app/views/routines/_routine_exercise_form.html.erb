@@ -10,10 +10,8 @@
 
   <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
     <div>
-      <%= f.label :exercise_id, "Exercise", class: "form-label" %>
-      <%= f.collection_select :exercise_id, Exercise.order(:name), :id, :name,
-                              { prompt: "Select Exercise" },
-                              { class: "form-input" } %>
+      <div data-nested-exercise-select-form-target="exerciseContainer"></div>
+      <%= f.hidden_field :exercise_id, data: { nested_exercise_select_form_target: "exerciseFormField" } %>
     </div>
   </div>
 
