@@ -10,7 +10,7 @@
     <% end %>
   </template>
 
-  <% if @routine_exercises.any? %>
+  <% if @routine.routine_exercises.any? %>
     <%= f.fields_for :routine_exercises do |re_fields| %>
       <%= render "routines/routine_exercise_form", f: re_fields %>
     <% end %>
