@@ -24,7 +24,7 @@ export default class extends RailsNestedForm {
     const exerciseName = e.target.dataset.exerciseName;
     this.exerciseFormFieldTarget.value = e.target.dataset.exerciseId;
 
-    this.exerciseContainerTarget.innerHTML = `<div class="exercise-item"><h3>${exerciseName}</h3></div>`
+    this.exerciseContainerTarget.outerHTML = `<div class="exercise-item"><h3>${exerciseName}</h3></div>`
 
     const event = new CustomEvent("rails-nested-form:add", {bubbles: true})
     this.element.dispatchEvent(event)

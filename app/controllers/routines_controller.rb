@@ -11,8 +11,7 @@ class RoutinesController < ApplicationController
 
   def new
     @routine = current_user.routines.new
-    @routine.routine_exercises.build # Build at least one exercise for the form
-    @routine_exercises = @routine.routine_exercises.includes(:exercise)
+    @routine_exercises = []
   end
 
   def create
