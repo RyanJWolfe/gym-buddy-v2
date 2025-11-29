@@ -9,16 +9,20 @@ class RoutinesController < ApplicationController
     @routine_exercises = @routine.routine_exercises.includes(:exercise)
   end
 
+  def new
+    @routine = current_user.routines.new
+    @routine.routine_exercises.build # Build at least one exercise for the form
+    @routine_exercises = @routine.routine_exercises.includes(:exercise)
+  end
+
   def create
-    @routine = current_user.routines.create!(
-      name: "Untitled Routine",
-      draft: true
-    )
+    @routine = current_user.routines.new(routine_params)
+    @routine.draft = false # Routine is not a draft, since user is intentionally saving
 
     if @routine.save
-      redirect_to edit_routine_path(@routine), notice: "Routine was successfully created. Now add exercises."
+      redirect_to edit_routine_path(@routine), notice: "Routine was successfully created."
     else
-      redirect_back fallback_location: new_workout_path, alert: "Failed to create routine: #{@routine.errors.full_messages.join(', ')}"
+      render :new, status: :unprocessable_entity
     end
   end
 
@@ -60,6 +64,8 @@ class RoutinesController < ApplicationController
   end
 
   def routine_params
-    params.require(:routine).permit(:name, :description)
+    params.require(:routine).permit(:name, :description, routine_exercises_attributes: [
+      :id, :exercise_id, :position, :suggested_sets, :suggested_reps, :rest_seconds, :notes, :equipment_brand, :_destroy
+    ])
   end
 end

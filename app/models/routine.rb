@@ -4,10 +4,19 @@ class Routine < ApplicationRecord
   has_many :exercises, through: :routine_exercises
   has_many :workouts
 
+  accepts_nested_attributes_for :routine_exercises, allow_destroy: true
+
   validates :name, presence: true, unless: :draft?
+  validate :must_have_at_least_one_exercise, on: :create
 
   scope :recent, -> { order(updated_at: :desc) }
   scope :published, -> { where(draft: false) }
+
+  def must_have_at_least_one_exercise
+    if routine_exercises.empty? || routine_exercises.all? { |re| re.marked_for_destruction? }
+      errors.add(:base, "Routine must have at least one exercise")
+    end
+  end
 
   # Create a workout based on this routine
   def create_workout(user)

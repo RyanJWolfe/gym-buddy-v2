@@ -15,7 +15,7 @@
         <%= inline_svg_tag "icons/book.svg", class: "h-4 w-4" %>
         <span>New Program</span>
       <% end %>
-      <%= button_to routines_path, method: :post, form_class: "flex-1", class: 'w-full btn btn-tertiary btn-icon' do %>
+      <%= link_to new_routine_path, class: 'w-full btn btn-tertiary btn-icon flex-1' do %>
         <%= inline_svg_tag "icons/clipboard.svg", class: "h-4 w-4" %>
         <span>New Routine</span>
       <% end %>

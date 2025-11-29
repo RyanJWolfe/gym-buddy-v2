@@ -17,7 +17,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :routines, except: [:new] do
+  resources :routines do
     resources :routine_exercises, except: [:index, :show]
   end
 
