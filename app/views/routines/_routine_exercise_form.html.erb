@@ -1,0 +1,31 @@
+<%# locals: ( f: ) %>
+
+<div class="nested-form-wrapper border border-gray-300 rounded-lg p-4 bg-white shadow-sm" data-new-record="<%= f.object.new_record? %>">
+  <div class="flex justify-between items-center mb-4">
+    <h4 class="text-md font-medium text-gray-900">Exercise</h4>
+    <button type="button" data-action="click->nested-form#remove" class="text-red-600 hover:text-red-800">
+      <%= inline_svg_tag "icons/trash.svg", class: "h-5 w-5" %>
+    </button>
+  </div>
+
+  <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+    <div>
+      <%= f.label :exercise_id, "Exercise", class: "form-label" %>
+      <%= f.collection_select :exercise_id, Exercise.order(:name), :id, :name,
+                                 { prompt: "Select Exercise" },
+                                 { class: "form-input" } %>
+    </div>
+
+    <div>
+      <%= f.label :suggested_sets, "Sets", class: "block text-sm font-medium text-gray-700" %>
+      <%= f.number_field :suggested_sets, class: "form-input mt-1 w-full", min: 1 %>
+    </div>
+
+    <div>
+      <%= f.label :suggested_reps, "Repetitions", class: "block text-sm font-medium text-gray-700" %>
+      <%= f.number_field :suggested_reps, class: "form-input mt-1 w-full", min: 1 %>
+    </div>
+  </div>
+
+  <%= f.hidden_field :_destroy %>
+</div>

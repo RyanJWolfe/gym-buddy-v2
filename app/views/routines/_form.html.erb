@@ -1,14 +1,25 @@
 <%= form_with model: @routine, html: {
   class: "flex flex-col gap-y-4",
-  data: {
-    # controller: "autosave",
-    # "autosave-model-value": "routine",
-    # "autosave-url-value": routine_path(@routine),
-    # "autosave-debounce-value": 500,
-    # "autosave-method-value": "PATCH"
-  }
+  data: { controller: "nested-form", nested_form_wrapper_selector_value: ".nested-form-wrapper" }
 } do |f| %>
-  <div>
-    <%= f.text_field :name, placeholder: "Routine Title", class: "form-input" %>
-  </div>
+  <%= f.text_field :name, placeholder: "Routine Title", class: "form-input" %>
+
+  <template data-nested-form-target="template">
+    <%= f.fields_for :routine_exercises, RoutineExercise.new, child_index: "NEW_RECORD" do |re_fields| %>
+      <%= render "routines/routine_exercise_form", f: re_fields %>
+    <% end %>
+  </template>
+
+  <%= f.fields_for :routine_exercises do |re_fields| %>
+    <%= render "routines/routine_exercise_form", f: re_fields %>
+  <% end %>
+
+  <div data-nested-form-target="target"></div>
+
+
+
+
+<!--  <button type="button" data-action="nested-form#add" class="btn btn-primary">Add Exercise</button>-->
+
+  <%= f.submit 'Save', class: "btn btn-primary" %>
 <% end %>

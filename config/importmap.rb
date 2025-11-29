@@ -5,3 +5,7 @@ pin "@hotwired/turbo-rails", to: "turbo.min.js"
 pin "@hotwired/stimulus", to: "stimulus.min.js"
 pin "@hotwired/stimulus-loading", to: "stimulus-loading.js"
 pin_all_from "app/javascript/controllers", under: "controllers"
+
+# Pin additional npm packages here, for example:
+# pin "chartjs", to: "https://ga.jspm.io/npm:chart.js@4.3.0/dist/chart.min.js"
+pin "@stimulus-components/rails-nested-form", to: "@stimulus-components--rails-nested-form.js" # @5.0.0

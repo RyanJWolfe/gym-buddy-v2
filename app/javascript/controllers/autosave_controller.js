@@ -1,5 +1,14 @@
 import { Controller } from "@hotwired/stimulus"
 
+// Usage:
+// data: {
+//     controller: "autosave",
+//     "autosave-model-value": "routine",
+//     "autosave-url-value": routine_path(@routine),
+//     "autosave-debounce-value": 500,
+//     "autosave-method-value": "PATCH"
+//   }
+
 export default class extends Controller {
   static values = { url: String, debounce: Number, method: String, model: String }
 
