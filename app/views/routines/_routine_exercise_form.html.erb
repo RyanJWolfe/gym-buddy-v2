@@ -11,7 +11,7 @@
       <%= f.hidden_field :exercise_id, data: { nested_exercise_select_form_target: "exerciseFormField" } %>
     </div>
 
-    <button type="button" data-action="click->nested-form#remove" class="text-red-600 hover:text-red-800">
+    <button type="button" data-action="click->nested-exercise-select-form#remove" class="text-red-600 hover:text-red-800">
       <%= inline_svg_tag "icons/trash.svg", class: "h-5 w-5" %>
     </button>
   </div>
