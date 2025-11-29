@@ -64,8 +64,14 @@ class RoutinesController < ApplicationController
   end
 
   def routine_params
-    params.require(:routine).permit(:name, :description, routine_exercises_attributes: [
-      :id, :exercise_id, :position, :suggested_sets, :suggested_reps, :rest_seconds, :notes, :equipment_brand, :_destroy
-    ])
+    params.require(:routine).permit(
+      :name, :description,
+      routine_exercises_attributes: [
+        :id, :exercise_id, :position, :rest_seconds, :notes, :equipment_brand, :_destroy,
+        routine_sets_attributes: [
+          :id, :set_number, :suggested_reps, :rest_seconds, :notes, :equipment_brand, :_destroy
+        ]
+      ]
+    )
   end
 end
