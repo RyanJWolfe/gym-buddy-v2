@@ -9,11 +9,6 @@
   }
 } do |f| %>
   <div>
-    <%= f.label :name, "Name", class: "form-label" %>
-    <%= f.text_field :name, class: "form-input" %>
-  </div>
-  <div>
-    <%= f.label :description, "Description", class: "form-label" %>
-    <%= f.text_area :description, class: "form-input" %>
+    <%= f.text_field :name, placeholder: "Routine Title", class: "form-input" %>
   </div>
 <% end %>
