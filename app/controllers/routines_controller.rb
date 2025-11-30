@@ -68,7 +68,7 @@ class RoutinesController < ApplicationController
       routine_exercises_attributes: [
         :id, :exercise_id, :position, :rest_seconds, :notes, :equipment_brand, :_destroy,
         routine_sets_attributes: [
-          :id, :set_number, :suggested_reps, :rest_seconds, :notes, :equipment_brand, :_destroy
+          :id, :set_number, :reps, :weight, :rest_seconds, :_destroy
         ]
       ]
     )
