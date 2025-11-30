@@ -24,7 +24,7 @@
       <% end %>
     </div>
     <template data-nested-form-target="template">
-      <%= f.fields_for :routine_sets, RoutineSet.new, child_index: "NEW_RECORD" do |set_fields| %>
+      <%= f.fields_for :routine_sets, child_index: "NEW_RECORD" do |set_fields| %>
         <%= render "routine_sets/form", f: set_fields %>
       <% end %>
     </template>

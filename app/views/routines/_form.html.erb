@@ -16,7 +16,9 @@
   <%= f.text_field :name, placeholder: "Routine Title", class: "form-input" %>
 
   <template data-nested-exercise-select-form-target="template">
-    <%= f.fields_for :routine_exercises, RoutineExercise.new, child_index: "NEW_RECORD" do |re_fields| %>
+    <% new_re = RoutineExercise.new %>
+    <% new_re.routine_sets.build %>
+    <%= f.fields_for :routine_exercises, new_re, child_index: "NEW_RECORD" do |re_fields| %>
       <%= render "routines/routine_exercise_form", f: re_fields %>
     <% end %>
   </template>
