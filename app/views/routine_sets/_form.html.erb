@@ -1,11 +1,14 @@
 <%# locals: ( f: ) %>
 
 <div class="mb-4 p-2 border rounded bg-gray-50">
-  <%= f.label :set_number, "Set #", class: "form-label" %>
-  <%= f.number_field :set_number, min: 1, class: "form-input" %>
+  <%#= f.label :set_number, "Set #", class: "form-label" %>
+  <%#= f.number_field :set_number, min: 1, class: "form-input" %>
 
   <%= f.label :reps, "Suggested Reps", class: "form-label" %>
   <%= f.number_field :reps, min: 1, class: "form-input" %>
+
+  <%= f.label :weight, "Suggested Weight", class: "form-label" %>
+  <%= f.number_field :weight, step: 0.1, min: 0, class: "form-input" %>
 
   <%= f.label :rest_seconds, "Rest Seconds", class: "form-label" %>
   <%= f.number_field :rest_seconds, min: 0, class: "form-input" %>
