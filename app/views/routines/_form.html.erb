@@ -2,6 +2,17 @@
   class: "flex flex-col gap-y-4",
   data: { controller: "nested-exercise-select-form", nested_exercise_select_form_wrapper_selector_value: ".nested-form-wrapper" }
 } do |f| %>
+  <% if @routine.errors.any? %>
+    <div class="mb-4 p-4 border border-red-500 bg-red-100 rounded">
+      <h2 class="text-red-700 font-semibold mb-2">Please fix the following errors:</h2>
+      <ul class="list-disc list-inside text-red-700">
+        <% @routine.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
   <%= f.text_field :name, placeholder: "Routine Title", class: "form-input" %>
 
   <template data-nested-exercise-select-form-target="template">
