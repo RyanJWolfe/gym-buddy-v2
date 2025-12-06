@@ -9,6 +9,19 @@
   .form-input {
     @apply w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 p-2;
   }
+  .form-input-tr {
+    @apply border-0 focus:outline-none text-left pl-2;
+  }
+  input.number-to-text::-webkit-outer-spin-button,
+  input.number-to-text::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  input[type=number].number-to-text {
+    -moz-appearance: textfield;
+  }
+
   .form-muted-label {
     @apply mt-1 text-sm text-gray-500;
   }

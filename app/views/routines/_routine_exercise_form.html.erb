@@ -17,9 +17,13 @@
   </div>
 
   <div class="mt-4" data-controller="nested-form" data-nested-form-wrapper-selector-value=".sets-wrapper">
-    <h5 class="font-semibold mb-2">Sets</h5>
     <div class="space-y-2">
       <%= f.fields_for :routine_sets do |set_fields| %>
+        <div class="grid grid-cols-12">
+          <label class="col-span-3 text-muted uppercase">set</label>
+          <label class="col-span-3 text-muted uppercase">lbs</label>
+          <label class="col-span-3 text-muted uppercase">reps</label>
+        </div>
         <%= render "routine_sets/form", f: set_fields %>
       <% end %>
     </div>

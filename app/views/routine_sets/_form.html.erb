@@ -1,19 +1,19 @@
 <%# locals: ( f: ) %>
 
-<div class="mb-4 p-2 border rounded bg-gray-50">
-  <%#= f.label :set_number, "Set #", class: "form-label" %>
-  <%#= f.number_field :set_number, min: 1, class: "form-input" %>
+<div>
+  <div class="grid grid-cols-12 odd:bg-gray-50">
+    <%= f.number_field :set_number, value: 1, min: 1, readonly: true, class: "form-input-tr col-span-3 number-to-text pointer-events-none" %>
+    <%= f.number_field :reps, placeholder: '-', min: 1, class: "form-input-tr col-span-3 number-to-text" %>
+    <%= f.number_field :weight, placeholder: '-', step: 0.1, min: 0, class: "form-input-tr col-span-3 number-to-text" %>
 
-  <%= f.label :reps, "Suggested Reps", class: "form-label" %>
-  <%= f.number_field :reps, min: 1, class: "form-input" %>
-
-  <%= f.label :weight, "Suggested Weight", class: "form-label" %>
-  <%= f.number_field :weight, step: 0.1, min: 0, class: "form-input" %>
-
-  <%= f.label :rest_seconds, "Rest Seconds", class: "form-label" %>
-  <%= f.number_field :rest_seconds, min: 0, class: "form-input" %>
+    <button type="button"
+            class="text-red-500 col-span-3 text-right"
+            data-action="click->nested-form#remove">
+      remove
+    </button>
+  </div>
 
   <%= f.hidden_field :_destroy %>
-  <button type="button" class="remove-set-btn px-2 py-1 bg-red-500 text-white rounded ml-2" data-action="click->nested-form#remove">Remove Set</button>
+
 </div>
 
