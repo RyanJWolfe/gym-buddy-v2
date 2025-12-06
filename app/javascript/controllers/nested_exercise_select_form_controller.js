@@ -11,10 +11,10 @@ export default class extends RailsNestedForm {
   addExercise(event) {
     event.preventDefault();
 
-    // this.add(event)
     this.newAdd(event);
   }
 
+  // basically what super.add does, but customized to set the exercise id and name on the newly added nested form.
   newAdd(e) {
     e.preventDefault()
 
