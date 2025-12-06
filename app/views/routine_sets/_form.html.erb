@@ -1,7 +1,7 @@
 <%# locals: ( f: ) %>
 
 <div>
-  <div class="grid grid-cols-12 odd:bg-gray-50">
+  <div class="grid grid-cols-12">
     <%= f.number_field :set_number, value: 1, min: 1, readonly: true, class: "form-input-tr col-span-3 number-to-text pointer-events-none" %>
     <%= f.number_field :reps, placeholder: '-', min: 1, class: "form-input-tr col-span-3 number-to-text" %>
     <%= f.number_field :weight, placeholder: '-', step: 0.1, min: 0, class: "form-input-tr col-span-3 number-to-text" %>

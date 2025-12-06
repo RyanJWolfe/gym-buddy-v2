@@ -10,7 +10,7 @@
     @apply w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 p-2;
   }
   .form-input-tr {
-    @apply border-0 focus:outline-none text-left pl-2;
+    @apply focus:outline-none text-left pl-2 bg-transparent;
   }
   input.number-to-text::-webkit-outer-spin-button,
   input.number-to-text::-webkit-inner-spin-button {
