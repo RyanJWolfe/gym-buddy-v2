@@ -1,5 +1,6 @@
 class RoutinesController < ApplicationController
   before_action :set_routine, only: [:show, :edit, :update, :destroy, :start_workout]
+  before_action :hide_footer, only: [:new, :edit]
 
   def index
     @routines = current_user.routines.includes(:exercises).order(updated_at: :desc)
