@@ -17,12 +17,12 @@
   </div>
 
   <div class="mt-4" data-controller="nested-set-form" data-nested-set-form-wrapper-selector-value=".sets-wrapper">
+    <div class="grid grid-cols-12 mb-2">
+      <label class="col-span-3 text-muted uppercase">set</label>
+      <label class="col-span-3 text-muted uppercase">lbs</label>
+      <label class="col-span-3 text-muted uppercase">reps</label>
+    </div>
     <%= f.fields_for :routine_sets do |set_fields| %>
-      <div class="grid grid-cols-12 mb-2">
-        <label class="col-span-3 text-muted uppercase">set</label>
-        <label class="col-span-3 text-muted uppercase">lbs</label>
-        <label class="col-span-3 text-muted uppercase">reps</label>
-      </div>
       <%= render "routine_sets/form", f: set_fields %>
     <% end %>
     <!--    TODO: move nested form target into above fields_for, may need to see what happens when an exercise has no sets, will above render target at all?-->
