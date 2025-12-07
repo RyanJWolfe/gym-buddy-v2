@@ -26,7 +26,7 @@ export default class extends RailsNestedForm {
     // remove target attribute so that new adds don't overwrite this one
     this.exerciseFormFieldTarget.removeAttribute("data-nested-exercise-select-form-target");
 
-    this.exerciseContainerTarget.outerHTML = `<div class="exercise-item"><h3>${exerciseName}</h3></div>`
+    this.exerciseContainerTarget.outerHTML = `<h5 class="font-medium">${exerciseName}</h5>`
 
     const event = new CustomEvent("rails-nested-form:add", {bubbles: true})
     this.element.dispatchEvent(event)
