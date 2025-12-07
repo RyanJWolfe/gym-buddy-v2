@@ -20,38 +20,5 @@
   </div>
 </div>
 
-<script>
-  document.addEventListener('DOMContentLoaded', function () {
-    // Toggle exercise form
-    document.getElementById('add-exercise-btn').addEventListener('click', function () {
-      document.getElementById('exercise-form').classList.remove('hidden');
-    });
-
-    document.getElementById('cancel-add-exercise').addEventListener('click', function () {
-      document.getElementById('exercise-form').classList.add('hidden');
-    });
-
-    // Sortable exercises
-    if (typeof Sortable !== 'undefined') {
-      Sortable.create(document.getElementById('routine-exercises'), {
-        handle: '.handle',
-        animation: 150,
-        onEnd: function (evt) {
-          const order = Array.from(document.querySelectorAll('.routine-exercise')).map(el => el.dataset.id);
-          fetch(`/routines/<%= @routine.id %>/routine_exercises/sort`, {
-            method: 'PATCH',
-            headers: {
-              'Content-Type': 'application/json',
-              'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').content
-            },
-            body: JSON.stringify({order: order})
-          });
-        }
-      });
-    }
-  });
-</script>
-
-
 <%# Modal container %>
 <%= turbo_frame_tag "modal" %>
