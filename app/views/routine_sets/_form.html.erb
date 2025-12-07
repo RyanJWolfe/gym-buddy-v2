@@ -1,14 +1,14 @@
 <%# locals: ( f: ) %>
 
-<div class="sets-wrapper">
+<div class="sets-wrapper" data-nested-set-form-target="setFormField">
   <div class="grid grid-cols-12">
-    <%= f.number_field :set_number, value: 1, min: 1, readonly: true, class: "form-input-tr col-span-3 number-to-text pointer-events-none" %>
+    <%= f.number_field :set_number, min: 1, readonly: true, class: "form-input-tr col-span-3 number-to-text pointer-events-none" %>
     <%= f.number_field :reps, placeholder: '-', min: 1, class: "form-input-tr col-span-3 number-to-text" %>
     <%= f.number_field :weight, placeholder: '-', step: 0.1, min: 0, class: "form-input-tr col-span-3 number-to-text" %>
 
     <button type="button"
             class="text-red-500 col-span-3 w-full flex justify-end"
-            data-action="click->nested-form#remove">
+            data-action="click->nested-set-form#remove">
       <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
         <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
       </svg>

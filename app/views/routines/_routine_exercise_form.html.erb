@@ -16,24 +16,22 @@
     </button>
   </div>
 
-  <div class="mt-4" data-controller="nested-form" data-nested-form-wrapper-selector-value=".sets-wrapper">
-    <div class="space-y-2">
-      <%= f.fields_for :routine_sets do |set_fields| %>
-        <div class="grid grid-cols-12">
-          <label class="col-span-3 text-muted uppercase">set</label>
-          <label class="col-span-3 text-muted uppercase">lbs</label>
-          <label class="col-span-3 text-muted uppercase">reps</label>
-        </div>
-        <%= render "routine_sets/form", f: set_fields %>
-      <% end %>
-    </div>
-<!--    TODO: move nested form target into above fields_for, may need to see what happens when an exercise has no sets, will above render target at all?-->
-    <template data-nested-form-target="template">
-      <%= f.fields_for :routine_sets, child_index: "NEW_RECORD" do |set_fields| %>
+  <div class="mt-4" data-controller="nested-set-form" data-nested-set-form-wrapper-selector-value=".sets-wrapper">
+    <%= f.fields_for :routine_sets do |set_fields| %>
+      <div class="grid grid-cols-12 mb-2">
+        <label class="col-span-3 text-muted uppercase">set</label>
+        <label class="col-span-3 text-muted uppercase">lbs</label>
+        <label class="col-span-3 text-muted uppercase">reps</label>
+      </div>
+      <%= render "routine_sets/form", f: set_fields %>
+    <% end %>
+    <!--    TODO: move nested form target into above fields_for, may need to see what happens when an exercise has no sets, will above render target at all?-->
+    <template data-nested-set-form-target="template">
+      <%= f.fields_for :routine_sets, child_index: "NEW_SET_RECORD" do |set_fields| %>
         <%= render "routine_sets/form", f: set_fields %>
       <% end %>
     </template>
-    <button type="button" data-action="nested-form#add" data-nested-form-target="target" class="mt-4 btn btn-icon btn-tertiary w-full">
+    <button type="button" data-action="nested-set-form#add" data-nested-set-form-target="target" class="mt-4 btn btn-icon btn-tertiary w-full">
       <%= inline_svg_tag "icons/plus.svg", class: "h-4 w-4" %>
       Add Set
     </button>
