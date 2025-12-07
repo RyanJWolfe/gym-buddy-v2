@@ -37,8 +37,8 @@
   <%= turbo_frame_tag "modal" %>
 
   <!-- FIXED BOTTOM BAR -->
-  <div class="fixed bottom-0 left-0 w-full bg-white border-t border-gray-200 shadow-lg flex justify-between items-center px-4 py-3 z-50">
+  <div class="fixed bottom-0 left-0 w-full bg-white border-t border-gray-200 shadow-lg flex justify-between md:justify-end md:gap-x-5 items-center px-4 py-3 md:pr-32 z-50">
     <%= link_to "Cancel", new_workout_path, class: "link link-primary" %>
-    <%= f.submit 'Save', class: "btn btn-primary" %>
+    <%= f.submit 'Save', class: "btn btn-primary md:px-6" %>
   </div>
 <% end %>
