@@ -1,6 +1,6 @@
 class RoutineExercisesController < ApplicationController
-  before_action :set_routine, except: [:exercise_select_modal]
-  before_action :set_routine_exercise, only: [:update, :destroy]
+  before_action :set_routine, except: [ :exercise_select_modal ]
+  before_action :set_routine_exercise, only: [ :update, :destroy ]
 
   def new
     @routine_exercise = @routine.routine_exercises.build
@@ -12,6 +12,7 @@ class RoutineExercisesController < ApplicationController
       format.turbo_stream
     end
   end
+
   def create
     @routine_exercise = @routine.routine_exercises.build(routine_exercise_params)
 
@@ -46,9 +47,6 @@ class RoutineExercisesController < ApplicationController
   end
 
   def exercise_select_modal # TODO: find a better place for this action
-    # respond_to do |format|
-    #   format.turbo_stream
-    # end
   end
 
   private
