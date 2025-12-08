@@ -14,7 +14,7 @@
   <% end %>
 
   <div data-controller="clearable-input" class="relative">
-    <%= f.text_field :name, placeholder: "Routine title", class: "form-input-borderless font-medium pr-8", data: { clearable_input_target: "input", action: "input->clearable-input#changed" } %>
+    <%= f.text_field :name, placeholder: "Routine title", class: "form-input-borderless font-medium pr-8", data: { clearable_input_target: "input", action: "input->clearable-input#changed", nested_exercise_select_form_target: "nameField" } %>
     <button type="button" aria-label="Clear name" title="Clear" data-action="click->clearable-input#clear" data-clearable-input-target="clearButton" class="absolute inset-y-0 right-2 flex items-center text-muted hover:text-gray-700 opacity-0 pointer-events-none scale-50 transition duration-150 ease-in-out" aria-hidden="true">
       <%= inline_svg_tag "icons/x-circle.svg", class: "w-4 h-4" %>
     </button>
@@ -50,6 +50,6 @@
 
   <div class="fixed bottom-0 left-0 w-full bg-white border-t border-gray-200 shadow-lg flex justify-between md:justify-end md:gap-x-5 items-center px-4 py-3 md:pr-32 z-50">
     <%= link_to "Cancel", new_workout_path, class: "link link-primary w-full md:w-fit text-center" %>
-    <%= f.submit 'Save', class: "btn btn-primary w-full md:px-6 md:w-fit" %>
+    <%= f.submit 'Save', class: "btn btn-primary w-full md:px-6 md:w-fit", data: { nested_exercise_select_form_target: "submitButton" }, disabled: true %>
   </div>
 <% end %>
