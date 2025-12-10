@@ -3,7 +3,10 @@
 
   <div data-controller="exercise-selector" class="pt-16 md:pt-0 grid grid-cols-1 sm:grid-cols-2 gap-4">
     <% Exercise.order(:name).each do |exercise| %>
-      <div data-action="click->nested-exercise-select-form#addExercise"
+      <div data-action="exercise:add->nested-exercise-select-form#addExercises"
+           data-exercise-id="<%= exercise.id %>"
+           data-exercise-name="<%= exercise.name %>"
+           data-exercise-selector-target="item"
            class="border-b border-gray-300 p-4 hover:shadow-lg transition-shadow duration-200">
         <div class="flex items-center justify-between gap-x-4">
           <div>
@@ -17,5 +20,13 @@
         <%#= button_to "Add Exercise", add_exercise_to_routine_path(exercise_id: exercise.id), method: :post, class: "btn btn-primary w-full" %>
       </div>
     <% end %>
+    <div class="fixed bottom-0 left-0 right-0 p-5 z-50 md:relative md:bottom-auto md:left-auto md:right-auto">
+      <div class="max-w-2xl mx-auto">
+        <button type="button" class="btn btn-primary btn-icon w-full shadow-lg flex" title="Add selected exercise(s)">
+          <%= inline_svg('icons/plus.svg', class: "h-7 w-7") %>
+          Add <span data-exercise-selector-target="count" class="ml-1">0</span> exercise(s)
+        </button>
+      </div>
+    </div>
   </div>
 </div>

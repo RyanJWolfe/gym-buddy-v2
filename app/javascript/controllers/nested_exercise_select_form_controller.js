@@ -22,7 +22,41 @@ export default class extends RailsNestedForm {
   addExercise(event) {
     event.preventDefault();
 
-    this.newAdd(event);
+    this.removeEmptyState();
+    this.addOne(event.target.dataset.exerciseId, event.target.dataset.exerciseName);
+  }
+
+  // handler for the bubbled `exercise:add` CustomEvent with multiple ids
+  addExercises(event) {
+    event.preventDefault();
+
+    const ids = event?.detail?.exercise_ids || [];
+    if (!Array.isArray(ids) || ids.length === 0) return;
+
+    this.removeEmptyState();
+
+    ids.forEach((id) => {
+      // find the exercise element to get its name (falls back to empty string)
+      const el = document.querySelector(`[data-exercise-id="${id}"]`);
+      const name = el?.dataset?.exerciseName || "";
+
+      this.addOne(id, name);
+    });
+
+    // re-evaluate submit state after adding all
+    this.toggleSubmitState();
+  }
+
+  // helper to add a single nested form by id/name (mirrors newAdd but accepts values)
+  addOne(exerciseId, exerciseName) {
+    const content = this.templateTarget.innerHTML.replace(/NEW_RECORD/g, new Date().getTime().toString());
+    this.targetTarget.insertAdjacentHTML("beforebegin", content);
+
+    // set the values on the newly-inserted targets (works because targets update as we add)
+    this.setExerciseField(exerciseId, exerciseName);
+
+    const event = new CustomEvent("rails-nested-form:add", { bubbles: true });
+    this.element.dispatchEvent(event);
   }
 
   remove(e) {
@@ -35,21 +69,6 @@ export default class extends RailsNestedForm {
 
   formExercisesEmpty() {
     return document.querySelector(this.wrapperSelectorValue) === null
-  }
-
-  // basically what super.add does, but customized to set the exercise id and name on the newly added nested form.
-  newAdd(e) {
-    e.preventDefault()
-
-    this.removeEmptyState();
-
-    const content = this.templateTarget.innerHTML.replace(/NEW_RECORD/g, new Date().getTime().toString())
-    this.targetTarget.insertAdjacentHTML("beforebegin", content)
-
-    this.setExerciseField(e.target.dataset.exerciseId, e.target.dataset.exerciseName);
-
-    const event = new CustomEvent("rails-nested-form:add", {bubbles: true})
-    this.element.dispatchEvent(event)
   }
 
   setExerciseField(exerciseId, exerciseName) {
