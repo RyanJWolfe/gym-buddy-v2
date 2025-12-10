@@ -1,16 +1,17 @@
 <div class="exercise-select relative overflow-y-auto">
   <h2 class="text-2xl font-semibold hidden md:block md:pb-8">Select an Exercise</h2>
 
-  <div class="pt-16 md:pt-0 grid grid-cols-1 sm:grid-cols-2 gap-4">
+  <div data-controller="exercise-selector" class="pt-16 md:pt-0 grid grid-cols-1 sm:grid-cols-2 gap-4">
     <% Exercise.order(:name).each do |exercise| %>
-      <div class="border-b border-gray-300 p-4 hover:shadow-lg transition-shadow duration-200">
-        <div class="flex items-center gap-x-4">
+      <div data-action="click->nested-exercise-select-form#addExercise"
+           class="border-b border-gray-300 p-4 hover:shadow-lg transition-shadow duration-200">
+        <div class="flex items-center justify-between gap-x-4">
           <div>
             <h3 class="text-lg font-semibold mb-2"><%= exercise.name %></h3>
             <p class="text-sm text-muted-dark"><%= exercise.description.truncate(100) %></p>
           </div>
-          <button type="button" data-action="click->nested-exercise-select-form#addExercise click->modal#close" class="btn btn-primary h-fit" data-exercise-id="<%= exercise.id %>" data-exercise-name="<%= exercise.name %>">
-            Add
+          <button type="button">
+            <%= inline_svg_tag "icons/info.svg", class: "h-6 w-6" %>
           </button>
         </div>
         <%#= button_to "Add Exercise", add_exercise_to_routine_path(exercise_id: exercise.id), method: :post, class: "btn btn-primary w-full" %>
