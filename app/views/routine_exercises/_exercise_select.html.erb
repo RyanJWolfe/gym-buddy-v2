@@ -11,9 +11,18 @@
            data-exercise-selector-target="item"
            class="border-b border-gray-300 p-4 hover:shadow-lg transition-shadow duration-200">
         <div class="flex items-center justify-between gap-x-4">
-          <div>
-            <h3 class="text-lg font-semibold mb-1"><%= exercise.name %></h3>
-            <p class="text-sm text-muted"><%= exercise.category || "Uncategorized" %></p>
+          <div class="flex items-center w-full">
+            <div id="exercise-<%= exercise.id %>-image" class="h-12 w-12 bg-gray-200 rounded-md flex items-center justify-center mr-4 overflow-hidden">
+              <% if false %>
+                <%= image_tag exercise.image.variant(resize_to_fill: [ 48, 48 ]), alt: exercise.name, class: "object-cover h-12 w-12" %>
+              <% else %>
+                <%= inline_svg_tag "icons/triangle.svg", class: "h-6 w-6 text-gray-400" %>
+              <% end %>
+            </div>
+            <div>
+              <h3 class="text-lg font-semibold mb-1"><%= exercise.name %></h3>
+              <p class="text-sm text-muted"><%= exercise.category || "Uncategorized" %></p>
+            </div>
           </div>
           <button type="button">
             <%= inline_svg_tag "icons/info.svg", class: "h-6 w-6" %>
