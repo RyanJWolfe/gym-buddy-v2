@@ -26,13 +26,20 @@ export default class extends Controller {
     this.updateAddButton()
   }
 
+  pluralizeExercise(count) {
+    return count === 1 ? "exercise" : "exercises"
+  }
+
   // Update add button visibility and count
   updateAddButton() {
     const count = this.selected.size
+    console.log("Selected count:", count)
     if (this.hasAddButtonTarget) {
-      if (this.hasCountTarget) this.countTarget.textContent = count
-      this.addButtonTarget.hidden = count === 0
+      if (this.hasCountTarget) this.countTarget.textContent = `${count} ${this.pluralizeExercise(count)}`
+      this.addButtonTarget.classList.toggle("hidden", count === 0)
     }
+
+    console.log("this.countTarget.textContent:", this.countTarget.textContent)
   }
 
   // Dispatch event with selected ids (bubbles so other controllers can catch it)

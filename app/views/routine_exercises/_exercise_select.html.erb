@@ -1,9 +1,11 @@
 <div class="exercise-select relative overflow-y-auto">
   <h2 class="text-2xl font-semibold hidden md:block md:pb-8">Select an Exercise</h2>
 
-  <div data-controller="exercise-selector" class="pt-16 md:pt-0 grid grid-cols-1 sm:grid-cols-2 gap-4">
+  <div data-controller="exercise-selector"
+       data-action="exercise:add->nested-exercise-select-form#addExercises"
+       class="pt-16 md:pt-0 grid grid-cols-1 sm:grid-cols-2 gap-4">
     <% Exercise.order(:name).each do |exercise| %>
-      <div data-action="exercise:add->nested-exercise-select-form#addExercises"
+      <div data-action="click->exercise-selector#toggle"
            data-exercise-id="<%= exercise.id %>"
            data-exercise-name="<%= exercise.name %>"
            data-exercise-selector-target="item"
@@ -17,14 +19,16 @@
             <%= inline_svg_tag "icons/info.svg", class: "h-6 w-6" %>
           </button>
         </div>
-        <%#= button_to "Add Exercise", add_exercise_to_routine_path(exercise_id: exercise.id), method: :post, class: "btn btn-primary w-full" %>
       </div>
     <% end %>
-    <div class="fixed bottom-0 left-0 right-0 p-5 z-50 md:relative md:bottom-auto md:left-auto md:right-auto">
+    <div class="fixed bottom-0 left-0 right-0 p-5 z-50">
       <div class="max-w-2xl mx-auto">
-        <button type="button" class="btn btn-primary btn-icon w-full shadow-lg flex" title="Add selected exercise(s)">
-          <%= inline_svg('icons/plus.svg', class: "h-7 w-7") %>
-          Add <span data-exercise-selector-target="count" class="ml-1">0</span> exercise(s)
+        <button data-action="exercise-selector#addSelected modal#close"
+                data-exercise-selector-target="addButton"
+                type="button"
+                class="hidden btn btn-primary w-full shadow-lg"
+                title="Add selected exercise(s)">
+          Add <span data-exercise-selector-target="count">0 Exercise(s)</span>
         </button>
       </div>
     </div>
