@@ -12,8 +12,8 @@
            class="border-b border-gray-300 p-4 hover:shadow-lg transition-shadow duration-200">
         <div class="flex items-center justify-between gap-x-4">
           <div>
-            <h3 class="text-lg font-semibold mb-2"><%= exercise.name %></h3>
-            <p class="text-sm text-muted-dark"><%= exercise.description.truncate(100) %></p>
+            <h3 class="text-lg font-semibold mb-1"><%= exercise.name %></h3>
+            <p class="text-sm text-muted"><%= exercise.category || "Uncategorized" %></p>
           </div>
           <button type="button">
             <%= inline_svg_tag "icons/info.svg", class: "h-6 w-6" %>
