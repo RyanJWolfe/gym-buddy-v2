@@ -1,9 +1,9 @@
-<div class="exercise-select relative overflow-y-auto">
-  <h2 class="text-2xl font-semibold hidden md:block md:pb-8">Select an Exercise</h2>
+<div class="exercise-select relative overflow-y-auto h-full">
+  <%= render 'routine_exercises/exercise_select_header' %>
 
   <div data-controller="exercise-selector"
        data-action="exercise:add->nested-exercise-select-form#addExercises"
-       class="pt-16 md:pt-0 grid grid-cols-1 sm:grid-cols-2 gap-4">
+       class="grid grid-cols-1 sm:grid-cols-2 gap-4 bg-white">
     <% Exercise.order(:name).each do |exercise| %>
       <div data-action="click->exercise-selector#toggle"
            data-exercise-id="<%= exercise.id %>"
