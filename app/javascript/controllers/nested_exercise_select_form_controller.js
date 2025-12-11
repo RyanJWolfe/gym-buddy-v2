@@ -30,18 +30,16 @@ export default class extends RailsNestedForm {
   addExercises(event) {
     event.preventDefault();
 
-    const ids = event?.detail?.exercise_ids || [];
-    if (!Array.isArray(ids) || ids.length === 0) return;
+    const selectedExercisesMap = event?.detail?.exerciseMap;
+    if (!selectedExercisesMap || !(selectedExercisesMap instanceof Map) || selectedExercisesMap.size === 0) {
+      return;
+    }
 
     this.removeEmptyState();
 
-    ids.forEach((id) => {
-      // find the exercise element to get its name (falls back to empty string)
-      const el = document.querySelector(`[data-exercise-id="${id}"]`);
-      const name = el?.dataset?.exerciseName || "";
-
-      this.addOne(id, name);
-    });
+    for (const [id, name] of selectedExercisesMap) {
+      this.addOne(id, name || "");
+    }
 
     // re-evaluate submit state after adding all
     this.toggleSubmitState();

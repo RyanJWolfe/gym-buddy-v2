@@ -5,7 +5,7 @@ export default class extends Controller {
   static targets = ["item", "addButton", "count"]
 
   connect() {
-    this.selected = new Set()
+    this.selected = new Map()
     this.updateAddButton()
   }
 
@@ -13,13 +13,14 @@ export default class extends Controller {
   toggle(event) {
     const el = event.currentTarget
     const id = el.dataset.exerciseId
+    const name = el.dataset.exerciseName
     if (!id) return
 
     if (this.selected.has(id)) {
       this.selected.delete(id)
       el.classList.remove("bg-blue-100", "ring-2")
     } else {
-      this.selected.add(id)
+      this.selected.set(id, name)
       el.classList.add("bg-blue-100", "ring-2")
     }
 
@@ -33,20 +34,16 @@ export default class extends Controller {
   // Update add button visibility and count
   updateAddButton() {
     const count = this.selected.size
-    console.log("Selected count:", count)
     if (this.hasAddButtonTarget) {
       if (this.hasCountTarget) this.countTarget.textContent = `${count} ${this.pluralizeExercise(count)}`
       this.addButtonTarget.classList.toggle("hidden", count === 0)
     }
-
-    console.log("this.countTarget.textContent:", this.countTarget.textContent)
   }
 
   // Dispatch event with selected ids (bubbles so other controllers can catch it)
   addSelected() {
-    const ids = Array.from(this.selected)
     const event = new CustomEvent("exercise:add", {
-      detail: { exercise_ids: ids },
+      detail: { exerciseMap: this.selected },
       bubbles: true,
       composed: true
     })
