@@ -39,7 +39,7 @@ export default class extends Controller {
 
   handleClick(event) {
     // if click is outside of container, close modal
-    if (!this.containerTarget.contains(event.target)) {
+    if (this.hasContainerTarget && !this.containerTarget.contains(event.target)) {
       this.close()
     }
   }
