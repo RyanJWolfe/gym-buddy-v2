@@ -1,9 +1,7 @@
 class ExercisesController < ApplicationController
-  before_action :set_exercise, only: [:show, :edit, :update]
+  before_action :set_exercise, only: [ :show, :edit, :update ]
 
   def index
-    @exercises = Exercise.all.order(:name)
-
     if params[:category].present?
       @exercises = @exercises.by_category(params[:category])
     end
@@ -11,12 +9,28 @@ class ExercisesController < ApplicationController
     if params[:equipment_type].present?
       @exercises = @exercises.by_equipment(params[:equipment_type])
     end
+
+    if params[:search].present? && params[:search].strip.present?
+      search_term = params[:search].strip
+      @exercises = Exercise.where("name ILIKE ?", "%#{search_term}%").order(:name)
+    else
+      @exercises = Exercise.all.order(:name)
+    end
+
+    pp "@exercises: #{@exercises.pluck(:name)}"
+
+    respond_to do |format|
+      format.html # index.html.erb
+      format.turbo_stream do
+        render turbo_stream: turbo_stream.update("exercise-select-list", partial: "routine_exercises/exercise_select_list", locals: { exercises: @exercises })
+      end
+    end
   end
 
   def show
     @exercise_logs = current_user.exercise_logs.where(exercise: @exercise)
-                                .includes(:workout, :sets)
-                                .order("workouts.date DESC")
+                                 .includes(:workout, :sets)
+                                 .order("workouts.date DESC")
   end
 
   def new

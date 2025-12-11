@@ -1,45 +1,23 @@
-<div class="exercise-select relative overflow-y-auto h-full">
+<%# locals: (exercises: ) %>
+
+<div data-controller="exercise-selector"
+     data-action="exercise:add->nested-exercise-select-form#addExercises"
+     class="relative overflow-y-auto h-full min-h-screen bg-gray-100">
   <%= render 'routine_exercises/exercise_select_header' %>
 
-  <div data-controller="exercise-selector"
-       data-action="exercise:add->nested-exercise-select-form#addExercises"
-       class="grid grid-cols-1 sm:grid-cols-2 gap-4 bg-gray-100">
-    <% Exercise.order(:name).each do |exercise| %>
-      <div data-action="click->exercise-selector#toggle"
-           data-exercise-id="<%= exercise.id %>"
-           data-exercise-name="<%= exercise.name %>"
-           data-exercise-selector-target="item"
-           class="border-b border-gray-300 p-4 hover:shadow-lg transition-shadow duration-200 cursor-pointer">
-        <div class="flex items-center justify-between gap-x-4">
-          <div class="flex items-center w-full">
-            <div id="exercise-<%= exercise.id %>-image" class="h-12 w-12 bg-gray-200 rounded-md flex items-center justify-center mr-4 overflow-hidden">
-              <% if false %>
-                <%= image_tag exercise.image.variant(resize_to_fill: [ 48, 48 ]), alt: exercise.name, class: "object-cover h-12 w-12" %>
-              <% else %>
-                <%= inline_svg_tag "icons/triangle.svg", class: "h-6 w-6 text-gray-400" %>
-              <% end %>
-            </div>
-            <div>
-              <h3 class="text-lg font-semibold mb-1"><%= exercise.name %></h3>
-              <p class="text-sm text-muted"><%= exercise.category || "Uncategorized" %></p>
-            </div>
-          </div>
-          <button type="button">
-            <%= inline_svg_tag "icons/info.svg", class: "h-6 w-6" %>
-          </button>
-        </div>
-      </div>
-    <% end %>
-    <div class="fixed bottom-0 left-0 right-0 py-5 px-2.5 z-50">
-      <div class="max-w-2xl mx-auto">
-        <button data-action="exercise-selector#addSelected modal#close"
-                data-exercise-selector-target="addButton"
-                type="button"
-                class="hidden btn btn-primary w-full shadow-lg"
-                title="Add selected exercise(s)">
-          Add <span data-exercise-selector-target="count">0 Exercise(s)</span>
-        </button>
-      </div>
+  <div id="exercise-select-list" class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+    <%= render 'exercise_select_list', exercises: %>
+  </div>
+
+  <div class="fixed bottom-0 left-0 right-0 py-5 px-2.5 z-50">
+    <div class="max-w-2xl mx-auto">
+      <button data-action="exercise-selector#addSelected modal#close"
+              data-exercise-selector-target="addButton"
+              type="button"
+              class="hidden btn btn-primary w-full shadow-lg"
+              title="Add selected exercise(s)">
+        Add <span data-exercise-selector-target="count">0 Exercise(s)</span>
+      </button>
     </div>
   </div>
 </div>

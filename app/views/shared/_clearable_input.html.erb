@@ -1,0 +1,6 @@
+<div data-controller="clearable-input" class="relative flex-grow">
+  <%= yield %>
+  <button type="button" aria-label="Clear name" title="Clear" data-action="click->clearable-input#clear" data-clearable-input-target="clearButton" class="absolute inset-y-0 right-2 flex items-center text-muted hover:text-gray-700 opacity-0 pointer-events-none scale-50 transition duration-150 ease-in-out" aria-hidden="true">
+    <%= inline_svg_tag "icons/x-circle.svg", class: "w-4 h-4" %>
+  </button>
+</div>

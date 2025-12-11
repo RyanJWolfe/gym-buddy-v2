@@ -47,6 +47,7 @@ class RoutineExercisesController < ApplicationController
   end
 
   def exercise_select_modal # TODO: find a better place for this action
+    @exercises = Exercise.all.order(:name)
   end
 
   private
