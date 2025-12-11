@@ -1,4 +1,4 @@
-<div id="exercise-select-mobile-header" class="z-50 border-b border-gray-300 shadow-md bg-white sticky top-0 w-full">
+<div id="exercise-select-mobile-header" class="z-50 shadow-md bg-gray-100 sticky top-0 w-full">
   <div class="max-w-2xl lg:max-w-4xl mx-auto flex items-center justify-between p-4">
     <button type="button" class="link link-primary" data-action="modal#close">
       Cancel
@@ -7,5 +7,16 @@
     <button type="submit" class="link link-primary pointer-events-none cursor-not-allowed" disabled>
       Create
     </button>
+  </div>
+  <div class="flex flex-col items-center justify-center w-full px-4 pb-4 md:max-w-2xl mx-auto">
+    <%= form_with url: exercises_path, method: :get, data: { controller: "search", search_target: "form", turbo_stream: true }, class: "relative flex gap-2 w-full" do |f| %>
+      <%= inline_svg("icons/search.svg", class: "absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400") %>
+      <%= f.text_field :search,
+                       value: params[:search],
+                       placeholder: "Search exercises...",
+                       autocomplete: :off,
+                       data: { action: "search#onInput", search_target: "input" },
+                       class: "form-input pl-9 md:pl-10" %>
+    <% end %>
   </div>
 </div>
