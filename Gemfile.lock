@@ -449,7 +449,7 @@ DEPENDENCIES
   pagy
   pg (~> 1.1)
   propshaft
-  puma (>= 5.0)
+  puma (~> 7.0)
   rails (~> 8.0.1)
   rspec-rails
   rubocop-rails-omakase
