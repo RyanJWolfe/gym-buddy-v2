@@ -19,6 +19,37 @@ export default class extends RailsNestedForm {
     this.element.addEventListener("rails-nested-form:remove", () => this.toggleSubmitState());
   }
 
+  replaceExercise(event) {
+    event.preventDefault();
+
+    const exerciseId = event.detail.exerciseId;
+    const exerciseName = event.detail.exerciseName || "";
+    const targetDomId = event.detail.targetDomId;
+
+    console.log("replaceExercise called with:", { exerciseId, exerciseName, targetDomId });
+
+    if (!exerciseId || !targetDomId) {
+      return;
+    }
+
+    // Find the existing nested form to replace
+    const targetElement = document.getElementById(targetDomId);
+    if (!targetElement) {
+      return;
+    }
+
+    // Set the values on the existing targets within the found element
+    const exerciseFormField = targetElement.querySelector(
+        `input[name*="${targetDomId}"][name$="[exercise_id]"]`);
+    const exerciseContainer = targetElement.querySelector("h5");
+
+    if (exerciseFormField && exerciseContainer) {
+      exerciseFormField.value = exerciseId;
+      exerciseContainer.outerHTML = `<h5 class="font-medium">${exerciseName}</h5>`;
+    }
+
+  }
+
   addExercise(event) {
     event.preventDefault();
 
@@ -47,7 +78,9 @@ export default class extends RailsNestedForm {
 
   // helper to add a single nested form by id/name (mirrors newAdd but accepts values)
   addOne(exerciseId, exerciseName) {
-    const content = this.templateTarget.innerHTML.replace(/NEW_RECORD/g, new Date().getTime().toString());
+    const timestamp = new Date().getTime().toString();
+    let content = this.templateTarget.innerHTML.replace(/NEW_RECORD/g, timestamp);
+    content = content.replace(/__exercise_dom_id__/g, timestamp);
     this.targetTarget.insertAdjacentHTML("beforebegin", content);
 
     // set the values on the newly-inserted targets (works because targets update as we add)
