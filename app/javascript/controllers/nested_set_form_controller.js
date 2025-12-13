@@ -90,27 +90,29 @@ export default class extends RailsNestedForm {
   }
 
   onWeightChange(event) {
-    const input = event.target;
-    const value = parseFloat(input.value);
-
-    const setWrapper = input.closest('[data-nested-set-form-target="setFormField"]');
-    const orderInput = setWrapper.querySelector('input[name$="[set_number]"]');
-    const order = orderInput.value;
-
-    input.dataset.propagateWeight = "false";
-    this.propagateChangeToSets("weight", value, order);
+    this.handleFieldChange(event, "weight");
   }
 
   onRepsChange(event) {
+    this.handleFieldChange(event, "reps");
+  }
+
+  handleFieldChange(event, fieldName) {
     const input = event.target;
-    const value = parseInt(input.value);
+    let value;
+
+    if (fieldName === "weight") {
+      value = parseFloat(input.value);
+    } else if (fieldName === "reps") {
+      value = parseInt(input.value);
+    }
 
     const setWrapper = input.closest('[data-nested-set-form-target="setFormField"]');
     const orderInput = setWrapper.querySelector('input[name$="[set_number]"]');
     const order = orderInput.value;
 
-    input.dataset.propagateReps = "false";
-    this.propagateChangeToSets("reps", value, order);
+    input.setAttribute(`data-propagate-${fieldName}`, "false");
+    this.propagateChangeToSets(fieldName, value, order);
   }
 
   propagateChangeToSets(fieldName, value, order) {
