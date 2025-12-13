@@ -44,7 +44,6 @@ export default class extends RailsNestedForm {
       const input = field.querySelector('input[name$="[set_number]"]');
       if (input) {
         input.value = index;
-        input.setAttribute('value', index);
         index += 1;
       }
     });
@@ -59,8 +58,6 @@ export default class extends RailsNestedForm {
         (field) => field.style.display !== "none"
     );
     orderInputField.value = visibleSets.length;
-
-    orderInputField.setAttribute('value', visibleSets.length);
   }
 
   setInitialInputs(newSetTimestamp) {
