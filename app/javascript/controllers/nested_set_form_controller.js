@@ -30,6 +30,7 @@ export default class extends RailsNestedForm {
     this.targetTarget.insertAdjacentHTML("beforebegin", content)
 
     this.setOrderField(timestamp);
+    this.setInitialInputs(timestamp);
 
     const event = new CustomEvent("rails-nested-form:add", {bubbles: true})
     this.element.dispatchEvent(event)
@@ -49,16 +50,47 @@ export default class extends RailsNestedForm {
     });
   }
 
-  setOrderField(timestamp) {
+  setOrderField(newSetTimestamp) {
     const orderInputField = document.querySelector(
-        `input[name*="${timestamp}"][name$="[set_number]"]`
+        `input[name*="${newSetTimestamp}"][name$="[set_number]"]`
     );
 
     const visibleSets = this.setFormFieldTargets.filter(
-      (field) => field.style.display !== "none"
+        (field) => field.style.display !== "none"
     );
     orderInputField.value = visibleSets.length;
 
     orderInputField.setAttribute('value', visibleSets.length);
+  }
+
+  setInitialInputs(newSetTimestamp) {
+    this.setOrderField(newSetTimestamp)
+
+    // add weight and reps to newly added sets
+    const weightInputField = document.querySelector(
+        `input[name*="${newSetTimestamp}"][name$="[weight]"]`
+    );
+    const repsInputField = document.querySelector(
+        `input[name*="${newSetTimestamp}"][name$="[reps]"]`
+    );
+
+    const lastSet = this.setFormFieldTargets
+        .filter((field) => field.style.display !== "none")
+        .slice(-2, -1)[0];
+
+    if (!lastSet) return;
+
+    const lastWeightInput = lastSet.querySelector('input[name$="[weight]"]');
+    const lastRepsInput = lastSet.querySelector('input[name$="[reps]"]');
+
+    if (lastWeightInput && weightInputField) {
+      weightInputField.value = lastWeightInput.value;
+      weightInputField.setAttribute('value', lastWeightInput.value);
+    }
+
+    if (lastRepsInput && repsInputField) {
+      repsInputField.value = lastRepsInput.value;
+      repsInputField.setAttribute('value', lastRepsInput.value);
+    }
   }
 }
