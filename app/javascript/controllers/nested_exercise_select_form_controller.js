@@ -22,39 +22,15 @@ export default class extends RailsNestedForm {
   replaceExercise(event) {
     event.preventDefault();
 
-    const exerciseId = event.detail.exerciseId;
-    const exerciseName = event.detail.exerciseName || "";
-    const targetDomId = event.detail.targetDomId;
-
-    console.log("replaceExercise called with:", { exerciseId, exerciseName, targetDomId });
-
-    if (!exerciseId || !targetDomId) {
-      return;
-    }
-
-    // Find the existing nested form to replace
+    const {exerciseId, exerciseName, targetDomId} = event.detail;
     const targetElement = document.getElementById(targetDomId);
-    if (!targetElement) {
-      return;
-    }
-
-    // Set the values on the existing targets within the found element
     const exerciseFormField = targetElement.querySelector(
-        `input[name*="${targetDomId}"][name$="[exercise_id]"]`);
+        `input[name$="[exercise_id]"]`);
     const exerciseContainer = targetElement.querySelector("h5");
 
-    if (exerciseFormField && exerciseContainer) {
-      exerciseFormField.value = exerciseId;
-      exerciseContainer.outerHTML = `<h5 class="font-medium">${exerciseName}</h5>`;
-    }
+    exerciseFormField.value = exerciseId;
+    exerciseContainer.outerHTML = `<h5 class="font-medium">${exerciseName}</h5>`;
 
-  }
-
-  addExercise(event) {
-    event.preventDefault();
-
-    this.removeEmptyState();
-    this.addOne(event.target.dataset.exerciseId, event.target.dataset.exerciseName);
   }
 
   // handler for the bubbled `exercise:add` CustomEvent with multiple ids
@@ -86,7 +62,7 @@ export default class extends RailsNestedForm {
     // set the values on the newly-inserted targets (works because targets update as we add)
     this.setExerciseField(exerciseId, exerciseName);
 
-    const event = new CustomEvent("rails-nested-form:add", { bubbles: true });
+    const event = new CustomEvent("rails-nested-form:add", {bubbles: true});
     this.element.dispatchEvent(event);
   }
 
