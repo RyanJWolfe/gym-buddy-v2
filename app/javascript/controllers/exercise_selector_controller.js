@@ -15,11 +15,11 @@ export default class extends Controller {
     this.selected = new Map()
     this.updateAddButton()
   }
-  
+
   replaceMode() {
     return this.modeValue === this.MODE_REPLACE
   }
-  
+
   addMode() {
     return this.modeValue === this.MODE_ADD
   }
