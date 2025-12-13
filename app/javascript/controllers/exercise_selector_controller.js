@@ -8,9 +8,20 @@ export default class extends Controller {
     targetDomId: String // target DOM id for replace mode
   }
 
+  MODE_ADD = "add";
+  MODE_REPLACE = "replace";
+
   connect() {
     this.selected = new Map()
     this.updateAddButton()
+  }
+  
+  replaceMode() {
+    return this.modeValue === this.MODE_REPLACE
+  }
+  
+  addMode() {
+    return this.modeValue === this.MODE_ADD
   }
 
   // Toggle selection when an exercise item is clicked
@@ -24,7 +35,7 @@ export default class extends Controller {
       this.selected.delete(id)
       el.classList.remove("bg-blue-100", "ring-2")
     } else {
-      if (this.modeValue === "replace") {
+      if (this.replaceMode()) {
         // Clear previous selection
         this.itemTargets.forEach(t => t.classList.remove("bg-blue-100", "ring-2"))
         this.selected.clear()
@@ -44,20 +55,20 @@ export default class extends Controller {
   updateAddButton() {
     const count = this.selected.size
 
-    if (this.modeValue === "add") {
+    if (this.addMode()) {
       this.countTarget.textContent = `${count} ${this.pluralizeExercise(count)}`
-      this.addButtonTarget.classList.toggle("hidden", count === 0)
-    } else if (this.modeValue === "replace") {
+    } else if (this.replaceMode()) {
       this.countTarget.textContent = `exercise`
-      this.addButtonTarget.classList.toggle("hidden", count === 0)
     }
+
+    this.addButtonTarget.classList.toggle("hidden", count === 0)
   }
 
   // Dispatch event with selected ids (bubbles so other controllers can catch it)
   addSelected() {
-    if (this.modeValue === "replace") {
+    if (this.replaceMode()) {
       this.dispatchReplaceEvent()
-    } else if (this.modeValue === "add") {
+    } else if (this.addMode()) {
       this.dispatchAddEvent()
     }
 
@@ -67,7 +78,12 @@ export default class extends Controller {
 
   dispatchReplaceEvent() {
     const event = new CustomEvent("exercise:replace", {
-      detail: { mode: "replace", targetDomId: this.targetDomIdValue, exerciseId: Array.from(this.selected.keys())[0], exerciseName: Array.from(this.selected.values())[0] },
+      detail: {
+        mode: "replace",
+        targetDomId: this.targetDomIdValue,
+        exerciseId: Array.from(this.selected.keys())[0],
+        exerciseName: Array.from(this.selected.values())[0]
+      },
       bubbles: true,
       composed: true
     })
