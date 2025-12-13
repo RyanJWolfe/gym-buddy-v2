@@ -3,16 +3,18 @@ import { Controller } from "@hotwired/stimulus"
 // Connects to data-controller="search"
 export default class extends Controller {
   static targets = ["input", "form"]
+  static values = {
+    updateUrl: {type: Boolean, default: true}
+  }
 
   connect() {
   }
 
   onInput() {
-    const query = this.inputTarget.value;
-    // update ?search query parameter
-    const url = new URL(window.location.href);
-    url.searchParams.set('search', query);
-    window.history.pushState({}, '', url);
+    if (this.updateUrlValue) {
+      const query = this.inputTarget.value;
+      this.updateSearchParamInUrl(query);
+    }
 
     clearTimeout(this.debounceTimeout);
     this.debounceTimeout = setTimeout(() => {
@@ -22,6 +24,12 @@ export default class extends Controller {
 
   search() {
     this.formTarget.requestSubmit()
+  }
+
+  updateSearchParamInUrl(query) {
+    const url = new URL(window.location.href);
+    url.searchParams.set('search', query);
+    window.history.pushState({}, '', url);
   }
 
   clearResults() {
