@@ -82,12 +82,39 @@ export default class extends RailsNestedForm {
 
     if (lastWeightInput && weightInputField) {
       weightInputField.value = lastWeightInput.value;
-      weightInputField.setAttribute('value', lastWeightInput.value);
     }
 
     if (lastRepsInput && repsInputField) {
       repsInputField.value = lastRepsInput.value;
-      repsInputField.setAttribute('value', lastRepsInput.value);
     }
+  }
+
+  onWeightChange(event) {
+    const input = event.target;
+    const value = parseFloat(input.value);
+
+    input.dataset.propagateWeight = "false";
+    this.propagateChangeToSets("weight", value);
+  }
+
+  onRepsChange(event) {
+    const input = event.target;
+    const value = parseInt(input.value);
+
+    input.dataset.propagateReps = "false";
+    this.propagateChangeToSets("reps", value);
+  }
+
+  propagateChangeToSets(fieldName, value) {
+    this.setFormFieldTargets.forEach((field) => {
+      if (field.style.display === "none") return;
+
+      const input = field.querySelector(`input[name$="[${fieldName}]"]`);
+      const inputNeedsPropagation = input.getAttribute(`data-propagate-${fieldName}`) !== "false";
+      if (!inputNeedsPropagation) return;
+
+      input.value = value;
+      input.setAttribute(`data-propagate-${fieldName}`, "true");
+    });
   }
 }
