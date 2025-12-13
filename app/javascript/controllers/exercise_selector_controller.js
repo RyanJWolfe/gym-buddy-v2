@@ -45,10 +45,10 @@ export default class extends Controller {
     const count = this.selected.size
 
     if (this.modeValue === "add") {
-      if (this.hasCountTarget) this.countTarget.textContent = `${count} ${this.pluralizeExercise(count)}`
+      this.countTarget.textContent = `${count} ${this.pluralizeExercise(count)}`
       this.addButtonTarget.classList.toggle("hidden", count === 0)
     } else if (this.modeValue === "replace") {
-      if (this.hasCountTarget) this.countTarget.textContent = `exercise`
+      this.countTarget.textContent = `exercise`
       this.addButtonTarget.classList.toggle("hidden", count === 0)
     }
   }
