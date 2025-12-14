@@ -202,4 +202,3 @@ if Rails.env.development?
     puts "Created #{user.workouts.count} demo workouts for #{DEMO_EMAIL}"
   end
 end
-

@@ -10,7 +10,7 @@ namespace :db do
     desc "Run demo seeds (development only). Loads db/seeds/demo.rb"
     task demo: :environment do
       if Rails.env.development?
-        demo_seed = Rails.root.join('db', 'seeds', 'demo.rb')
+        demo_seed = Rails.root.join("db", "seeds", "demo.rb")
         if File.exist?(demo_seed)
           puts "Running demo seed: #{demo_seed}"
           # Use load so the file is executed fresh each time
