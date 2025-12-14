@@ -14,9 +14,7 @@
 
     <div data-controller="bottom-sheet">
       <button type="button" data-action="click->bottom-sheet#open" class="p-1 hover:bg-gray-200 rounded-lg">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-          <path d="M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z"/>
-        </svg>
+        <%= inline_svg_tag "icons/more-horizontal.svg", class: "h-5 w-5" %>
       </button>
 
       <!-- Bottom Sheet -->
