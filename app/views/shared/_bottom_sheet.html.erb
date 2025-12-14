@@ -10,12 +10,16 @@
   <!-- Bottom Sheet / Modal -->
   <div data-bottom-sheet-target="sheet" class="hidden fixed inset-0 z-50 flex items-end lg:items-center lg:justify-center" data-action="click->bottom-sheet#close">
     <div data-bottom-sheet-target="overlay" class="absolute inset-0 bg-gray-900 bg-opacity-0 transition-opacity"></div>
-    <div data-bottom-sheet-target="content" class="bg-white rounded-t-lg lg:rounded-lg shadow-lg p-4 w-full lg:w-auto lg:max-w-md transition-transform transform translate-y-full lg:translate-y-0 lg:scale-95 lg:duration-150" data-action="click->stop">
+    <div data-bottom-sheet-target="content" class="relative bg-white rounded-t-lg lg:rounded-lg shadow-lg p-4 w-full lg:w-auto lg:min-w-96 lg:max-w-md transition-transform transform translate-y-full lg:translate-y-0 lg:scale-95 lg:duration-150" data-action="click->stop">
       <div class="flex justify-center mb-4 lg:hidden">
         <div class="w-10 h-1 bg-gray-300 rounded-full"></div>
+      </div>
+      <div class="hidden lg:flex justify-end">
+        <button type="button" data-action="click->bottom-sheet#close" class="p-1 hover:bg-gray-200 rounded-lg -mr-2 -mt-2">
+          <%= inline_svg_tag "icons/x.svg", class: "h-6 w-6" %>
+        </button>
       </div>
       <%= yield %>
     </div>
   </div>
 </div>
-
