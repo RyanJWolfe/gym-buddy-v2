@@ -12,22 +12,29 @@
     </div>
 
 
-    <div class="dropdown relative" data-controller="dropdown">
-      <button type="button" data-action="click->dropdown#toggle" class="p-1 hover:bg-gray-200 rounded-lg">
+    <div data-controller="bottom-sheet">
+      <button type="button" data-action="click->bottom-sheet#open" class="p-1 hover:bg-gray-200 rounded-lg">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
           <path d="M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z"/>
         </svg>
       </button>
-      <div data-dropdown-target="menu" class="hidden absolute right-0 mt-1 w-fit bg-white rounded-md shadow-lg z-10">
-        <div class="py-2 w-full space-y-2 px-4">
-          <%= link_to routine_exercise_select_modal_path(mode: :replace, target_dom_id: f.object.exercise.present? ? dom_id(f.object.exercise) : "__exercise_dom_id__" ), data: { turbo_method: :post }, class: "flex items-center gap-x-1.5 whitespace-nowrap" do %>
-            <%= inline_svg_tag "icons/rotate-cw.svg", class: "h-5 w-5" %>
-            Change exercise
-          <% end %>
-          <button type="button" data-action="click->nested-exercise-select-form#remove" class="flex items-center gap-x-1.5 whitespace-nowrap text-red-600 hover:text-red-800">
-            <%= inline_svg_tag "icons/trash.svg", class: "h-5 w-5" %>
-            Remove exercise
-          </button>
+
+      <!-- Bottom Sheet -->
+      <div data-bottom-sheet-target="sheet" class="hidden fixed inset-0 bg-gray-900 bg-opacity-50 z-50 transition-transform transform translate-y-full" data-action="click->bottom-sheet#close">
+        <div data-bottom-sheet-target="content" class="absolute bottom-0 left-0 right-0 bg-white rounded-t-lg shadow-lg p-4" data-action="click->stop">
+          <div class="flex justify-center mb-4">
+            <div class="w-10 h-1 bg-gray-300 rounded-full"></div>
+          </div>
+          <div class="space-y-4">
+            <%= link_to routine_exercise_select_modal_path(mode: :replace, target_dom_id: f.object.exercise.present? ? dom_id(f.object.exercise) : "__exercise_dom_id__" ), data: { turbo_method: :post }, class: "flex items-center gap-x-3 p-3 -mx-3 rounded-lg hover:bg-gray-100" do %>
+              <%= inline_svg_tag "icons/rotate-cw.svg", class: "h-6 w-6" %>
+              <span class="font-medium">Change exercise</span>
+            <% end %>
+            <button type="button" data-action="click->nested-exercise-select-form#remove click->bottom-sheet#close" class="w-full flex items-center gap-x-3 p-3 -mx-3 rounded-lg hover:bg-gray-100 text-red-600 hover:text-red-800">
+              <%= inline_svg_tag "icons/trash.svg", class: "h-6 w-6" %>
+              <span class="font-medium">Remove exercise</span>
+            </button>
+          </div>
         </div>
       </div>
     </div>
