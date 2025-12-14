@@ -1,8 +1,6 @@
-<%# locals: (trigger: nil, content: nil) %>
-
 <div data-controller="bottom-sheet">
-  <% if trigger %>
-    <%= trigger %>
+  <% if content_for?(:trigger) %>
+    <%= yield :trigger %>
   <% else %>
     <button type="button" data-action="click->bottom-sheet#open" class="p-1 hover:bg-gray-200 rounded-lg">
       <%= inline_svg_tag "icons/more-horizontal.svg", class: "h-5 w-5" %>
@@ -16,8 +14,7 @@
       <div class="flex justify-center mb-4">
         <div class="w-10 h-1 bg-gray-300 rounded-full"></div>
       </div>
-
-      <%= content %>
+      <%= yield %>
     </div>
   </div>
 </div>

@@ -12,25 +12,26 @@
     </div>
 
 
-    <%= render partial: "shared/bottom_sheet", locals: {
-      trigger: capture do %>
+    <% content_for :trigger do %>
       <button type="button" data-action="click->bottom-sheet#open" class="p-1 hover:bg-gray-200 rounded-lg">
         <%= inline_svg_tag "icons/more-horizontal.svg", class: "h-5 w-5" %>
       </button>
-    <% end,
-       content: capture do %>
-      <div class="space-y-4">
-        <%= link_to routine_exercise_select_modal_path(mode: :replace, target_dom_id: f.object.exercise.present? ? dom_id(f.object.exercise) : "__exercise_dom_id__"), data: { turbo_method: :post }, class: "flex items-center gap-x-3 p-3 -mx-3 rounded-lg hover:bg-gray-100" do %>
-          <%= inline_svg_tag "icons/rotate-cw.svg", class: "h-6 w-6" %>
-          <span class="font-medium">Change exercise</span>
-        <% end %>
-        <button type="button" data-action="click->nested-exercise-select-form#remove click->bottom-sheet#close" class="w-full flex items-center gap-x-3 p-3 -mx-3 rounded-lg hover:bg-gray-100 text-red-600 hover:text-red-800">
-          <%= inline_svg_tag "icons/trash.svg", class: "h-6 w-6" %>
-          <span class="font-medium">Remove exercise</span>
-        </button>
-      </div>
-    <% end
-       } %>
+    <% end %>
+
+    <%= render "shared/bottom_sheet" do %>
+      <%= link_to routine_exercise_select_modal_path(mode: :replace, target_dom_id: f.object.exercise.present? ? dom_id(f.object.exercise) : "__exercise_dom_id__"),
+                  data: { turbo_method: :post },
+                  class: "flex items-center gap-x-3 p-3 -mx-3 rounded-lg hover:bg-gray-100" do %>
+        <%= inline_svg_tag "icons/rotate-cw.svg", class: "h-6 w-6" %>
+        <span class="font-medium">Change exercise</span>
+      <% end %>
+      <button type="button"
+              data-action="click->nested-exercise-select-form#remove click->bottom-sheet#close"
+              class="w-full flex items-center gap-x-3 p-3 -mx-3 rounded-lg hover:bg-gray-100 text-red-600 hover:text-red-800">
+        <%= inline_svg_tag "icons/trash.svg", class: "h-6 w-6" %>
+        <span class="font-medium">Remove exercise</span>
+      </button>
+    <% end %>
   </div>
 
   <div class="mt-4" data-controller="nested-set-form" data-nested-set-form-wrapper-selector-value=".sets-wrapper">
