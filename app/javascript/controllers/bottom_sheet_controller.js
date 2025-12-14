@@ -27,26 +27,33 @@ export default class extends Controller {
   open() {
     this.sheetTarget.classList.remove("hidden");
     document.body.classList.add("overflow-hidden");
-    // We need a small delay to allow the display property to change to block,
-    // so that the transition is applied.
     setTimeout(() => {
       this.overlayTarget.classList.add("!bg-opacity-75");
-      this.contentTarget.classList.remove("translate-y-full");
+      this.contentTarget.classList.remove("translate-y-full", "lg:scale-95");
+      this.contentTarget.classList.add("lg:scale-100");
     }, 10);
   }
 
   close() {
+    if (window.innerWidth >= 768) {
+      this.sheetTarget.classList.add("hidden");
+    }
     this.overlayTarget.classList.remove("!bg-opacity-75");
-    this.contentTarget.classList.add("translate-y-full");
+    this.contentTarget.classList.add("translate-y-full", "lg:scale-95");
+    this.contentTarget.classList.remove("lg:scale-100");
     document.body.classList.remove("overflow-hidden");
+
+    if (window.innerWidth >= 768) return;
+
     this.sheetTarget.addEventListener('transitionend', (event) => {
-      if (event.propertyName === 'transform') {
+      if (event.propertyName === 'transform' || event.propertyName === 'opacity') {
         this.sheetTarget.classList.add("hidden");
       }
     }, { once: true });
   }
 
   dragStart(event) {
+    if (window.innerWidth >= 768) return; // Disable drag on md screens and up
     if (this.contentTarget.scrollTop > 0) {
       this.isDragging = false;
       return;
@@ -57,6 +64,7 @@ export default class extends Controller {
   }
 
   dragMove(event) {
+    if (window.innerWidth >= 768) return; // Disable drag on md screens and up
     if (!this.isDragging) return;
 
     this.currentY = event.touches ? event.touches[0].pageY : event.pageY;
@@ -68,6 +76,7 @@ export default class extends Controller {
   }
 
   dragEnd() {
+    if (window.innerWidth >= 768) return; // Disable drag on md screens and up
     if (!this.isDragging) return;
     this.isDragging = false;
 
