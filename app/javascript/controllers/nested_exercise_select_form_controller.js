@@ -67,6 +67,8 @@ export default class extends RailsNestedForm {
   }
 
   remove(e) {
+    if (!confirm("Are you sure you want to remove this exercise?")) return
+
     super.remove(e);
 
     if (this.formExercisesEmpty()) {
