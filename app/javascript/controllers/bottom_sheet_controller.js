@@ -2,7 +2,7 @@ import { Controller } from "@hotwired/stimulus"
 
 // Connects to data-controller="bottom-sheet"
 export default class extends Controller {
-  static targets = ["sheet", "content"];
+  static targets = ["sheet", "overlay", "content"];
 
   connect() {
     this.startY = 0;
@@ -30,15 +30,19 @@ export default class extends Controller {
     // We need a small delay to allow the display property to change to block,
     // so that the transition is applied.
     setTimeout(() => {
-      this.sheetTarget.classList.remove("translate-y-full");
+      this.overlayTarget.classList.add("!bg-opacity-75");
+      this.contentTarget.classList.remove("translate-y-full");
     }, 10);
   }
 
   close() {
-    this.sheetTarget.classList.add("translate-y-full");
+    this.overlayTarget.classList.remove("!bg-opacity-75");
+    this.contentTarget.classList.add("translate-y-full");
     document.body.classList.remove("overflow-hidden");
-    this.sheetTarget.addEventListener('transitionend', () => {
-      this.sheetTarget.classList.add("hidden");
+    this.sheetTarget.addEventListener('transitionend', (event) => {
+      if (event.propertyName === 'transform') {
+        this.sheetTarget.classList.add("hidden");
+      }
     }, { once: true });
   }
 
@@ -49,7 +53,7 @@ export default class extends Controller {
     }
     this.isDragging = true;
     this.startY = event.touches ? event.touches[0].pageY : event.pageY;
-    this.sheetTarget.style.transition = "none";
+    this.contentTarget.style.transition = "none";
   }
 
   dragMove(event) {
@@ -59,7 +63,7 @@ export default class extends Controller {
     const diff = this.currentY - this.startY;
 
     if (diff > 0) {
-      this.sheetTarget.style.transform = `translateY(${diff}px)`;
+      this.contentTarget.style.transform = `translateY(${diff}px)`;
     }
   }
 
@@ -67,13 +71,13 @@ export default class extends Controller {
     if (!this.isDragging) return;
     this.isDragging = false;
 
-    this.sheetTarget.style.transition = "transform 0.2s ease-out";
+    this.contentTarget.style.transition = "transform 0.2s ease-out";
     const diff = this.currentY - this.startY;
 
     if (diff > 100) { // If dragged more than 100px, close
       this.close();
     } else {
-      this.sheetTarget.style.transform = "translateY(0)";
+      this.contentTarget.style.transform = "translateY(0)";
     }
   }
 }

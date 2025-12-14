@@ -18,8 +18,9 @@
       </button>
 
       <!-- Bottom Sheet -->
-      <div data-bottom-sheet-target="sheet" class="hidden fixed inset-0 bg-gray-900 bg-opacity-50 z-50 transition-transform transform translate-y-full" data-action="click->bottom-sheet#close">
-        <div data-bottom-sheet-target="content" class="absolute bottom-0 left-0 right-0 bg-white rounded-t-lg shadow-lg p-4" data-action="click->stop">
+      <div data-bottom-sheet-target="sheet" class="hidden fixed inset-0 z-50 flex items-end" data-action="click->bottom-sheet#close">
+        <div data-bottom-sheet-target="overlay" class="absolute inset-0 bg-gray-900 bg-opacity-0 transition-opacity"></div>
+        <div data-bottom-sheet-target="content" class="bg-white rounded-t-lg shadow-lg p-4 w-full transition-transform transform translate-y-full" data-action="click->stop">
           <div class="flex justify-center mb-4">
             <div class="w-10 h-1 bg-gray-300 rounded-full"></div>
           </div>
