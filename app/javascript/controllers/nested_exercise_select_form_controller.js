@@ -23,7 +23,10 @@ export default class extends RailsNestedForm {
 
     // Listen for nested form add/remove custom events emitted by rails-nested-form
     this.element.addEventListener("rails-nested-form:add", () => this.toggleSubmitState());
-    this.element.addEventListener("rails-nested-form:remove", () => this.toggleSubmitState());
+    this.element.addEventListener("rails-nested-form:remove", () => {
+      this.toggleSubmitState();
+      this.recalculatePositions();
+    });
   }
 
   replaceExercise(event) {
@@ -82,14 +85,27 @@ export default class extends RailsNestedForm {
     }
   }
 
+  recalculatePositions() {
+    const exerciseForms = document.querySelectorAll(this.wrapperSelectorValue);
+    exerciseForms.forEach((form, index) => {
+      const positionInput = form.querySelector('input[name*="[position]"]');
+      if (positionInput) {
+        positionInput.value = index + 1;
+      }
+    });
+  }
+
   formExercisesEmpty() {
     return document.querySelector(this.wrapperSelectorValue) === null
   }
 
   updateForm(exerciseId, exerciseName) {
     this.exerciseFormFieldTarget.value = exerciseId;
+
+    // console.log("Exercise count:", this.exerciseCount());
     this.positionFieldTarget.value = this.exerciseCount();
     this.exerciseContainerTarget.outerHTML = `<h5 class="font-medium">${exerciseName}</h5>`;
+    console.log(`Set exercise ID to ${exerciseName} and position to ${this.positionFieldTarget.value}`);
 
     // remove target attributes so that new adds don't overwrite this one
     this.exerciseFormFieldTarget.removeAttribute("data-nested-exercise-select-form-target");
