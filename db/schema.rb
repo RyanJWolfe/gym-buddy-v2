@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2025_12_15_044121) do
+ActiveRecord::Schema[8.1].define(version: 2025_12_15_045215) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -18,7 +18,7 @@ ActiveRecord::Schema[8.1].define(version: 2025_12_15_044121) do
     t.datetime "created_at", null: false
     t.string "name"
     t.datetime "updated_at", null: false
-    t.index [ "name" ], name: "index_categories_on_name", unique: true
+    t.index ["name"], name: "index_categories_on_name", unique: true
   end
 
   create_table "exercise_categories", force: :cascade do |t|
@@ -26,8 +26,8 @@ ActiveRecord::Schema[8.1].define(version: 2025_12_15_044121) do
     t.datetime "created_at", null: false
     t.bigint "exercise_id", null: false
     t.datetime "updated_at", null: false
-    t.index [ "category_id" ], name: "index_exercise_categories_on_category_id"
-    t.index [ "exercise_id" ], name: "index_exercise_categories_on_exercise_id"
+    t.index ["category_id"], name: "index_exercise_categories_on_category_id"
+    t.index ["exercise_id"], name: "index_exercise_categories_on_exercise_id"
   end
 
   create_table "exercise_logs", force: :cascade do |t|
@@ -38,9 +38,9 @@ ActiveRecord::Schema[8.1].define(version: 2025_12_15_044121) do
     t.text "notes"
     t.datetime "updated_at", null: false
     t.bigint "workout_id", null: false
-    t.index [ "exercise_id" ], name: "index_exercise_logs_on_exercise_id"
-    t.index [ "workout_id", "exercise_id" ], name: "index_exercise_logs_on_workout_id_and_exercise_id"
-    t.index [ "workout_id" ], name: "index_exercise_logs_on_workout_id"
+    t.index ["exercise_id"], name: "index_exercise_logs_on_exercise_id"
+    t.index ["workout_id", "exercise_id"], name: "index_exercise_logs_on_workout_id_and_exercise_id"
+    t.index ["workout_id"], name: "index_exercise_logs_on_workout_id"
   end
 
   create_table "exercise_sets", force: :cascade do |t|
@@ -53,20 +53,18 @@ ActiveRecord::Schema[8.1].define(version: 2025_12_15_044121) do
     t.integer "set_number", null: false
     t.datetime "updated_at", null: false
     t.decimal "weight", precision: 8, scale: 2, null: false
-    t.index [ "exercise_log_id", "set_number" ], name: "index_exercise_sets_on_exercise_log_id_and_set_number"
-    t.index [ "exercise_log_id" ], name: "index_exercise_sets_on_exercise_log_id"
+    t.index ["exercise_log_id", "set_number"], name: "index_exercise_sets_on_exercise_log_id_and_set_number"
+    t.index ["exercise_log_id"], name: "index_exercise_sets_on_exercise_log_id"
   end
 
   create_table "exercises", force: :cascade do |t|
-    t.string "category", null: false
     t.datetime "created_at", null: false
     t.text "description"
     t.string "equipment_type", null: false
     t.string "name", null: false
     t.datetime "updated_at", null: false
-    t.index [ "category" ], name: "index_exercises_on_category"
-    t.index [ "equipment_type" ], name: "index_exercises_on_equipment_type"
-    t.index [ "name" ], name: "index_exercises_on_name", unique: true
+    t.index ["equipment_type"], name: "index_exercises_on_equipment_type"
+    t.index ["name"], name: "index_exercises_on_name", unique: true
   end
 
   create_table "routine_exercises", force: :cascade do |t|
@@ -80,9 +78,9 @@ ActiveRecord::Schema[8.1].define(version: 2025_12_15_044121) do
     t.integer "suggested_reps", default: 10, null: false
     t.integer "suggested_sets", default: 3, null: false
     t.datetime "updated_at", null: false
-    t.index [ "exercise_id" ], name: "index_routine_exercises_on_exercise_id"
-    t.index [ "routine_id", "position" ], name: "index_routine_exercises_on_routine_id_and_position"
-    t.index [ "routine_id" ], name: "index_routine_exercises_on_routine_id"
+    t.index ["exercise_id"], name: "index_routine_exercises_on_exercise_id"
+    t.index ["routine_id", "position"], name: "index_routine_exercises_on_routine_id_and_position"
+    t.index ["routine_id"], name: "index_routine_exercises_on_routine_id"
   end
 
   create_table "routine_sets", force: :cascade do |t|
@@ -93,7 +91,7 @@ ActiveRecord::Schema[8.1].define(version: 2025_12_15_044121) do
     t.integer "set_number"
     t.datetime "updated_at", null: false
     t.decimal "weight", precision: 8, scale: 2
-    t.index [ "routine_exercise_id" ], name: "index_routine_sets_on_routine_exercise_id"
+    t.index ["routine_exercise_id"], name: "index_routine_sets_on_routine_exercise_id"
   end
 
   create_table "routines", force: :cascade do |t|
@@ -103,8 +101,8 @@ ActiveRecord::Schema[8.1].define(version: 2025_12_15_044121) do
     t.string "name", null: false
     t.datetime "updated_at", null: false
     t.bigint "user_id", null: false
-    t.index [ "user_id", "name" ], name: "index_routines_on_user_id_and_name"
-    t.index [ "user_id" ], name: "index_routines_on_user_id"
+    t.index ["user_id", "name"], name: "index_routines_on_user_id_and_name"
+    t.index ["user_id"], name: "index_routines_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -120,8 +118,8 @@ ActiveRecord::Schema[8.1].define(version: 2025_12_15_044121) do
     t.string "reset_password_token"
     t.integer "sign_in_count", default: 0, null: false
     t.datetime "updated_at", null: false
-    t.index [ "email" ], name: "index_users_on_email", unique: true
-    t.index [ "reset_password_token" ], name: "index_users_on_reset_password_token", unique: true
+    t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
   create_table "workouts", force: :cascade do |t|
@@ -140,10 +138,10 @@ ActiveRecord::Schema[8.1].define(version: 2025_12_15_044121) do
     t.datetime "updated_at", null: false
     t.bigint "user_id", null: false
     t.datetime "workout_date"
-    t.index [ "date" ], name: "index_workouts_on_date"
-    t.index [ "routine_id" ], name: "index_workouts_on_routine_id"
-    t.index [ "template_id" ], name: "index_workouts_on_template_id"
-    t.index [ "user_id" ], name: "index_workouts_on_user_id"
+    t.index ["date"], name: "index_workouts_on_date"
+    t.index ["routine_id"], name: "index_workouts_on_routine_id"
+    t.index ["template_id"], name: "index_workouts_on_template_id"
+    t.index ["user_id"], name: "index_workouts_on_user_id"
   end
 
   add_foreign_key "exercise_categories", "categories"
