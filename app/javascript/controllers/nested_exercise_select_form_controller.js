@@ -59,8 +59,7 @@ export default class extends RailsNestedForm {
     content = content.replace(/__exercise_dom_id__/g, timestamp);
     this.targetTarget.insertAdjacentHTML("beforebegin", content);
 
-    // set the values on the newly-inserted targets (works because targets update as we add)
-    this.setExerciseField(exerciseId, exerciseName);
+    this.updateForm(exerciseId, exerciseName);
 
     const event = new CustomEvent("rails-nested-form:add", {bubbles: true});
     this.element.dispatchEvent(event);
@@ -80,7 +79,7 @@ export default class extends RailsNestedForm {
     return document.querySelector(this.wrapperSelectorValue) === null
   }
 
-  setExerciseField(exerciseId, exerciseName) {
+  updateForm(exerciseId, exerciseName) {
     this.exerciseFormFieldTarget.value = exerciseId;
     this.exerciseContainerTarget.outerHTML = `<h5 class="font-medium">${exerciseName}</h5>`;
     // remove target attribute so that new adds don't overwrite this one
