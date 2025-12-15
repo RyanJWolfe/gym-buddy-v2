@@ -2,7 +2,14 @@ import RailsNestedForm from "@stimulus-components/rails-nested-form";
 
 // Connects to data-controller="nested-exercise-select-form"
 export default class extends RailsNestedForm {
-  static targets = ["exerciseFormField", "exerciseContainer", "emptyStateContainer", "nameField", "submitButton"];
+  static targets = [
+    "exerciseFormField",
+    "exerciseContainer",
+    "emptyStateContainer",
+    "nameField",
+    "positionField",
+    "submitButton"
+  ];
 
   connect() {
     super.connect();
@@ -81,9 +88,12 @@ export default class extends RailsNestedForm {
 
   updateForm(exerciseId, exerciseName) {
     this.exerciseFormFieldTarget.value = exerciseId;
+    this.positionFieldTarget.value = this.exerciseCount();
     this.exerciseContainerTarget.outerHTML = `<h5 class="font-medium">${exerciseName}</h5>`;
-    // remove target attribute so that new adds don't overwrite this one
+
+    // remove target attributes so that new adds don't overwrite this one
     this.exerciseFormFieldTarget.removeAttribute("data-nested-exercise-select-form-target");
+    this.positionFieldTarget.removeAttribute("data-nested-exercise-select-form-target");
   }
 
   removeEmptyState() {

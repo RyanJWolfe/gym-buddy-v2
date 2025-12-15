@@ -5,10 +5,11 @@
     <div id="<%= f.object.exercise.present? ? dom_id(f.object.exercise) : "__exercise_dom_id__" %>">
       <div data-nested-exercise-select-form-target="exerciseContainer">
         <% if f.object.exercise.present? %>
-          <h5 class="font-medium" data-nested-exercise-select-form-target="exerciseName"><%= f.object.exercise.name %></h5>
+          <h5 class="font-medium" data-nested-exercise-select-form-target="exerciseName"><%= f.object.exercise.name %> <%= f.object.position %></h5>
         <% end %>
       </div>
       <%= f.hidden_field :exercise_id, data: { nested_exercise_select_form_target: "exerciseFormField" } %>
+      <%= f.hidden_field :position, data: { nested_exercise_select_form_target: "positionField" } %>
     </div>
 
 
