@@ -2,6 +2,9 @@ class Exercise < ApplicationRecord
   has_many :exercise_logs
   has_many :workouts, through: :exercise_logs
 
+  has_many :exercise_categories
+  has_many :categories, through: :exercise_categories
+
   validates :name, presence: true, uniqueness: true
 
   # Exercise categories (e.g., "Legs", "Push", "Pull", "Core")
