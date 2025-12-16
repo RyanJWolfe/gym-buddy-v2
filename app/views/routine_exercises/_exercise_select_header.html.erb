@@ -33,13 +33,13 @@
 
         <%= render "shared/bottom_sheet", trigger: :all_equipment_trigger do %>
           <div>
-            <% Category.all.each do |c| %>
+            <% Exercise.equipment_types.each do |name, value| %>
               <button type="button"
                       class="w-full text-left px-4 py-3 hover:bg-gray-100 rounded-lg flex items-center gap-x-3"
                       data-action="click->exercise-selector#filterByEquipment"
-                      data-exercise-selector-equipment-id-param="<%= c.id %>">
+                      data-exercise-selector-equipment-id-param="<%= value %>">
                 <%#= inline_svg_tag c.icon_path, class: "w-5 h-5" %>
-                <span><%= c.name %></span>
+                <span><%= name.titleize %></span>
               </button>
             <% end %>
           </div>
@@ -55,7 +55,7 @@
 
         <%= render "shared/bottom_sheet", trigger: :all_muscles_trigger do %>
           <div>
-            <% Category.all.each do |c| %>
+            <% Category.all.order(name: :asc).each do |c| %>
               <button type="button"
                       class="w-full text-left px-4 py-3 hover:bg-gray-100 rounded-lg flex items-center gap-x-3"
                       data-action="click->exercise-selector#filterByEquipment"
