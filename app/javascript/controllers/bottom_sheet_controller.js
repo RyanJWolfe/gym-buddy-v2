@@ -84,7 +84,7 @@ export default class extends Controller {
     this.contentTarget.style.transition = "transform 0.2s ease-out";
     const diff = this.currentY - this.startY;
 
-    if (diff > 100) { // If dragged more than 100px, close
+    if (diff > 160) { // If dragged more than 100px, close
       this.close();
     } else {
       this.contentTarget.style.transform = "translateY(0)";
