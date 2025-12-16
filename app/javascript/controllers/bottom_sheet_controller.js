@@ -38,6 +38,7 @@ export default class extends Controller {
     if (window.innerWidth >= 768) {
       this.sheetTarget.classList.add("hidden");
     }
+    this.contentTarget.style.transform = "";
     this.overlayTarget.classList.remove("!bg-opacity-75");
     this.contentTarget.classList.add("translate-y-full", "lg:scale-95");
     this.contentTarget.classList.remove("lg:scale-100");
