@@ -16,4 +16,8 @@ class Exercise < ApplicationRecord
   scope :by_category, ->(category_name) { joins(:categories).where(categories: { name: category_name }) }
   scope :by_equipment, ->(type) { where(equipment_type: type) }
   scope :popular, -> { joins(:exercise_logs).group(:id).order("COUNT(exercise_logs.id) DESC") }
+
+  def primary_category
+    categories.first
+  end
 end
