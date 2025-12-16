@@ -1,4 +1,4 @@
-<%# locals: ( trigger: :trigger ) %>
+<%# locals: ( title: nil, trigger: :trigger ) %>
 
 <div data-controller="bottom-sheet">
   <% if content_for?(trigger) %>
@@ -16,7 +16,12 @@
       <div class="flex justify-center mb-4 lg:hidden">
         <div class="w-10 h-1 bg-gray-300 rounded-full"></div>
       </div>
-      <div class="hidden lg:flex justify-end">
+      <% if title %>
+        <div class="flex items-center justify-center mb-4">
+          <h2 class="text-lg font-medium"><%= title %></h2>
+        </div>
+      <% end %>
+      <div class="hidden lg:absolute lg:top-4 lg:right-4 lg:block">
         <button type="button" data-action="click->bottom-sheet#close" class="p-1 hover:bg-gray-200 rounded-lg -mr-2 -mt-2">
           <%= inline_svg_tag "icons/x.svg", class: "h-6 w-6" %>
         </button>

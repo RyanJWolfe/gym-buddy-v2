@@ -31,7 +31,7 @@
           </button>
         <% end %>
 
-        <%= render "shared/bottom_sheet", trigger: :all_equipment_trigger do %>
+        <%= render "shared/bottom_sheet", trigger: :all_equipment_trigger, title: "Equipment" do %>
           <div>
             <% Exercise.equipment_types.each do |name, value| %>
               <button type="button"
@@ -53,7 +53,7 @@
           </button>
         <% end %>
 
-        <%= render "shared/bottom_sheet", trigger: :all_muscles_trigger do %>
+        <%= render "shared/bottom_sheet", trigger: :all_muscles_trigger, title: "Muscles" do %>
           <div>
             <% Category.all.order(name: :asc).each do |c| %>
               <button type="button"
