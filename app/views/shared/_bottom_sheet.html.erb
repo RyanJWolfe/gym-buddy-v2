@@ -1,6 +1,8 @@
+<%# locals: ( trigger: :trigger ) %>
+
 <div data-controller="bottom-sheet">
-  <% if content_for?(:trigger) %>
-    <%= yield :trigger %>
+  <% if content_for?(trigger) %>
+    <%= yield trigger %>
   <% else %>
     <button type="button" data-action="click->bottom-sheet#open" class="p-1 hover:bg-gray-200 rounded-lg">
       <%= inline_svg_tag "icons/more-horizontal.svg", class: "h-5 w-5" %>
