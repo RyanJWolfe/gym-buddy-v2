@@ -10,6 +10,8 @@ class Exercise < ApplicationRecord
   # Equipment type (e.g., "Barbell", "Dumbbell", "Machine", "Bodyweight")
   validates :equipment_type, presence: true
 
+  enum :equipment_type, %i[ barbell dumbbell bodyweight machine cable resistance_band kettlebell plate other]
+
   scope :alphabetical, -> { order(:name) }
   scope :by_category, ->(category_name) { joins(:categories).where(categories: { name: category_name }) }
   scope :by_equipment, ->(type) { where(equipment_type: type) }
