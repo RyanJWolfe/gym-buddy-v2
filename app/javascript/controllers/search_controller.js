@@ -2,7 +2,7 @@ import { Controller } from "@hotwired/stimulus"
 
 // Connects to data-controller="search"
 export default class extends Controller {
-  static targets = ["input", "form", "equipment"]
+  static targets = ["input", "form", "equipment", "filter"]
   static values = {
     updateUrl: {type: Boolean, default: true}
   }
@@ -13,11 +13,25 @@ export default class extends Controller {
   // Accept the event so we can read data-search-value from clicked buttons
   onInput(event) {
     // If the event came from an element with a data-search-value, write it into
-    // the hidden equipment input (so the form will submit it).
+    // the hidden equipment input (so the form will submit it) and update UI.
     if (event && event.currentTarget && event.currentTarget.dataset && event.currentTarget.dataset.searchValue !== undefined) {
       const equipmentValue = event.currentTarget.dataset.searchValue;
       if (this.hasEquipmentTarget) {
         this.equipmentTarget.value = equipmentValue;
+      }
+
+      // Toggle active class on filter buttons for instant feedback
+      if (this.hasFilterTarget) {
+        try {
+          this.filterTargets.forEach(t => t.classList.remove("bg-blue-100", "ring-2"));
+          // event.currentTarget should be one of the filter targets; guard defensively
+          if (event.currentTarget.classList) {
+            event.currentTarget.classList.add("bg-blue-100", "ring-2");
+          }
+        } catch (e) {
+          // ignore if DOM manipulation fails
+          console.warn('Failed to toggle filter active classes', e);
+        }
       }
     }
 
