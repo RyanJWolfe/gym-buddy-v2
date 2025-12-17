@@ -14,7 +14,7 @@ export default class extends Controller {
   onInput(event) {
     // If the event came from an element with a data-search-value, write it into
     // the hidden equipment input (so the form will submit it).
-    if (event && event.currentTarget && event.currentTarget.dataset && event.currentTarget.dataset.searchValue) {
+    if (event && event.currentTarget && event.currentTarget.dataset && event.currentTarget.dataset.searchValue !== undefined) {
       const equipmentValue = event.currentTarget.dataset.searchValue;
       if (this.hasEquipmentTarget) {
         this.equipmentTarget.value = equipmentValue;

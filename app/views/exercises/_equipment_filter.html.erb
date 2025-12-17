@@ -13,6 +13,15 @@
 
 <%= render "shared/bottom_sheet", trigger: :all_equipment_trigger, title: "Equipment" do %>
   <div>
+    <%# Add an explicit All Equipment option that clears the equipment_type (no filter) %>
+    <button type="button"
+            class="w-full text-left px-4 py-3 hover:bg-gray-100 rounded-lg flex items-center gap-x-3"
+            data-action="click->search#onInput click->bottom-sheet#close"
+            data-search-target="filter"
+            data-search-value="">
+      <span>All Equipment</span>
+    </button>
+
     <% Exercise.equipment_types.each do |name, value| %>
       <button type="button"
               class="w-full text-left px-4 py-3 hover:bg-gray-100 rounded-lg flex items-center gap-x-3"
