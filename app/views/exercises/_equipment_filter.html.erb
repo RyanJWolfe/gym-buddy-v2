@@ -7,7 +7,7 @@
   <button type="button" class="btn btn-tertiary btn-sm flex items-center justify-center gap-x-2 w-full"
           data-action="click->bottom-sheet#open">
     <%= inline_svg_tag "icons/filter.svg", class: "w-4 h-4" %>
-    All Equipment
+    <span data-search-filter-label="equipment_type">All Equipment</span>
   </button>
 <% end %>
 
@@ -27,6 +27,8 @@
               class="w-full text-left px-4 py-3 hover:bg-gray-100 rounded-lg flex items-center gap-x-3"
               data-action="click->search#onInput click->bottom-sheet#close"
               data-search-target="filter"
+              data-search-label="equipment_type"
+              data-search-name="<%= name.titleize %>"
               data-search-value="<%= value %>">
         <%#= inline_svg_tag c.icon_path, class: "w-5 h-5" %>
         <span><%= name.titleize %></span>

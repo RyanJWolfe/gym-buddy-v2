@@ -1,4 +1,4 @@
-import { Controller } from "@hotwired/stimulus"
+import {Controller} from "@hotwired/stimulus"
 
 // Connects to data-controller="search"
 export default class extends Controller {
@@ -27,6 +27,15 @@ export default class extends Controller {
           // event.currentTarget should be one of the filter targets; guard defensively
           if (event.currentTarget.classList) {
             event.currentTarget.classList.add("bg-blue-100", "ring-2");
+
+            if (event.currentTarget.dataset.searchLabel !== undefined) {
+              const label = event.currentTarget.dataset.searchLabel;
+              const selector = `[data-search-filter-label="${label}"]`
+              const labelElement = document.querySelector(selector);
+              if (labelElement && labelElement.classList) {
+                labelElement.textContent = event.currentTarget.dataset.searchName
+              }
+            }
           }
         } catch (e) {
           // ignore if DOM manipulation fails
