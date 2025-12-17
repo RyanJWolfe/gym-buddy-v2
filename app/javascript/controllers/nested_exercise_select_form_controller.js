@@ -102,10 +102,8 @@ export default class extends RailsNestedForm {
   updateForm(exerciseId, exerciseName) {
     this.exerciseFormFieldTarget.value = exerciseId;
 
-    // console.log("Exercise count:", this.exerciseCount());
     this.positionFieldTarget.value = this.exerciseCount();
     this.exerciseContainerTarget.outerHTML = `<h5 class="font-medium">${exerciseName}</h5>`;
-    console.log(`Set exercise ID to ${exerciseName} and position to ${this.positionFieldTarget.value}`);
 
     // remove target attributes so that new adds don't overwrite this one
     this.exerciseFormFieldTarget.removeAttribute("data-nested-exercise-select-form-target");
