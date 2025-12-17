@@ -2,19 +2,19 @@ class ExercisesController < ApplicationController
   before_action :set_exercise, only: [ :show, :edit, :update ]
 
   def index
+    if params[:search].present? && params[:search].strip.present?
+      search_term = params[:search].strip
+      @exercises = Exercise.where("name ILIKE ?", "%#{search_term}%").order(:name)
+    else
+      @exercises = Exercise.all.order(:name)
+    end
+
     if params[:category].present?
       @exercises = @exercises.by_category(params[:category])
     end
 
     if params[:equipment_type].present?
       @exercises = @exercises.by_equipment(params[:equipment_type])
-    end
-
-    if params[:search].present? && params[:search].strip.present?
-      search_term = params[:search].strip
-      @exercises = Exercise.where("name ILIKE ?", "%#{search_term}%").order(:name)
-    else
-      @exercises = Exercise.all.order(:name)
     end
 
     respond_to do |format|

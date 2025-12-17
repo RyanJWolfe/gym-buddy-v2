@@ -2,7 +2,7 @@ import { Controller } from "@hotwired/stimulus"
 
 // Connects to data-controller="search"
 export default class extends Controller {
-  static targets = ["input", "form"]
+  static targets = ["input", "form", "equipment"]
   static values = {
     updateUrl: {type: Boolean, default: true}
   }
@@ -10,8 +10,18 @@ export default class extends Controller {
   connect() {
   }
 
-  onInput() {
-    if (this.updateUrlValue) {
+  // Accept the event so we can read data-search-value from clicked buttons
+  onInput(event) {
+    // If the event came from an element with a data-search-value, write it into
+    // the hidden equipment input (so the form will submit it).
+    if (event && event.currentTarget && event.currentTarget.dataset && event.currentTarget.dataset.searchValue) {
+      const equipmentValue = event.currentTarget.dataset.searchValue;
+      if (this.hasEquipmentTarget) {
+        this.equipmentTarget.value = equipmentValue;
+      }
+    }
+
+    if (this.updateUrlValue && this.hasInputTarget) {
       const query = this.inputTarget.value;
       this.updateSearchParamInUrl(query);
     }
@@ -23,7 +33,9 @@ export default class extends Controller {
   }
 
   search() {
-    this.formTarget.requestSubmit()
+    if (this.hasFormTarget) {
+      this.formTarget.requestSubmit()
+    }
   }
 
   updateSearchParamInUrl(query) {
