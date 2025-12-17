@@ -1,5 +1,11 @@
+<%# locals: ( f: ) %>
+
+<%= f.hidden_field :category, value: params[:category] if local_assigns[:f] %>
+
 <% content_for :all_muscles_trigger do %>
-  <button type="button" class="btn btn-tertiary btn-sm w-full"
+  <button type="button"
+          class="btn btn-tertiary btn-sm w-full"
+          data-search-filter-label="category"
           data-action="click->bottom-sheet#open">
     All Muscles
   </button>
@@ -7,13 +13,26 @@
 
 <%= render "shared/bottom_sheet", trigger: :all_muscles_trigger, title: "Muscles" do %>
   <div>
+    <button type="button"
+            class="w-full text-left px-4 py-3 hover:bg-gray-100 rounded-lg flex items-center gap-x-3 bg-blue-100 ring-2"
+            data-action="click->search#onInput click->bottom-sheet#close"
+            data-search-target="filter"
+            data-search-label="category"
+            data-search-name="All Muscles"
+            data-search-value="">
+      <span>All Muscles</span>
+    </button>
+
     <% Category.all.order(name: :asc).each do |c| %>
       <button type="button"
               class="w-full text-left px-4 py-3 hover:bg-gray-100 rounded-lg flex items-center gap-x-3"
-              data-action="click->exercise-selector#filterByEquipment"
-              data-exercise-selector-equipment-id-param="<%= c.id %>">
+              data-action="click->search#onInput click->bottom-sheet#close"
+              data-search-target="filter"
+              data-search-label="category"
+              data-search-name="<%= c.name.titleize %>"
+              data-search-value="<%= c.name %>">
         <%#= inline_svg_tag c.icon_path, class: "w-5 h-5" %>
-        <span><%= c.name %></span>
+        <span><%= c.name.titleize %></span>
       </button>
     <% end %>
   </div>

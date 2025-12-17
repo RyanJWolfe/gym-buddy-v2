@@ -2,7 +2,7 @@ import {Controller} from "@hotwired/stimulus"
 
 // Connects to data-controller="search"
 export default class extends Controller {
-  static targets = ["input", "form", "equipment", "filter"]
+  static targets = ["input", "form", "filter"]
   static values = {
     updateUrl: {type: Boolean, default: true}
   }
@@ -15,9 +15,11 @@ export default class extends Controller {
     // If the event came from an element with a data-search-value, write it into
     // the hidden equipment input (so the form will submit it) and update UI.
     if (event && event.currentTarget && event.currentTarget.dataset && event.currentTarget.dataset.searchValue !== undefined) {
-      const equipmentValue = event.currentTarget.dataset.searchValue;
-      if (this.hasEquipmentTarget) {
-        this.equipmentTarget.value = equipmentValue;
+      const value = event.currentTarget.dataset.searchValue;
+      const fieldName = event.currentTarget.dataset.searchLabel
+      const formField = this.element.querySelector(`input[name="${fieldName}"]`);
+      if (formField) {
+        formField.value = value;
       }
 
       // Toggle active class on filter buttons for instant feedback
@@ -28,9 +30,8 @@ export default class extends Controller {
           if (event.currentTarget.classList) {
             event.currentTarget.classList.add("bg-blue-100", "ring-2");
 
-            if (event.currentTarget.dataset.searchLabel !== undefined) {
-              const label = event.currentTarget.dataset.searchLabel;
-              const selector = `[data-search-filter-label="${label}"]`
+            if (fieldName !== undefined) {
+              const selector = `[data-search-filter-label="${fieldName}"]`
               const labelElement = document.querySelector(selector);
               if (labelElement && labelElement.classList) {
                 labelElement.textContent = event.currentTarget.dataset.searchName

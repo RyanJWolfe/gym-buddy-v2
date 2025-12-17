@@ -1,7 +1,7 @@
 <%# locals: ( f: ) %>
 
 <%# Add a hidden input using the passed-in form builder so the selected equipment_type is submitted %>
-<%= f.hidden_field :equipment_type, value: params[:equipment_type], data: { search_target: "equipment" } if local_assigns[:f] %>
+<%= f.hidden_field :equipment_type, value: params[:equipment_type] %>
 
 <% content_for :all_equipment_trigger do %>
   <button type="button" class="btn btn-tertiary btn-sm w-full"
