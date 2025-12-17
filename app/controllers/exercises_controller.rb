@@ -17,8 +17,6 @@ class ExercisesController < ApplicationController
       @exercises = Exercise.all.order(:name)
     end
 
-    pp "@exercises: #{@exercises.pluck(:name)}"
-
     respond_to do |format|
       format.html # index.html.erb
       format.turbo_stream do
