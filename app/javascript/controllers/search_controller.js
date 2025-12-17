@@ -58,6 +58,11 @@ export default class extends Controller {
     }
 
     clearTimeout(this.debounceTimeout);
+
+    if (event.type === 'click') {
+      this.search();
+      return;
+    }
     this.debounceTimeout = setTimeout(() => {
       this.search();
     }, 300);
