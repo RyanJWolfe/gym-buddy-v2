@@ -34,6 +34,13 @@ export default class extends Controller {
               const labelElement = document.querySelector(selector);
               if (labelElement && labelElement.classList) {
                 labelElement.textContent = event.currentTarget.dataset.searchName
+                if (event.currentTarget.dataset.searchValue === "") {
+                  labelElement.classList.remove("btn-primary")
+                  labelElement.classList.add("btn-tertiary")
+                } else {
+                  labelElement.classList.add("btn-primary")
+                  labelElement.classList.remove("btn-tertiary")
+                }
               }
             }
           }

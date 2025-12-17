@@ -5,8 +5,9 @@
 
 <% content_for :all_equipment_trigger do %>
   <button type="button" class="btn btn-tertiary btn-sm w-full"
+          data-search-filter-label="equipment_type"
           data-action="click->bottom-sheet#open">
-    <span data-search-filter-label="equipment_type">All Equipment</span>
+    All Equipment
   </button>
 <% end %>
 
@@ -17,6 +18,8 @@
             class="w-full text-left px-4 py-3 hover:bg-gray-100 rounded-lg flex items-center gap-x-3 bg-blue-100 ring-2"
             data-action="click->search#onInput click->bottom-sheet#close"
             data-search-target="filter"
+            data-search-label="equipment_type"
+            data-search-name="All Equipment"
             data-search-value="">
       <span>All Equipment</span>
     </button>
