@@ -10,45 +10,46 @@ export default class extends Controller {
   connect() {
   }
 
-  // Accept the event so we can read data-search-value from clicked buttons
+  validEventTarget(event) {
+    return event && event.currentTarget && event.currentTarget.dataset && event.currentTarget.dataset.searchValue !== undefined;
+  }
+
   onInput(event) {
-    // If the event came from an element with a data-search-value, write it into
-    // the hidden equipment input (so the form will submit it) and update UI.
-    if (event && event.currentTarget && event.currentTarget.dataset && event.currentTarget.dataset.searchValue !== undefined) {
-      const value = event.currentTarget.dataset.searchValue;
-      const fieldName = event.currentTarget.dataset.searchLabel
-      const formField = this.element.querySelector(`input[name="${fieldName}"]`);
-      if (formField) {
-        formField.value = value;
-      }
+    if (!this.validEventTarget(event.currentTarget)) return
 
-      // Toggle active class on filter buttons for instant feedback
-      if (this.hasFilterTarget) {
-        try {
-          this.filterTargets.forEach(t => t.classList.remove("bg-blue-100", "ring-2"));
-          // event.currentTarget should be one of the filter targets; guard defensively
-          if (event.currentTarget.classList) {
-            event.currentTarget.classList.add("bg-blue-100", "ring-2");
+    const searchValue = event.currentTarget.dataset.searchValue;
+    const fieldName = event.currentTarget.dataset.searchLabel
+    const formField = this.element.querySelector(`input[name="${fieldName}"]`);
+    if (formField) {
+      formField.value = searchValue;
+    }
 
-            if (fieldName !== undefined) {
-              const selector = `[data-search-filter-label="${fieldName}"]`
-              const labelElement = document.querySelector(selector);
-              if (labelElement && labelElement.classList) {
-                labelElement.textContent = event.currentTarget.dataset.searchName
-                if (event.currentTarget.dataset.searchValue === "") {
-                  labelElement.classList.remove("btn-primary")
-                  labelElement.classList.add("btn-tertiary")
-                } else {
-                  labelElement.classList.add("btn-primary")
-                  labelElement.classList.remove("btn-tertiary")
-                }
+    // Toggle active class on filter buttons for instant feedback
+    if (this.hasFilterTarget) {
+      try {
+        this.filterTargets.forEach(t => t.classList.remove("bg-blue-100", "ring-2"));
+        // event.currentTarget should be one of the filter targets; guard defensively
+        if (event.currentTarget.classList) {
+          event.currentTarget.classList.add("bg-blue-100", "ring-2");
+
+          if (fieldName !== undefined) {
+            const selector = `[data-search-filter-label="${fieldName}"]`
+            const labelElement = document.querySelector(selector);
+            if (labelElement && labelElement.classList) {
+              labelElement.textContent = event.currentTarget.dataset.searchName
+              if (event.currentTarget.dataset.searchValue === "") {
+                labelElement.classList.remove("btn-primary")
+                labelElement.classList.add("btn-tertiary")
+              } else {
+                labelElement.classList.add("btn-primary")
+                labelElement.classList.remove("btn-tertiary")
               }
             }
           }
-        } catch (e) {
-          // ignore if DOM manipulation fails
-          console.warn('Failed to toggle filter active classes', e);
         }
+      } catch (e) {
+        // ignore if DOM manipulation fails
+        console.warn('Failed to toggle filter active classes', e);
       }
     }
 
