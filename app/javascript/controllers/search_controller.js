@@ -11,7 +11,10 @@ export default class extends Controller {
   }
 
   validEventTarget(eventTarget) {
-    return eventTarget && eventTarget.dataset && eventTarget.dataset.searchValue !== undefined;
+    if (eventTarget === this.inputTarget)
+      return true;
+
+    return eventTarget.dataset && eventTarget.dataset.searchValue !== undefined
   }
 
   updateFormField(value, fieldName) {
@@ -50,7 +53,6 @@ export default class extends Controller {
 
   onInput(event) {
     const eventTarget = event.currentTarget;
-
     if (!this.validEventTarget(eventTarget)) return
 
     const searchValue = eventTarget.dataset.searchValue;
@@ -58,7 +60,7 @@ export default class extends Controller {
     this.updateFormField(searchValue, fieldName);
 
     // Toggle active class on filter buttons for instant feedback
-    if (this.hasFilterTarget) {
+    if (this.hasFilterTarget && this.filterTargets.includes(eventTarget)) {
       this.handleFilters(eventTarget, fieldName, searchValue);
     }
 
