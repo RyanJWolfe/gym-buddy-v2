@@ -14,7 +14,7 @@
 <%= render "shared/bottom_sheet", trigger: :all_muscles_trigger, title: "Muscles" do %>
   <div>
     <button type="button"
-            class="w-full text-left px-4 py-3 hover:bg-gray-100 rounded-lg flex items-center gap-x-3 bg-blue-100 ring-2"
+            class="w-full text-left px-4 py-3 hover:bg-gray-100 flex items-center gap-x-3 bg-blue-100 ring-2"
             data-action="click->search#onInput click->bottom-sheet#close"
             data-search-target="filter"
             data-search-label="category"
@@ -25,7 +25,7 @@
 
     <% Category.all.order(name: :asc).each do |c| %>
       <button type="button"
-              class="w-full text-left px-4 py-3 hover:bg-gray-100 rounded-lg flex items-center gap-x-3"
+              class="w-full text-left px-4 py-3 hover:bg-gray-100 flex items-center gap-x-3"
               data-action="click->search#onInput click->bottom-sheet#close"
               data-search-target="filter"
               data-search-label="category"

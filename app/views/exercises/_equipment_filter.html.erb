@@ -15,7 +15,7 @@
   <div>
     <%# Add an explicit All Equipment option that clears the equipment_type (no filter) %>
     <button type="button"
-            class="w-full text-left px-4 py-3 hover:bg-gray-100 rounded-lg flex items-center gap-x-3 bg-blue-100 ring-2"
+            class="w-full text-left px-4 py-3 hover:bg-gray-100 flex items-center gap-x-3 bg-blue-100 ring-2"
             data-action="click->search#onInput click->bottom-sheet#close"
             data-search-target="filter"
             data-search-label="equipment_type"
@@ -26,7 +26,7 @@
 
     <% Exercise.equipment_types.each do |name, value| %>
       <button type="button"
-              class="w-full text-left px-4 py-3 hover:bg-gray-100 rounded-lg flex items-center gap-x-3"
+              class="w-full text-left px-4 py-3 hover:bg-gray-100 flex items-center gap-x-3"
               data-action="click->search#onInput click->bottom-sheet#close"
               data-search-target="filter"
               data-search-label="equipment_type"
