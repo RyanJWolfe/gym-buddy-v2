@@ -6,7 +6,7 @@
                        value: params[:search],
                        placeholder: "Search exercises...",
                        autocomplete: :off,
-                       data: { action: "search#onInput input->clearable-input#changed", search_target: "input", clearable_input_target: "input" },
+                       data: { action: "input->search#onInput input->clearable-input#changed", search_target: "input", clearable_input_target: "input" },
                        class: "form-input pl-9 md:pl-10" %>
     <% end %>
   </div>

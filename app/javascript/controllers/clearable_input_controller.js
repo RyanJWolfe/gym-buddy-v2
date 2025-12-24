@@ -12,7 +12,6 @@ export default class extends Controller {
     setTimeout(() => this.toggleButton(), 0)
   }
 
-  // Called on input event
   changed() {
     this.toggleButton()
   }
@@ -21,9 +20,7 @@ export default class extends Controller {
     const hasValue = this.inputTarget && this.inputTarget.value && this.inputTarget.value.trim().length > 0
     if (!this.hasClearButtonTarget) return
 
-    // Hidden classes (when input empty)
     const hiddenClasses = ["opacity-0", "pointer-events-none", "scale-50"]
-    // Visible classes (when input has text)
     const visibleClasses = ["opacity-100", "pointer-events-auto", "scale-100"]
 
     if (hasValue) {
