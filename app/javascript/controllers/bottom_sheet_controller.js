@@ -34,6 +34,12 @@ export default class extends Controller {
     }, 10);
   }
 
+  handleClick(event) {
+    if (!this.contentTarget.contains(event.target)) {
+      this.close();
+    }
+  }
+
   close() {
     if (window.innerWidth >= 768) {
       this.sheetTarget.classList.add("hidden");
