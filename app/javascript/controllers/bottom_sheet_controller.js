@@ -90,5 +90,9 @@ export default class extends Controller {
       this.contentTarget.style.transform = "translateY(0)";
     }
   }
+
+  stopPropagation(event) {
+    event.stopPropagation();
+  }
 }
 
