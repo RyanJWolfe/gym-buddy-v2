@@ -2,7 +2,7 @@ import {Controller} from "@hotwired/stimulus"
 
 // Connects to data-controller="search"
 export default class extends Controller {
-  static targets = ["input", "form", "filter"]
+  static targets = ["input", "form", "filter", "clearFiltersButton"]
   static values = {
     updateUrl: {type: Boolean, default: true}
   }
@@ -43,6 +43,24 @@ export default class extends Controller {
         } else {
           labelElement.classList.add("btn-primary")
           labelElement.classList.remove("btn-tertiary")
+        }
+      }
+
+      // if there are any active filters, display the clear filters button
+      if (this.hasClearFiltersButtonTarget) {
+        const anyActiveFilters = this.filterTargets.some(t => t.classList.contains("bg-blue-100"));
+
+        const hiddenClasses = ["opacity-0", "pointer-events-none", "scale-50"]
+        const visibleClasses = ["opacity-100", "pointer-events-auto", "scale-100"]
+
+        if (anyActiveFilters) {
+          this.clearFiltersButtonTarget.classList.add(...visibleClasses);
+          this.clearFiltersButtonTarget.classList.remove(...hiddenClasses);
+          this.clearFiltersButtonTarget.setAttribute('aria-hidden', 'false');
+        } else {
+          this.clearFiltersButtonTarget.classList.remove(...visibleClasses);
+          this.clearFiltersButtonTarget.classList.add(...hiddenClasses);
+          this.clearFiltersButtonTarget.setAttribute('aria-hidden', 'true');
         }
       }
     } catch (e) {
