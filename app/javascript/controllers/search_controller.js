@@ -110,6 +110,23 @@ export default class extends Controller {
     window.history.pushState({}, '', url);
   }
 
+  clearFilters() {
+    this.filterTargets.forEach(t => {
+      t.classList.remove("bg-blue-100", "ring-2");
+      const fieldName = t.dataset.searchLabel;
+      const selector = `[data-search-filter-label="${fieldName}"]`
+      const labelElement = document.querySelector(selector);
+      if (labelElement && labelElement.classList && labelElement.classList.contains("btn-primary")) {
+        labelElement.textContent = labelElement.dataset.searchFilterDefaultText;
+        labelElement.classList.remove("btn-primary")
+        labelElement.classList.add("btn-tertiary")
+      }
+      this.updateFormField("", fieldName);
+    });
+
+    this.search()
+  }
+
   clearResults() {
     // Logic to clear search results, if necessary
     // This could be implemented by resetting the form or clearing a results container
