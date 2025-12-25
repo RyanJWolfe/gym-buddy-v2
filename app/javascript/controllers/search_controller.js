@@ -24,6 +24,22 @@ export default class extends Controller {
     formField.value = value;
   }
 
+  showClearFiltersButton() {
+    if (this.hasClearFiltersButtonTarget) {
+      this.clearFiltersButtonTarget.classList.remove("opacity-0", "pointer-events-none", "scale-50");
+      this.clearFiltersButtonTarget.classList.add("opacity-100", "pointer-events-auto", "scale-100");
+      this.clearFiltersButtonTarget.setAttribute('aria-hidden', 'false');
+    }
+  }
+
+  hideClearFiltersButton() {
+    if (this.hasClearFiltersButtonTarget) {
+      this.clearFiltersButtonTarget.classList.remove("opacity-100", "pointer-events-auto", "scale-100");
+      this.clearFiltersButtonTarget.classList.add("opacity-0", "pointer-events-none", "scale-50");
+      this.clearFiltersButtonTarget.setAttribute('aria-hidden', 'true');
+    }
+  }
+
   handleFilters(eventTarget, fieldName, searchValue) {
     try {
       this.filterTargets
@@ -50,17 +66,10 @@ export default class extends Controller {
       if (this.hasClearFiltersButtonTarget) {
         const anyActiveFilters = this.filterTargets.some(t => t.classList.contains("bg-blue-100"));
 
-        const hiddenClasses = ["opacity-0", "pointer-events-none", "scale-50"]
-        const visibleClasses = ["opacity-100", "pointer-events-auto", "scale-100"]
-
         if (anyActiveFilters) {
-          this.clearFiltersButtonTarget.classList.add(...visibleClasses);
-          this.clearFiltersButtonTarget.classList.remove(...hiddenClasses);
-          this.clearFiltersButtonTarget.setAttribute('aria-hidden', 'false');
+          this.showClearFiltersButton()
         } else {
-          this.clearFiltersButtonTarget.classList.remove(...visibleClasses);
-          this.clearFiltersButtonTarget.classList.add(...hiddenClasses);
-          this.clearFiltersButtonTarget.setAttribute('aria-hidden', 'true');
+          this.hideClearFiltersButton()
         }
       }
     } catch (e) {
@@ -124,6 +133,7 @@ export default class extends Controller {
       this.updateFormField("", fieldName);
     });
 
+    this.hideClearFiltersButton();
     this.search()
   }
 
