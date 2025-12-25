@@ -2,7 +2,7 @@ import {Controller} from "@hotwired/stimulus"
 
 // Connects to data-controller="search"
 export default class extends Controller {
-  static targets = ["input", "form", "filter", "clearFiltersButton"]
+  static targets = ["input", "form", "filter", "clearFiltersButton", "filters"]
   static values = {
     updateUrl: {type: Boolean, default: true}
   }
@@ -25,6 +25,11 @@ export default class extends Controller {
   }
 
   showClearFiltersButton() {
+    if (this.hasFiltersTarget) {
+      this.filtersTarget.classList.remove("w-full")
+      this.filtersTarget.classList.add("w-4/5")
+    }
+
     if (this.hasClearFiltersButtonTarget) {
       this.clearFiltersButtonTarget.classList.remove("opacity-0", "pointer-events-none", "scale-50");
       this.clearFiltersButtonTarget.classList.add("opacity-100", "pointer-events-auto", "scale-100");
@@ -33,6 +38,11 @@ export default class extends Controller {
   }
 
   hideClearFiltersButton() {
+    if (this.hasFiltersTarget) {
+      this.filtersTarget.classList.remove("w-4/5")
+      this.filtersTarget.classList.add("w-full")
+    }
+
     if (this.hasClearFiltersButtonTarget) {
       this.clearFiltersButtonTarget.classList.remove("opacity-100", "pointer-events-auto", "scale-100");
       this.clearFiltersButtonTarget.classList.add("opacity-0", "pointer-events-none", "scale-50");

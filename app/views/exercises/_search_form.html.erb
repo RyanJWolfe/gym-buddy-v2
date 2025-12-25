@@ -11,12 +11,14 @@
     <% end %>
   </div>
 
-  <div class="grid grid-cols-3 gap-x-4 pt-4">
-    <%= render 'exercises/equipment_filter', f: %>
-
-    <%= render 'exercises/category_filter', f: %>
-
-    <button type="button" aria-label="Clear name" title="Clear" data-action="click->search#clearFilters" data-search-target="clearFiltersButton" class="flex items-center text-muted hover:text-gray-700 opacity-0 pointer-events-none scale-50 transition duration-150 ease-in-out" aria-hidden="true">
+  <div class="relative">
+    <div data-search-target="filters" class="w-full transition-all duration-150 ease-in-out">
+      <div class="grid grid-cols-2 gap-x-4 pt-4">
+        <%= render 'exercises/equipment_filter', f: %>
+        <%= render 'exercises/category_filter', f: %>
+      </div>
+    </div>
+    <button type="button" aria-label="Clear name" title="Clear" data-action="click->search#clearFilters" data-search-target="clearFiltersButton" class="absolute top-1/2 transform right-5 flex items-center text-muted hover:text-gray-700 opacity-0 pointer-events-none scale-50 transition duration-150 ease-in-out" aria-hidden="true">
       <%= inline_svg_tag "icons/x-circle.svg", class: "w-4 h-4" %>
     </button>
   </div>
