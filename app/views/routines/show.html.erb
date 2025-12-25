@@ -5,7 +5,7 @@
     <h1 class="text-2xl font-bold"><%= @routine.name %></h1>
     <div class="flex space-x-4">
       <%= link_to "Edit", edit_routine_path(@routine), class: "px-4 py-2 border border-gray-300 rounded text-gray-700 bg-white hover:bg-gray-50" %>
-      <%= button_to "Start Workout", start_workout_routine_path(@routine), method: :post,
+      <%= button_to "Start Workout", root_path, method: :post,
           class: "px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500" %>
     </div>
   </div>
@@ -29,7 +29,7 @@
               <div class="flex-1">
                 <h3 class="font-medium"><%= routine_exercise.exercise.name %></h3>
                 <div class="text-sm text-gray-500 mt-1">
-                  <%= routine_exercise.exercise.category %> • <%= routine_exercise.exercise.equipment_type %>
+                  <%= routine_exercise.exercise.primary_category.name %> • <%= routine_exercise.exercise.equipment_type %>
                 </div>
               </div>
               <div class="flex items-center mt-3 md:mt-0">
