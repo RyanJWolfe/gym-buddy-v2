@@ -1,0 +1,34 @@
+<%# locals: (routine:) %>
+
+<div class="bg-gray-200 rounded-lg shadow p-4 hover:shadow-md transition">
+  <div class="flex items-center justify-between">
+    <h3 class="font-semibold"><%= routine.name %></h3>
+
+    <%= render "shared/bottom_sheet", title: routine.name do %>
+      <div class="space-y-2">
+        <button type="button"
+                data-action="click->bottom-sheet#close"
+                class="w-full flex items-center gap-x-3 p-3 rounded-lg hover:bg-gray-100">
+          <%= inline_svg_tag "icons/share.svg", class: "h-6 w-6" %>
+          <span class="font-medium">Share Routine</span>
+        </button>
+        <%= link_to duplicate_workout_path(routine), class: "flex items-center gap-x-3 p-3 rounded-lg hover:bg-gray-100" do %>
+          <%= inline_svg_tag "icons/copy.svg", class: "h-6 w-6" %>
+          <span class="font-medium">Duplicate Routine</span>
+        <% end %>
+        <%= link_to edit_routine_path(routine), class: "flex items-center gap-x-3 p-3 rounded-lg hover:bg-gray-100" do %>
+          <%= inline_svg_tag "icons/edit.svg", class: "h-6 w-6" %>
+          <span class="font-medium">Edit Routine</span>
+        <% end %>
+        <button type="button"
+                data-action="click->bottom-sheet#close"
+                class="w-full flex items-center gap-x-3 p-3 rounded-lg hover:bg-gray-100 text-red-600 hover:text-red-800">
+          <%= inline_svg_tag "icons/trash.svg", class: "h-6 w-6" %>
+          <span class="font-medium">Delete Routine</span>
+        </button>
+      </div>
+    <% end %>
+  </div>
+
+
+</div>

@@ -21,7 +21,8 @@
       <% end %>
     </div>
 
-    <h3 class="font-semibold text-xl"> General Routines (<%= current_user.routines.published.size %>)</h3>
+    <h3 class="font-semibold text-xl"> General Routines (<%= @routines.size %>)</h3>
 
+    <%= render partial: "workouts/routine_card", collection: @routines, as: :routine %>
   </div>
 </div>

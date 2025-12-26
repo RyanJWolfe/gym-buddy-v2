@@ -14,15 +14,7 @@ class WorkoutsController < ApplicationController
 
   # GET /workouts/new
   def new
-    @workout = current_user.workouts.build(date: Date.current)
-    @workout.logged_workout = (workout_type == "logged")
-
-    if params[:type].present?
-      if workout_type == "duplicate"
-        @workouts = current_user.workouts.includes(:exercises).order(date: :desc)
-      end
-      render "new_#{workout_type}"
-    end
+    @routines = current_user.routines.recent.published
   end
 
   # POST /workouts

@@ -12,13 +12,6 @@
       <%= f.hidden_field :position, data: { nested_exercise_select_form_target: "positionField" } %>
     </div>
 
-
-    <% content_for :trigger do %>
-      <button type="button" data-action="click->bottom-sheet#open" class="p-1 hover:bg-gray-200 rounded-lg">
-        <%= inline_svg_tag "icons/more-horizontal.svg", class: "h-5 w-5" %>
-      </button>
-    <% end %>
-
     <%= render "shared/bottom_sheet" do %>
       <div class="space-y-2">
         <%= link_to routine_exercise_select_modal_path(mode: :replace, target_dom_id: f.object.exercise.present? ? dom_id(f.object.exercise) : "__exercise_dom_id__"),
