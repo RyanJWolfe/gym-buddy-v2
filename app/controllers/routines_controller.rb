@@ -1,6 +1,6 @@
 class RoutinesController < ApplicationController
-  before_action :set_routine, only: [:show, :edit, :update, :destroy, :start_workout]
-  before_action :hide_footer, only: [:new, :edit]
+  before_action :set_routine, only: [ :show, :update, :destroy, :start_workout ]
+  before_action :hide_footer, only: [ :new, :edit ]
 
   def index
     @routines = current_user.routines.includes(:exercises).order(updated_at: :desc)
@@ -27,7 +27,7 @@ class RoutinesController < ApplicationController
   end
 
   def edit
-    @routine_exercises = @routine.routine_exercises.includes(:exercise)
+    @routine = current_user.routines.includes(routine_exercises: [ :exercise, :routine_sets ]).find(params[:id])
   end
 
   def update
