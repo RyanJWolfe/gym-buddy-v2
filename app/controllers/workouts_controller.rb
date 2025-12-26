@@ -14,7 +14,7 @@ class WorkoutsController < ApplicationController
 
   # GET /workouts/new
   def new
-    @routines = current_user.routines.recent.published
+    @routines = current_user.routines.includes([:exercises]).recent.published
   end
 
   # POST /workouts
