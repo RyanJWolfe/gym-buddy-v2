@@ -1,23 +1,7 @@
 <% content_for :title, "Edit Routine: #{@routine.name}" %>
 
 <div class="max-w-2xl mx-auto">
-  <h1 class="text-2xl font-bold mb-4">Edit Routine</h1>
-
   <%= render 'form' %>
-
-  <div class="mt-4 flex flex-col gap-y-4">
-    <h2 class="text-xl font-semibold">Exercises</h2>
-
-    <% if @routine_exercises.any? %>
-      <div id="routine-exercises" class="space-y-4">
-        <%= render @routine_exercises %>
-      </div>
-    <% end %>
-
-    <div id="add-exercise-button">
-      <%= render 'add_exercise' %>
-    </div>
-  </div>
 </div>
 
 <%# Modal container %>
