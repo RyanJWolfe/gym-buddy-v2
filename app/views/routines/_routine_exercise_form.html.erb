@@ -41,7 +41,8 @@
     <% end %>
     <!--    TODO: move nested form target into above fields_for, may need to see what happens when an exercise has no sets, will above render target at all?-->
     <template data-nested-set-form-target="template">
-      <%= f.fields_for :routine_sets, child_index: "NEW_SET_RECORD" do |set_fields| %>
+      <% new_set = RoutineSet.new %>
+      <%= f.fields_for :routine_sets, new_set, child_index: "NEW_SET_RECORD" do |set_fields| %>
         <%= render "routine_sets/form", f: set_fields %>
       <% end %>
     </template>
