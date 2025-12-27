@@ -61,8 +61,6 @@ export default class extends RailsNestedForm {
   }
 
   setInitialInputs(newSetTimestamp) {
-    this.setOrderField(newSetTimestamp)
-
     // add weight and reps to newly added sets
     const weightInputField = document.querySelector(
         `input[name*="${newSetTimestamp}"][name$="[weight]"]`
