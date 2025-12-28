@@ -1,6 +1,6 @@
 <%# locals: (routine:) %>
 
-<div class="bg-gray-200 rounded-lg shadow p-4 hover:shadow-md transition">
+<div id="<%= dom_id(routine) %>" class="bg-gray-200 rounded-lg shadow p-4 hover:shadow-md transition">
   <div class="flex items-center justify-between">
     <h3 class="font-semibold"><%= routine.name %></h3>
 
@@ -20,7 +20,7 @@
           <%= inline_svg_tag "icons/edit.svg", class: "h-6 w-6" %>
           <span class="font-medium">Edit Routine</span>
         <% end %>
-        <%= render "delete_routine_dialog" %>
+        <%= render "delete_routine_dialog", routine: %>
       </div>
     <% end %>
   </div>

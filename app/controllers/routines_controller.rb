@@ -42,8 +42,13 @@ class RoutinesController < ApplicationController
   end
 
   def destroy
-    @routine.destroy
-    redirect_to routines_path, notice: "Routine was successfully deleted."
+    routine_name = @routine.name
+    @routine.destroy # TODO: move to background job if performance becomes an issue
+
+    respond_to do |format|
+      format.html { redirect_to new_workout_path, notice: "#{routine_name} was successfully deleted." }
+      format.turbo_stream { render turbo_stream: turbo_stream.remove(@routine) }
+    end
   end
 
   # Start a new workout based on this routine
