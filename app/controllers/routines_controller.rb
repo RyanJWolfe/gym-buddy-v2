@@ -47,7 +47,10 @@ class RoutinesController < ApplicationController
 
     respond_to do |format|
       format.html { redirect_to new_workout_path, notice: "#{routine_name} was successfully deleted." }
-      format.turbo_stream { render turbo_stream: turbo_stream.remove(@routine) }
+      format.turbo_stream { render turbo_stream: [
+        turbo_stream.remove(@routine),
+        turbo_stream.update("general-routines-count", "General Routines (#{current_user.routines.count})")
+      ] }
     end
   end
 
