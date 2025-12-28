@@ -20,7 +20,8 @@ class RoutinesController < ApplicationController
     @routine.draft = false # Routine is not a draft, since user is intentionally saving
 
     if @routine.save
-      redirect_to new_workout_path # TODO: maybe anchor to newly created routine?
+      # TODO: maybe anchor to newly created routine?
+      redirect_to new_workout_path, notice: "#{@routine.name} routine was successfully created."
     else
       render :new, status: :unprocessable_entity
     end
