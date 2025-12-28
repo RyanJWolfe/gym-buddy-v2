@@ -1,0 +1,16 @@
+<div data-controller="dialog" data-action="click->dialog#backdropClose">
+  <dialog data-dialog-target="dialog">
+    <h3 class="font-medium text-lg mb-4">Remove Exercise</h3>
+    <p>Are you sure you want to remove this exercise?</p>
+    <button type="button" data-action="dialog#close" autofocus>Cancel</button>
+    <button type="button" data-action="click->nested-exercise-select-form#remove click->bottom-sheet#close dialog#close">
+      Ok
+    </button>
+  </dialog>
+  <button type="button"
+          data-action="dialog#open"
+          class="w-full flex items-center gap-x-3 p-3 rounded-lg hover:bg-gray-100 text-red-600 hover:text-red-800">
+    <%= inline_svg_tag "icons/trash.svg", class: "h-6 w-6" %>
+    <span class="font-medium">Remove exercise</span>
+  </button>
+</div>

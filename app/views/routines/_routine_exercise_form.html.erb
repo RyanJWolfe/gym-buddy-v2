@@ -20,12 +20,7 @@
           <%= inline_svg_tag "icons/rotate-cw.svg", class: "h-6 w-6" %>
           <span class="font-medium">Change exercise</span>
         <% end %>
-        <button type="button"
-                data-action="click->nested-exercise-select-form#remove click->bottom-sheet#close"
-                class="w-full flex items-center gap-x-3 p-3 rounded-lg hover:bg-gray-100 text-red-600 hover:text-red-800">
-          <%= inline_svg_tag "icons/trash.svg", class: "h-6 w-6" %>
-          <span class="font-medium">Remove exercise</span>
-        </button>
+        <%= render "remove_exercise_dialog" %>
       </div>
     <% end %>
   </div>
