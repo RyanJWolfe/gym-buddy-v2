@@ -3,11 +3,9 @@ import RailsNestedForm from "@stimulus-components/rails-nested-form";
 // Connects to data-controller="nested-exercise-select-form"
 export default class extends RailsNestedForm {
   static targets = [
-    "exerciseFormField",
     "exerciseContainer",
     "emptyStateContainer",
     "nameField",
-    "positionField",
     "submitButton"
   ];
 
@@ -68,7 +66,7 @@ export default class extends RailsNestedForm {
     content = content.replace(/__exercise_dom_id__/g, timestamp);
     this.targetTarget.insertAdjacentHTML("beforebegin", content);
 
-    this.updateForm(exerciseId, exerciseName);
+    this.updateForm(exerciseId, exerciseName, timestamp);
 
     const event = new CustomEvent("rails-nested-form:add", {bubbles: true});
     this.element.dispatchEvent(event);
@@ -93,27 +91,17 @@ export default class extends RailsNestedForm {
   }
 
   formExercisesEmpty() {
-    const exerciseContainers = document.querySelectorAll(this.wrapperSelectorValue);
-    let nonHiddenCount = 0;
-
-    exerciseContainers.forEach((container) => {
-      if (!container.style.display || container.style.display !== 'none') {
-        nonHiddenCount += 1;
-      }
-    });
-
-    return nonHiddenCount === 0;
+    return this.exerciseCount() === 0;
   }
 
-  updateForm(exerciseId, exerciseName) {
-    this.exerciseFormFieldTarget.value = exerciseId;
+  updateForm(exerciseId, exerciseName, timestamp) {
+    const exerciseIdFormField = document.querySelector(`input[name*="${timestamp}"][name$="[exercise_id]"]`);
+    const positionFormField = document.querySelector(`input[name*="${timestamp}"][name$="[position]"]`);
+    const exerciseNameContainer = document.getElementById(`${timestamp}-exercise-name`);
 
-    this.positionFieldTarget.value = this.exerciseCount();
-    this.exerciseContainerTarget.outerHTML = `<h5 class="font-medium">${exerciseName}</h5>`;
-
-    // remove target attributes so that new adds don't overwrite this one
-    this.exerciseFormFieldTarget.removeAttribute("data-nested-exercise-select-form-target");
-    this.positionFieldTarget.removeAttribute("data-nested-exercise-select-form-target");
+    exerciseIdFormField.value = exerciseId;
+    positionFormField.value = this.exerciseCount();
+    exerciseNameContainer.outerHTML = `<h5 class="font-medium">${exerciseName}</h5>`;
   }
 
   removeEmptyState() {
@@ -127,14 +115,16 @@ export default class extends RailsNestedForm {
   }
 
   exerciseCount() {
-    // forms have a wrapper selector value provided via data attribute on the form (wrapperSelectorValue comes from rails-nested-form)
-    try {
-      const selector = this.wrapperSelectorValue;
-      if (!selector) return 0;
-      return document.querySelectorAll(selector).length;
-    } catch (err) {
-      return 0;
-    }
+    const exerciseContainers = document.querySelectorAll(this.wrapperSelectorValue);
+    let nonHiddenCount = 0;
+
+    exerciseContainers.forEach((container) => {
+      if (!container.style.display || container.style.display !== 'none') {
+        nonHiddenCount += 1;
+      }
+    });
+
+    return nonHiddenCount
   }
 
   hasName() {

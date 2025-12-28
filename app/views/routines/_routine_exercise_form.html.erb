@@ -3,9 +3,9 @@
 <div class="nested-exercise-form-wrapper" data-new-record="<%= f.object.new_record? %>">
   <div class="flex justify-between items-center mb-4 mt-2">
     <div id="<%= f.object.exercise.present? ? dom_id(f.object.exercise) : "__exercise_dom_id__" %>">
-      <div data-nested-exercise-select-form-target="exerciseContainer">
+      <div id="<%= f.object.exercise.present? ? dom_id(f.object.exercise, :header) : "__exercise_dom_id__-exercise-name" %>">
         <% if f.object.exercise.present? %>
-          <h5 class="font-medium" data-nested-exercise-select-form-target="exerciseName"><%= f.object.exercise.name %></h5>
+          <h5 class="font-medium"><%= f.object.exercise.name %></h5>
         <% end %>
       </div>
       <%= f.hidden_field :exercise_id, data: { nested_exercise_select_form_target: "exerciseFormField" } %>
