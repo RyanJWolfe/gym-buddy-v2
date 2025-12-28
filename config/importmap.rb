@@ -9,3 +9,4 @@ pin_all_from "app/javascript/controllers", under: "controllers"
 # Pin additional npm packages here, for example:
 # pin "chartjs", to: "https://ga.jspm.io/npm:chart.js@4.3.0/dist/chart.min.js"
 pin "@stimulus-components/rails-nested-form", to: "@stimulus-components--rails-nested-form.js" # @5.0.0
+pin "@stimulus-components/dialog", to: "@stimulus-components--dialog.js" # @1.0.1
