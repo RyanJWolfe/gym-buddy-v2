@@ -94,7 +94,16 @@ export default class extends RailsNestedForm {
   }
 
   formExercisesEmpty() {
-    return document.querySelector(this.wrapperSelectorValue) === null
+    const exerciseContainers = document.querySelectorAll(this.wrapperSelectorValue);
+    let nonHiddenCount = 0;
+
+    exerciseContainers.forEach((container) => {
+      if (!container.style.display || container.style.display !== 'none') {
+        nonHiddenCount += 1;
+      }
+    });
+
+    return nonHiddenCount === 0;
   }
 
   updateForm(exerciseId, exerciseName) {
