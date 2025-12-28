@@ -62,7 +62,6 @@ export default class extends RailsNestedForm {
     this.toggleSubmitState();
   }
 
-  // helper to add a single nested form by id/name (mirrors newAdd but accepts values)
   addOne(exerciseId, exerciseName) {
     const timestamp = new Date().getTime().toString();
     let content = this.templateTarget.innerHTML.replace(/NEW_RECORD/g, timestamp);

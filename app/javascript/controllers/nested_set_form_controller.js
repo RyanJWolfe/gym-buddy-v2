@@ -61,6 +61,11 @@ export default class extends RailsNestedForm {
   }
 
   setInitialInputs(newSetTimestamp) {
+    const lastSet = this.setFormFieldTargets
+        .filter((field) => field.style.display !== "none")
+        .slice(-2, -1)[0];
+    if (!lastSet) return;
+
     // add weight and reps to newly added sets
     const weightInputField = document.querySelector(
         `input[name*="${newSetTimestamp}"][name$="[weight]"]`
@@ -68,12 +73,6 @@ export default class extends RailsNestedForm {
     const repsInputField = document.querySelector(
         `input[name*="${newSetTimestamp}"][name$="[reps]"]`
     );
-
-    const lastSet = this.setFormFieldTargets
-        .filter((field) => field.style.display !== "none")
-        .slice(-2, -1)[0];
-
-    if (!lastSet) return;
 
     const lastWeightInput = lastSet.querySelector('input[name$="[weight]"]');
     const lastRepsInput = lastSet.querySelector('input[name$="[reps]"]');
