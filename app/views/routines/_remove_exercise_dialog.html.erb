@@ -1,11 +1,13 @@
 <div data-controller="dialog" data-action="click->dialog#backdropClose">
-  <dialog data-dialog-target="dialog">
+  <dialog data-dialog-target="dialog" class="p-4 rounded-lg ">
     <h3 class="font-medium text-lg mb-4">Remove Exercise</h3>
-    <p>Are you sure you want to remove this exercise?</p>
-    <button type="button" data-action="dialog#close" autofocus>Cancel</button>
-    <button type="button" data-action="click->nested-exercise-select-form#remove click->bottom-sheet#close dialog#close">
-      Ok
-    </button>
+    <p class="mb-2">Are you sure you want to remove this exercise?</p>
+    <div class="flex items-center justify-end gap-x-2">
+      <button type="button" class="btn btn-tertiary" data-action="dialog#close" autofocus>Cancel</button>
+      <button type="button" class="btn btn-primary" data-action="click->nested-exercise-select-form#remove click->bottom-sheet#close dialog#close">
+        Ok
+      </button>
+    </div>
   </dialog>
   <button type="button"
           data-action="dialog#open"
