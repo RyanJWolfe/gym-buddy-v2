@@ -12,6 +12,28 @@ class Routine < ApplicationRecord
   scope :recent, -> { order(updated_at: :desc) }
   scope :published, -> { where(draft: false) }
 
+  def share_text
+    lines = [ name, "" ]
+
+    routine_exercises.includes(:routine_sets, :exercise).each do |re|
+      exercise_name = re.exercise.name
+      sets = re.routine_sets
+
+      count_line =
+        if sets.present? && sets.first&.reps&.present?
+          "#{sets.size} x #{sets.first.reps.size}"
+        elsif re.routine_sets.present?
+          "#{sets.size} #{sets.size == 1 ? 'set' : 'sets'}"
+        end
+
+      lines << exercise_name
+      lines << count_line if count_line
+      lines << ""
+    end
+
+    lines.join("\n").strip
+  end
+
   def must_have_at_least_one_exercise
     if routine_exercises.empty? || routine_exercises.all? { |re| re.marked_for_destruction? }
       errors.add(:base, "Routine must have at least one exercise")

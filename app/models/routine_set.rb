@@ -1,5 +1,5 @@
 class RoutineSet < ApplicationRecord
-  belongs_to :routine_exercise
+  belongs_to :routine_exercise # TODO: might need to counter cache
 
   after_initialize :set_default_set_number, if: :new_record?
 
