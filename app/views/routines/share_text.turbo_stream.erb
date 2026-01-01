@@ -1,0 +1,9 @@
+<%= turbo_stream.replace dom_id(@routine, :share_text) do %>
+  <div id="share-routine-<%= @routine.id %>-frame"
+       data-share-routine-target="shareText"
+       data-share-value="<%= @share_text %>"
+       class="hidden">
+  </div>
+<% end %>
+
+<% puts dom_id(@routine, :share_text) %>

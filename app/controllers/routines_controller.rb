@@ -10,6 +10,17 @@ class RoutinesController < ApplicationController
     @routine_exercises = @routine.routine_exercises.includes(:exercise)
   end
 
+  def share_text
+    @routine = current_user.routines.find(params[:id])
+
+    cache_key = "routine:#{@routine.id}:share_text:#{@routine.updated_at.to_i}"
+
+    @share_text = Rails.cache.fetch(cache_key) do
+      # keep the generation logic in the model
+      @routine.share_text
+    end
+  end
+
   def new
     @routine = current_user.routines.new
     @routine_exercises = []

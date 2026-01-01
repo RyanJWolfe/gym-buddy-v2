@@ -1,6 +1,6 @@
-<%# locals: ( title: nil, trigger: :trigger ) %>
+<%# locals: ( title: nil, trigger: :trigger, fetch_url: "" ) %>
 
-<div data-controller="bottom-sheet">
+<div data-controller="bottom-sheet" data-bottom-sheet-fetch-url-value="<%= fetch_url %>">
   <% if content_for?(trigger) %>
     <%= yield trigger %>
   <% else %>

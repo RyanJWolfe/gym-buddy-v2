@@ -19,6 +19,10 @@ Rails.application.routes.draw do
 
   resources :routines do
     resources :routine_exercises, except: [ :index, :show ]
+
+    member do
+      get "share_text", to: "routines#share_text"
+    end
   end
 
   post "routine_exercise_select_modal", to: "routine_exercises#exercise_select_modal"

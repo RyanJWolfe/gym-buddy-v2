@@ -1,19 +1,26 @@
 <%# locals: (routine:) %>
 
-<div id="<%= dom_id(routine) %>" class="bg-gray-200 rounded-lg shadow p-4 hover:shadow-md transition">
+<div id="<%= dom_id(routine) %>" data-controller="share-routine" class="bg-gray-200 rounded-lg shadow p-4 hover:shadow-md transition">
   <div class="flex items-center justify-between">
     <h3 class="font-semibold"><%= routine.name %></h3>
 
-    <%= render "shared/bottom_sheet", title: routine.name do %>
+    <% trigger = "routine_card_bottom_sheet_#{routine.id}".to_sym %>
+    <% content_for trigger do %>
+      <button type="button" data-action="click->bottom-sheet#open" class="p-1 hover:bg-gray-200 rounded-lg">
+        <%= inline_svg_tag "icons/more-horizontal.svg", class: "h-5 w-5" %>
+      </button>
+    <% end %>
+
+    <%= render "shared/bottom_sheet", title: routine.name, trigger: trigger, fetch_url: share_text_routine_path(routine) do %>
       <div class="space-y-2">
-        <div data-controller="share">
+        <div>
           <button type="button"
-                  data-action="click->bottom-sheet#close click->share#shareRoutine"
+                  data-action="click->bottom-sheet#close click->share-routine#shareRoutine"
                   class="w-full flex items-center gap-x-3 p-3 rounded-lg hover:bg-gray-100">
             <%= inline_svg_tag "icons/share.svg", class: "h-6 w-6" %>
             <span class="font-medium">Share Routine</span>
           </button>
-          <div class="hidden" data-share-target="shareText" data-share-value="<%= routine.share_text %>"></div>
+          <%= turbo_frame_tag dom_id(routine, :share_text), class: "hidden", data: { share_routine_target: "shareText" } %>
         </div>
         <%= link_to duplicate_workout_path(routine), class: "flex items-center gap-x-3 p-3 rounded-lg hover:bg-gray-100" do %>
           <%= inline_svg_tag "icons/copy.svg", class: "h-6 w-6" %>

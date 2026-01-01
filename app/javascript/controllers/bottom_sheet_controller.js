@@ -1,8 +1,11 @@
-import { Controller } from "@hotwired/stimulus"
+import {Controller} from "@hotwired/stimulus"
 
 // Connects to data-controller="bottom-sheet"
 export default class extends Controller {
   static targets = ["sheet", "overlay", "content"];
+  static values = {
+    fetchUrl: String
+  }
 
   connect() {
     this.startY = 0;
@@ -13,8 +16,8 @@ export default class extends Controller {
     this.dragMove = this.dragMove.bind(this);
     this.dragEnd = this.dragEnd.bind(this);
 
-    this.contentTarget.addEventListener("touchstart", this.dragStart, { passive: true });
-    this.contentTarget.addEventListener("touchmove", this.dragMove, { passive: true });
+    this.contentTarget.addEventListener("touchstart", this.dragStart, {passive: true});
+    this.contentTarget.addEventListener("touchmove", this.dragMove, {passive: true});
     this.contentTarget.addEventListener("touchend", this.dragEnd);
   }
 
@@ -25,6 +28,12 @@ export default class extends Controller {
   }
 
   open() {
+    this.openSheet()
+
+    this.fetchExtraData().then();
+  }
+
+  openSheet() {
     this.sheetTarget.classList.remove("hidden");
     document.body.classList.add("overflow-hidden");
     setTimeout(() => {
@@ -32,6 +41,16 @@ export default class extends Controller {
       this.contentTarget.classList.remove("translate-y-full", "lg:scale-95");
       this.contentTarget.classList.add("lg:scale-100");
     }, 10);
+  }
+
+  async fetchExtraData() {
+    if (this.hasFetchUrlValue && this.fetchUrlValue) {
+      await fetch(this.fetchUrlValue, {headers: {"Accept": "text/vnd.turbo-stream.html"}})
+          .then(r => r.text())
+          .then(html => {
+            Turbo.renderStreamMessage(html)
+          })
+    }
   }
 
   handleClick(event) {
@@ -56,7 +75,7 @@ export default class extends Controller {
       if (event.propertyName === 'transform' || event.propertyName === 'opacity') {
         this.sheetTarget.classList.add("hidden");
       }
-    }, { once: true });
+    }, {once: true});
   }
 
   dragStart(event) {
