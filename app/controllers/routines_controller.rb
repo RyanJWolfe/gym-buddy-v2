@@ -26,8 +26,10 @@ class RoutinesController < ApplicationController
   end
 
   def new_duplicate
-    @routine = current_user.routines.new
-    @routine_exercises = []
+    source_routine = current_user.routines.includes(routine_exercises: [ :routine_sets ]).find(params[:id])
+    @routine = source_routine.amoeba_dup
+    @routine.name = "#{source_routine.name} (Copy)"
+    ActiveRecord::Associations::Preloader.new(records: @routine.routine_exercises, associations: [:exercise, :routine_sets]).call
 
     render :new
   end

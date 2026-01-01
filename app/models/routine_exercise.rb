@@ -8,4 +8,8 @@ class RoutineExercise < ApplicationRecord
   validates :position, presence: true
 
   default_scope { order(position: :asc) }
+
+  amoeba do
+    enable
+  end
 end

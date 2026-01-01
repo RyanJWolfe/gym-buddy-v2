@@ -12,6 +12,11 @@ class Routine < ApplicationRecord
   scope :recent, -> { order(updated_at: :desc) }
   scope :published, -> { where(draft: false) }
 
+  amoeba do
+    exclude_association :workouts
+    exclude_association :user
+  end
+
   def share_text
     lines = [ name, "" ]
 
