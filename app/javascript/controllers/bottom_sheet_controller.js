@@ -19,6 +19,8 @@ export default class extends Controller {
     this.contentTarget.addEventListener("touchstart", this.dragStart, {passive: true});
     this.contentTarget.addEventListener("touchmove", this.dragMove, {passive: true});
     this.contentTarget.addEventListener("touchend", this.dragEnd);
+
+    this.extraDataFetched = false;
   }
 
   disconnect() {
@@ -45,6 +47,9 @@ export default class extends Controller {
 
   async fetchExtraData() {
     if (this.hasFetchUrlValue && this.fetchUrlValue) {
+      if (this.extraDataFetched === true) return;
+
+      this.extraDataFetched = true;
       await fetch(this.fetchUrlValue, {headers: {"Accept": "text/vnd.turbo-stream.html"}})
           .then(r => r.text())
           .then(html => {
