@@ -16,7 +16,6 @@ class RoutinesController < ApplicationController
     cache_key = "routine:#{@routine.id}:share_text:#{@routine.updated_at.to_i}"
 
     @share_text = Rails.cache.fetch(cache_key) do
-      # keep the generation logic in the model
       @routine.share_text
     end
   end
