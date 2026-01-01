@@ -22,6 +22,7 @@ Rails.application.routes.draw do
 
     member do
       get "share_text", to: "routines#share_text"
+      get "new_duplicate", to: "routines#new_duplicate"
     end
   end
 
