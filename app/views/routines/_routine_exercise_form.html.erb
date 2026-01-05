@@ -20,7 +20,7 @@
           <%= inline_svg_tag "icons/rotate-cw.svg", class: "h-6 w-6" %>
           <span class="font-medium">Change exercise</span>
         <% end %>
-        <%= render "remove_exercise_dialog" %>
+        <%= render "routines/remove_exercise_dialog" %>
       </div>
     <% end %>
   </div>
@@ -34,7 +34,6 @@
     <%= f.fields_for :routine_sets do |set_fields| %>
       <%= render "routine_sets/form", f: set_fields %>
     <% end %>
-    <!--    TODO: move nested form target into above fields_for, may need to see what happens when an exercise has no sets, will above render target at all?-->
     <template data-nested-set-form-target="template">
       <% new_set = RoutineSet.new %>
       <%= f.fields_for :routine_sets, new_set, child_index: "NEW_SET_RECORD" do |set_fields| %>
