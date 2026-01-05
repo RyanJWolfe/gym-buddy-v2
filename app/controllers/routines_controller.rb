@@ -79,7 +79,7 @@ class RoutinesController < ApplicationController
     @workout = @routine.create_workout(current_user)
 
     if @workout
-      redirect_to edit_workout_path(@workout), notice: "New workout started from routine!"
+      redirect_to edit_workout_path(@workout)
     else
       redirect_to @routine, alert: "Failed to create workout from routine."
     end
