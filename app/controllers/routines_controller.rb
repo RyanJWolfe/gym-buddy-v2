@@ -26,10 +26,10 @@ class RoutinesController < ApplicationController
   end
 
   def new_duplicate
-    source_routine = current_user.routines.includes(routine_exercises: [ :routine_sets ]).find(params[:id])
+    source_routine = current_user.routines.includes(routine_exercises: [ :sets ]).find(params[:id])
     @routine = source_routine.amoeba_dup
     @routine.name = "#{source_routine.name} (Copy)"
-    ActiveRecord::Associations::Preloader.new(records: @routine.routine_exercises, associations: [:exercise, :routine_sets]).call
+    ActiveRecord::Associations::Preloader.new(records: @routine.routine_exercises, associations: [:exercise, :sets]).call
 
     render :new
   end
@@ -47,7 +47,7 @@ class RoutinesController < ApplicationController
   end
 
   def edit
-    @routine = current_user.routines.includes(routine_exercises: [ :exercise, :routine_sets ]).find(params[:id])
+    @routine = current_user.routines.includes(routine_exercises: [ :exercise, :sets ]).find(params[:id])
   end
 
   def update
@@ -96,7 +96,7 @@ class RoutinesController < ApplicationController
       :name, :description,
       routine_exercises_attributes: [
         :id, :exercise_id, :position, :rest_seconds, :notes, :equipment_brand, :_destroy,
-        routine_sets_attributes: [
+        sets_attributes: [
           :id, :set_number, :reps, :weight, :rest_seconds, :_destroy
         ]
       ]

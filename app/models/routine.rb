@@ -20,14 +20,14 @@ class Routine < ApplicationRecord
   def share_text
     lines = [ name, "" ]
 
-    routine_exercises.includes(:routine_sets, :exercise).each do |re|
+    routine_exercises.includes(:sets, :exercise).each do |re|
       exercise_name = re.exercise.name
-      sets = re.routine_sets
+      sets = re.sets
 
       count_line =
         if sets.present? && sets.first&.reps&.present?
           "#{sets.size} x #{sets.first.reps.size}"
-        elsif re.routine_sets.present?
+        elsif re.sets.present?
           "#{sets.size} #{sets.size == 1 ? 'set' : 'sets'}"
         end
 

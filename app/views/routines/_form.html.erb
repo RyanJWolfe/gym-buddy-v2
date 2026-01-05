@@ -19,7 +19,7 @@
 
   <template data-nested-exercise-select-form-target="template">
     <% new_re = RoutineExercise.new %>
-    <% new_re.routine_sets.build %>
+    <% new_re.sets.build %>
     <%= f.fields_for :routine_exercises, new_re, child_index: "NEW_RECORD" do |re_fields| %>
       <%= render "routines/routine_exercise_form", f: re_fields %>
     <% end %>

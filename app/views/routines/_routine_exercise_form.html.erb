@@ -31,12 +31,12 @@
       <label class="col-span-3 text-muted uppercase">lbs</label>
       <label class="col-span-3 text-muted uppercase">reps</label>
     </div>
-    <%= f.fields_for :routine_sets do |set_fields| %>
+    <%= f.fields_for :sets do |set_fields| %>
       <%= render "routine_sets/form", f: set_fields %>
     <% end %>
     <template data-nested-set-form-target="template">
-      <% new_set = RoutineSet.new %>
-      <%= f.fields_for :routine_sets, new_set, child_index: "NEW_SET_RECORD" do |set_fields| %>
+      <% new_set = f.object.class.name == RoutineExercise.name ? RoutineSet.new : ExerciseSet.new %>
+      <%= f.fields_for :sets, new_set, child_index: "NEW_SET_RECORD" do |set_fields| %>
         <%= render "routine_sets/form", f: set_fields %>
       <% end %>
     </template>
