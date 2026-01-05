@@ -1,29 +1,12 @@
 <% content_for :title, "Editing workout" %>
 
-<div class="max-w-4xl mx-auto">
+<div class="max-w-2xl mx-auto">
   <%# Header with workout name and status %>
   <%= render 'edit_header' %>
 
   <hr class="my-4 -mx-4 border-gray-300"/>
 
-  <div>
-    <%# Exercise Logging Section %>
-    <div class="flex justify-between items-center mb-4">
-      <h2 class="text-xl font-medium">Exercises</h2>
-    </div>
-
-    <% if @exercise_logs.any? %>
-      <div id="exercise-logs" class="space-y-4">
-        <%= render @exercise_logs %>
-      </div>
-    <% end %>
-
-    <div id="add-exercise-button" class="mt-4">
-      <%= render 'add_exercise' %>
-    </div>
-  </div>
-
-  <p class="my-1 text-center">or</p>
+  <%= render 'form', workout: @workout %>
 
 
   <% unless @workout.in_progress? %>

@@ -8,7 +8,9 @@ class Workout < ApplicationRecord
 
   attr_accessor :logged_workout
 
-  enum :status, [:in_progress, :completed]
+  enum :status, [ :in_progress, :completed ]
+
+  accepts_nested_attributes_for :exercise_logs, allow_destroy: true
 
   validates :name, presence: true # TODO
   validates :date, presence: true

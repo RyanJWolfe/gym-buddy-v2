@@ -3,6 +3,8 @@ class ExerciseLog < ApplicationRecord
   belongs_to :exercise
   has_many :sets, class_name: "ExerciseSet", dependent: :destroy
 
+  accepts_nested_attributes_for :sets
+
   validates :notes, length: { maximum: 500 }
 
   amoeba do
