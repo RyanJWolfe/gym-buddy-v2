@@ -49,11 +49,11 @@ ActiveRecord::Schema[8.1].define(version: 2026_01_05_035007) do
     t.integer "duration_seconds"
     t.bigint "exercise_log_id", null: false
     t.string "notes"
-    t.integer "reps", null: false
+    t.integer "reps"
     t.integer "rest_seconds"
     t.integer "set_number", null: false
     t.datetime "updated_at", null: false
-    t.decimal "weight", precision: 8, scale: 2, null: false
+    t.decimal "weight", precision: 8, scale: 2
     t.index ["exercise_log_id", "set_number"], name: "index_exercise_sets_on_exercise_log_id_and_set_number"
     t.index ["exercise_log_id"], name: "index_exercise_sets_on_exercise_log_id"
   end
