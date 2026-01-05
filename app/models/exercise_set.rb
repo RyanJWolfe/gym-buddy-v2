@@ -4,6 +4,8 @@ class ExerciseSet < ApplicationRecord
   after_initialize :set_default_set_number, if: :new_record?
 
   def volume
+    return 0 if weight.nil? || reps.nil?
+
     reps * weight
   end
 
