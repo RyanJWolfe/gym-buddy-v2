@@ -64,16 +64,17 @@ class Routine < ApplicationRecord
       exercise_log = workout.exercise_logs.create!(
         exercise: routine_exercise.exercise,
         notes: routine_exercise.notes,
-        equipment_brand: routine_exercise.equipment_brand
+        equipment_brand: routine_exercise.equipment_brand,
+        position: routine_exercise.position
       )
 
       # Create sets based on routine exercise sets
-      routine_exercise.suggested_sets.times do |set_index|
+      routine_exercise.sets.each do |routine_set|
         exercise_log.sets.create!(
-          set_number: set_index + 1,
-          reps: routine_exercise.suggested_reps,
-          weight: 0.0, # User will fill this in during the workout
-          rest_seconds: routine_exercise.rest_seconds
+          set_number: routine_set.set_number,
+          reps: routine_set.reps,
+          weight: routine_set.weight,
+          rest_seconds: routine_set.rest_seconds
         )
       end
     end
