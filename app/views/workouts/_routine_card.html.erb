@@ -39,7 +39,7 @@
   </div>
 
 
-  <%= button_to workouts_path, method: :post, params: { routine_id: routine.id }, class: "mt-2 btn btn-primary btn-icon w-full" do %>
+  <%= button_to start_workout_routine_path(routine.id), method: :post, data: { turbo: false }, class: "mt-2 btn btn-primary btn-icon w-full" do %>
     <span>Start Routine</span>
   <% end %>
 
