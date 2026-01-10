@@ -23,9 +23,16 @@ export default class extends Controller {
     this.element.removeEventListener("change", this.onInput)
   }
 
-  onInput = () => {
+  onInput = (event) => {
+    console.log("AutosaveController detected input/change, scheduling save...")
+    console.log("here is what was changed:", event.target.name, "=", event.target.value)
     clearTimeout(this.saveTimeout)
-    this.saveTimeout = setTimeout(() => this.save(), this.debounceValue || 500)
+    this.saveTimeout = setTimeout(() => this.submit(), this.debounceValue || 500)
+  }
+
+  submit() {
+    console.log("AutosaveController submitting form...")
+    this.element.requestSubmit()
   }
 
   save() {

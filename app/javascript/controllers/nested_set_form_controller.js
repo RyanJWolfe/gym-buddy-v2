@@ -3,12 +3,17 @@ import RailsNestedForm from "@stimulus-components/rails-nested-form";
 // Connects to data-controller="nested-exercise-select-form"
 export default class extends RailsNestedForm {
   static targets = ["setFormField"];
+  static values = {
+    autosave: Boolean,
+    autosaveUrl: String,
+  }
 
   connect() {
     super.connect();
   }
 
   add(e) {
+    console.log("NestedSetFormController add called");
     e.preventDefault();
 
     this.addSet(e);
@@ -29,11 +34,42 @@ export default class extends RailsNestedForm {
     const content = this.templateTarget.innerHTML.replace(/NEW_SET_RECORD/g, timestamp)
     this.targetTarget.insertAdjacentHTML("beforebegin", content)
 
-    this.setOrderField(timestamp);
-    this.setInitialInputs(timestamp);
+    const order = this.setOrderField(timestamp);
+    const { weight, reps } = this.setInitialInputs(timestamp);
 
     const event = new CustomEvent("rails-nested-form:add", {bubbles: true})
     this.element.dispatchEvent(event)
+
+    if (this.autosaveValue) {
+      // build and submit turbo request?
+      const data = {
+        exercise_set: {
+          set_number: order,
+          weight: weight,
+          reps: reps
+        }
+      }
+
+      fetch(this.autosaveUrlValue, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json",
+          "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]').content
+        },
+        body: JSON.stringify(data)
+      }).then(r => r.json()).then(data => {
+        console.log("Autosave new set response:", data);
+        document.querySelectorAll(`input[name*="${timestamp}"]`).forEach((input) => {
+          const name = input.getAttribute("name");
+          const newName = name.replace(timestamp, data);
+          input.setAttribute("name", newName);
+        });
+
+      }).catch(error => {
+        console.error("Autosave new set error:", error);
+      });
+    }
   }
 
   reorderSetNumbers() {
@@ -58,6 +94,8 @@ export default class extends RailsNestedForm {
         (field) => field.style.display !== "none"
     );
     orderInputField.value = visibleSets.length;
+
+    return orderInputField.value;
   }
 
   setInitialInputs(newSetTimestamp) {
@@ -84,6 +122,8 @@ export default class extends RailsNestedForm {
     if (lastRepsInput && repsInputField) {
       repsInputField.value = lastRepsInput.value;
     }
+
+    return  { weight: lastWeightInput.value, reps: lastRepsInput.value };
   }
 
   onWeightChange(event) {

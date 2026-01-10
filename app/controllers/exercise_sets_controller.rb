@@ -14,6 +14,7 @@ class ExerciseSetsController < ApplicationController
       respond_to do |format|
         format.html { redirect_to workout_path(@workout), notice: "Set was successfully added." }
         format.turbo_stream
+        format.json { render json: @set.id, status: :created }
       end
     else
       render :new, status: :unprocessable_entity

@@ -18,13 +18,13 @@
     <% new_exercise = ExerciseLog.new %>
     <% new_exercise.sets.build %>
     <%= f.fields_for :exercise_logs, new_exercise, child_index: "NEW_RECORD" do |re_fields| %>
-      <%= render "routines/routine_exercise_form", f: re_fields %>
+      <%= render "routines/routine_exercise_form", f: re_fields, autosave: true %>
     <% end %>
   </template>
 
   <% if workout.exercise_logs.any? %>
     <%= f.fields_for :exercise_logs do |exercise_fields| %>
-      <%= render "routines/routine_exercise_form", f: exercise_fields %>
+      <%= render "routines/routine_exercise_form", f: exercise_fields, autosave: true %>
     <% end %>
   <% end %>
 
@@ -38,6 +38,8 @@
   </div>
 
   <%= link_to "Add Exercise", routine_exercise_select_modal_path, data: { turbo_method: :post }, class: "btn btn-primary" %>
+
+  <%= f.submit "Save", class: "btn btn-primary" %>
 
   <%# for displaying exercise selector %>
   <%= turbo_frame_tag "modal" %>

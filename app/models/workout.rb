@@ -3,7 +3,7 @@ class Workout < ApplicationRecord
   belongs_to :template, class_name: "Workout", optional: true
   belongs_to :routine, optional: true
   has_many :derived_workouts, class_name: "Workout", foreign_key: "template_id"
-  has_many :exercise_logs, dependent: :destroy
+  has_many :exercise_logs, -> { order(:position) }, dependent: :destroy
   has_many :exercises, through: :exercise_logs
 
   attr_accessor :logged_workout
