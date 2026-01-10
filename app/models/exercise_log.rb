@@ -3,7 +3,7 @@ class ExerciseLog < ApplicationRecord
   belongs_to :exercise
   has_many :sets, class_name: "ExerciseSet", dependent: :destroy
 
-  accepts_nested_attributes_for :sets
+  accepts_nested_attributes_for :sets, allow_destroy: true
 
   validates :notes, length: { maximum: 500 }
 
