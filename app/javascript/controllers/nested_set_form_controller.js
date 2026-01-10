@@ -2,7 +2,7 @@ import RailsNestedForm from "@stimulus-components/rails-nested-form";
 
 // Connects to data-controller="nested-exercise-select-form"
 export default class extends RailsNestedForm {
-  static targets = ["setFormField"];
+  static targets = ["setFormField", "hiddenId"];
   static values = {
     autosave: Boolean,
     autosaveUrl: String,
@@ -13,16 +13,28 @@ export default class extends RailsNestedForm {
   }
 
   add(e) {
-    console.log("NestedSetFormController add called");
     e.preventDefault();
 
     this.addSet(e);
   }
 
   remove(e) {
+    const setId = e.currentTarget.getAttribute("data-id");
     super.remove(e);
 
     this.reorderSetNumbers();
+
+    if (this.autosaveValue && setId) {
+      // send delete request to server
+      fetch(`${this.autosaveUrlValue}/${setId}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json",
+          "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]').content
+        }
+      })
+    }
   }
 
   // Custom method to set the order field (set_number) when a new set is added
@@ -35,7 +47,7 @@ export default class extends RailsNestedForm {
     this.targetTarget.insertAdjacentHTML("beforebegin", content)
 
     const order = this.setOrderField(timestamp);
-    const { weight, reps } = this.setInitialInputs(timestamp);
+    const {weight, reps} = this.setInitialInputs(timestamp);
 
     const event = new CustomEvent("rails-nested-form:add", {bubbles: true})
     this.element.dispatchEvent(event)
@@ -59,7 +71,6 @@ export default class extends RailsNestedForm {
         },
         body: JSON.stringify(data)
       }).then(r => r.json()).then(data => {
-        console.log("Autosave new set response:", data);
         document.querySelectorAll(`input[name*="${timestamp}"]`).forEach((input) => {
           const name = input.getAttribute("name");
           const newName = name.replace(timestamp, data);
@@ -123,7 +134,7 @@ export default class extends RailsNestedForm {
       repsInputField.value = lastRepsInput.value;
     }
 
-    return  { weight: lastWeightInput.value, reps: lastRepsInput.value };
+    return {weight: lastWeightInput.value, reps: lastRepsInput.value};
   }
 
   onWeightChange(event) {

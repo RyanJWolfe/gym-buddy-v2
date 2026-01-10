@@ -40,6 +40,7 @@ class ExerciseSetsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to workout_path(@workout), notice: "Set was successfully deleted." }
       format.turbo_stream
+      format.json { head :no_content }
     end
   end
 

@@ -8,6 +8,7 @@
 
     <div class="col-span-3 w-full flex justify-end">
       <button type="button"
+              data-id="<%= f.object.persisted? ? f.object.id : "NEW_SET_RECORD" %>"
               aria-label="Remove set"
               class="p-1 text-red-500 hover:bg-red-100 hover:text-red-700 rounded-full"
               data-action="click->nested-set-form#remove">
