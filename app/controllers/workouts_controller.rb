@@ -1,5 +1,5 @@
 class WorkoutsController < ApplicationController
-  before_action :set_workout, only: [:update, :destroy]
+  before_action :set_workout, only: [ :update, :destroy ]
 
   # GET /workouts or /workouts.json
   def index
@@ -8,13 +8,13 @@ class WorkoutsController < ApplicationController
 
   # GET /workouts/1 or /workouts/1.json
   def show
-    @workout = current_user.workouts.includes(exercise_logs: [:exercise, :sets]).find(params[:id])
+    @workout = current_user.workouts.includes(exercise_logs: [ :exercise, :sets ]).find(params[:id])
     @exercise_logs = @workout.exercise_logs
   end
 
   # GET /workouts/new
   def new
-    @routines = current_user.routines.includes([:exercises]).recent.published
+    @routines = current_user.routines.includes([ :exercises ]).recent.published
   end
 
   # POST /workouts
@@ -30,25 +30,23 @@ class WorkoutsController < ApplicationController
     end
 
     if @workout.save
-      redirect_to edit_workout_path(@workout),
-                  notice: workout_type == "logged" ? "Workout created. Add your exercises." : "Workout started! Add your exercises."
+      redirect_to edit_workout_path(@workout)
     else
-      render workout_type == "logged" ? "new_logged" : "new_realtime",
-             status: :unprocessable_entity
+      render :new, status: :unprocessable_entity
     end
   end
 
   # GET /workouts/1/edit
   def edit
-    @workout = current_user.workouts.includes(exercise_logs: [:exercise, :sets]).find(params[:id])
+    @workout = current_user.workouts.includes(exercise_logs: [ :exercise, :sets ]).find(params[:id])
   end
 
   # PATCH/PUT /workouts/1 or /workouts/1.json
   def update
     if @workout.update(workout_params)
-      redirect_to @workout, notice: "Workout was successfully updated."
+      head :ok
     else
-      @exercise_logs = @workout.exercise_logs.includes(:exercise, :sets)
+      @workout.exercise_logs.includes(:exercise, :sets)
       render :edit, status: :unprocessable_entity
     end
   end
@@ -89,18 +87,23 @@ class WorkoutsController < ApplicationController
     @workout = current_user.workouts.find(params[:id])
   end
 
-  def workout_type
-    params[:type]&.to_s || "logged"
-  end
-
-  helper_method :workout_type
-
   # Only allow a list of trusted parameters through.
   def workout_params
-    if workout_type == "logged"
-      params.require(:workout).permit(:name, :date, :start_time, :end_time, :notes)
-    else
-      params.require(:workout).permit(:name, :notes, :status)
-    end
+    params.require(:workout).permit(
+      :name,
+      :date,
+      :start_time,
+      :end_time,
+      :status,
+      :routine_id,
+      :autosave,
+      exercise_logs_attributes: [
+        :id, :exercise_id,
+        :position, :notes, :equipment_brand, :_destroy,
+        sets_attributes: [
+          :id, :set_number, :reps, :weight, :rest_seconds, :_destroy
+        ]
+      ]
+    )
   end
 end
