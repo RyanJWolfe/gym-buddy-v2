@@ -30,7 +30,6 @@
        data-nested-set-form-wrapper-selector-value=".sets-wrapper"
        data-nested-set-form-autosave-value="<%= autosave %>"
        data-nested-set-form-autosave-url-value="<%= autosave && f.object.persisted? ? workout_exercise_log_exercise_sets_path(@workout, f.object.id) : "" %>">
-    <div><%= workout_exercise_log_exercise_sets_path(@workout, f.object.id) if f.object.persisted? %></div>
     <div class="grid grid-cols-12 mb-2">
       <label class="col-span-3 text-muted uppercase">set</label>
       <label class="col-span-3 text-muted uppercase">lbs</label>
