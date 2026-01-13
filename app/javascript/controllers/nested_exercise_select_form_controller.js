@@ -26,10 +26,10 @@ export default class extends RailsNestedForm {
 
     // Listen for nested form add/remove custom events emitted by rails-nested-form
     this.element.addEventListener("rails-nested-form:add", () => this.toggleSubmitState());
-    this.element.addEventListener("rails-nested-form:remove", () => {
-      this.toggleSubmitState();
-      this.recalculatePositions();
-    });
+    // this.element.addEventListener("rails-nested-form:remove", () => {
+    //   this.toggleSubmitState();
+    //   this.recalculatePositions();
+    // });
   }
 
   replaceExercise(event) {
@@ -65,6 +65,49 @@ export default class extends RailsNestedForm {
     this.toggleSubmitState();
   }
 
+  autosaveAdd(timestamp, exerciseId) {
+    const data = {
+      exercise_log: {
+        exercise_id: exerciseId,
+        position: document.querySelector(`input[name*="${timestamp}"][name$="[position]"]`).value
+      }
+    };
+
+    fetch(this.autosaveUrlValue, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json",
+        "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]').content
+      },
+      body: JSON.stringify(data)
+    })
+    .then(response => response.json())
+    .then(data => {
+      const inputEl = document.querySelector(`input[name*="${timestamp}"]`);
+      // duplicate inputEl to create a hidden "id" input
+      const hiddenIdInput = document.createElement("input");
+      hiddenIdInput.type = "hidden";
+      hiddenIdInput.name = inputEl.getAttribute("name").replace(/\[[^\]]*\]$/, "[id]");
+      hiddenIdInput.value = data.id;
+      inputEl.insertAdjacentElement("afterend", hiddenIdInput);
+
+      const wrapper = inputEl.closest(this.wrapperSelectorValue);
+      if (wrapper) {
+        wrapper.setAttribute("data-id", data.id);
+      }
+
+      const nestedSetForm = wrapper.querySelector(`[data-nested-set-form-autosave-url-value]`)
+      nestedSetForm.setAttribute("data-nested-set-form-autosave-url-value", `${this.autosaveUrlValue}/${data.id}/exercise_sets`);
+
+
+    })
+    .catch(error => {
+      console.error("Autosave add exercise log error:", error);
+    });
+
+  }
+
   addOne(exerciseId, exerciseName) {
     const timestamp = new Date().getTime().toString();
     let content = this.templateTarget.innerHTML.replace(/NEW_RECORD/g, timestamp);
@@ -75,6 +118,10 @@ export default class extends RailsNestedForm {
 
     const event = new CustomEvent("rails-nested-form:add", {bubbles: true});
     this.element.dispatchEvent(event);
+
+    if (this.autosaveValue) {
+      this.autosaveAdd(timestamp, exerciseId);
+    }
   }
 
   autosaveRemove(formFieldContainer, exerciseLogId) {
@@ -87,14 +134,12 @@ export default class extends RailsNestedForm {
       }
     }).then(_ => {
       const inputEl = formFieldContainer.querySelector(`input[name*="[position]"]`);
-      const inputName = inputEl.getAttribute("name").replace(/\[[^\]]*\]$/, "[id]");
+      const inputName = inputEl.getAttribute("name").replace(/\[[^\]]*\]$/, "");
 
       formFieldContainer.remove()
 
-      const hiddenIdInput = formFieldContainer.querySelector(`input[name="${inputName}"]`);
-      if (hiddenIdInput) {
-        hiddenIdInput.remove();
-      }
+      const hiddenIdInput = document.querySelector(`input[name="${inputName}"]`);
+      if (hiddenIdInput) hiddenIdInput.remove();
 
     }).catch(error => {
       console.error("Autosave remove exercise log error:", error);
@@ -107,6 +152,9 @@ export default class extends RailsNestedForm {
     if (this.formExercisesEmpty()) {
       this.showEmptyState()
     }
+
+    this.toggleSubmitState();
+    this.recalculatePositions();
 
     if (this.autosaveValue) {
       const wrapper = e.target.closest(this.wrapperSelectorValue);

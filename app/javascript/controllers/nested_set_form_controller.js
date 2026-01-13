@@ -75,7 +75,7 @@ export default class extends RailsNestedForm {
       body: JSON.stringify(data)
     }).then(r => r.json()).then(data => {
       const inputEl = document.querySelector(`input[name*="${newSetTimestamp}"]`)
-      // duplicate inputEL the input element to create a hidden "id" input
+      // duplicate input element to create a hidden "id" input
       const hiddenIdInput = inputEl.cloneNode(false);
       hiddenIdInput.setAttribute("type", "hidden");
       hiddenIdInput.setAttribute("name", hiddenIdInput.getAttribute("name").replace(/\[[^\]]*\]$/, "[id]"))

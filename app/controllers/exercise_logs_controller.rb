@@ -19,6 +19,7 @@ class ExerciseLogsController < ApplicationController
       respond_to do |format|
         format.html { redirect_to edit_workout_path(@workout), notice: "Exercise added." }
         format.turbo_stream
+        format.json { render json: { id: @exercise_log.id, workout_id: @workout.id }, status: :created }
       end
     else
       set_exercises
@@ -68,6 +69,6 @@ class ExerciseLogsController < ApplicationController
   end
 
   def exercise_log_params
-    params.require(:exercise_log).permit(:exercise_id, :notes, :equipment_brand)
+    params.require(:exercise_log).permit(:exercise_id, :notes, :equipment_brand, :position)
   end
 end
