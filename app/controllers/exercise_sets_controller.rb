@@ -36,7 +36,11 @@ class ExerciseSetsController < ApplicationController
   end
 
   def destroy
-    @set.destroy
+    ActiveRecord::Base.transaction do
+      @set.destroy
+      @exercise_log.reorder_sets!
+    end
+
     respond_to do |format|
       format.html { redirect_to workout_path(@workout), notice: "Set was successfully deleted." }
       format.turbo_stream

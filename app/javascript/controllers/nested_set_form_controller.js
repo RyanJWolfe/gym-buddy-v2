@@ -18,23 +18,77 @@ export default class extends RailsNestedForm {
     this.addSet(e);
   }
 
+  autosaveRemove(setId, setFormField) {
+    fetch(`${this.autosaveUrlValue}/${setId}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json",
+        "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]').content
+      }
+    }).then(_ => {
+      const inputEl = setFormField.querySelector("input");
+      const inputName = inputEl.getAttribute("name").replace(/\[[^\]]*\]$/, "");
+
+
+      if (setFormField) {
+        setFormField.remove();
+      }
+
+      const hiddenIdInput = document.querySelector(`input[type="hidden"][name*="${inputName}"]`);
+      if (hiddenIdInput) {
+        hiddenIdInput.remove();
+      }
+    }).catch(error => {
+      console.error("Autosave delete set error:", error);
+    });
+  }
+
   remove(e) {
-    const setId = e.currentTarget.getAttribute("data-id");
     super.remove(e);
 
     this.reorderSetNumbers();
 
-    if (this.autosaveValue && setId) {
-      // send delete request to server
-      fetch(`${this.autosaveUrlValue}/${setId}`, {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-          "Accept": "application/json",
-          "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]').content
-        }
-      })
+    if (this.autosaveValue) {
+      const setId = e.currentTarget.getAttribute("data-id");
+      const setFormField = e.currentTarget.closest('[data-nested-set-form-target="setFormField"]');
+      this.autosaveRemove(setId, setFormField);
     }
+  }
+
+  autosaveAdd(newSetTimestamp, order, weight, reps) {
+    const data = {
+      exercise_set: {
+        set_number: order,
+        weight: weight,
+        reps: reps
+      }
+    }
+
+    fetch(this.autosaveUrlValue, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json",
+        "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]').content
+      },
+      body: JSON.stringify(data)
+    }).then(r => r.json()).then(data => {
+      const inputEl = document.querySelector(`input[name*="${newSetTimestamp}"]`)
+      // duplicate inputEL the input element to create a hidden "id" input
+      const hiddenIdInput = inputEl.cloneNode(false);
+      hiddenIdInput.setAttribute("type", "hidden");
+      hiddenIdInput.setAttribute("name", hiddenIdInput.getAttribute("name").replace(/\[[^\]]*\]$/, "[id]"))
+      hiddenIdInput.setAttribute("value", data);
+      inputEl.parentNode.appendChild(hiddenIdInput);
+
+      const deleteBtn = document.querySelector(`button[data-id="${newSetTimestamp}"]`);
+      if (deleteBtn) {
+        deleteBtn.setAttribute("data-id", data);
+      }
+    }).catch(error => {
+      console.error("Autosave new set error:", error);
+    });
   }
 
   // Custom method to set the order field (set_number) when a new set is added
@@ -53,33 +107,7 @@ export default class extends RailsNestedForm {
     this.element.dispatchEvent(event)
 
     if (this.autosaveValue) {
-      // build and submit turbo request?
-      const data = {
-        exercise_set: {
-          set_number: order,
-          weight: weight,
-          reps: reps
-        }
-      }
-
-      fetch(this.autosaveUrlValue, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "Accept": "application/json",
-          "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]').content
-        },
-        body: JSON.stringify(data)
-      }).then(r => r.json()).then(data => {
-        document.querySelectorAll(`input[name*="${timestamp}"]`).forEach((input) => {
-          const name = input.getAttribute("name");
-          const newName = name.replace(timestamp, data);
-          input.setAttribute("name", newName);
-        });
-
-      }).catch(error => {
-        console.error("Autosave new set error:", error);
-      });
+      this.autosaveAdd(timestamp, order, weight, reps);
     }
   }
 
@@ -113,7 +141,7 @@ export default class extends RailsNestedForm {
     const lastSet = this.setFormFieldTargets
         .filter((field) => field.style.display !== "none")
         .slice(-2, -1)[0];
-    if (!lastSet) return;
+    if (!lastSet) return {};
 
     // add weight and reps to newly added sets
     const weightInputField = document.querySelector(

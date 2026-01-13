@@ -24,10 +24,10 @@ export default class extends Controller {
   }
 
   onInput = (event) => {
-    console.log("AutosaveController detected input/change, scheduling save...")
-    console.log("here is what was changed:", event.target.name, "=", event.target.value)
+    // console.log("AutosaveController detected input/change, scheduling save...")
+    // console.log("here is what was changed:", event.target.name, "=", event.target.value)
     clearTimeout(this.saveTimeout)
-    this.saveTimeout = setTimeout(() => this.submit(), this.debounceValue || 500)
+    this.saveTimeout = setTimeout(() => this.submit(), this.debounceValue || 2000)
   }
 
   submit() {

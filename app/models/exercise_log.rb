@@ -27,4 +27,10 @@ class ExerciseLog < ApplicationRecord
   def total_sets
     exercise_sets_count
   end
+
+  def reorder_sets!
+    sets.each_with_index do |set, index|
+      set.update(set_number: index + 1)
+    end
+  end
 end

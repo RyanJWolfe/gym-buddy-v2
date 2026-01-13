@@ -1,6 +1,6 @@
 <%= form_with model: workout, html: {
   class: "flex flex-col gap-y-4 pb-24", # add bottom padding so content isn't hidden
-  data: { controller: "nested-exercise-select-form", nested_exercise_select_form_wrapper_selector_value: ".nested-exercise-form-wrapper" }
+  data: { controller: "nested-exercise-select-form autosave", nested_exercise_select_form_wrapper_selector_value: ".nested-exercise-form-wrapper" }
 } do |f| %>
   <% if workout.errors.any? %>
     <div class="bg-red-50 text-red-700 p-4 rounded mb-4">
