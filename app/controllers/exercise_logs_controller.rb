@@ -1,7 +1,7 @@
 class ExerciseLogsController < ApplicationController
   before_action :set_workout
-  before_action :set_exercise_log, only: [:edit, :update, :destroy]
-  before_action :set_exercises, only: [:new, :edit]
+  before_action :set_exercise_log, only: [ :edit, :update, :destroy ]
+  before_action :set_exercises, only: [ :new, :edit ]
 
   def new
     @exercise_log = @workout.exercise_logs.build
@@ -41,11 +41,15 @@ class ExerciseLogsController < ApplicationController
   end
 
   def destroy
-    @exercise_log.destroy
+    ActiveRecord::Base.transaction do
+      @exercise_log.destroy
+      @workout.reorder_exercise_logs!
+    end
 
     respond_to do |format|
       format.html { redirect_to workout_path(@workout), notice: "Exercise was successfully removed." }
       format.turbo_stream { render turbo_stream: turbo_stream.remove(@exercise_log) }
+      format.json { head :no_content }
     end
   end
 

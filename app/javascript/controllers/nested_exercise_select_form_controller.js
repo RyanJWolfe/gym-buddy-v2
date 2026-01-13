@@ -9,6 +9,11 @@ export default class extends RailsNestedForm {
     "submitButton"
   ];
 
+  static values = {
+    autosave: Boolean,
+    autosaveUrl: String,
+  }
+
   connect() {
     super.connect();
 
@@ -72,12 +77,43 @@ export default class extends RailsNestedForm {
     this.element.dispatchEvent(event);
   }
 
+  autosaveRemove(formFieldContainer, exerciseLogId) {
+    fetch(`${this.autosaveUrlValue}/${exerciseLogId}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json",
+        "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]').content
+      }
+    }).then(_ => {
+      const inputEl = formFieldContainer.querySelector(`input[name*="[position]"]`);
+      const inputName = inputEl.getAttribute("name").replace(/\[[^\]]*\]$/, "[id]");
+
+      formFieldContainer.remove()
+
+      const hiddenIdInput = formFieldContainer.querySelector(`input[name="${inputName}"]`);
+      if (hiddenIdInput) {
+        hiddenIdInput.remove();
+      }
+
+    }).catch(error => {
+      console.error("Autosave remove exercise log error:", error);
+    });
+  }
+
   remove(e) {
     super.remove(e);
 
     if (this.formExercisesEmpty()) {
       this.showEmptyState()
     }
+
+    if (this.autosaveValue) {
+      const wrapper = e.target.closest(this.wrapperSelectorValue);
+      const idToDelete = wrapper.getAttribute("data-id");
+      this.autosaveRemove(wrapper, idToDelete);
+    }
+
   }
 
   recalculatePositions() {

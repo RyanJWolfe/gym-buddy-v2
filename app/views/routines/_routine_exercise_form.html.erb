@@ -1,6 +1,8 @@
 <%# locals: ( f:, autosave: false ) %>
 
-<div class="nested-exercise-form-wrapper" data-new-record="<%= f.object.new_record? %>">
+<div class="nested-exercise-form-wrapper"
+     data-new-record="<%= f.object.new_record? %>"
+     data-id="<%= f.object.persisted? ? f.object.id : "NEW_RECORD" %>">
   <div class="flex justify-between items-center mb-4 mt-2">
     <div id="<%= f.object.exercise.present? ? dom_id(f.object.exercise) : "__exercise_dom_id__" %>">
       <div id="<%= f.object.exercise.present? ? dom_id(f.object.exercise, :header) : "__exercise_dom_id__-exercise-name" %>">

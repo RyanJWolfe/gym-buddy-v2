@@ -73,6 +73,12 @@ class Workout < ApplicationRecord
     user.workouts.where("template_name = ? OR id = ?", template_name, base_template.id)
   end
 
+  def reorder_exercise_logs!
+    exercise_logs.each_with_index do |log, index|
+      log.update(position: index + 1)
+    end
+  end
+
   private
 
   def end_time_after_start_time
