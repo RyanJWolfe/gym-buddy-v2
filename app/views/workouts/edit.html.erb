@@ -6,8 +6,11 @@
 
   <hr class="my-4 -mx-4 border-gray-300"/>
 
-  <%= render 'form', workout: @workout %>
-
+  <% if @workout.in_progress? %>
+    <%= render 'workouts/autosave_form', workout: @workout %>
+  <% else %>
+    <%= render 'workouts/form', workout: @workout %>
+  <% end %>
 
   <% unless @workout.in_progress? %>
     <div class="flex items-center justify-center">
