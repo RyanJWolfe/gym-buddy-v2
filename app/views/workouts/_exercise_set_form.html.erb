@@ -1,0 +1,18 @@
+<%# locals: ( set: ) %>
+
+<%= form_with(model: [@workout, set.exercise_log, set]) do |f| %>
+  <div class="grid grid-cols-12">
+    <%= f.number_field :set_number, min: 1, readonly: true, class: "form-input-tr col-span-3 number-to-text pointer-events-none" %>
+    <%= f.number_field :weight, placeholder: '-', step: 0.1, min: 0, data: { action: "input->nested-set-form#onWeightChange" }, class: "form-input-tr col-span-3 number-to-text" %>
+    <%= f.number_field :reps, placeholder: '-', min: 1, data: { action: "input->nested-set-form#onRepsChange" }, class: "form-input-tr col-span-3 number-to-text" %>
+
+    <div class="col-span-3 w-full flex justify-end">
+      <button type="button"
+              aria-label="Remove set"
+              class="p-1 text-red-500 hover:bg-red-100 hover:text-red-700 rounded-full"
+              data-action="">
+        <%= inline_svg('icons/x.svg', class: "h-5 w-5") %>
+      </button>
+    </div>
+  </div>
+<% end %>
