@@ -27,4 +27,8 @@ class ExerciseLog < ApplicationRecord
   def total_sets
     exercise_sets_count
   end
+
+  def name
+    exercise.name
+  end
 end
