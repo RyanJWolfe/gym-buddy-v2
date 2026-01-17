@@ -1,6 +1,5 @@
 <%= form_with model: workout, html: {
   class: "flex flex-col gap-y-4 pb-24", # add bottom padding so content isn't hidden
-  data: { controller: "nested-exercise-select-form", nested_exercise_select_form_wrapper_selector_value: ".nested-exercise-form-wrapper" }
 } do |f| %>
   <% if workout.errors.any? %>
     <div class="bg-red-50 text-red-700 p-4 rounded mb-4">
@@ -14,21 +13,9 @@
     </div>
   <% end %>
 
-  <template data-nested-exercise-select-form-target="template">
-    <% new_exercise = ExerciseLog.new %>
-    <% new_exercise.sets.build %>
-    <%= f.fields_for :exercise_logs, new_exercise, child_index: "NEW_RECORD" do |re_fields| %>
-      <%= render "routines/routine_exercise_form", f: re_fields %>
-    <% end %>
-  </template>
-
-  <% if workout.exercise_logs.any? %>
-    <%= f.fields_for :exercise_logs do |exercise_fields| %>
-      <%= render "routines/routine_exercise_form", f: exercise_fields %>
-    <% end %>
+  <%= f.fields_for :exercise_logs do |exercise_fields| %>
+    <%= render "workouts/exercise_log_form", f: exercise_fields %>
   <% end %>
-
-  <div data-nested-exercise-select-form-target="target" class="hidden"></div>
 
   <div id="exercises-empty-state" data-nested-exercise-select-form-target="emptyStateContainer" class="<%= "hidden" unless workout.exercise_logs.empty? %>">
     <div class="flex flex-col items-center justify-center text-center text-muted font-normal pt-12 pb-6">
