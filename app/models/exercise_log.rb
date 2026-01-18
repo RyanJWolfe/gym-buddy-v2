@@ -35,7 +35,7 @@ class ExerciseLog < ApplicationRecord
   def reindex_sets!
     # TODO: Optimize this to do it in a single query (use act_as_list?)
     sets.order(:set_number).each_with_index do |set, index|
-      set.update_column(:set_number, index + 1)
+      set.update_column(:set_number, index + 1) if set.set_number != index + 1
     end
   end
 end
