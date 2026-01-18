@@ -1,14 +1,18 @@
 class ExerciseSetsController < ApplicationController
   before_action :set_workout
   before_action :set_exercise_log
-  before_action :set_exercise_set, only: [:edit, :update, :destroy]
+  before_action :set_exercise_set, only: [ :edit, :update, :destroy ]
 
   def new
     @set = @exercise_log.sets.build(set_number: next_set_number)
   end
 
   def create
-    @set = @exercise_log.sets.build(exercise_set_params)
+    if params[:exercise_set]
+      @set = @exercise_log.sets.build(exercise_set_params)
+    else
+      @set = @exercise_log.sets.build(set_number: next_set_number)
+    end
 
     if @set.save
       respond_to do |format|

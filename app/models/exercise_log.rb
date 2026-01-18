@@ -1,7 +1,7 @@
 class ExerciseLog < ApplicationRecord
   belongs_to :workout, counter_cache: true
   belongs_to :exercise
-  has_many :sets, class_name: "ExerciseSet", dependent: :destroy
+  has_many :sets, -> { order("set_number") }, class_name: "ExerciseSet", dependent: :destroy
 
   accepts_nested_attributes_for :sets, allow_destroy: true
 
