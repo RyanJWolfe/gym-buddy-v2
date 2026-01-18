@@ -47,7 +47,7 @@ class RoutineExercisesController < ApplicationController
   end
 
   def exercise_select_modal # TODO: find a better place for this action
-    @exercises = Exercise.all.order(:name)
+    @exercises = Exercise.all.includes(:categories).order(:name)
 
     @mode = params[:mode] || "add" # "add" or "replace"
     if @mode == "replace"

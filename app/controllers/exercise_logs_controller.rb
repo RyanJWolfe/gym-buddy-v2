@@ -1,7 +1,7 @@
 class ExerciseLogsController < ApplicationController
   before_action :set_workout
-  before_action :set_exercise_log, only: [:edit, :update, :destroy]
-  before_action :set_exercises, only: [:new, :edit]
+  before_action :set_exercise_log, only: [ :edit, :update, :destroy ]
+  before_action :set_exercises, only: [ :new, :edit ]
 
   def new
     @exercise_log = @workout.exercise_logs.build
@@ -13,6 +13,18 @@ class ExerciseLogsController < ApplicationController
   end
 
   def create
+    if params[:exercise_ids].present?
+      @exercise_logs = ExerciseLog.from_exercise_ids(@workout, params[:exercise_ids])
+      ExerciseLog.transaction do
+        @exercise_logs.each(&:save!)
+      end
+      respond_to do |format|
+        format.html { redirect_to edit_workout_path(@workout), notice: "Exercises added." }
+        format.turbo_stream
+      end
+      return
+    end
+
     @exercise_log = @workout.exercise_logs.build(exercise_log_params)
 
     if @exercise_log.save
@@ -66,4 +78,5 @@ class ExerciseLogsController < ApplicationController
   def exercise_log_params
     params.require(:exercise_log).permit(:exercise_id, :notes, :equipment_brand)
   end
+
 end

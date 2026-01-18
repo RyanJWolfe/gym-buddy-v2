@@ -1,14 +1,21 @@
-<div class="flex flex-col gap-y-4 pb-24">
-  <% if workout.exercise_logs.any? %>
-    <%= render partial: "workouts/exercise_log_form", collection: workout.exercise_logs, as: :exercise_log %>
-  <% else %>
-    <div id="exercises-empty-state">
-      <div class="flex flex-col items-center justify-center text-center text-muted font-normal pt-12 pb-6">
-        <%= inline_svg_tag "pictograms/yoga-ball.svg", class: "w-24 h-24 mb-3" %>
-        <div class="text-base">Add an exercise to your workout to get started.</div>
+<div class="flex flex-col gap-y-4 pb-24"
+     data-controller="workout-form"
+     data-workout-form-workout-id-value="<%= workout.id %>"
+     data-action="exercise:add->workout-form#addExercises exercise:replace->workout-form#replaceExercise"
+>
+
+  <div id="<%= dom_id(workout, :exercise_logs) %>" class="flex flex-col gap-y-4">
+    <% if workout.exercise_logs.any? %>
+      <%= render partial: "workouts/exercise_log_form", collection: workout.exercise_logs, as: :exercise_log %>
+    <% else %>
+      <div id="exercises-empty-state">
+        <div class="flex flex-col items-center justify-center text-center text-muted font-normal pt-12 pb-6">
+          <%= inline_svg_tag "pictograms/yoga-ball.svg", class: "w-24 h-24 mb-3" %>
+          <div class="text-base">Add an exercise to your workout to get started.</div>
+        </div>
       </div>
-    </div>
-  <% end %>
+    <% end %>
+  </div>
 
   <%= link_to "Add Exercise", routine_exercise_select_modal_path, data: { turbo_method: :post }, class: "btn btn-primary" %>
 

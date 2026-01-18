@@ -11,6 +11,12 @@ class ExerciseLog < ApplicationRecord
     enable
     set exercise_sets_count: 0
   end
+  def self.from_exercise_ids(workout, exercise_ids)
+    exercise_ids.map do |exercise_id|
+      workout.exercise_logs.build(exercise_id: exercise_id)
+    end
+  end
+
 
   def total_volume
     sets.sum(&:volume)

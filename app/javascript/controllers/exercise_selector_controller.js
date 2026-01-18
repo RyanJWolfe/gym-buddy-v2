@@ -92,7 +92,10 @@ export default class extends Controller {
 
   dispatchAddEvent() {
     const event = new CustomEvent("exercise:add", {
-      detail: {exerciseMap: this.selected},
+      detail: {
+        exerciseMap: this.selected,
+        exerciseIds: Array.from(this.selected.keys())
+      },
       bubbles: true,
       composed: true
     })
