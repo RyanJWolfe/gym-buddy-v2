@@ -31,7 +31,7 @@ class ExerciseSetsController < ApplicationController
     if @set.update(exercise_set_params)
       respond_to do |format|
         format.html { redirect_to workout_path(@workout), notice: "Set was successfully updated." }
-        format.turbo_stream
+        format.json { head :no_content }
       end
     else
       render :edit, status: :unprocessable_entity

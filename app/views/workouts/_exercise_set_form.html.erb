@@ -1,12 +1,15 @@
 <%# locals: ( set: ) %>
 
-<%= form_with model: [ set.exercise_log.workout, set.exercise_log, set ], id: dom_id(set), html: {
-  data: { nested_set_form_target: "form" }
+<%= form_with model: [ set.exercise_log.workout, set.exercise_log, set ], id: dom_id(set), format: :json, html: {
+  data: {
+    controller: "autosave",
+    nested_set_form_target: "form"
+  }
 } do |f| %>
   <div class="grid grid-cols-12">
     <%= f.number_field :set_number, min: 1, readonly: true, class: "form-input-tr col-span-3 number-to-text pointer-events-none" %>
-    <%= f.number_field :weight, placeholder: '-', step: 0.1, min: 0, data: { action: "" }, class: "form-input-tr col-span-3 number-to-text" %>
-    <%= f.number_field :reps, placeholder: '-', min: 1, data: { action: "" }, class: "form-input-tr col-span-3 number-to-text" %>
+    <%= f.number_field :weight, placeholder: '-', step: 0.1, min: 0, data: { action: "input->autosave#onInput" }, class: "form-input-tr col-span-3 number-to-text" %>
+    <%= f.number_field :reps, placeholder: '-', min: 1, data: { action: "input->autosave#onInput" }, class: "form-input-tr col-span-3 number-to-text" %>
 
     <div class="col-span-3 w-full flex justify-end">
       <%= link_to workout_exercise_log_exercise_set_path(set.exercise_log.workout, set.exercise_log, set),
