@@ -30,11 +30,6 @@
       <%= render partial: "workouts/exercise_set_form", collection: exercise_log.sets, as: :set %>
     </div>
 
-    <button type="button" data-action="nested-set-form#add" data-nested-set-form-target="target" class="mt-4 btn btn-icon btn-tertiary w-full">
-      <%= inline_svg_tag "icons/plus.svg", class: "h-4 w-4" %>
-      Add Set
-    </button>
-
     <%= button_to workout_exercise_log_exercise_sets_path(exercise_log.workout, exercise_log),
                   # data: { turbo_method: :post, action: "click->nested-set-form#addSet" },
                   class: "mt-4 btn btn-icon btn-tertiary w-full" do %>
