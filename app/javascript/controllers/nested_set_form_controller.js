@@ -2,7 +2,7 @@ import RailsNestedForm from "@stimulus-components/rails-nested-form";
 
 // Connects to data-controller="nested-exercise-select-form"
 export default class extends RailsNestedForm {
-  static targets = ["setFormField"];
+  static targets = ["setForm"];
 
   connect() {
     super.connect();
@@ -17,7 +17,7 @@ export default class extends RailsNestedForm {
   remove(e) {
     super.remove(e);
 
-    this.reorderSetNumbers();
+    this.reorderSetNumbers(this.setFormTargets);
   }
 
   // Custom method to set the order field (set_number) when a new set is added
@@ -36,9 +36,9 @@ export default class extends RailsNestedForm {
     this.element.dispatchEvent(event)
   }
 
-  reorderSetNumbers() {
+  reorderSetNumbers(targets) {
     let index = 1
-    this.setFormFieldTargets.forEach((field) => {
+    targets.forEach((field) => {
       if (field.style.display === "none") return
 
       const input = field.querySelector('input[name$="[set_number]"]');
@@ -54,14 +54,14 @@ export default class extends RailsNestedForm {
         `input[name*="${newSetTimestamp}"][name$="[set_number]"]`
     );
 
-    const visibleSets = this.setFormFieldTargets.filter(
+    const visibleSets = this.setFormTargets.filter(
         (field) => field.style.display !== "none"
     );
     orderInputField.value = visibleSets.length;
   }
 
   setInitialInputs(newSetTimestamp) {
-    const lastSet = this.setFormFieldTargets
+    const lastSet = this.setFormTargets
         .filter((field) => field.style.display !== "none")
         .slice(-2, -1)[0];
     if (!lastSet) return;
@@ -104,7 +104,7 @@ export default class extends RailsNestedForm {
       value = parseInt(input.value);
     }
 
-    const setWrapper = input.closest('[data-nested-set-form-target="setFormField"]');
+    const setWrapper = input.closest('[data-nested-set-form-target="setForm"]');
     const orderInput = setWrapper.querySelector('input[name$="[set_number]"]');
     const order = orderInput.value;
 
@@ -113,7 +113,7 @@ export default class extends RailsNestedForm {
   }
 
   propagateChangeToSets(fieldName, value, order) {
-    this.setFormFieldTargets.forEach((field) => {
+    this.setFormTargets.forEach((field) => {
       if (field.style.display === "none") return;
 
       const input = field.querySelector(`input[name$="[${fieldName}]"]`);
