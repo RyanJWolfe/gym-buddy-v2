@@ -40,6 +40,8 @@ class ExerciseSetsController < ApplicationController
 
   def destroy
     @set.destroy
+    @exercise_log.reindex_sets!
+
     respond_to do |format|
       format.html { redirect_to workout_path(@workout), notice: "Set was successfully deleted." }
       format.turbo_stream

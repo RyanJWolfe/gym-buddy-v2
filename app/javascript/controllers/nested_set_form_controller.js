@@ -2,10 +2,15 @@ import RailsNestedForm from "@stimulus-components/rails-nested-form";
 
 // Connects to data-controller="nested-exercise-select-form"
 export default class extends RailsNestedForm {
-  static targets = ["setForm"];
+  static targets = ["setForm", "form"];
 
   connect() {
     super.connect();
+  }
+
+  formTargetDisconnected() {
+    console.log("Form target disconnected");
+    this.reorderSetNumbers(this.formTargets);
   }
 
   add(e) {

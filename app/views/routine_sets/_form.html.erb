@@ -1,6 +1,6 @@
 <%# locals: ( f: ) %>
 
-<div class="sets-wrapper" data-nested-set-form-target="setFormField">
+<div class="sets-wrapper" data-nested-set-form-target="setForm">
   <div class="grid grid-cols-12">
     <%= f.number_field :set_number, min: 1, readonly: true, class: "form-input-tr col-span-3 number-to-text pointer-events-none" %>
     <%= f.number_field :weight, placeholder: '-', step: 0.1, min: 0, data: { action: "input->nested-set-form#onWeightChange" }, class: "form-input-tr col-span-3 number-to-text" %>

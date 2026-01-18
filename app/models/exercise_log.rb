@@ -31,4 +31,11 @@ class ExerciseLog < ApplicationRecord
   def name
     exercise.name
   end
+
+  def reindex_sets!
+    # TODO: Optimize this to do it in a single query (use act_as_list?)
+    sets.order(:set_number).each_with_index do |set, index|
+      set.update_column(:set_number, index + 1)
+    end
+  end
 end
