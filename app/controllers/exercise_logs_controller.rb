@@ -15,8 +15,13 @@ class ExerciseLogsController < ApplicationController
   def create
     if params[:exercise_ids].present?
       @exercise_logs = ExerciseLog.from_exercise_ids(@workout, params[:exercise_ids])
+      next_position = @workout.exercise_logs.size + 1
       ExerciseLog.transaction do
-        @exercise_logs.each(&:save!)
+        @exercise_logs.each do |exercise_log|
+          exercise_log.position = next_position
+          exercise_log.save!
+          next_position += 1
+        end
       end
       respond_to do |format|
         format.html { redirect_to edit_workout_path(@workout), notice: "Exercises added." }
