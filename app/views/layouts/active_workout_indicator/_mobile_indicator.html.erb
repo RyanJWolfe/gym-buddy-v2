@@ -1,6 +1,9 @@
 <%# locals: ( workout: ) %>
 
-<div class="lg:hidden fixed bottom-4 inset-x-4 z-50" role="region" aria-label="Active workout in progress">
+<div id="<%= dom_id(workout, :mobile_indicator) %>"
+     class="lg:hidden fixed bottom-4 inset-x-4 z-50"
+     role="region"
+     aria-label="Active workout in progress">
   <div class="mx-auto max-w-lg bg-white border border-gray-200 shadow-md rounded-lg px-4 py-3">
     <div class="flex flex-col gap-1 items-center">
       <div class="truncate">
@@ -15,7 +18,7 @@
           <% end %>
         </div>
         <div class="w-1/2 flex justify-center">
-          <%= render "layouts/active_workout_indicator/discard_workout_dialog" %>
+          <%= render "layouts/active_workout_indicator/discard_workout_dialog", workout: %>
         </div>
       </div>
     </div>

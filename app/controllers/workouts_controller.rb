@@ -53,8 +53,12 @@ class WorkoutsController < ApplicationController
 
   # DELETE /workouts/1 or /workouts/1.json
   def destroy
-    @workout.destroy
-    redirect_to workouts_path, notice: "Workout was successfully deleted."
+    @workout.destroy # TODO bullet flagging n+1 query here
+
+    respond_to do |format|
+      format.html { redirect_to workouts_url, notice: "Workout was successfully destroyed." }
+      format.turbo_stream
+    end
   end
 
   def create_duplicate
