@@ -1,6 +1,6 @@
 <%# locals: ( exercise_log: ) %>
 
-<div>
+<div id="<%= dom_id(exercise_log) %>">
   <div class="flex justify-between items-center mb-4 mt-2">
     <div id="<%= dom_id(exercise_log, :name) %>">
       <h5 class="font-medium"><%= exercise_log.name %></h5>
@@ -14,7 +14,7 @@
           <%= inline_svg_tag "icons/rotate-cw.svg", class: "h-6 w-6" %>
           <span class="font-medium">Change exercise</span>
         <% end %>
-        <%= render "routines/remove_exercise_dialog" %>
+        <%= render "routines/remove_exercise_dialog", target_id: exercise_log.id %>
       </div>
     <% end %>
   </div>

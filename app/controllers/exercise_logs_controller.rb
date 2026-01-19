@@ -13,9 +13,9 @@ class ExerciseLogsController < ApplicationController
   end
 
   def create
+    next_position = @workout.exercise_logs.size + 1
     if params[:exercise_ids].present?
       @exercise_logs = ExerciseLog.from_exercise_ids(@workout, params[:exercise_ids])
-      next_position = @workout.exercise_logs.size + 1
       ExerciseLog.transaction do
         @exercise_logs.each do |exercise_log|
           exercise_log.position = next_position
@@ -31,6 +31,7 @@ class ExerciseLogsController < ApplicationController
     end
 
     @exercise_log = @workout.exercise_logs.build(exercise_log_params)
+    @exercise_log.position = next_position
 
     if @exercise_log.save
       respond_to do |format|
@@ -59,6 +60,7 @@ class ExerciseLogsController < ApplicationController
 
   def destroy
     @exercise_log.destroy
+    @workout.reindex_exercise_logs!
 
     respond_to do |format|
       format.html { redirect_to workout_path(@workout), notice: "Exercise was successfully removed." }

@@ -47,4 +47,22 @@ export default class extends Controller {
           Turbo.renderStreamMessage(html)
         })
   }
+
+  removeExercise(event) {
+    const exerciseLogId = event.target.dataset.targetId;
+
+    const url = `/workouts/${this.workoutIdValue}/exercise_logs/${exerciseLogId}`;
+    fetch(url, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "text/vnd.turbo-stream.html",
+        "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]').content
+      }
+    })
+        .then(r => r.text())
+        .then(html => {
+          Turbo.renderStreamMessage(html)
+        });
+  }
 }

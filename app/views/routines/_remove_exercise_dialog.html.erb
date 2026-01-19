@@ -1,3 +1,5 @@
+<%# locals: ( target_id: nil ) %>
+
 <div data-controller="dialog" data-action="click->dialog#backdropClose">
   <dialog data-dialog-target="dialog" class="p-4 rounded-lg">
     <button type="button" class="absolute top-4 right-4 p-1 hover:bg-gray-200 rounded-lg" data-action="click->dialog#close">
@@ -7,7 +9,7 @@
     <p class="mb-2">Are you sure you want to remove this exercise?</p>
     <div class="flex items-center justify-end gap-x-2">
       <button type="button" class="btn btn-tertiary" data-action="dialog#close" autofocus>Cancel</button>
-      <button type="button" class="btn btn-primary" data-action="click->nested-exercise-select-form#remove click->bottom-sheet#close dialog#close">
+      <button type="button" data-target-id="<%= target_id %>" class="btn btn-primary" data-action="click->nested-exercise-select-form#remove click->workout-form#removeExercise click->bottom-sheet#close dialog#close">
         Ok
       </button>
     </div>

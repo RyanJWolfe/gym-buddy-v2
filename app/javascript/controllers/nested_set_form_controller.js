@@ -9,7 +9,6 @@ export default class extends RailsNestedForm {
   }
 
   formTargetDisconnected() {
-    console.log("Form target disconnected");
     this.reorderSetNumbers(this.formTargets);
   }
 

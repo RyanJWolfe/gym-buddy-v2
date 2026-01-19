@@ -19,13 +19,20 @@ class Workout < ApplicationRecord
   validate :end_time_after_start_time, if: :logged_workout?
 
   before_save :finish_workout, if: :status_changed?, unless: :new_record? || :in_progress?
-  before_create :set_template_name
+  before_create :set_template_name # TODO remove this and template_name column at some point
 
   scope :recent, -> { order(date: :desc) }
 
   amoeba do
     enable
     set exercise_logs_count: 0
+  end
+
+  def reindex_exercise_logs!
+    # TODO: Optimize this to do it in a single query (use act_as_list?)
+    exercise_logs.each_with_index do |exercise_log, index|
+      exercise_log.update_column(:position, index + 1) if exercise_log.position != index + 1
+    end
   end
 
   def set_template_name
