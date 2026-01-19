@@ -39,5 +39,10 @@
     </main>
     
     <%= render 'shared/footer' unless @hide_footer %>
+
+    <%# Mobile floating active workout indicator (hidden on large screens) %>
+    <% if show_active_workout_indicator? %>
+      <%= render "layouts/mobile_active_workout" %>
+    <% end %>
   </body>
 </html>

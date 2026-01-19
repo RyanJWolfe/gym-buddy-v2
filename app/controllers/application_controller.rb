@@ -3,12 +3,19 @@ class ApplicationController < ActionController::Base
   # allow_browser versions: :modern
   before_action :authenticate_user!
   before_action :configure_permitted_parameters, if: :devise_controller?
+  before_action :set_active_workout
 
   protected
 
   def configure_permitted_parameters
     devise_parameter_sanitizer.permit(:sign_up, keys: [ :name ])
     devise_parameter_sanitizer.permit(:account_update, keys: [ :name ])
+  end
+
+  def set_active_workout
+    return unless user_signed_in?
+
+    @active_workout ||= current_user.workouts.where(status: :in_progress).first
   end
 
   def hide_footer
