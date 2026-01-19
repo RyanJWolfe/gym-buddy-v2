@@ -1,0 +1,24 @@
+<%# locals: ( workout: ) %>
+
+<div class="lg:hidden fixed bottom-4 inset-x-4 z-50" role="region" aria-label="Active workout in progress">
+  <div class="mx-auto max-w-lg bg-white border border-gray-200 shadow-md rounded-lg px-4 py-3">
+    <div class="flex flex-col gap-1 items-center">
+      <div class="truncate">
+        <div class="text-muted text-sm">Workout in Progress</div>
+      </div>
+
+      <div class="flex items-center w-full">
+        <div class="w-1/2 flex justify-center">
+          <%= link_to edit_workout_path(workout), class: "text-sm px-3 py-1 flex items-center gap-x-2 text-indigo-600 hover:bg-gray-100" do %>
+            <%= inline_svg "icons/play.svg", class: "w-3 h-3 fill-current" %>
+            <span class="text-sm">Resume</span>
+          <% end %>
+        </div>
+        <div class="w-1/2 flex justify-center">
+          <%= render "layouts/active_workout_indicator/discard_workout_dialog" %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

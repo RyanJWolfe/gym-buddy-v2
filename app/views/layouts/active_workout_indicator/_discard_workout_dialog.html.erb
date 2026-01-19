@@ -1,0 +1,23 @@
+<%# locals: ( target_id: nil ) %>
+
+<div data-controller="dialog" data-action="click->dialog#backdropClose">
+  <dialog data-dialog-target="dialog" class="p-4 rounded-lg">
+    <button type="button" class="absolute top-4 right-4 p-1 hover:bg-gray-200 rounded-lg" data-action="click->dialog#close">
+      <%= inline_svg_tag "icons/x.svg", class: "h-6 w-6" %>
+    </button>
+    <h3 class="font-medium text-lg mb-4">Discard Workout</h3>
+    <p class="mb-2">Are you sure you want to discard the workout in progress?</p>
+    <div class="flex items-center justify-end gap-x-2">
+      <button type="button" class="btn btn-tertiary" data-action="dialog#close" autofocus>Cancel</button>
+      <button type="button" data-target-id="<%= target_id %>" class="btn btn-primary" data-action="click->nested-exercise-select-form#remove click->workout-form#removeExercise click->bottom-sheet#close dialog#close">
+        Discard
+      </button>
+    </div>
+  </dialog>
+  <button type="button"
+          data-action="dialog#open"
+          class="text-sm px-3 py-1 flex items-center gap-x-2 hover:bg-gray-100 text-red-600 hover:text-red-800">
+    <%= inline_svg_tag "icons/x.svg", class: "h-4 w-4" %>
+    <span class="text-sm">Discard</span>
+  </button>
+</div>

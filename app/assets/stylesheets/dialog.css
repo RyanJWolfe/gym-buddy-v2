@@ -1,36 +1,40 @@
-/* Prevent scrolling while dialog is open */
-body:has(dialog[data-dialog-target="dialog"][open]) {
-  overflow: hidden;
-}
+@tailwind base;
 
-/* Customize the dialog backdrop */
-dialog {
-  box-shadow: 0 0 0 100vw rgb(0 0 0 / 0.5);
-}
-
-@keyframes fade-in {
-  0% {
-    opacity: 0;
+@layer base {
+  /* Prevent scrolling while dialog is open */
+  body:has(dialog[data-dialog-target="dialog"][open]) {
+    overflow: hidden;
   }
-  100% {
-    opacity: 1;
-  }
-}
 
-@keyframes fade-out {
-  0% {
-    opacity: 1;
+  /* Customize the dialog backdrop */
+  dialog {
+    box-shadow: 0 0 0 100vw rgb(0 0 0 / 0.8);
   }
-  100% {
-    opacity: 0;
+
+  @keyframes fade-in {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
   }
-}
 
-/* Add animations */
-dialog[data-dialog-target="dialog"][open] {
-  animation: fade-in 200ms forwards;
-}
+  @keyframes fade-out {
+    0% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+    }
+  }
 
-dialog[data-dialog-target="dialog"][closing] {
-  animation: fade-out 200ms forwards;
+  /* Add animations */
+  dialog[data-dialog-target="dialog"][open] {
+    animation: fade-in 200ms forwards;
+  }
+
+  dialog[data-dialog-target="dialog"][closing] {
+    animation: fade-out 200ms forwards;
+  }
 }
