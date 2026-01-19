@@ -8,9 +8,7 @@
       <%= link_to "Resume", edit_workout_path(current_user_active_workout),
                   class: "text-sm px-3 py-1 bg-blue-600 text-white rounded-md hover:bg-blue-700" %>
 
-      <%= button_to "Discard", workout_path(current_user_active_workout), method: :delete,
-                    form: { data: { turbo_confirm: "Discard this workout?" } },
-                    class: "text-sm px-3 py-1 bg-gray-100 text-gray-800 rounded-md hover:bg-gray-200" %>
+      <%= render "layouts/active_workout_indicator/discard_workout_dialog", workout: current_user_active_workout %>
     </div>
   </div>
 <% end %>
