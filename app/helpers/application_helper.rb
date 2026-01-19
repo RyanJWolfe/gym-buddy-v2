@@ -1,9 +1,12 @@
 module ApplicationHelper
+  def app_name
+    "Iron Logs"
+  end
   def page_title(title = nil)
     if title.present?
-      "#{title} - GymTracker"
+      "#{title} - #{app_name}"
     else
-      "GymTracker"
+      app_name
     end
   end
 
