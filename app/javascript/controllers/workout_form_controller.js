@@ -28,4 +28,23 @@ export default class extends Controller {
           Turbo.renderStreamMessage(html)
         })
   }
+
+  replaceExercise(event) {
+    const { targetId, exerciseId} = event.detail;
+
+    const url = `/workouts/${this.workoutIdValue}/exercise_logs/${targetId}`;
+    fetch(url, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "text/vnd.turbo-stream.html",
+        "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]').content
+      },
+      body: JSON.stringify({exercise_log: {exercise_id: exerciseId}})
+    })
+        .then(r => r.text())
+        .then(html => {
+          Turbo.renderStreamMessage(html)
+        })
+  }
 }

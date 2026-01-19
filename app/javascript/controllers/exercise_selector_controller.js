@@ -5,7 +5,8 @@ export default class extends Controller {
   static targets = ["item", "addButton", "count"]
   static values = {
     mode: String, // e.g., "add" or "replace" selection mode
-    targetDomId: String // target DOM id for replace mode
+    targetDomId: String, // target DOM id for replace mode
+    targetId : Number // id of the target element for replace mode
   }
 
   MODE_ADD = "add";
@@ -72,7 +73,6 @@ export default class extends Controller {
       this.dispatchAddEvent()
     }
 
-    // Optionally clear selection after dispatch:
     this.clearSelection()
   }
 
@@ -80,6 +80,7 @@ export default class extends Controller {
     const event = new CustomEvent("exercise:replace", {
       detail: {
         mode: "replace",
+        targetId: this.targetIdValue,
         targetDomId: this.targetDomIdValue,
         exerciseId: Array.from(this.selected.keys())[0],
         exerciseName: Array.from(this.selected.values())[0]

@@ -2,13 +2,13 @@
 
 <div>
   <div class="flex justify-between items-center mb-4 mt-2">
-    <div id="<%= dom_id(exercise_log.exercise) %>">
+    <div id="<%= dom_id(exercise_log, :name) %>">
       <h5 class="font-medium"><%= exercise_log.name %></h5>
     </div>
 
     <%= render "shared/bottom_sheet" do %>
       <div class="space-y-2">
-        <%= link_to routine_exercise_select_modal_path(mode: :replace, target_dom_id: dom_id(exercise_log.exercise)),
+        <%= link_to routine_exercise_select_modal_path(mode: :replace, target_id: exercise_log.id),
                     data: { turbo_method: :post, action: "click->bottom-sheet#close" },
                     class: "flex items-center gap-x-3 p-3 rounded-lg hover:bg-gray-100" do %>
           <%= inline_svg_tag "icons/rotate-cw.svg", class: "h-6 w-6" %>

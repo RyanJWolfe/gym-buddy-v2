@@ -3,6 +3,7 @@
 <div data-controller="exercise-selector"
      data-exercise-selector-mode-value="<%= @mode %>"
      data-exercise-selector-target-dom-id-value="<%= @target_dom_id %>"
+     data-exercise-selector-target-id-value="<%= @target_id %>"
      data-action="exercise:add->nested-exercise-select-form#addExercises exercise:replace->nested-exercise-select-form#replaceExercise"
      class="relative overflow-y-auto h-full min-h-screen bg-gray-100">
   <%= render 'routine_exercises/exercise_select_header' %>

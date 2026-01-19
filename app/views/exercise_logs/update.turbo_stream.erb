@@ -1,5 +1,3 @@
-<%= turbo_stream.append "exercise-logs" do %>
-  <%= render @exercise_log %>
-<% end %> %>
-
-<%= turbo_stream.update "modal" %>
+<%= turbo_stream.update dom_id(@exercise_log, :name) do %>
+  <h5 class="font-medium"><%= @exercise_log.name %></h5>
+<% end %>

@@ -52,6 +52,7 @@ class RoutineExercisesController < ApplicationController
     @mode = params[:mode] || "add" # "add" or "replace"
     if @mode == "replace"
       @target_dom_id = params[:target_dom_id]
+      @target_id = params[:target_id]
     end
   end
 
