@@ -27,15 +27,18 @@
   <% end %>
 
   <% if @workout.in_progress? %>
-    <%= form_for @workout, url: workout_path(@workout), method: :patch, html: { class: "flex items-center justify-center" } do |f| %>
-      <%= f.hidden_field :status, value: "completed" %>
-      <%= button_tag type: 'submit', class: "btn btn-green w-full sm:max-w-64" do %>
-        <svg xmlns="http://www.w3.org/2000/svg" class="inline h-4 w-4 mr-1.5" viewBox="0 0 20 20" fill="currentColor">
-          <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
-        </svg>
-        <span>Complete Workout</span>
-      <% end %>
-    <% end %>
+    <div class="flex items-center">
+      <div class="w-1/2 flex justify-center">
+        <%= render "layouts/active_workout_indicator/discard_workout_dialog", workout: @workout %>
+      </div>
+      <div class="w-1/2 flex justify-center">
+        <%#= render "workouts/complete_workout_button", workout: @workout %>
+        <%= link_to complete_workout_path(@workout), data: { turbo_stream: true }, class: "link-primary flex items-center gap-x-2" do %>
+            <%= inline_svg "icons/check.svg", class: "h-4 w-4" %>
+            Finish
+        <% end %>
+      </div>
+    </div>
   <% end %>
 </div>
 

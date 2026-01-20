@@ -1,0 +1,9 @@
+<%= turbo_stream.update "modal" do %>
+  <div data-controller="modal">
+    <%= render "shared/page_modal" do %>
+      <div>
+        <h1 class="text-lg font-bold">Hello World from complete.turbo_stream.erb</h1>
+      </div>
+    <% end %>
+  </div>
+<% end %>

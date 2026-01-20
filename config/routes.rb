@@ -14,6 +14,7 @@ Rails.application.routes.draw do
 
     member do
       post "duplicate", to: "workouts#create_duplicate"
+      get :complete    # opens the modal / completion form
     end
   end
 
