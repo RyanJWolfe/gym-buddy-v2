@@ -12,6 +12,8 @@
     <%= render 'workouts/form', workout: @workout %>
   <% end %>
 
+  <hr class="mt-2 mb-4 -mx-4 border-gray-300"/>
+
   <% unless @workout.in_progress? %>
     <div class="flex items-center justify-center">
       <%= link_to workout_path(@workout), class: "btn btn-icon btn-green w-full sm:max-w-64" do %>
