@@ -28,16 +28,6 @@ class Workout < ApplicationRecord
     end
   end
 
-  def set_template_name
-    return if template_name.present?
-
-    if template
-      self.template_name = template.template_name || template.name
-    else
-      self.template_name = name
-    end
-  end
-
   def finish_workout
     self.end_time = Time.current
   end
@@ -61,10 +51,6 @@ class Workout < ApplicationRecord
   def calculate_duration
     return unless start_time && end_time
     ((end_time - start_time) / 60).round # Duration in minutes
-  end
-
-  def logged_workout?
-    logged_workout.present?
   end
 
   def template_family
