@@ -1,4 +1,4 @@
-<%# locals: ( workout:, turbo: false ) -%>
+<%# locals: ( workout:, font_size: "sm", text: "Discard", turbo: false ) -%>
 
 <div data-controller="dialog" data-action="click->dialog#backdropClose">
   <dialog data-dialog-target="dialog" class="p-4 rounded-lg">
@@ -16,6 +16,6 @@
           data-action="dialog#open"
           class="text-sm px-3 py-1 flex items-center gap-x-2 hover:bg-gray-100 text-red-600 hover:text-red-800">
     <%= inline_svg_tag "icons/x.svg", class: "h-4 w-4" %>
-    <span class="text-sm">Discard</span>
+    <span class="text-<%= font_size %>"><%= text %></span>
   </button>
 </div>
