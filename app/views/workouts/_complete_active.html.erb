@@ -1,0 +1,21 @@
+<%# locals: ( workout: ) %>
+
+<div class="relative overflow-y-auto h-full min-h-screen bg-gray-100">
+  <%= form_with model: workout, url: workout_path(workout) do |f| %>
+    <% right_content = capture do %>
+      <%= f.submit "Finish", class: "btn btn-primary", data: { action: "modal#close" } %>
+    <% end %>
+
+    <% cancel_text = capture do %>
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="5 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-left">
+        <polyline points="15 18 9 12 15 6"></polyline>
+      </svg>
+    <% end %>
+
+    <%= render "shared/sticky_header",
+               id: "finish-workout-sticky-header",
+               title: "Complete Workout",
+               cancel_text:,
+               right_content: %>
+  <% end %>
+</div>

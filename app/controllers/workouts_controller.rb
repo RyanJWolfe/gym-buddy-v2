@@ -42,6 +42,7 @@ class WorkoutsController < ApplicationController
   end
 
   def complete
+    @workout = current_user.workouts.find(params[:id])
   end
 
   # PATCH/PUT /workouts/1 or /workouts/1.json

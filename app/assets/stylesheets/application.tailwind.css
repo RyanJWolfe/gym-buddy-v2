@@ -74,8 +74,10 @@
   }
 
   .link {
-    @apply transition duration-150 ease-in-out;
+    @apply transition duration-150 ease-in-out hover:text-indigo-800 focus:text-indigo-800;
   }
+
+
 
   .link-muted {
     @apply link text-muted hover:text-gray-800 focus:text-gray-800;
