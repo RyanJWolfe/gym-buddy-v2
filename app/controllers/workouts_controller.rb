@@ -59,7 +59,7 @@ class WorkoutsController < ApplicationController
     @workout.destroy # TODO bullet flagging n+1 query here
 
     respond_to do |format|
-      format.html { redirect_to workouts_url, notice: "Workout was successfully destroyed." }
+      format.html { redirect_to new_workout_path, notice: "Workout discarded." }
       format.turbo_stream
     end
   end

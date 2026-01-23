@@ -11,7 +11,7 @@ class Workout < ApplicationRecord
   accepts_nested_attributes_for :exercise_logs, allow_destroy: true
 
   validates :name, presence: true
-  validates :start_time, presence: true, if: completed
+  validates :start_time, presence: true, if: :completed?
 
   scope :recent, -> { order(date: :desc) }
 

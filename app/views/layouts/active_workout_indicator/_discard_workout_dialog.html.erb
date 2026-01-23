@@ -1,4 +1,4 @@
-<%# locals: ( workout: ) %>
+<%# locals: ( workout:, turbo: false ) -%>
 
 <div data-controller="dialog" data-action="click->dialog#backdropClose">
   <dialog data-dialog-target="dialog" class="p-4 rounded-lg">
@@ -9,7 +9,7 @@
     <p class="mb-2">Are you sure you want to discard the workout in progress?</p>
     <div class="flex items-center justify-end gap-x-2">
       <button type="button" class="btn btn-tertiary" data-action="dialog#close" autofocus>Cancel</button>
-      <%= button_to "Discard", workout_path(workout), method: :delete, class: "btn btn-primary" %>
+      <%= button_to "Discard", workout_path(workout), method: :delete, data: { turbo: }, class: "btn btn-primary" %>
     </div>
   </dialog>
   <button type="button"
