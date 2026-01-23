@@ -6,20 +6,13 @@ class Workout < ApplicationRecord
   has_many :exercise_logs, -> { order("position") }, dependent: :destroy
   has_many :exercises, through: :exercise_logs
 
-  attr_accessor :logged_workout
-
   enum :status, [ :in_progress, :completed ]
 
   accepts_nested_attributes_for :exercise_logs, allow_destroy: true
 
-  validates :name, presence: true # TODO
-  validates :date, presence: true
-  validates :start_time, presence: true, if: :logged_workout?
-  validates :end_time, presence: true, if: :logged_workout?
-  validate :end_time_after_start_time, if: :logged_workout?
-
-  before_save :finish_workout, if: :status_changed?, unless: :new_record? || :in_progress?
-  before_create :set_template_name # TODO remove this and template_name column at some point
+  validates :name, presence: true
+  validates :start_time, :end_time, presence: true, if: completed
+  validate :end_time_after_start_time, if: -> { start_time.present? && end_time.present? }
 
   scope :recent, -> { order(date: :desc) }
 
