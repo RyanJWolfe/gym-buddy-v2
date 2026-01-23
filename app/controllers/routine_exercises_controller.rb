@@ -47,7 +47,9 @@ class RoutineExercisesController < ApplicationController
   end
 
   def exercise_select_modal # TODO: find a better place for this action
-    @exercises = Exercise.all.includes(:categories).order(:name)
+    @exercises = Rails.cache.fetch("exercises_with_categories", expires_in: 12.hours) do
+      Exercise.all.includes(:categories).order(:name).to_a
+    end
 
     @mode = params[:mode] || "add" # "add" or "replace"
     if @mode == "replace"
