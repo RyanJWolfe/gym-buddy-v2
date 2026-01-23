@@ -1,7 +1,7 @@
 <%= turbo_stream.update "modal" do %>
   <div data-controller="modal">
     <%= render "shared/page_modal" do %>
-      <%= render "workouts/complete_active", workout: @workout %>
+      <%= render "workouts/complete_active_workout", workout: @workout %>
     <% end %>
   </div>
 <% end %>
