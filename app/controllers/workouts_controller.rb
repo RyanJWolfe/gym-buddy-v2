@@ -1,5 +1,6 @@
 class WorkoutsController < ApplicationController
-  before_action :set_workout, only: [ :complete, :update, :destroy ]
+  before_action :set_workout, only: [ :update, :destroy ]
+  before_action :set_workout_with_exercise_logs, only: [ :edit, :complete ]
 
   # GET /workouts or /workouts.json
   def index
@@ -37,12 +38,10 @@ class WorkoutsController < ApplicationController
   end
 
   # GET /workouts/1/edit
-  def edit
-    @workout = current_user.workouts.includes(exercise_logs: [ :exercise, :sets ]).find(params[:id])
-  end
+  def edit; end
 
   def complete
-    @workout = current_user.workouts.find(params[:id])
+    @workout.duration_seconds = @workout.calculate_duration * 60 if @workout.start_time && @workout.end_time
   end
 
   # PATCH/PUT /workouts/1 or /workouts/1.json
@@ -93,6 +92,10 @@ class WorkoutsController < ApplicationController
   # Use callbacks to share common setup or constraints between actions.
   def set_workout
     @workout = current_user.workouts.find(params[:id])
+  end
+
+  def set_workout_with_exercise_logs
+    @workout = current_user.workouts.includes(exercise_logs: [ :exercise, :sets ]).find(params[:id])
   end
 
   # Only allow a list of trusted parameters through.
