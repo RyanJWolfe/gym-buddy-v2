@@ -1,14 +1,12 @@
-<div id="exercise-select-mobile-header" class="z-50 shadow-md bg-gray-100 sticky top-0 w-full">
-  <div class="max-w-2xl lg:max-w-4xl mx-auto flex items-center justify-between p-4">
-    <button type="button" class="link link-primary" data-action="modal#close">
-      Cancel
-    </button>
-    <h2 class="text-lg lg:text-2xl font-semibold">Select an Exercise</h2>
-    <button type="submit" class="link link-primary pointer-events-none cursor-not-allowed" disabled>
-      Create
-    </button>
-  </div>
-  <div class="w-full px-4 pb-4 md:max-w-2xl mx-auto">
-    <%= render 'exercises/search_form' %>
-  </div>
-</div>
+<% right_content = capture do %>
+  <button type="submit" class="link link-primary pointer-events-none cursor-not-allowed" disabled>
+    Create
+  </button>
+<% end %>
+
+<%= render "shared/sticky_header",
+           id: "exercise-select-sticky-header",
+           title: "Select an Exercise",
+           right_content: right_content do %>
+  <%= render 'exercises/search_form' %>
+<% end %>
