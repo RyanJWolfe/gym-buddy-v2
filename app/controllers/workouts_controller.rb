@@ -1,6 +1,6 @@
 class WorkoutsController < ApplicationController
-  before_action :set_workout, only: [ :update ]
-  before_action :set_workout_with_exercise_logs, only: [ :edit, :complete, :destroy ]
+  before_action :set_workout, only: [ :update, :destroy, :complete ]
+  before_action :set_workout_with_exercise_logs, only: [ :edit ]
 
   # GET /workouts or /workouts.json
   def index
@@ -42,13 +42,12 @@ class WorkoutsController < ApplicationController
 
   def complete
     @workout.duration_seconds = DurationCalculator.seconds(@workout.start_time, Time.current)
-    puts "Calculated duration_seconds: #{@workout.duration_seconds}"
   end
 
   # PATCH/PUT /workouts/1 or /workouts/1.json
   def update
     if @workout.update(workout_params)
-      head :ok
+      redirect_to workout_path(@workout)
     else
       @workout.exercise_logs.includes(:exercise, :sets)
       render :edit, status: :unprocessable_entity
@@ -103,10 +102,10 @@ class WorkoutsController < ApplicationController
   def workout_params
     params.require(:workout).permit(
       :name,
-      :date,
+      :duration_seconds,
       :start_time,
-      :end_time,
       :status,
+      :notes,
       :routine_id,
       :autosave,
       exercise_logs_attributes: [

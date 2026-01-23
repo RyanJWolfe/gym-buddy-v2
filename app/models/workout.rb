@@ -44,7 +44,7 @@ class Workout < ApplicationRecord
   end
 
   def duration_minutes
-    calculate_duration
+    duration_seconds / 60 if duration_seconds
   end
 
   def calculate_duration
