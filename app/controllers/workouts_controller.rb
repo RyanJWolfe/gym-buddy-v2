@@ -41,7 +41,8 @@ class WorkoutsController < ApplicationController
   def edit; end
 
   def complete
-    @workout.duration_seconds = @workout.calculate_duration * 60 if @workout.start_time && @workout.end_time
+    @workout.duration_seconds = DurationCalculator.seconds(@workout.start_time, Time.current)
+    puts "Calculated duration_seconds: #{@workout.duration_seconds}"
   end
 
   # PATCH/PUT /workouts/1 or /workouts/1.json

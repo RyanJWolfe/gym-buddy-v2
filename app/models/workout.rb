@@ -52,6 +52,12 @@ class Workout < ApplicationRecord
     ((end_time - start_time) / 60).round # Duration in minutes
   end
 
+  def duration_seconds_rounded_to_nearest_minute
+    return 0 unless duration_seconds
+
+    (duration_seconds.to_f / 60).round * 60
+  end
+
   def template_family
     base_template = template || self
     template_name = base_template.template_name || base_template.name
