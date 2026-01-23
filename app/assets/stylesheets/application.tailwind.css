@@ -3,6 +3,10 @@
 @tailwind utilities;
 
 @layer components {
+  .main-container {
+    @apply flex-grow container mx-auto px-4 py-6
+  }
+
   .form-label {
     @apply block text-sm font-medium text-gray-700 mb-1;
   }
@@ -76,7 +80,6 @@
   .link {
     @apply transition duration-150 ease-in-out hover:text-indigo-800 focus:text-indigo-800;
   }
-
 
 
   .link-muted {
