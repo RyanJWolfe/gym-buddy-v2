@@ -1,11 +1,7 @@
 class ExerciseSetsController < ApplicationController
   before_action :set_workout
   before_action :set_exercise_log
-  before_action :set_exercise_set, only: [ :edit, :update, :destroy ]
-
-  def new
-    @set = @exercise_log.sets.build(set_number: next_set_number)
-  end
+  before_action :set_exercise_set, only: [ :update, :destroy ]
 
   def create
     if params[:exercise_set]
@@ -20,21 +16,18 @@ class ExerciseSetsController < ApplicationController
         format.turbo_stream
       end
     else
-      render :new, status: :unprocessable_entity
+      render head: :unprocessable_entity
     end
-  end
-
-  def edit
   end
 
   def update
     if @set.update(exercise_set_params)
       respond_to do |format|
         format.html { redirect_to workout_path(@workout), notice: "Set was successfully updated." }
-        format.json { head :no_content }
+        format.turbo_stream { head :no_content }
       end
     else
-      render :edit, status: :unprocessable_entity
+      render head: :unprocessable_entity
     end
   end
 

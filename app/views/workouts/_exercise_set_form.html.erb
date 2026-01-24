@@ -1,6 +1,6 @@
 <%# locals: ( set: ) %>
 
-<%= form_with model: [ set.exercise_log.workout, set.exercise_log, set ], id: dom_id(set), format: :json, html: {
+<%= form_with model: [ set.exercise_log.workout, set.exercise_log, set ], id: dom_id(set), html: {
   data: {
     controller: "autosave",
     nested_set_form_target: "form"
