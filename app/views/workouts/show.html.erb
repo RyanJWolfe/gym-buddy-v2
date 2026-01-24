@@ -1,5 +1,64 @@
 <% content_for :title, @workout.name %>
 
 <div class="max-w-2xl mx-auto">
+  <div class="bg-white shadow rounded p-6">
+    <h1 class="text-2xl font-semibold mb-2"><%= @workout.name %></h1>
 
+    <div class="text-sm text-gray-600 mb-4 space-y-1">
+      <p>
+        <strong>Start:</strong>
+        <%= @workout.start_time ? @workout.start_time.strftime("%b %d, %Y %l:%M %P") : "—" %>
+      </p>
+
+      <p>
+        <strong>Duration:</strong>
+        <% if @workout.duration_seconds.present? %>
+          <%= (@workout.duration_seconds.to_i / 60) %> min
+        <% elsif @workout.respond_to?(:calculate_duration) && @workout.start_time && @workout.end_time %>
+          <%= @workout.calculate_duration %> min
+        <% else %>
+          —
+        <% end %>
+      </p>
+
+      <p><strong>Exercises:</strong> <%= @workout.exercise_logs.size %></p>
+      <p><strong>Sets:</strong> <%= @workout.total_sets %></p>
+    </div>
+
+    <h2 class="text-xl font-medium mt-4 mb-2">Exercises</h2>
+
+    <% if @workout.exercise_logs.any? %>
+      <div class="space-y-4">
+        <% @workout.exercise_logs.each do |elog| %>
+          <div class="border rounded p-4">
+            <div class="flex items-center justify-between">
+              <div class="font-semibold"><%= elog.exercise&.name || "Unknown Exercise" %></div>
+              <div class="text-sm text-gray-600"><%= pluralize(elog.sets.size, "set") %></div>
+            </div>
+
+            <% if elog.sets.any? %>
+              <ul class="mt-2 space-y-1">
+                <% elog.sets.each do |set| %>
+                  <li class="flex justify-between text-sm">
+                    <span>Set <%= set.set_number %></span>
+                    <span>
+                      <%= set.reps.present? ? "#{set.reps} reps" : "-" %>
+
+                      <% if set.weight.present? %>
+                        &nbsp;•&nbsp;<%= number_with_precision(set.weight, precision: 2) %>
+                      <% end %>
+                    </span>
+                  </li>
+                <% end %>
+              </ul>
+            <% else %>
+              <div class="text-sm text-gray-500 mt-2">No sets recorded</div>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+    <% else %>
+      <div class="text-sm text-gray-500">No exercises recorded for this workout.</div>
+    <% end %>
+  </div>
 </div>
