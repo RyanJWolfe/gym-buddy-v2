@@ -19,8 +19,6 @@ Rails.application.routes.draw do
   end
 
   resources :routines do
-    resources :routine_exercises, except: [ :index, :show ]
-
     member do
       get "share_text", to: "routines#share_text"
       get "new_duplicate", to: "routines#new_duplicate"

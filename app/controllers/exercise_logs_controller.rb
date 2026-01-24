@@ -1,17 +1,6 @@
 class ExerciseLogsController < ApplicationController
   before_action :set_workout
-  before_action :set_exercise_log, only: [ :edit, :update, :destroy ]
-  before_action :set_exercises, only: [ :new, :edit ]
-
-  def new
-    @exercise_log = @workout.exercise_logs.build
-
-    respond_to do |format|
-      format.html
-      format.turbo_stream
-    end
-  end
-
+  before_action :set_exercise_log, only: [ :update, :destroy ]
   def create
     next_position = @workout.exercise_logs.size + 1
     if params[:exercise_ids].present?
@@ -39,12 +28,9 @@ class ExerciseLogsController < ApplicationController
         format.turbo_stream
       end
     else
-      set_exercises
-      render :new, status: :unprocessable_entity
+      render head: :unprocessable_entity
     end
   end
-
-  def edit; end
 
   def update
     if @exercise_log.update(exercise_log_params)
@@ -53,8 +39,7 @@ class ExerciseLogsController < ApplicationController
         format.turbo_stream
       end
     else
-      set_exercises
-      render :edit, status: :unprocessable_entity
+      render head: :unprocessable_entity
     end
   end
 
