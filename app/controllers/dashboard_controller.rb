@@ -1,5 +1,5 @@
 class DashboardController < ApplicationController
-  # before_action :authenticate_user! is now in ApplicationController
+  before_action :remember_page, only: [ :index ]
 
   def index
     @recent_workouts = current_user.workouts.includes(:exercise_logs).recent.limit(5)
@@ -15,14 +15,14 @@ class DashboardController < ApplicationController
 
     # Workout frequency chart
     @workout_frequency = current_user.workouts
-                                    .group_by_week(:date, last: 12)
-                                    .count
+                                     .group_by_week(:date, last: 12)
+                                     .count
 
     # Volume progression chart
     @volume_progression = current_user.workouts
-                                     .joins(exercise_logs: :sets)
-                                     .group_by_week("workouts.date", last: 12)
-                                     .sum("exercise_sets.reps * exercise_sets.weight")
+                                      .joins(exercise_logs: :sets)
+                                      .group_by_week("workouts.date", last: 12)
+                                      .sum("exercise_sets.reps * exercise_sets.weight")
   end
 
   private
@@ -34,8 +34,8 @@ class DashboardController < ApplicationController
 
   def exercise_progress_data(exercise)
     logs = current_user.exercise_logs.where(exercise: exercise)
-                      .includes(:workout, :sets)
-                      .order("workouts.date ASC")
+                       .includes(:workout, :sets)
+                       .order("workouts.date ASC")
 
     logs.map do |log|
       {

@@ -1,6 +1,7 @@
 class WorkoutsController < ApplicationController
   before_action :set_workout, only: [ :update, :destroy, :complete ]
   before_action :set_workout_with_exercise_logs, only: [ :edit ]
+  before_action :remember_page, only: [ :index, :show, :edit, :new ]
 
   # GET /workouts or /workouts.json
   def index
