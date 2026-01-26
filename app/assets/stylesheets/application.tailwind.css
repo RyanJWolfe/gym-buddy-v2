@@ -44,7 +44,7 @@
   }
 
   .text-muted {
-    @apply text-neutral-500;
+    @apply text-neutral-600;
   }
 
   .btn {

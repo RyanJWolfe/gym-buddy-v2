@@ -1,160 +1,166 @@
 <div class="mb-6">
-  <div class="flex items-center justify-between mb-4">
-    <div class="flex flex-col">
-      <h1 class="text-2xl font-extramedium">Dashboard</h1>
-      <h2 class="text-muted"><%= Time.current.strftime("%A, %b %d") %></h2>
-    </div>
-    <%= link_to new_workout_path, class: "md:hidden btn btn-primary btn-icon rounded-full p-2.5 hover:scale-110 active:scale-95" do %>
-      <%= inline_svg_tag "icons/plus.svg", class: "h-5 w-5" %>
-    <% end %>
-    <%= link_to "New Workout", new_workout_path, class: "hidden md:inline-block btn btn-primary" %>
-  </div>
+  <div class="flex flex-col gap-y-4">
 
-  <div class="grid grid-cols-3 md:grid-cols-3 gap-2 md:gap-4 mb-6">
-    <div class="bg-white rounded-lg shadow p-4">
-      <p class="text-xl text-indigo-600 font-semibold lg:text-3xl"><%= @workout_count %></p>
-      <div class="text-sm lg:text-base text-gray-500">workouts completed</div>
-    </div>
-    <div class="bg-white rounded-lg shadow p-4">
-      <p class="text-xl text-indigo-600 font-semibold lg:text-3xl">
-        <%= number_with_delimiter(abbreviate_weight(format_weight(@total_volume))) %>
-        <span class="inline-block text-sm lg:text-lg text-gray-500 font-normal">kg</span>
-      </p>
-      <div class="text-sm lg:text-base text-gray-500">tonnage lifted</div>
-    </div>
-    <div class="bg-white rounded-lg shadow p-4">
-      <p class="text-xl text-indigo-600 font-semibold lg:text-3xl">
-        200
-        <span class="inline-block text-sm lg:text-lg text-gray-500 font-normal">lbs</span>
-      </p>
-      <div class="text-sm lg:text-base text-gray-500">current weight</div>
-    </div>
-
-    <%= link_to workout_path(@recent_workouts.first), class: "col-span-3 bg-white hover:bg-gray-50 rounded-lg shadow p-4" do %>
-      <div class="flex gap-x-4">
-        <%= render DateBannerComponent.new(date: @recent_workouts.first.date) %>
-        <div class="flex items-center justify-between w-full">
-          <div class="flex flex-col justify-between">
-            <div class="text-base lg:text-base text-gray-500">Previous Workout</div>
-            <% if @recent_workouts.any? %>
-              <div>
-                <p class="text-lg md:text-xl font-semibold"><%= @recent_workouts.first.name %> <%= render_sequence_number(@recent_workouts.first) %></p>
-                <p><%= @recent_workouts.first.exercise_logs_count %> exercises completed</p>
-              </div>
-            <% else %>
-              <p class="text-gray-600">No workouts yet</p>
-            <% end %>
-          </div>
-          <div>
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right">
-              <polyline points="9 18 15 12 9 6"></polyline>
-            </svg>
-          </div>
-        </div>
+    <div class="flex items-center justify-between mb-4">
+      <div class="flex flex-col">
+        <h1 class="text-2xl font-extramedium">Dashboard</h1>
+        <h2 class="text-sm text-muted"><%= Time.current.strftime("%A, %b %d") %></h2>
       </div>
-    <% end %>
-  </div>
+      <%= link_to new_workout_path, class: "md:hidden btn btn-primary btn-icon rounded-full p-2.5 hover:scale-110 active:scale-95" do %>
+        <%= inline_svg_tag "icons/plus.svg", class: "h-5 w-5" %>
+      <% end %>
+      <%= link_to "New Workout", new_workout_path, class: "hidden md:inline-block btn btn-primary" %>
+    </div>
 
-  <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-    <div class="bg-white rounded-lg shadow p-4">
-      <div class="flex items-center justify-between mb-4">
-        <h2 class="text-lg font-semibold">Recent Workouts</h2>
-        <%= link_to "Show All", workouts_path, class: "text-indigo-600 hover:text-indigo-800 hover:underline" %>
+    <%= render "dashboard/quick_actions" %>
+
+    <div class="grid grid-cols-3 md:grid-cols-3 gap-2 md:gap-4 mb-6">
+      <div class="bg-white rounded-lg shadow p-4">
+        <p class="text-xl text-indigo-600 font-semibold lg:text-3xl"><%= @workout_count %></p>
+        <div class="text-sm lg:text-base text-gray-500">workouts completed</div>
+      </div>
+      <div class="bg-white rounded-lg shadow p-4">
+        <p class="text-xl text-indigo-600 font-semibold lg:text-3xl">
+          <%= number_with_delimiter(abbreviate_weight(format_weight(@total_volume))) %>
+          <span class="inline-block text-sm lg:text-lg text-gray-500 font-normal">kg</span>
+        </p>
+        <div class="text-sm lg:text-base text-gray-500">tonnage lifted</div>
+      </div>
+      <div class="bg-white rounded-lg shadow p-4">
+        <p class="text-xl text-indigo-600 font-semibold lg:text-3xl">
+          200
+          <span class="inline-block text-sm lg:text-lg text-gray-500 font-normal">lbs</span>
+        </p>
+        <div class="text-sm lg:text-base text-gray-500">current weight</div>
       </div>
 
-      <% if @recent_workouts.any? %>
-        <div class="space-y-3">
-          <% @recent_workouts.each do |workout| %>
-            <%= link_to workout_path(workout), class: "block p-4 bg-gray-50 border border-gray-200 rounded-xl hover:bg-body transition-shadow shadow-sm" do %>
-              <div class="flex justify-between items-center">
+      <%= link_to workout_path(@recent_workouts.first), class: "col-span-3 bg-white hover:bg-gray-50 rounded-lg shadow p-4" do %>
+        <div class="flex gap-x-4">
+          <%= render DateBannerComponent.new(date: @recent_workouts.first.date) %>
+          <div class="flex items-center justify-between w-full">
+            <div class="flex flex-col justify-between">
+              <div class="text-base lg:text-base text-gray-500">Previous Workout</div>
+              <% if @recent_workouts.any? %>
                 <div>
-                  <h3 class="font-medium">
-                    <%= workout.name %> <%= render_sequence_number(workout) %>
-                  </h3>
-                  <p class="text-sm text-gray-600"><%= workout.date.strftime("%b %d, %Y") %></p>
+                  <p class="text-lg md:text-xl font-semibold"><%= @recent_workouts.first.name %> <%= render_sequence_number(@recent_workouts.first) %></p>
+                  <p><%= @recent_workouts.first.exercise_logs_count %> exercises completed</p>
                 </div>
-                <div class="text-right text-sm text-gray-700">
-                  <p><%= pluralize(workout.total_exercises, 'exercise') %></p>
-                  <p class="text-gray-600"><%= pluralize(workout.total_sets, 'set') %> </p>
-                </div>
-              </div>
-            <% end %>
-          <% end %>
-        </div>
-      <% else %>
-        <div class="text-center py-6">
-          <p class="text-gray-600 mb-4">You haven't logged any workouts yet.</p>
-          <%= link_to "Create Your First Workout", new_workout_path, class: "btn btn-primary" %>
+              <% else %>
+                <p class="text-gray-600">No workouts yet</p>
+              <% end %>
+            </div>
+            <div>
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right">
+                <polyline points="9 18 15 12 9 6"></polyline>
+              </svg>
+            </div>
+          </div>
         </div>
       <% end %>
     </div>
 
-    <div class="bg-white rounded-lg shadow p-4">
-      <h2 class="text-lg font-semibold mb-4">Exercise Progress</h2>
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div class="bg-white rounded-lg shadow p-4">
+        <div class="flex items-center justify-between mb-4">
+          <h2 class="text-lg font-semibold">Recent Workouts</h2>
+          <%= link_to "Show All", workouts_path, class: "text-indigo-600 hover:text-indigo-800 hover:underline" %>
+        </div>
 
-      <div class="mb-4">
-        <%= form_with url: dashboard_path, method: :get, class: "flex space-x-2" do |f| %>
-          <%= f.select :exercise_id,
-                       Exercise.joins(:exercise_logs)
-                               .where(exercise_logs: { workout: current_user.workouts })
-                               .distinct.order(:name).map { |e| [e.name, e.id] },
-                       { include_blank: "Select an exercise" },
-                       { class: "border rounded px-3 py-2 flex-grow", onchange: "this.form.submit()" } %>
+        <% if @recent_workouts.any? %>
+          <div class="space-y-3">
+            <% @recent_workouts.each do |workout| %>
+              <%= link_to workout_path(workout), class: "block p-4 bg-gray-50 border border-gray-200 rounded-xl hover:bg-body transition-shadow shadow-sm" do %>
+                <div class="flex justify-between items-center">
+                  <div>
+                    <h3 class="font-medium">
+                      <%= workout.name %> <%= render_sequence_number(workout) %>
+                    </h3>
+                    <p class="text-sm text-gray-600"><%= workout.date.strftime("%b %d, %Y") %></p>
+                  </div>
+                  <div class="text-right text-sm text-gray-700">
+                    <p><%= pluralize(workout.total_exercises, 'exercise') %></p>
+                    <p class="text-gray-600"><%= pluralize(workout.total_sets, 'set') %> </p>
+                  </div>
+                </div>
+              <% end %>
+            <% end %>
+          </div>
+        <% else %>
+          <div class="text-center py-6">
+            <p class="text-gray-600 mb-4">You haven't logged any workouts yet.</p>
+            <%= link_to "Create Your First Workout", new_workout_path, class: "btn btn-primary" %>
+          </div>
         <% end %>
       </div>
 
-      <% if @selected_exercise && @progress_data.any? %>
-        <div class="h-64">
-          <!-- This would be replaced with a chart using Chart.js or similar -->
-          <div class="bg-body h-full flex items-center justify-center">
-            <p>Progress chart for <%= @selected_exercise.name %> would appear here</p>
-          </div>
+      <div class="bg-white rounded-lg shadow p-4">
+        <h2 class="text-lg font-semibold mb-4">Exercise Progress</h2>
+
+        <div class="mb-4">
+          <%= form_with url: dashboard_path, method: :get, class: "flex space-x-2" do |f| %>
+            <%= f.select :exercise_id,
+                         Exercise.joins(:exercise_logs)
+                                 .where(exercise_logs: { workout: current_user.workouts })
+                                 .distinct.order(:name).map { |e| [ e.name, e.id ] },
+                         { include_blank: "Select an exercise" },
+                         { class: "border rounded px-3 py-2 flex-grow", onchange: "this.form.submit()" } %>
+          <% end %>
         </div>
 
-        <div class="mt-4">
-          <h3 class="font-medium mb-2">Progress Summary</h3>
-          <div class="grid grid-cols-3 gap-2 text-center">
-            <div>
-              <p class="text-sm text-gray-600">Max Weight</p>
-              <p class="font-bold"><%= @progress_data.map { |d| d[:max_weight] }.max %> kg</p>
-            </div>
-            <div>
-              <p class="text-sm text-gray-600">Max Volume</p>
-              <p class="font-bold"><%= @progress_data.map { |d| d[:total_volume] }.max %> kg</p>
-            </div>
-            <div>
-              <p class="text-sm text-gray-600">Max Reps</p>
-              <p class="font-bold"><%= @progress_data.map { |d| d[:total_reps] }.max %></p>
+        <% if @selected_exercise && @progress_data.any? %>
+          <div class="h-64">
+            <!-- This would be replaced with a chart using Chart.js or similar -->
+            <div class="bg-body h-full flex items-center justify-center">
+              <p>Progress chart for <%= @selected_exercise.name %> would appear here</p>
             </div>
           </div>
-        </div>
-      <% elsif @selected_exercise %>
-        <div class="text-center py-6">
-          <p class="text-gray-600">No data available for this exercise yet.</p>
-        </div>
-      <% else %>
-        <div class="text-center py-6">
-          <p class="text-gray-600">Select an exercise to view your progress.</p>
-        </div>
-      <% end %>
-    </div>
 
-    <div class="bg-white rounded-lg shadow p-4">
-      <h2 class="text-lg font-semibold mb-4">Workout Frequency</h2>
-      <%= column_chart @workout_frequency,
-                       colors: ["#4f46e5"],
+          <div class="mt-4">
+            <h3 class="font-medium mb-2">Progress Summary</h3>
+            <div class="grid grid-cols-3 gap-2 text-center">
+              <div>
+                <p class="text-sm text-gray-600">Max Weight</p>
+                <p class="font-bold"><%= @progress_data.map { |d| d[:max_weight] }.max %> kg</p>
+              </div>
+              <div>
+                <p class="text-sm text-gray-600">Max Volume</p>
+                <p class="font-bold"><%= @progress_data.map { |d| d[:total_volume] }.max %> kg</p>
+              </div>
+              <div>
+                <p class="text-sm text-gray-600">Max Reps</p>
+                <p class="font-bold"><%= @progress_data.map { |d| d[:total_reps] }.max %></p>
+              </div>
+            </div>
+          </div>
+        <% elsif @selected_exercise %>
+          <div class="text-center py-6">
+            <p class="text-gray-600">No data available for this exercise yet.</p>
+          </div>
+        <% else %>
+          <div class="text-center py-6">
+            <p class="text-gray-600">Select an exercise to view your progress.</p>
+          </div>
+        <% end %>
+      </div>
+
+      <div class="bg-white rounded-lg shadow p-4">
+        <h2 class="text-lg font-semibold mb-4">Workout Frequency</h2>
+        <%= column_chart @workout_frequency,
+                         colors: [ "#4f46e5" ],
+                         xtitle: "Week",
+                         ytitle: "Workouts",
+                         height: "250px" %>
+      </div>
+
+      <div class="bg-white rounded-lg shadow p-4">
+        <h2 class="text-lg font-semibold mb-4">Volume Progression</h2>
+        <%= line_chart @volume_progression,
+                       colors: [ "#4f46e5" ],
                        xtitle: "Week",
-                       ytitle: "Workouts",
+                       ytitle: "Total Volume (kg)",
                        height: "250px" %>
-    </div>
-
-    <div class="bg-white rounded-lg shadow p-4">
-      <h2 class="text-lg font-semibold mb-4">Volume Progression</h2>
-      <%= line_chart @volume_progression,
-                     colors: ["#4f46e5"],
-                     xtitle: "Week",
-                     ytitle: "Total Volume (kg)",
-                     height: "250px" %>
+      </div>
     </div>
   </div>
+
 </div> 
