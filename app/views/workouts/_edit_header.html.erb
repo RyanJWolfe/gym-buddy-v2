@@ -3,7 +3,7 @@
     <div class="flex items-center justify-between">
       <div class="flex items-center">
         <%= render 'shared/buttons/back_button' %>
-        <h1 class="text-2xl font-bold"><%= @workout.name %> <%= render_sequence_number(@workout) %></h1>
+        <h1 class="text-2xl font-extramedium"><%= @workout.name %> <%= render_sequence_number(@workout) %></h1>
       </div>
       <% if @workout.in_progress? %>
         <div class="px-2 py-1 bg-indigo-100 text-indigo-700 rounded-lg inline-flex items-center">

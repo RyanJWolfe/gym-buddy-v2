@@ -2,7 +2,7 @@
 
 <div class="max-w-4xl mx-auto">
   <div class="flex justify-between items-center mb-6">
-    <h1 class="text-2xl font-bold"><%= @routine.name %></h1>
+    <h1 class="text-2xl font-extramedium"><%= @routine.name %></h1>
     <div class="flex space-x-4">
       <%= link_to "Edit", edit_routine_path(@routine), class: "px-4 py-2 border border-gray-300 rounded text-gray-700 bg-white hover:bg-gray-50" %>
       <%= button_to "Start Workout", root_path, method: :post,

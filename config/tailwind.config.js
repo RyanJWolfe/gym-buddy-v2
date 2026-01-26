@@ -12,7 +12,10 @@ module.exports = {
     extend: {
       fontFamily: {
         sans: ['Inter var', ...defaultTheme.fontFamily.sans],
-        display: 'Montserrat'
+        display: 'Montserrat',
+      },
+      fontWeight: {
+        extramedium: '550',
       },
       padding: {
         safe: 'env(safe-area-inset-bottom)',
