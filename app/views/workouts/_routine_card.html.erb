@@ -16,17 +16,17 @@
         <div>
           <button type="button"
                   data-action="click->bottom-sheet#close click->share-routine#shareRoutine"
-                  class="w-full flex items-center gap-x-3 p-3 rounded-lg hover:bg-gray-100">
+                  class="w-full flex items-center gap-x-3 p-3 rounded-lg hover:bg-body">
             <%= inline_svg_tag "icons/share.svg", class: "h-6 w-6" %>
             <span class="font-medium">Share Routine</span>
           </button>
           <%= turbo_frame_tag dom_id(routine, :share_text), class: "hidden", data: { share_routine_target: "shareText" } %>
         </div>
-        <%= link_to new_duplicate_routine_path(routine), class: "flex items-center gap-x-3 p-3 rounded-lg hover:bg-gray-100" do %>
+        <%= link_to new_duplicate_routine_path(routine), class: "flex items-center gap-x-3 p-3 rounded-lg hover:bg-body" do %>
           <%= inline_svg_tag "icons/copy.svg", class: "h-6 w-6" %>
           <span class="font-medium">Duplicate Routine</span>
         <% end %>
-        <%= link_to edit_routine_path(routine), class: "flex items-center gap-x-3 p-3 rounded-lg hover:bg-gray-100" do %>
+        <%= link_to edit_routine_path(routine), class: "flex items-center gap-x-3 p-3 rounded-lg hover:bg-body" do %>
           <%= inline_svg_tag "icons/edit.svg", class: "h-6 w-6" %>
           <span class="font-medium">Edit Routine</span>
         <% end %>

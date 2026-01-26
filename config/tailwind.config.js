@@ -20,6 +20,9 @@ module.exports = {
       padding: {
         safe: 'env(safe-area-inset-bottom)',
       },
+      colors: {
+        body: "#f5f5f5",
+      }
     },
   },
   plugins: [

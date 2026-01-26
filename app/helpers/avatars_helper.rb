@@ -46,7 +46,7 @@ module AvatarsHelper
   def avatar_initials_tag(initials, size: :sm, alt: "Avatar", html_options: {})
     size_class = AVATAR_SIZE_CLASSES[size] || AVATAR_SIZE_CLASSES[:sm]
     initials_size_class = AVATAR_INITIALS_SIZE_CLASSES[size] || AVATAR_INITIALS_SIZE_CLASSES[:sm]
-    classes = [ initials_size_class, size_class, "shrink-0 border-2 border-gray-200 dark:border-gray-300 relative inline-flex items-center justify-center overflow-hidden bg-gray-100 rounded-full dark:bg-gray-600", html_options[:class] ].compact.join(" ")
+    classes = [ initials_size_class, size_class, "shrink-0 border-2 border-gray-200 dark:border-gray-300 relative inline-flex items-center justify-center overflow-hidden bg-body rounded-full dark:bg-gray-600", html_options[:class] ].compact.join(" ")
     options = html_options.except(:class).merge({
                                                   class: classes,
                                                   alt: alt

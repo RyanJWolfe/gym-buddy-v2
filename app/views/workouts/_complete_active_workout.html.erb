@@ -1,6 +1,6 @@
 <%# locals: ( workout: ) %>
 
-<div class="relative overflow-y-auto h-full min-h-screen bg-gray-100">
+<div class="relative overflow-y-auto h-full min-h-screen bg-body">
   <%= form_with model: workout, url: workout_path(workout), data: { turbo: false } do |f| %>
     <%= f.hidden_field :status, value: :completed %>
 

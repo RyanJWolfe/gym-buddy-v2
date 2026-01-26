@@ -1,6 +1,9 @@
 <div class="mb-6">
   <div class="flex items-center justify-between mb-4">
-    <h1 class="text-2xl font-extramedium">Dashboard</h1>
+    <div class="flex flex-col gap-y-1">
+      <h1 class="text-2xl font-extramedium">Dashboard</h1>
+      <h2 class="text-muted"><%= Time.current.strftime("%A, %b %d") %></h2>
+    </div>
     <%= link_to "New Workout", new_workout_path, class: "btn btn-primary" %>
   </div>
 
@@ -59,7 +62,7 @@
       <% if @recent_workouts.any? %>
         <div class="space-y-3">
           <% @recent_workouts.each do |workout| %>
-            <%= link_to workout_path(workout), class: "block p-4 bg-gray-50 border border-gray-200 rounded-xl hover:bg-gray-100 transition-shadow shadow-sm" do %>
+            <%= link_to workout_path(workout), class: "block p-4 bg-gray-50 border border-gray-200 rounded-xl hover:bg-body transition-shadow shadow-sm" do %>
               <div class="flex justify-between items-center">
                 <div>
                   <h3 class="font-medium">
@@ -100,7 +103,7 @@
       <% if @selected_exercise && @progress_data.any? %>
         <div class="h-64">
           <!-- This would be replaced with a chart using Chart.js or similar -->
-          <div class="bg-gray-100 h-full flex items-center justify-center">
+          <div class="bg-body h-full flex items-center justify-center">
             <p>Progress chart for <%= @selected_exercise.name %> would appear here</p>
           </div>
         </div>

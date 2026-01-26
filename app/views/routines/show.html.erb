@@ -33,11 +33,11 @@
                 </div>
               </div>
               <div class="flex items-center mt-3 md:mt-0">
-                <span class="px-3 py-1 bg-gray-100 rounded-lg text-gray-700 text-sm">
+                <span class="px-3 py-1 bg-body rounded-lg text-gray-700 text-sm">
                   <%= pluralize(routine_exercise.suggested_sets, 'set') %> × <%= routine_exercise.suggested_reps %> reps
                 </span>
                 <% if routine_exercise.rest_seconds.present? %>
-                  <span class="ml-3 px-3 py-1 bg-gray-100 rounded-lg text-gray-700 text-sm">
+                  <span class="ml-3 px-3 py-1 bg-body rounded-lg text-gray-700 text-sm">
                     <%= routine_exercise.rest_seconds %>s rest
                   </span>
                 <% end %>
