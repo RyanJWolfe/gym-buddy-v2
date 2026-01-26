@@ -17,11 +17,15 @@
         <span> <%= time_ago_in_words(workout.start_time) %> ago</span>
       </div>
       <div class="flex items-center gap-x-1 text-sm text-muted">
+        <%= inline_svg_tag "icons/watch.svg", class: "w-4 h-4" %>
+        <span> <%= format_duration_seconds(workout.duration_seconds) %></span>
+      </div>
+      <div class="flex items-center gap-x-1 text-sm text-muted">
         <%= inline_svg_tag "icons/dumbbell.svg", class: "w-4 h-4" %>
         <span> <%= pluralize(workout.total_exercises, 'exercise') %></span>
       </div>
       <div class="flex items-center gap-x-1 text-sm text-muted">
-        <%= inline_svg_tag "icons/clock.svg", class: "w-4 h-4" %>
+        <%= inline_svg_tag "icons/tally-5.svg", class: "w-4 h-4" %>
         <span> <%= pluralize(workout.total_sets, 'set') %></span>
       </div>
     </div>

@@ -16,4 +16,9 @@ module DurationHelper
       "#{mins} min"
     end
   end
+
+  def format_duration_seconds(total_seconds)
+    total_minutes = (total_seconds / 60).to_i
+    format_duration(total_minutes)
+  end
 end
