@@ -1,0 +1,12 @@
+<%# locals: ( icon:, label:, value: "" ) -%>
+
+<div class="flex items-center gap-x-3">
+      <span class="bg-gray-100 px-2.5 py-2 rounded-xl">
+        <%= inline_svg(icon, class: "h-5 w-5 text-muted") %>
+      </span>
+  <span class=""><%= label %></span>
+  <div class="flex items-center gap-x-2 ml-auto text-muted">
+    <%= value.presence %>
+    <%= inline_svg('icons/chevron-right.svg', class: "h-4 w-4") %>
+  </div>
+</div>
