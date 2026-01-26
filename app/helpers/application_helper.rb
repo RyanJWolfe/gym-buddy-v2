@@ -12,7 +12,7 @@ module ApplicationHelper
 
   def active_link_class(path)
     if current_page?(path)
-      "text-indigo-600 bg-indigo-50"
+      "text-indigo-600 bg-indigo-50 ring-1 ring-indigo-600/10"
     else
       "text-gray-500 hover:text-indigo-600"
     end
