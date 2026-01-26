@@ -4,6 +4,8 @@ class DashboardController < ApplicationController
   def index
     @recent_workouts = current_user.workouts.includes(:exercise_logs).recent.limit(5)
     @workout_count = current_user.workouts.count
+    @workout_streak = current_user.current_workout_streak
+    @most_used_exercise = current_user.most_used_exercise
     @total_volume = calculate_total_volume
     @favorite_exercises = current_user.favorite_exercises(5)
 
