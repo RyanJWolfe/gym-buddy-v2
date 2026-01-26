@@ -43,10 +43,6 @@
     @apply text-indigo-600;
   }
 
-  .text-muted {
-    @apply text-neutral-600;
-  }
-
   .btn {
     @apply inline-block px-4 py-2.5 rounded-lg cursor-pointer font-medium text-sm text-center;
   }
