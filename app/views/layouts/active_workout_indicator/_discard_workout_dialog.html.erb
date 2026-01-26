@@ -5,11 +5,11 @@
     <button type="button" class="absolute top-4 right-4 p-1 hover:bg-gray-200 rounded-lg" data-action="click->dialog#close">
       <%= inline_svg_tag "icons/x.svg", class: "h-6 w-6" %>
     </button>
-    <h3 class="font-medium text-lg mb-4">Discard Workout</h3>
-    <p class="mb-2">Are you sure you want to discard the workout in progress?</p>
+    <h3 class="font-extramedium text-lg mb-4">Discard Workout</h3>
+    <p class="mb-4">Are you sure you want to discard the workout in progress?</p>
     <div class="flex items-center justify-end gap-x-2">
       <button type="button" class="btn btn-tertiary" data-action="dialog#close" autofocus>Cancel</button>
-      <%= button_to "Discard", workout_path(workout), method: :delete, data: { turbo: }, class: "btn btn-primary" %>
+      <%= button_to "Discard", workout_path(workout), method: :delete, data: { turbo: }, class: "btn btn-danger" %>
     </div>
   </dialog>
   <button type="button"
