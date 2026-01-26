@@ -1,0 +1,22 @@
+<nav role="navigation" aria-label="Primary" class="fixed bottom-0 left-0 right-0 bg-white border-t shadow md:hidden z-50">
+  <div class="max-w-4xl mx-auto flex justify-around items-center py-2">
+    <%= link_to dashboard_path, aria: { label: 'Home' }, class: "flex flex-col items-center text-gray-600 hover:text-indigo-600 #{active_link_class(dashboard_path)}" do %>
+      <i class="fas fa-home fa-lg" aria-hidden="true"></i>
+      <span class="sr-only">Home</span>
+      <span class="text-xs">Home</span>
+    <% end %>
+
+    <%= link_to new_workout_path, aria: { label: 'New Workout' }, class: "flex flex-col items-center text-gray-600 hover:text-indigo-600" do %>
+      <div class="bg-indigo-600 text-white rounded-full p-3 -mt-2 shadow-lg">
+        <i class="fas fa-dumbbell fa-lg" aria-hidden="true"></i>
+      </div>
+      <span class="text-xs mt-1">Workout</span>
+    <% end %>
+
+    <%= link_to profile_path, aria: { label: 'Profile' }, class: "flex flex-col items-center text-gray-600 hover:text-indigo-600 #{active_link_class(profile_path)}" do %>
+      <i class="fas fa-user fa-lg" aria-hidden="true"></i>
+      <span class="sr-only">Profile</span>
+      <span class="text-xs">Profile</span>
+    <% end %>
+  </div>
+</nav>
