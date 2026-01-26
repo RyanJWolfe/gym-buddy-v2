@@ -12,6 +12,9 @@ module.exports = {
     extend: {
       fontFamily: {
         sans: ['Inter var', ...defaultTheme.fontFamily.sans],
+        padding: {
+          safe: 'env(safe-area-inset-bottom)',
+        },
       },
     },
   },
