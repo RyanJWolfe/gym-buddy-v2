@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   devise_for :users
 
   authenticated :user do
-    root to: "dashboard#index", as: :authenticated_root
+    root to: "dashboard#index", as: :dashboard
   end
 
   root to: "static_pages#home"
@@ -29,8 +29,6 @@ Rails.application.routes.draw do
   post "routine_exercise_select_modal", to: "routine_exercises#exercise_select_modal"
 
   resources :exercises
-
-  get "dashboard", to: "dashboard#index"
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
