@@ -1,6 +1,6 @@
 <%# Modal backdrop %>
 <div class="hidden md:block fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" data-action="click->modal#close"></div>
 
-<div class="fixed inset-0 z-50" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+<div class="fixed inset-0 z-[99]" aria-labelledby="modal-title" role="dialog" aria-modal="true">
       <%= yield %>
 </div>
