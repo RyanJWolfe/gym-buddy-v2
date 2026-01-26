@@ -35,7 +35,13 @@ module.exports = {
           DEFAULT: "#525252",
           hover: "#9ca3af",
           light: "#737373",
-        }
+        },
+        surface: {
+          DEFAULT: "#ffffff",
+          secondary: "#f9fbfc",
+          'secondary-hover': "#f4f6f8",
+          border: "#e5e7eb",
+        },
       }
     },
   },
