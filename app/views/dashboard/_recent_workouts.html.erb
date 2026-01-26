@@ -1,12 +1,36 @@
 <div class="flex flex-col gap-y-3">
   <div class="flex items-center justify-between">
     <h2 class="text-lg font-extramedium">Recent Workouts</h2>
-    <%= link_to dashboard_path, class: "flex items-center gap-x-1 text-sm text-primary hover:text-primary-hover font-medium hover:underline" do %>
+    <%= link_to workouts_path, class: "flex items-center gap-x-1 text-sm text-primary hover:text-primary-hover font-medium hover:underline" do %>
       Show All
       <%= inline_svg_tag "icons/chevron-right.svg", class: "h-4 w-4" %>
     <% end %>
   </div>
   <div class="flex flex-col gap-y-3">
-
+    <% if @recent_workouts.any? %>
+      <div class="space-y-3">
+        <% @recent_workouts.each do |workout| %>
+          <%= link_to workout_path(workout), class: "block p-4 bg-gray-50 border border-gray-200 rounded-xl hover:bg-body transition-shadow shadow-sm" do %>
+            <div class="flex justify-between items-center">
+              <div>
+                <h3 class="font-medium">
+                  <%= workout.name %> <%= render_sequence_number(workout) %>
+                </h3>
+                <p class="text-sm text-gray-600"><%= workout.date.strftime("%b %d, %Y") %></p>
+              </div>
+              <div class="text-right text-sm text-gray-700">
+                <p><%= pluralize(workout.total_exercises, 'exercise') %></p>
+                <p class="text-gray-600"><%= pluralize(workout.total_sets, 'set') %> </p>
+              </div>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+    <% else %>
+      <div class="text-center py-6">
+        <p class="text-gray-600 mb-4">You haven't logged any workouts yet.</p>
+        <%= link_to "Create Your First Workout", new_workout_path, class: "btn btn-primary" %>
+      </div>
+    <% end %>
   </div>
 </div>
