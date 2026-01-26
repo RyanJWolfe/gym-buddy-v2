@@ -28,4 +28,8 @@
     <%= render 'preference', icon: "icons/bell.svg", label: "Notifications", value: "Disabled" %>
     <%= render 'preference', icon: "icons/moon.svg", label: "Theme", value: "Light" %>
   </div>
+
+  <div class="flex">
+    <%= button_to "Sign Out", destroy_user_session_path, method: :delete, class: "btn btn-tertiary mt-6 w-full", form: { class: "flex-grow" } %>
+  </div>
 </div>
