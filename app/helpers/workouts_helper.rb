@@ -18,6 +18,7 @@ module WorkoutsHelper
   end
 
   def render_sequence_number(workout, font_size: "")
+    # TODO: show number based on routine
     if workout.sequence_number > 1
       content_tag(:span, "##{workout.sequence_number}", class: "text-gray-500 #{font_size}")
     else

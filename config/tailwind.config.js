@@ -34,7 +34,9 @@ module.exports = {
         muted: {
           DEFAULT: "#525252",
           hover: "#9ca3af",
+          focus: "#6b7280",
           light: "#737373",
+          'light-hover': "#a3a3a3",
         },
         surface: {
           DEFAULT: "#ffffff",

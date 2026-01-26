@@ -80,24 +80,29 @@
   }
 
   .link {
-    @apply transition duration-150 ease-in-out hover:text-indigo-800 focus:text-indigo-800;
+    @apply transition duration-150 ease-in-out hover:underline focus:underline;
   }
 
-
   .link-muted {
-    @apply link text-muted hover:text-gray-800 focus:text-gray-800;
+    @apply link text-muted hover:text-muted-hover focus:text-muted-focus;
   }
 
   .link-primary {
-    @apply link text-indigo-600 hover:text-indigo-800 focus:text-indigo-800;
+    @apply link text-primary hover:text-primary-hover focus:text-primary-focus;
   }
 
-  /*.link-primary {*/
-  /*  @apply link text-primary hover:text-primary-hover focus:text-primary-focus;*/
-  /*}*/
-  /*.link-base {*/
-  /*  @apply link hover:text-primary-hover focus:text-primary-focus;*/
-  /*}*/
+  .pill {
+    @apply flex items-center gap-x-1.5 text-sm px-3 py-1 rounded-xl font-medium shadow;
+  }
+
+  .pill-sm {
+    @apply flex items-center gap-x-1 text-xs px-2.5 py-1 rounded-lg font-medium shadow;
+  }
+
+  .pill-primary {
+    @apply bg-primary-light text-primary;
+  }
+
   .field_with_errors > .form-input {
     @apply border-red-500 bg-red-50 placeholder-red-300 focus:border-red-600 focus:ring-red-500;
   }
