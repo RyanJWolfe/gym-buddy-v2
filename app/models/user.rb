@@ -10,6 +10,14 @@ class User < ApplicationRecord
   has_many :exercise_logs, through: :workouts
   has_many :exercises, -> { distinct }, through: :exercise_logs
 
+  def initials
+    email.split("@").first[0..1].upcase
+  end
+
+  def name
+    email.split("@").first.capitalize
+  end
+
   def favorite_exercises(limit = 5)
     exercises.joins(:exercise_logs)
             .where(exercise_logs: { workout_id: workouts.pluck(:id) })
