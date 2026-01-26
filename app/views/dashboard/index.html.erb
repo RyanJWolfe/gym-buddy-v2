@@ -1,10 +1,13 @@
 <div class="mb-6">
   <div class="flex items-center justify-between mb-4">
-    <div class="flex flex-col gap-y-1">
+    <div class="flex flex-col">
       <h1 class="text-2xl font-extramedium">Dashboard</h1>
       <h2 class="text-muted"><%= Time.current.strftime("%A, %b %d") %></h2>
     </div>
-    <%= link_to "New Workout", new_workout_path, class: "btn btn-primary" %>
+    <%= link_to new_workout_path, class: "md:hidden btn btn-primary btn-icon rounded-full p-2.5 hover:scale-110 active:scale-95" do %>
+      <%= inline_svg_tag "icons/plus.svg", class: "h-5 w-5" %>
+    <% end %>
+    <%= link_to "New Workout", new_workout_path, class: "hidden md:inline-block btn btn-primary" %>
   </div>
 
   <div class="grid grid-cols-3 md:grid-cols-3 gap-2 md:gap-4 mb-6">
