@@ -38,9 +38,9 @@
       <%= yield %>
     </main>
 
-    <%= render 'shared/bottom_nav' if user_signed_in? %>
+    <%= render 'shared/bottom_nav' %>
 
-    <%= render 'shared/footer' unless @hide_footer %>
+    <%= render 'shared/footer' if show_footer? %>
 
     <% if show_active_workout_indicator? %>
       <%= render "layouts/active_workout_indicator/mobile_indicator", workout: current_user_active_workout %>

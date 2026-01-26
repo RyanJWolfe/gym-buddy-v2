@@ -2,6 +2,11 @@ module ApplicationHelper
   def app_name
     "Iron Logs"
   end
+
+  def show_footer?
+    !user_signed_in?
+  end
+
   def page_title(title = nil)
     if title.present?
       "#{title} - #{app_name}"

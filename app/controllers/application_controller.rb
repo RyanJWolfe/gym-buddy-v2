@@ -18,10 +18,6 @@ class ApplicationController < ActionController::Base
     @active_workout ||= current_user.workouts.where(status: :in_progress).first
   end
 
-  def hide_footer
-    @hide_footer = true
-  end
-
   def remember_page
     session[:previous_pages] ||= []
     new_page = url_for(params.to_unsafe_h)
