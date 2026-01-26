@@ -1,37 +1,50 @@
-<div class="max-w-2xl mx-auto">
-  <h1 class="text-2xl font-bold mb-6">Edit Profile</h1>
-  
-  <div class="bg-white rounded-lg shadow p-6">
-    <%= form_with(model: @user, url: profile_path, method: :patch, class: "space-y-4") do |form| %>
-      <% if @user.errors.any? %>
-        <div class="bg-red-50 text-red-700 p-4 rounded mb-4">
-          <h2 class="font-bold mb-2"><%= pluralize(@user.errors.count, "error") %> prohibited this profile from being saved:</h2>
-          <ul class="list-disc pl-5">
-            <% @user.errors.each do |error| %>
-              <li><%= error.full_message %></li>
-            <% end %>
-          </ul>
-        </div>
-      <% end %>
-
-      <div>
-        <%= form.label :name, class: "form-label" %>
-        <%= form.text_field :name, class: "w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" %>
-      </div>
-
-      <div>
-        <%= form.label :email, class: "form-label" %>
-        <%= form.email_field :email, class: "w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" %>
-      </div>
-
-      <div class="pt-4">
-        <p class="text-sm text-gray-600 mb-2">To change your password, please visit the <%= link_to "password change page", edit_user_registration_path, class: "text-indigo-600 hover:text-indigo-800" %>.</p>
-      </div>
-
-      <div class="flex justify-end space-x-2">
-        <%= link_to "Cancel", profile_path, class: "btn btn-tertiary" %>
-        <%= form.submit "Update Profile", class: "btn btn-primary" %>
-      </div>
-    <% end %>
+<div class="max-w-lg mx-auto w-full">
+  <div class="flex items-center gap-x-1">
+    <%= render 'shared/buttons/back_button', path: profile_path %>
+    <h1 class="text-2xl font-bold">Edit Profile</h1>
   </div>
-</div> 
+
+  <%= form_with(model: @user, url: profile_path, method: :patch, local: true) do |form| %>
+    <%#= render 'avatar_edit' %>
+
+    <div class="mt-6">
+      <span class="text-sm block text-muted">Personal Details</span>
+    </div>
+
+    <div class="mt-4">
+      <%= form.label :name, "Name", class: "form-label" %>
+      <%= form.text_field :name, class: "form-input" %>
+      <%= form_field_error(@user, :name) %>
+    </div>
+
+    <div class="mt-4">
+      <%= form.label :email, "Email", class: "form-label" %>
+      <%= form.email_field :email, class: "form-input" %>
+      <%= form_field_error(@user, :email) %>
+    </div>
+
+    <div class="mt-6">
+      <span class="text-sm block text-muted mb-4">Password</span>
+      <%= link_to edit_user_registration_path do %>
+        <%= render "profiles/preference",
+                   icon: "icons/key.svg",
+                   label: "Change Password" %>
+      <% end %>
+    </div>
+
+    <div class="mt-6">
+      <span class="text-sm block text-muted mb-4">Other</span>
+      <%= link_to user_registration_path(@user), data: { confirm: "Are you sure?", turbo_confirm: "Are you sure?", turbo_method: :delete }, method: :delete, class: "w-full hover:text-red-500"  do %>
+        <%= render "profiles/preference",
+                   icon: "icons/trash.svg",
+                   label: "Delete Account" %>
+      <% end %>
+    </div>
+
+    <div class="mt-8 flex flex-col gap-y-4 sm:flex-row sm:gap-x-4 sm:items-end sm:flex-row-reverse">
+      <%= form.submit "Save Changes", class: "btn btn-primary w-full" %>
+      <%= link_to "Cancel", profile_path, class: "btn btn-tertiary w-full text-center" %>
+    </div>
+  <% end %>
+
+</div>

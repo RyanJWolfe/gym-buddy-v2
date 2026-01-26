@@ -1,0 +1,16 @@
+<div data-controller="avatar-upload" class="flex flex-col items-center justify-center gap-y-2">
+  <div class="relative group">
+    <%= avatar_tag @user.avatar_url(self) || default_avatar_url, size: :xxl, html_options: { class: "shadow-lg transition duration-150 #{ "hidden" unless @user.avatar_url(self).present?}", 'data-avatar-upload-target': 'avatar' } %>
+    <%= avatar_initials_tag @user.initials, size: :xxl, html_options: { class: "shadow-lg transition duration-150 #{"hidden" if @user.avatar_url(self)}", 'data-avatar-upload-target': 'default' } %>
+    <label for="avatar-upload" class="absolute bottom-1 right-1 bg-primary text-white rounded-full w-8 h-8 text-xs font-semibold cursor-pointer shadow hover:bg-indigo-700 flex items-center justify-center transition duration-150 hover:scale-110">
+      <%= inline_svg('icons/edit-3.svg', class: "h-4 w-4") %>
+    </label>
+    <button type="button" data-action="avatar-upload#clear" class="absolute top-1 left-1 bg-white text-gray-500 hover:bg-gray-100 hover:scale-110 hover:text-red-600 rounded-full w-7 h-7 flex items-center justify-center shadow border border-gray-300 transition duration-150" title="Remove avatar">
+      &times;
+    </button>
+  </div>
+  <%= form.file_field :avatar, id: "avatar-upload", class: "hidden", accept: "image/*", data: { 'avatar-upload-target': "input" } %>
+  <%= form.hidden_field :remove_avatar, value: false, data: { 'avatar-upload-target': 'removeField' } %>
+  <%= form_field_error(@user, :avatar) %>
+  <div id="avatar-preview" data-avatar-upload-target="preview" class="mt-2"></div>
+</div>
