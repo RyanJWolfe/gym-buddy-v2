@@ -9,7 +9,7 @@
                 aria: { label: "Home" },
                 class: "flex flex-col items-center gap-1 px-4 py-1 rounded-lg transition active:scale-95
               #{active_link_class(dashboard_path)}" do %>
-      <i class="fas fa-home text-lg" aria-hidden="true"></i>
+      <%= inline_svg "icons/home.svg", class: "w-5 h-5 svg-thick", aria: { hidden: "true" } %>
       <span class="text-[11px] font-medium">Home</span>
     <% end %>
 
@@ -17,7 +17,7 @@
                 aria: { label: "New Workout" },
                 class: "flex flex-col items-center gap-1 px-4 py-1 rounded-lg transition active:scale-95
               #{active_link_class(new_workout_path)}" do %>
-      <i class="fas fa-dumbbell text-lg" aria-hidden="true"></i>
+      <%= inline_svg "icons/dumbbell.svg", class: "w-5 h-5", aria: { hidden: "true" } %>
       <span class="text-[11px] font-medium">Workout</span>
     <% end %>
 
@@ -25,7 +25,7 @@
                 aria: { label: "Profile" },
                 class: "flex flex-col items-center gap-1 px-4 py-1 rounded-lg transition active:scale-95
               #{active_link_class(profile_path)}" do %>
-      <i class="fas fa-user text-lg" aria-hidden="true"></i>
+      <%= inline_svg "icons/user.svg", class: "w-5 h-5", aria: { hidden: "true" } %>
       <span class="text-[11px] font-medium">Profile</span>
     <% end %>
 
