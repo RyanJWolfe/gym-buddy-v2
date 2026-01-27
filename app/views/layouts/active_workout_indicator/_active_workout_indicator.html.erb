@@ -1,7 +1,7 @@
 <%# locals: ( workout: ) %>
 
 <div id="<%= dom_id(workout, :active_workout_indicator) %>"
-     class="fixed inset-x-4 bottom-20 md:bottom-4 z-50 lg:top-6 lg:right-6 lg:left-auto lg:bottom-auto"
+     class="fixed inset-x-4 bottom-20 md:bottom-4 z-50 lg:bottom-6 lg:right-6 lg:left-auto lg:bottom-auto"
      role="region"
      aria-label="Active workout in progress">
 
@@ -10,6 +10,7 @@
     <div class="mx-auto max-w-sm bg-white border border-gray-200 shadow-md rounded-2xl px-4 py-3 ring-1 ring-primary/20">
       <div class="flex flex-col gap-1 items-center">
         <div class="flex items-center justify-center flex-wrap gap-x-3">
+          <%= inline_svg "icons/activity.svg", class: "w-4 h-4 text-primary", aria: { hidden: "true" } %>
           <h5 class="text-muted text-sm font-medium truncate">Workout in Progress</h5>
           <%= render "layouts/active_workout_indicator/timer", workout: workout, show_label: true %>
         </div>
@@ -21,11 +22,11 @@
 
   <!-- Desktop: right-side rail -->
   <div class="hidden lg:block">
-    <div class="mx-auto bg-white border border-gray-200 shadow-md rounded-full px-2 py-2 overflow-hidden transition-all duration-200 group hover:max-w-sm focus-within:max-w-sm">
+    <div class="mx-auto bg-white border border-gray-200 shadow-md rounded-full p-2 ring-1 ring-primary/20">
       <div class="flex items-center gap-3">
-        <%= render "layouts/active_workout_indicator/icon_title", workout: workout, show_title: false, title_class: 'hidden' %>
+        <%= render "layouts/active_workout_indicator/icon_title", workout: workout, show_title: true %>
 
-        <div class="ml-auto flex items-center gap-4 px-2">
+        <div class="ml-auto flex flex-col items-center px-2">
           <%= render "layouts/active_workout_indicator/timer", workout: workout, show_label: true %>
           <%= render "layouts/active_workout_indicator/actions", workout: workout %>
         </div>
