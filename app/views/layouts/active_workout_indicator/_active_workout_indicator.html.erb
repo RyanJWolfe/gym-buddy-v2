@@ -1,10 +1,10 @@
 <%# locals: ( workout: ) %>
 
-<div id="<%= dom_id(workout, :mobile_indicator) %>"
-     class="lg:hidden fixed bottom-4 inset-x-4 z-50"
+<div id="<%= dom_id(workout, :active_workout_indicator) %>"
+     class="fixed bottom-20 md:bottom-4 lg:right-2 inset-x-4 z-50 h-20"
      role="region"
      aria-label="Active workout in progress">
-  <div class="mx-auto max-w-lg bg-white border border-gray-200 shadow-md rounded-lg px-4 py-3">
+  <div class="mx-auto max-w-sm bg-white border border-gray-200 shadow-md rounded-lg px-4 py-3 ring-1 ring-indigo-600/10">
     <div class="flex flex-col gap-1 items-center">
       <div class="truncate">
         <div class="text-muted text-sm">Workout in Progress</div>
