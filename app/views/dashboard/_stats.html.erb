@@ -33,13 +33,15 @@
                label: "lbs"
     %>
 
-    <%= render "dashboard/stats_card",
-               title: "Favorite Exercise",
-               subtitle: @most_used_exercise[:name] || "N/A",
-               icon: "heart.svg",
-               value: @most_used_exercise[:total_count] || "N/A",
-               label: "times"
-    %>
+    <% if @most_used_exercise %>
+      <%= render "dashboard/stats_card",
+                 title: "Favorite Exercise",
+                 subtitle: @most_used_exercise[:name] || "N/A",
+                 icon: "heart.svg",
+                 value: @most_used_exercise[:total_count] || "N/A",
+                 label: "times"
+      %>
+    <% end %>
 
   </div>
 </div>
