@@ -134,7 +134,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_01_23_045309) do
     t.bigint "routine_id"
     t.integer "sequence_number", default: 1
     t.datetime "start_time"
-    t.integer "status", default: 1
+    t.integer "status", default: 0
     t.bigint "template_id"
     t.string "template_name"
     t.datetime "updated_at", null: false
