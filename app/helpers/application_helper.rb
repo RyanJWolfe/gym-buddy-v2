@@ -7,6 +7,10 @@ module ApplicationHelper
     !user_signed_in?
   end
 
+  def hide_bottom_nav?
+    @hide_bottom_nav
+  end
+
   def page_title(title = nil)
     if title.present?
       "#{title} - #{app_name}"

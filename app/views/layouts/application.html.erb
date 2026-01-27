@@ -33,7 +33,7 @@
   <body class="h-full flex flex-col bg-body">
     <%= render 'shared/navbar' %>
 
-    <main class="main-container pb-20 md:pb-0">
+    <main class="main-container <%= "pb-20" unless hide_bottom_nav? %> md:pb-0">
       <%= render 'shared/flash' %>
       <%= yield %>
 
@@ -42,7 +42,7 @@
       <% end %>
     </main>
 
-    <%= render 'shared/bottom_nav' %>
+    <%= render 'shared/bottom_nav' unless hide_bottom_nav? %>
 
     <%= render 'shared/footer' if show_footer? %>
 

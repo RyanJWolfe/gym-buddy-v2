@@ -26,4 +26,8 @@ class ApplicationController < ActionController::Base
     session[:previous_pages] << new_page if request.get?
     session[:previous_pages] = session[:previous_pages].last(2)
   end
+
+  def hide_bottom_nav
+    @hide_bottom_nav = true
+  end
 end
