@@ -13,6 +13,8 @@ class Workout < ApplicationRecord
   validates :name, presence: true
   validates :start_time, presence: true, if: :completed?
 
+  alias_attribute :started_at, :start_time
+
   scope :recent, -> { order(date: :desc) }
 
   amoeba do

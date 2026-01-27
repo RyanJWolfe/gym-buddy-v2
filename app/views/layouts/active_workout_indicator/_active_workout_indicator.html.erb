@@ -1,24 +1,54 @@
 <%# locals: ( workout: ) %>
 
 <div id="<%= dom_id(workout, :active_workout_indicator) %>"
-     class="fixed bottom-20 md:bottom-4 lg:right-2 inset-x-4 z-50 h-20"
+     class="fixed bottom-20 md:bottom-4 inset-x-4 z-50 h-20 lg:bottom-6 lg:right-6 lg:left-auto lg:bottom-auto"
      role="region"
      aria-label="Active workout in progress">
-  <div class="mx-auto max-w-sm bg-white border border-gray-200 shadow-md rounded-lg px-4 py-3 ring-1 ring-indigo-600/10">
-    <div class="flex flex-col gap-1 items-center">
-      <div class="truncate">
-        <div class="text-muted text-sm">Workout in Progress</div>
+  <!-- Card: mobile = bottom-centered pill; lg+ = narrow rail that expands on hover/focus -->
+  <div class="mx-auto max-w-sm bg-white border border-gray-200 shadow-md rounded-lg px-4 py-3 ring-1 ring-indigo-600/10
+              lg:max-w-[64px] lg:rounded-full lg:px-2 lg:py-2 lg:overflow-hidden lg:transition-all lg:duration-200 lg:group
+              lg:hover:max-w-sm lg:focus-within:max-w-sm lg:group-hover:max-w-sm">
+    <div class="flex items-center gap-3 lg:flex-row lg:items-center">
+      <!-- Icon + title (title hidden when collapsed on lg) -->
+      <div class="flex items-center gap-3">
+        <div class="w-8 h-8 flex-shrink-0 flex items-center justify-center bg-indigo-50 text-indigo-600 rounded-full">
+          <%= inline_svg "icons/play.svg", class: "w-4 h-4 fill-current", aria: { hidden: "true" } %>
+        </div>
+
+        <div class="truncate hidden lg:block">
+          <div class="text-muted text-sm">Workout in Progress</div>
+          <div class="font-medium text-sm" title="<%= workout.name %>"><%= truncate(workout.name || 'Active workout', length: 28) %></div>
+        </div>
       </div>
 
-      <div class="flex items-center w-full">
-        <div class="w-1/2 flex justify-center">
-          <%= link_to edit_workout_path(workout), class: "text-sm px-3 py-1 flex items-center gap-x-2 text-indigo-600 hover:bg-body" do %>
-            <%= inline_svg "icons/play.svg", class: "w-3 h-3 fill-current" %>
-            <span class="text-sm">Resume</span>
-          <% end %>
+      <!-- Timer + Actions: Timer uses Stimulus controller for live updates, with server-rendered fallback -->
+      <div class="flex items-center w-full lg:w-auto lg:ml-auto gap-2">
+        <div class="flex items-center gap-2">
+          <span class="text-xs text-gray-500 hidden lg:inline">Elapsed</span>
+          <span
+            data-controller="active-workout-timer"
+            data-active-workout-timer-start-value="<%= workout.started_at.utc.iso8601 %>"
+            data-fallback="<%= workout.started_at ? distance_of_time_in_words(Time.current, workout.started_at) : '--' %>"
+            data-action=""
+            class="font-mono text-sm text-indigo-600"
+            aria-live="polite"
+            data-active-workout-timer-target="timer">
+            <%= workout.started_at ? Time.current.utc.strftime('%M:%S') : '--:--' %>
+          </span>
         </div>
-        <div class="w-1/2 flex justify-center">
-          <%= render "layouts/active_workout_indicator/discard_workout_dialog", workout:, turbo: true %>
+
+        <div class="flex items-center">
+          <div class="w-1/2 flex justify-center lg:justify-end">
+            <%= link_to edit_workout_path(workout), class: "text-sm px-3 py-1 flex items-center gap-x-2 text-indigo-600 hover:bg-body rounded" do %>
+              <span class="sr-only">Resume workout</span>
+              <%= inline_svg "icons/play.svg", class: "w-3 h-3 fill-current", aria: { hidden: "true" } %>
+              <span class="text-sm hidden lg:inline">Resume</span>
+            <% end %>
+          </div>
+
+          <div class="w-1/2 flex justify-center lg:ml-2">
+            <%= render "layouts/active_workout_indicator/discard_workout_dialog", workout:, turbo: true %>
+          </div>
         </div>
       </div>
     </div>
