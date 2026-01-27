@@ -3,7 +3,7 @@
 <div class="max-w-2xl mx-auto">
   <div class="flex flex-col gap-y-4">
     <h2 class="text-xl font-extramedium">Quick Start</h2>
-    <%= button_to workouts_path, method: :get, class: "btn btn-icon btn-tertiary w-full" do %>
+    <%= button_to workouts_path, method: :post, params: { workout: { name: "New Workout" } }, data: { turbo: false }, class: "btn btn-icon btn-tertiary w-full" do %>
       <%= inline_svg_tag "icons/plus.svg", class: "h-4 w-4" %>
       <span>Start Empty Workout</span>
     <% end %>

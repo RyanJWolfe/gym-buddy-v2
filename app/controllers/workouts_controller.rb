@@ -23,17 +23,11 @@ class WorkoutsController < ApplicationController
   # POST /workouts
   def create
     @workout = current_user.workouts.build(workout_params)
-    @workout.logged_workout = (params[:type] == "logged")
-
-    if workout_type == "logged"
-      @workout.calculate_duration if @workout.start_time && @workout.end_time
-    else
-      @workout.start_time = Time.current
-      @workout.date = Date.current
-    end
+    @workout.start_time = Time.current
+    @workout.date = Date.current
 
     if @workout.save
-      redirect_to edit_workout_path(@workout)
+      render :edit, notice: "Workout created successfully!"
     else
       render :new, status: :unprocessable_entity
     end
