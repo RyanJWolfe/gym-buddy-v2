@@ -3,18 +3,15 @@
     <div class="flex justify-between items-center py-3">
       <div class="flex items-center space-x-4">
         <%= link_to "Iron Logs", root_path, class: "text-xl font-bold" %>
-        
+
         <% if user_signed_in? %>
           <div class="md:flex space-x-4">
             <%= link_to "Dashboard", dashboard_path, class: "hover:text-indigo-300" %>
             <%= link_to "Workout", new_workout_path, class: "hover:text-indigo-300" %>
-            <div class="hidden lg:block">
-              <%= render 'layouts/active_workout_indicator/indicator' %>
-            </div>
           </div>
         <% end %>
       </div>
-      
+
       <div class="flex items-center space-x-4">
         <% if user_signed_in? %>
           <%= link_to "#{current_user.email}", profile_path, class: "hover:text-indigo-300" %>
