@@ -14,4 +14,11 @@
 #
 #   RAILS_ENV=development bin/rails db:seed:demo
 #
-puts "Seed completed successfully!"
+
+puts "Seeding exercises..."
+require_relative 'seeds/exercises'
+
+if Rails.env.development?
+  puts "Seeding demo data..."
+  require_relative 'seeds/demo'
+end
