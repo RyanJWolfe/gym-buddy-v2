@@ -21,6 +21,8 @@
     font-family: 'Montserrat', sans-serif;
   }
 
+
+  /* these aren't currently in use, will revisit when implementing dark mode */
   :root {
     --color-primary: 168 85 247;              /* purple-500 */
     --color-primary-hover: 192 132 252;       /* purple-400 */
