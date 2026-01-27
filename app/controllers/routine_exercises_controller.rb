@@ -1,4 +1,5 @@
 class RoutineExercisesController < ApplicationController
+  skip_before_action :set_active_workout
   def exercise_select_modal # TODO: find a better place for this action
     @exercises = Rails.cache.fetch("exercises_with_categories", expires_in: 12.hours) do
       Exercise.all.includes(:categories).order(:name).to_a
