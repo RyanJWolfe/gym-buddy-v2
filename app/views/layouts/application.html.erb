@@ -36,10 +36,6 @@
     <main class="main-container pb-20 md:pb-0">
       <%= render 'shared/flash' %>
       <%= yield %>
-
-      <% if show_active_workout_indicator? %>
-        <div class="lg:hidden h-20" aria-hidden="true"></div>
-      <% end %>
     </main>
 
     <%= render 'shared/bottom_nav' %>
@@ -47,7 +43,7 @@
     <%= render 'shared/footer' if show_footer? %>
 
     <% if show_active_workout_indicator? %>
-      <%= render "layouts/active_workout_indicator/active_workout_indicator", workout: current_user_active_workout %>
+      <%= render "layouts/active_workout_indicator/mobile_indicator", workout: current_user_active_workout %>
     <% end %>
   </body>
 </html>
