@@ -1,0 +1,28 @@
+<div id="preferences-list" class="mt-4 flex flex-col gap-y-4">
+  <%= render 'preference', icon: "icons/globe.svg", label: "Language", value: "English" %>
+  <%= render 'preference', icon: "icons/bell.svg", label: "Notifications", value: "Disabled" %>
+
+  <% content_for :theme_preference do %>
+    <%= render 'preference', icon: "icons/moon.svg", label: "Theme", value: "Light" %>
+  <% end %>
+
+  <%= render "shared/bottom_sheet", trigger: :theme_preference, title: "Select Theme" do %>
+    <div class="flex flex-col gap-y-2" data-controller="theme">
+      <button type="button"
+              class="w-full text-left px-4 py-3 hover:bg-body flex items-center gap-x-3"
+              data-action="click->theme#selectLight click->bottom-sheet#close">
+        <span>Light</span>
+      </button>
+      <button type="button"
+              class="w-full text-left px-4 py-3 hover:bg-body flex items-center gap-x-3"
+              data-action="click->theme#selectDark click->bottom-sheet#close">
+        <span>Dark</span>
+      </button>
+      <button type="button"
+              class="w-full text-left px-4 py-3 hover:bg-body flex items-center gap-x-3"
+              data-action="click->theme#selectSystem click->bottom-sheet#close">
+        <span>System Preference</span>
+      </button>
+    </div>
+  <% end %>
+</div>

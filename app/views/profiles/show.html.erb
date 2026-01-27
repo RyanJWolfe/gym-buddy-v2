@@ -23,27 +23,7 @@
 
   <div class="text-muted mt-6 text-sm">Preferences</div>
 
-  <div id="preferences-list" class="mt-4 flex flex-col gap-y-4">
-    <%= render 'preference', icon: "icons/globe.svg", label: "Language", value: "English" %>
-    <%= render 'preference', icon: "icons/bell.svg", label: "Notifications", value: "Disabled" %>
-
-    <% content_for :theme_preference do %>
-      <%= render 'preference', icon: "icons/moon.svg", label: "Theme", value: "Light" %>
-    <% end %>
-
-    <%= render "shared/bottom_sheet", trigger: :theme_preference, title: "Select Theme" do %>
-      <div class="flex flex-col gap-y-2">
-        <% [ "Light", "Dark", "System Default" ].each do |theme| %>
-          <button type="button"
-                  class="w-full text-left px-4 py-3 hover:bg-body flex items-center gap-x-3"
-                  data-action="click->bottom-sheet#close"
-                  data-theme-select-value="<%= theme.downcase.parameterize %>">
-            <span><%= theme %></span>
-          </button>
-        <% end %>
-      </div>
-    <% end %>
-  </div>
+  <%= render "profiles/preferences" %>
 
   <div class="flex">
     <%= button_to "Sign Out", destroy_user_session_path, method: :delete, class: "btn btn-tertiary mt-6 w-full", form: { class: "flex-grow" } %>

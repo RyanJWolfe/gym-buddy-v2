@@ -8,6 +8,14 @@
     <meta name="description" content="<%= yield(:meta_description) || "Track your gym workouts, monitor your progress, and achieve your fitness goals with #{app_name}." %>">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
+    <%= javascript_tag type: 'application/javascript' do %>
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      const isDark = localStorage.theme === 'dark' || (!('theme' in localStorage) && prefersDark);
+
+      ['dark', 'theme-dark'].forEach(cls =>
+      document.documentElement.classList.toggle(cls, isDark)
+      );
+    <% end %>
 
     <%= yield :head %>
 
