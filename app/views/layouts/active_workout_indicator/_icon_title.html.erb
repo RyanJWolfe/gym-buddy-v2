@@ -1,0 +1,13 @@
+<%# locals: ( workout:, show_title: true, title_class: nil ) %>
+<div class="flex items-center gap-3">
+  <div class="w-8 h-8 flex-shrink-0 flex items-center justify-center bg-indigo-50 text-indigo-600 rounded-full">
+    <%= inline_svg "icons/play.svg", class: "w-4 h-4 fill-current", aria: { hidden: "true" } %>
+  </div>
+
+  <% if show_title %>
+    <div class="<%= title_class || 'truncate' %>">
+      <div class="text-muted text-sm">Workout in Progress</div>
+      <div class="font-medium text-sm" title="<%= workout.name %>"><%= truncate(workout.name || 'Active workout', length: 28) %></div>
+    </div>
+  <% end %>
+</div>

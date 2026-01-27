@@ -1,0 +1,14 @@
+<%# locals: ( workout: ) %>
+<div class="flex items-center">
+  <div class="w-1/2 flex justify-center lg:justify-end">
+    <%= link_to edit_workout_path(workout), class: "text-sm px-3 py-1 flex items-center gap-x-2 text-indigo-600 hover:bg-body rounded" do %>
+      <span class="sr-only">Resume workout</span>
+      <%= inline_svg "icons/play.svg", class: "w-3 h-3 fill-current", aria: { hidden: "true" } %>
+      <span class="text-sm hidden lg:inline">Resume</span>
+    <% end %>
+  </div>
+
+  <div class="w-1/2 flex justify-center lg:ml-2">
+    <%= render "layouts/active_workout_indicator/discard_workout_dialog", workout:, turbo: true %>
+  </div>
+</div>

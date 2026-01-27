@@ -1,0 +1,16 @@
+<%# locals: ( workout:, show_label: true ) -%>
+<div class="flex items-center gap-2">
+  <% if show_label %>
+    <span class="text-xs text-gray-500 hidden lg:inline">Elapsed</span>
+  <% end %>
+
+  <span
+    data-controller="active-workout-timer"
+    data-active-workout-timer-start-value="<%= workout.started_at.utc.iso8601 %>"
+    data-fallback="<%= workout.started_at ? distance_of_time_in_words(Time.current, workout.started_at) : '--' %>"
+    class="font-mono text-sm text-indigo-600"
+    aria-live="polite"
+    data-active-workout-timer-target="timer">
+    <%= workout.started_at ? Time.current.utc.strftime('%M:%S') : '--:--' %>
+  </span>
+</div>
