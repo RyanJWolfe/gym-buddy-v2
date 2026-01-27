@@ -4,6 +4,10 @@ class RoutineExercisesController < ApplicationController
       Exercise.all.includes(:categories).order(:name).to_a
     end
 
+    @categories = Rails.cache.fetch("all_categories", expires_in: 12.hours) do
+      Category.all.order(:name).to_a
+    end
+
     @mode = params[:mode] || "add" # "add" or "replace"
     if @mode == "replace"
       @target_dom_id = params[:target_dom_id]

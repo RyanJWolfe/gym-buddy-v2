@@ -24,7 +24,7 @@
       <span>All Muscles</span>
     </button>
 
-    <% Category.all.order(name: :asc).each do |c| %>
+    <% @categories.each do |c| %>
       <button type="button"
               class="w-full text-left px-4 py-3 hover:bg-body flex items-center gap-x-3"
               data-action="click->search#onInput click->bottom-sheet#close"
