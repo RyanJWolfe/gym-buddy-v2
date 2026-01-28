@@ -1,10 +1,11 @@
 import {Controller} from "@hotwired/stimulus"
 
 export default class extends Controller {
-  static targets = ["text"]
+  static targets = ["text", "option"]
 
   connect() {
     this.textTarget.textContent = this.currentTheme().charAt(0).toUpperCase() + this.currentTheme().slice(1)
+    this.updateSelection()
   }
 
   currentTheme() {
@@ -15,18 +16,21 @@ export default class extends Controller {
     localStorage.theme = 'light'
     this.toggleTheme()
     this.textTarget.textContent = 'Light'
+    this.updateSelection()
   }
 
   selectDark() {
     localStorage.theme = 'dark'
     this.toggleTheme()
     this.textTarget.textContent = 'Dark'
+    this.updateSelection()
   }
 
   selectSystem() {
     localStorage.removeItem('theme')
     this.toggleTheme()
     this.textTarget.textContent = 'System'
+    this.updateSelection()
   }
 
   toggleTheme() {
@@ -54,5 +58,24 @@ export default class extends Controller {
 
     const _ = window.getComputedStyle(css).opacity
     document.head.removeChild(css)
+  }
+
+  updateSelection() {
+    if (!this.hasOptionTarget) return
+
+    const current = this.currentTheme()
+
+    this.optionTargets.forEach((el) => {
+      const val = el.dataset.value || el.getAttribute('data-value')
+      const isSelected = val === current
+
+      el.setAttribute('aria-pressed', isSelected ? 'true' : 'false')
+
+      if (isSelected) {
+        el.classList.add('bg-accent/10')
+      } else {
+        el.classList.remove('bg-accent/10')
+      }
+    })
   }
 }

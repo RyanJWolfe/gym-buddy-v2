@@ -44,6 +44,12 @@ module.exports = {
           'secondary-hover': "#f4f6f8",
           border: "#e5e7eb",
         },
+        accent: {
+          DEFAULT: "#10b981",
+          hover: "#059669",
+          light: "#d1fae5",
+          'light-hover': "#a7f3d0",
+        },
       }
     },
   },
