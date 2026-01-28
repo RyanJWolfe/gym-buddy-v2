@@ -75,6 +75,14 @@
     @apply bg-red-600 text-white hover:bg-red-700;
   }
 
+  .text-danger {
+    @apply text-red-600 dark:text-red-500;
+  }
+
+  .text-danger-hover {
+    @apply text-red-800 dark:text-red-400;
+  }
+
   .link {
     @apply transition duration-150 ease-in-out hover:underline focus:underline;
   }
