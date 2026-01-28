@@ -62,17 +62,25 @@
 
   .theme-dark {
     --color-body: 13 13 13; /* #0d0d0d */
+    /*--color-top-nav: 18 20 24; !* #121418 *!*/
     --color-top-nav: 19 19 19; /* #131313 */
     --color-bottom-nav: 20 20 20; /* #141414 */
 
     /* Keep primary hue but slightly brighter for contrast on dark backgrounds */
-    --color-primary: 99 102 241; /* #6366f1 */
-    --color-primary-hover: 79 70 229; /* #4f46e5 */
+    /*--color-primary: 99 102 241; !* #6366f1 *!*/
+    /*--color-primary-hover: 79 70 229; !* #4f46e5 *!*/
+    /*--color-primary-focus: 99 102 241; !* #6366f1 *!*/
+    /*--color-primary-light: 30 41 59; !* #1e293b - used where a "light" surface color is needed on dark *!*/
+    /*--color-primary-light-hover: 26 32 44; !* #1a243? *!*/
+    /*--color-primary-ring: 99 102 241; !* #6366f1 *!*/
+    /*--color-primary-outline: 30 41 59; !* #1e293b *!*/
+    --color-primary: 79 70 229; /* #4f46e5 */
+    --color-primary-hover: 67 56 202; /* #4338ca */
     --color-primary-focus: 99 102 241; /* #6366f1 */
-    --color-primary-light: 30 41 59; /* #1e293b - used where a "light" surface color is needed on dark */
-    --color-primary-light-hover: 26 32 44; /* #1a243? */
+    --color-primary-light: 238 242 255; /* #eef2ff */
+    --color-primary-light-hover: 224 231 255; /* #e0e7ff */
     --color-primary-ring: 99 102 241; /* #6366f1 */
-    --color-primary-outline: 30 41 59; /* #1e293b */
+    --color-primary-outline: 199 210 254; /* #c7d2fe */
 
     --color-muted: 166 171 175; /* #a6abaf */
     --color-muted-hover: 107 114 128; /* #6b7280 */
