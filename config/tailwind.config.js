@@ -21,6 +21,9 @@ module.exports = {
       padding: {
         safe: 'env(safe-area-inset-bottom)',
       },
+      boxShadow: {
+        top: 'var(--shadow-top)',
+      },
       colors: {
         body: 'rgb(var(--color-body))',
         'bottom-nav': 'rgb(var(--color-bottom-nav))',
