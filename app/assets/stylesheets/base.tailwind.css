@@ -22,30 +22,70 @@
   }
 
 
-  /* these aren't currently in use, will revisit when implementing dark mode */
   :root {
-    --color-primary: 168 85 247;              /* purple-500 */
-    --color-primary-hover: 192 132 252;       /* purple-400 */
-    --color-primary-press: 147 51 234;        /* purple-600 */
-    --color-text-based: 0 0 0;                /* black */
-    --color-text-muted: 75 85 99;             /* gray-600 */
+    /* Light (default) theme color variables.
+       Values are stored as space-separated RGB components so Tailwind can use them like:
+         "rgb(var(--color-primary))"
+       These map to the custom colors previously defined in tailwind.config.js.
+       */
 
-    --color-bg: 255 255 255;                  /* #ffffff */
-    --color-bg-nav: 224 224 224;              /* #dbdde0 */
-    --color-bg-surface: 255 255 255;          /* #ffffff */
-    --color-bg-surface-alt: 225 225 225;      /* #e1e1e1 */
+    --color-body: 245 245 245; /* #f5f5f5 */
+
+    --color-primary: 79 70 229; /* #4f46e5 */
+    --color-primary-hover: 67 56 202; /* #4338ca */
+    --color-primary-focus: 99 102 241; /* #6366f1 */
+    --color-primary-light: 238 242 255; /* #eef2ff */
+    --color-primary-light-hover: 224 231 255; /* #e0e7ff */
+    --color-primary-ring: 99 102 241; /* #6366f1 */
+    --color-primary-outline: 199 210 254; /* #c7d2fe */
+
+    --color-muted: 82 82 82; /* #525252 */
+    --color-muted-hover: 156 163 175; /* #9ca3af */
+    --color-muted-focus: 107 114 128; /* #6b7280 */
+    --color-muted-light: 115 115 115; /* #737373 */
+    --color-muted-light-hover: 163 163 163; /* #a3a3a3 */
+
+    --color-surface: 255 255 255; /* #ffffff */
+    --color-surface-secondary: 249 251 252; /* #f9fbfc */
+    --color-surface-secondary-hover: 244 246 248; /* #f4f6f8 */
+    --color-surface-border: 229 231 235; /* #e5e7eb */
+
+    --color-accent: 16 185 129; /* #10b981 */
+    --color-accent-hover: 5 150 105; /* #059669 */
+    --color-accent-light: 209 250 229; /* #d1fae5 */
+    --color-accent-light-hover: 167 243 208; /* #a7f3d0 */
   }
 
   .theme-dark {
-    --color-primary: 192 132 252;             /* purple-400 */
-    --color-primary-hover: 216 180 254;       /* purple-300 */
-    --color-primary-press: 168 85 247;        /* purple-500 */
-    --color-text-based: 255 255 255;          /* white */
-    --color-text-muted: 170 170 180;
+    /* Dark theme overrides. I inferred a reasonable dark palette for initial use.
+       If you have a preferred dark palette, tell me and I'll adjust these values.
+    */
 
-    --color-bg: 12 12 12;
-    --color-bg-nav: 18 18 18;
-    --color-bg-surface: 24 24 24;
-    --color-bg-surface-alt: 28 28 28;
+    --color-body: 17 24 39; /* #111827 (slate-900) */
+
+    /* Keep primary hue but slightly brighter for contrast on dark backgrounds */
+    --color-primary: 99 102 241; /* #6366f1 */
+    --color-primary-hover: 79 70 229; /* #4f46e5 */
+    --color-primary-focus: 99 102 241; /* #6366f1 */
+    --color-primary-light: 30 41 59; /* #1e293b - used where a "light" surface color is needed on dark */
+    --color-primary-light-hover: 26 32 44; /* #1a243? */
+    --color-primary-ring: 99 102 241; /* #6366f1 */
+    --color-primary-outline: 30 41 59; /* #1e293b */
+
+    --color-muted: 160 174 192; /* slightly muted for dark backgrounds */
+    --color-muted-hover: 156 163 175; /* #9ca3af */
+    --color-muted-focus: 148 163 184; /* softer focus */
+    --color-muted-light: 107 114 128; /* #6b7280 */
+    --color-muted-light-hover: 163 163 163;
+
+    --color-surface: 8 11 18; /* very dark surface */
+    --color-surface-secondary: 15 23 42; /* #0f172a */
+    --color-surface-secondary-hover: 20 27 44;
+    --color-surface-border: 31 41 55; /* #1f2937 */
+
+    --color-accent: 16 185 129; /* keep accent colors */
+    --color-accent-hover: 5 150 105;
+    --color-accent-light: 20 83 45;
+    --color-accent-light-hover: 30 130 80;
   }
 }
