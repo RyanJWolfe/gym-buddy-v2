@@ -9,28 +9,37 @@
   <%= render "shared/bottom_sheet", trigger: :theme_preference, title: "Select Theme" do %>
     <div class="flex flex-col gap-y-2">
       <button type="button"
-              class="w-full text-left px-4 py-3 hover:bg-body flex items-center gap-x-3"
+              class="w-full text-left py-3 hover:bg-body flex items-center gap-x-3"
               data-action="click->theme#selectLight click->bottom-sheet#close"
               data-theme-target="option"
               data-value="light"
               aria-pressed="false">
         <span>Light</span>
+        <span class="ml-auto" data-check>
+          <%= inline_svg_tag('icons/check.svg', class: 'h-6 w-6 text-accent hidden') %>
+        </span>
       </button>
       <button type="button"
-              class="w-full text-left px-4 py-3 hover:bg-body flex items-center gap-x-3"
+              class="w-full text-left py-3 hover:bg-body flex items-center gap-x-3"
               data-action="click->theme#selectDark click->bottom-sheet#close"
               data-theme-target="option"
               data-value="dark"
               aria-pressed="false">
         <span>Dark</span>
+        <span class="ml-auto" data-check>
+          <%= inline_svg_tag('icons/check.svg', class: 'h-6 w-6 text-accent hidden') %>
+        </span>
       </button>
       <button type="button"
-              class="w-full text-left px-4 py-3 hover:bg-body flex items-center gap-x-3"
+              class="w-full text-left py-3 hover:bg-body flex items-center gap-x-3"
               data-action="click->theme#selectSystem click->bottom-sheet#close"
               data-theme-target="option"
               data-value="system"
               aria-pressed="false">
         <span>System</span>
+        <span class="ml-auto" data-check>
+          <%= inline_svg_tag('icons/check.svg', class: 'h-6 w-6 text-accent hidden') %>
+        </span>
       </button>
     </div>
   <% end %>

@@ -56,7 +56,8 @@ export default class extends Controller {
         document.documentElement.classList.toggle(cls, isDark)
     );
 
-    const _ = window.getComputedStyle(css).opacity
+    // force a reflow so transitions are suppressed briefly
+    window.getComputedStyle(css).opacity;
     document.head.removeChild(css)
   }
 
@@ -71,10 +72,14 @@ export default class extends Controller {
 
       el.setAttribute('aria-pressed', isSelected ? 'true' : 'false')
 
-      if (isSelected) {
-        el.classList.add('bg-accent/10')
-      } else {
-        el.classList.remove('bg-accent/10')
+      // show or hide the checkmark SVG inside the option
+      const checkWrapper = el.querySelector('[data-check]')
+      if (checkWrapper) {
+        const icon = checkWrapper.firstElementChild
+        if (icon && icon.classList) {
+          // hide when not selected, show when selected
+          icon.classList.toggle('hidden', !isSelected)
+        }
       }
     })
   }
