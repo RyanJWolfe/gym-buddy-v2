@@ -7,7 +7,7 @@
 
     <%= link_to dashboard_path,
                 aria: { label: "Home" },
-                class: "flex flex-col items-center gap-1 px-4 py-1 rounded-lg transition active:scale-95
+                class: "flex flex-col items-center gap-0.5 px-4 py-1 rounded-lg transition active:scale-95
               #{active_link_class(dashboard_path)}" do %>
       <%= inline_svg "icons/home.svg", class: "w-5 h-5 svg-thick", aria: { hidden: "true" } %>
       <span class="text-[11px] font-medium">Home</span>
@@ -15,7 +15,7 @@
 
     <%= link_to new_workout_path,
                 aria: { label: "New Workout" },
-                class: "flex flex-col items-center gap-1 px-4 py-1 rounded-lg transition active:scale-95
+                class: "flex flex-col items-center gap-0.5 px-4 py-1 rounded-lg transition active:scale-95
               #{active_link_class(new_workout_path)}" do %>
       <%= inline_svg "icons/dumbbell.svg", class: "w-5 h-5", aria: { hidden: "true" } %>
       <span class="text-[11px] font-medium">Workout</span>
@@ -23,9 +23,9 @@
 
     <%= link_to profile_path,
                 aria: { label: "Profile" },
-                class: "flex flex-col items-center gap-1 px-4 py-1 rounded-lg transition active:scale-95
+                class: "flex flex-col items-center gap-0.5 px-4 py-1 rounded-lg transition active:scale-95
               #{active_link_class(profile_path)}" do %>
-      <%= inline_svg "icons/user.svg", class: "w-5 h-5", aria: { hidden: "true" } %>
+      <%= inline_svg "icons/user-round.svg", class: "w-5 h-5", aria: { hidden: "true" } %>
       <span class="text-[11px] font-medium">Profile</span>
     <% end %>
 
