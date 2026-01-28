@@ -1,0 +1,14 @@
+<%# locals: controller:, options: [] - each option: { value:, label:, icon:, action: } %>
+<div class="flex flex-col gap-y-2">
+  <% options.each do |opt| %>
+    <%= button_tag type: :button, data: { action: "#{opt[:action]} click->bottom-sheet#close", "#{controller}-target": "option", value: opt[:value] }, class: "w-full text-left py-3 hover:bg-body flex items-center gap-x-3", 'aria-pressed': 'false' do %>
+      <span class="flex items-center gap-x-3">
+        <%= inline_svg_tag(opt[:icon], class: 'h-6 w-6 text-muted') %>
+        <span><%= opt[:label] %></span>
+      </span>
+      <span class="ml-auto" data-check>
+        <%= inline_svg_tag('icons/check.svg', class: 'h-6 w-6 text-accent hidden') %>
+      </span>
+    <% end %>
+  <% end %>
+</div>

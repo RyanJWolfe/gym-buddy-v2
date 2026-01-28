@@ -7,49 +7,10 @@
   <% end %>
 
   <%= render "shared/bottom_sheet", trigger: :theme_preference, title: "Select Theme" do %>
-    <div class="flex flex-col gap-y-2">
-      <button type="button"
-              class="w-full text-left py-3 hover:bg-body flex items-center gap-x-3"
-              data-action="click->theme#selectLight click->bottom-sheet#close"
-              data-theme-target="option"
-              data-value="light"
-              aria-pressed="false">
-        <span class="flex items-center gap-x-3">
-          <%= inline_svg_tag('icons/sun.svg', class: 'h-6 w-6 text-muted') %>
-          <span>Light</span>
-        </span>
-        <span class="ml-auto" data-check>
-          <%= inline_svg_tag('icons/check.svg', class: 'h-6 w-6 text-accent hidden') %>
-        </span>
-      </button>
-      <button type="button"
-              class="w-full text-left py-3 hover:bg-body flex items-center gap-x-3"
-              data-action="click->theme#selectDark click->bottom-sheet#close"
-              data-theme-target="option"
-              data-value="dark"
-              aria-pressed="false">
-        <span class="flex items-center gap-x-3">
-          <%= inline_svg_tag('icons/moon.svg', class: 'h-6 w-6 text-muted') %>
-          <span>Dark</span>
-        </span>
-        <span class="ml-auto" data-check>
-          <%= inline_svg_tag('icons/check.svg', class: 'h-6 w-6 text-accent hidden') %>
-        </span>
-      </button>
-      <button type="button"
-              class="w-full text-left py-3 hover:bg-body flex items-center gap-x-3"
-              data-action="click->theme#selectSystem click->bottom-sheet#close"
-              data-theme-target="option"
-              data-value="system"
-              aria-pressed="false">
-        <span class="flex items-center gap-x-3">
-          <%= inline_svg_tag('icons/sun-moon.svg', class: 'h-6 w-6 text-muted') %>
-          <span>System</span>
-        </span>
-        <span class="ml-auto" data-check>
-          <%= inline_svg_tag('icons/check.svg', class: 'h-6 w-6 text-accent hidden') %>
-        </span>
-      </button>
-    </div>
+    <%= render 'shared/option_list', controller: 'theme', options: [
+      { value: 'light', label: 'Light', icon: 'icons/sun.svg', action: 'click->theme#selectLight' },
+      { value: 'dark', label: 'Dark', icon: 'icons/moon.svg', action: 'click->theme#selectDark' },
+      { value: 'system', label: 'System', icon: 'icons/sun-moon.svg', action: 'click->theme#selectSystem' }
+    ] %>
   <% end %>
 </div>
