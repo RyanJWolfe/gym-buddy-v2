@@ -14,7 +14,10 @@
               data-theme-target="option"
               data-value="light"
               aria-pressed="false">
-        <span>Light</span>
+        <span class="flex items-center gap-x-3">
+          <%= inline_svg_tag('icons/sun.svg', class: 'h-6 w-6 text-muted') %>
+          <span>Light</span>
+        </span>
         <span class="ml-auto" data-check>
           <%= inline_svg_tag('icons/check.svg', class: 'h-6 w-6 text-accent hidden') %>
         </span>
@@ -25,7 +28,10 @@
               data-theme-target="option"
               data-value="dark"
               aria-pressed="false">
-        <span>Dark</span>
+        <span class="flex items-center gap-x-3">
+          <%= inline_svg_tag('icons/moon.svg', class: 'h-6 w-6 text-muted') %>
+          <span>Dark</span>
+        </span>
         <span class="ml-auto" data-check>
           <%= inline_svg_tag('icons/check.svg', class: 'h-6 w-6 text-accent hidden') %>
         </span>
@@ -36,7 +42,10 @@
               data-theme-target="option"
               data-value="system"
               aria-pressed="false">
-        <span>System</span>
+        <span class="flex items-center gap-x-3">
+          <%= inline_svg_tag('icons/sun-moon.svg', class: 'h-6 w-6 text-muted') %>
+          <span>System</span>
+        </span>
         <span class="ml-auto" data-check>
           <%= inline_svg_tag('icons/check.svg', class: 'h-6 w-6 text-accent hidden') %>
         </span>
