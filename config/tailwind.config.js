@@ -27,6 +27,7 @@ module.exports = {
       colors: {
         body: 'rgb(var(--color-body))',
         'bottom-nav': 'rgb(var(--color-bottom-nav))',
+        'top-nav': 'rgb(var(--color-top-nav))',
         primary: {
           DEFAULT: 'rgb(var(--color-primary))',
           hover: 'rgb(var(--color-primary-hover))',

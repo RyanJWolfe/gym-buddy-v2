@@ -30,6 +30,7 @@
        */
 
     --color-body: 245 245 245; /* #f5f5f5 */
+    --color-top-nav: 255 255 255; /* #ffffff */
     --color-bottom-nav: 249 251 252; /* #f9fbfc */
 
     --color-primary: 79 70 229; /* #4f46e5 */
@@ -61,6 +62,7 @@
 
   .theme-dark {
     --color-body: 13 13 13; /* #0d0d0d */
+    --color-top-nav: 19 19 19; /* #131313 */
     --color-bottom-nav: 20 20 20; /* #141414 */
 
     /* Keep primary hue but slightly brighter for contrast on dark backgrounds */
