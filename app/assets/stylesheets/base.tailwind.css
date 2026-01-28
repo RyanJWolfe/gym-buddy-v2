@@ -30,6 +30,7 @@
        */
 
     --color-body: 245 245 245; /* #f5f5f5 */
+    --color-bottom-nav: 249 251 252; /* #f9fbfc */
 
     --color-primary: 79 70 229; /* #4f46e5 */
     --color-primary-hover: 67 56 202; /* #4338ca */
@@ -57,11 +58,8 @@
   }
 
   .theme-dark {
-    /* Dark theme overrides. I inferred a reasonable dark palette for initial use.
-       If you have a preferred dark palette, tell me and I'll adjust these values.
-    */
-
-    --color-body: 17 24 39; /* #111827 (slate-900) */
+    --color-body: 13 13 13; /* #0d0d0d */
+    --color-bottom-nav: 20 20 20; /* #141414 */
 
     /* Keep primary hue but slightly brighter for contrast on dark backgrounds */
     --color-primary: 99 102 241; /* #6366f1 */
@@ -72,11 +70,11 @@
     --color-primary-ring: 99 102 241; /* #6366f1 */
     --color-primary-outline: 30 41 59; /* #1e293b */
 
-    --color-muted: 160 174 192; /* slightly muted for dark backgrounds */
-    --color-muted-hover: 156 163 175; /* #9ca3af */
-    --color-muted-focus: 148 163 184; /* softer focus */
-    --color-muted-light: 107 114 128; /* #6b7280 */
-    --color-muted-light-hover: 163 163 163;
+    --color-muted: 166 171 175; /* #a6abaf */
+    --color-muted-hover: 107 114 128; /* #6b7280 */
+    --color-muted-focus: 156 163 175; /* #9ca3af */
+    --color-muted-light: 115 115 115; /* #737373 */
+    --color-muted-light-hover: 82 82 82; /* #525252 */
 
     --color-surface: 8 11 18; /* very dark surface */
     --color-surface-secondary: 15 23 42; /* #0f172a */
