@@ -36,6 +36,7 @@ module.exports = {
           'light-hover': 'rgb(var(--color-primary-light-hover))',
           ring: 'rgb(var(--color-primary-ring))',
           outline: 'rgb(var(--color-primary-outline))',
+          text: 'rgb(var(--color-primary-text))',
         },
         muted: {
           DEFAULT: 'rgb(var(--color-muted))',
