@@ -45,7 +45,7 @@
   <%# for displaying exercise selector %>
   <%= turbo_frame_tag "modal" %>
 
-  <div class="fixed bottom-0 left-0 w-full bg-white border-t border-gray-200 shadow-lg flex justify-between md:justify-end md:gap-x-5 items-center px-4 py-3 md:pr-32 z-40">
+  <div class="fixed bottom-0 left-0 w-full bg-bottom-nav shadow-top flex justify-between md:justify-end md:gap-x-5 items-center px-4 py-3 md:pr-32 z-40">
     <%= link_to "Cancel", new_workout_path, class: "link link-primary w-full md:w-fit text-center" %>
     <%= f.submit @routine.persisted? ? "Update" : "Save", class: "btn btn-primary w-full md:px-6 md:w-fit", data: { nested_exercise_select_form_target: "submitButton" }, disabled: true %>
   </div>

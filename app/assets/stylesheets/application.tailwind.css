@@ -84,7 +84,7 @@
   }
 
   .link-primary {
-    @apply link text-primary hover:text-primary-hover focus:text-primary-focus;
+    @apply link text-primary-text hover:text-primary-hover focus:text-primary-focus;
   }
 
   .pill {
