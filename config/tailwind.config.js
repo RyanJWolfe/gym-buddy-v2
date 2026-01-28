@@ -8,6 +8,7 @@ module.exports = {
     './app/views/**/*.{erb,haml,html,slim}',
     './app/components/**/*.{erb,html,rb}'
   ],
+  darkMode: 'selector',
   theme: {
     extend: {
       fontFamily: {
