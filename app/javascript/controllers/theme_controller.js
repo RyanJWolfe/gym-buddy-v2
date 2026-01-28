@@ -1,19 +1,32 @@
 import {Controller} from "@hotwired/stimulus"
 
 export default class extends Controller {
+  static targets = ["text"]
+
+  connect() {
+    this.textTarget.textContent = this.currentTheme().charAt(0).toUpperCase() + this.currentTheme().slice(1)
+  }
+
+  currentTheme() {
+    return localStorage.theme || 'system'
+  }
+
   selectLight() {
     localStorage.theme = 'light'
     this.toggleTheme()
+    this.textTarget.textContent = 'Light'
   }
 
   selectDark() {
     localStorage.theme = 'dark'
     this.toggleTheme()
+    this.textTarget.textContent = 'Dark'
   }
 
   selectSystem() {
     localStorage.removeItem('theme')
     this.toggleTheme()
+    this.textTarget.textContent = 'System'
   }
 
   toggleTheme() {
