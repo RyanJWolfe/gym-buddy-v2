@@ -86,11 +86,11 @@
     --color-primary-ring: 99 102 241; /* #6366f1 */
     --color-primary-outline: 199 210 254; /* #c7d2fe */
 
-    --color-muted: 166 171 175; /* #a6abaf */
-    --color-muted-hover: 107 114 128; /* #6b7280 */
-    --color-muted-focus: 156 163 175; /* #9ca3af */
-    --color-muted-light: 160 160 160; /* #A0A0A0 */
-    --color-muted-light-hover: 82 82 82; /* #525252 */
+    --color-muted: 163 163 163;        /* #a3a3a3 */
+    --color-muted-hover: 212 212 212;  /* #d4d4d4 */
+    --color-muted-focus: 200 200 200;  /* #c8c8c8 */
+    --color-muted-light: 160 160 160;  /* #a0a0a0 */
+    --color-muted-light-hover: 230 230 230; /* #e6e6e6 */
 
     --color-surface: 8 11 18; /* very dark surface */
     --color-surface-secondary: 15 23 42; /* #0f172a */
