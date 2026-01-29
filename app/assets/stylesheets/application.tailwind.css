@@ -14,7 +14,7 @@
   }
 
   .form-input {
-    @apply w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 p-2;
+    @apply w-full rounded-lg placeholder:text-muted-light bg-surface shadow-sm focus:border-primary-focus focus:ring-1 focus:ring-primary-focus focus:ring-opacity-50 p-2;
   }
 
   .form-input-borderless {
@@ -84,7 +84,7 @@
   }
 
   .link {
-    @apply transition duration-150 ease-in-out hover:underline focus:underline;
+    @apply transition duration-75 ease-in-out hover:underline focus:underline;
   }
 
   .link-muted {
@@ -92,7 +92,7 @@
   }
 
   .link-primary {
-    @apply link text-primary-text hover:text-primary-hover focus:text-primary-focus;
+    @apply link text-primary-text hover:text-primary-text-hover focus:text-primary-text-hover;
   }
 
   .pill {
