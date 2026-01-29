@@ -74,7 +74,7 @@ export default class extends Controller {
 
       // if there are any active filters, display the clear filters button
       if (this.hasClearFiltersButtonTarget) {
-        const anyActiveFilters = this.filterTargets.some(t => t.classList.contains("text-primary-text"));
+        const anyActiveFilters = this.filterTargets.some(t => t.classList.contains("text-primary-text") && t.dataset.searchValue !== "");
 
         if (anyActiveFilters) {
           this.showClearFiltersButton()
