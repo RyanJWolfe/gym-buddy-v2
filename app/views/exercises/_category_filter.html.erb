@@ -14,27 +14,29 @@
 
 <%= render "shared/bottom_sheet", trigger: :all_muscles_trigger, title: "Muscles" do %>
   <div>
-    <button type="button"
-            class="w-full text-left px-4 py-3 hover:bg-body flex items-center gap-x-3 bg-blue-100 ring-2"
-            data-action="click->search#onInput click->bottom-sheet#close"
-            data-search-target="filter"
-            data-search-label="category"
-            data-search-name="All Muscles"
-            data-search-value="">
-      <span>All Muscles</span>
-    </button>
+    <%= render "shared/bottom_sheet_item", options: {
+      label: "All Muscles",
+      action: "click->search#onInput click->bottom-sheet#close",
+      classes: "text-primary-text",
+      data_attributes: {
+        search_target: "filter",
+        search_label: "category",
+        search_name: "All Muscles",
+        search_value: ""
+      }
+    } %>
 
     <% @categories.each do |c| %>
-      <button type="button"
-              class="w-full text-left px-4 py-3 hover:bg-body flex items-center gap-x-3"
-              data-action="click->search#onInput click->bottom-sheet#close"
-              data-search-target="filter"
-              data-search-label="category"
-              data-search-name="<%= c.name.titleize %>"
-              data-search-value="<%= c.name %>">
-        <%#= inline_svg_tag c.icon_path, class: "w-5 h-5" %>
-        <span><%= c.name.titleize %></span>
-      </button>
+      <%= render "shared/bottom_sheet_item", options: {
+        label: c.name.titleize,
+        action: "click->search#onInput click->bottom-sheet#close",
+        data_attributes: {
+          search_target: "filter",
+          search_label: "category",
+          search_name: c.name.titleize,
+          search_value: c.name
+        }
+      } %>
     <% end %>
   </div>
 <% end %>

@@ -15,27 +15,29 @@
 <%= render "shared/bottom_sheet", trigger: :all_equipment_trigger, title: "Equipment" do %>
   <div>
     <%# Add an explicit All Equipment option that clears the equipment_type (no filter) %>
-    <button type="button"
-            class="w-full text-left px-4 py-3 hover:bg-body flex items-center gap-x-3 bg-blue-100 ring-2"
-            data-action="click->search#onInput click->bottom-sheet#close"
-            data-search-target="filter"
-            data-search-label="equipment_type"
-            data-search-name="All Equipment"
-            data-search-value="">
-      <span>All Equipment</span>
-    </button>
+    <%= render "shared/bottom_sheet_item", options: {
+      label: "All Equipment",
+      action: "click->search#onInput click->bottom-sheet#close",
+      classes: "text-primary-text",
+      data_attributes: {
+        search_target: "filter",
+        search_label: "equipment_type",
+        search_name: "All Equipment",
+        search_value: ""
+      }
+    } %>
 
     <% Exercise.equipment_types.each do |name, value| %>
-      <button type="button"
-              class="w-full text-left px-4 py-3 hover:bg-body flex items-center gap-x-3"
-              data-action="click->search#onInput click->bottom-sheet#close"
-              data-search-target="filter"
-              data-search-label="equipment_type"
-              data-search-name="<%= name.titleize %>"
-              data-search-value="<%= value %>">
-        <%#= inline_svg_tag c.icon_path, class: "w-5 h-5" %>
-        <span><%= name.titleize %></span>
-      </button>
+      <%= render "shared/bottom_sheet_item", options: {
+        label: name.titleize,
+        action: "click->search#onInput click->bottom-sheet#close",
+        data_attributes: {
+          search_target: "filter",
+          search_label: "equipment_type",
+          search_name: name.titleize,
+          search_value: value
+        }
+      } %>
     <% end %>
   </div>
 <% end %>

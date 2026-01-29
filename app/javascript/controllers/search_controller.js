@@ -54,9 +54,9 @@ export default class extends Controller {
     try {
       this.filterTargets
           .filter(t => t.dataset.searchLabel === fieldName)
-          .forEach(t => t.classList.remove("bg-blue-100", "ring-2"));
+          .forEach(t => t.classList.remove("text-primary-text"));
 
-      eventTarget.classList.add("bg-blue-100", "ring-2");
+      eventTarget.classList.add("text-primary-text");
       if (fieldName === undefined) return;
 
       const selector = `[data-search-filter-label="${fieldName}"]`
@@ -74,7 +74,7 @@ export default class extends Controller {
 
       // if there are any active filters, display the clear filters button
       if (this.hasClearFiltersButtonTarget) {
-        const anyActiveFilters = this.filterTargets.some(t => t.classList.contains("bg-blue-100"));
+        const anyActiveFilters = this.filterTargets.some(t => t.classList.contains("text-primary-text"));
 
         if (anyActiveFilters) {
           this.showClearFiltersButton()
@@ -131,7 +131,7 @@ export default class extends Controller {
 
   clearFilters() {
     this.filterTargets.forEach(t => {
-      t.classList.remove("bg-blue-100", "ring-2");
+      t.classList.remove("text-primary-text");
       const fieldName = t.dataset.searchLabel;
       const selector = `[data-search-filter-label="${fieldName}"]`
       const labelElement = document.querySelector(selector);
