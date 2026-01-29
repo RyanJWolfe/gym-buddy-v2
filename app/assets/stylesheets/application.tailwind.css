@@ -13,8 +13,12 @@
     @apply block text-sm font-medium text-gray-700 mb-1;
   }
 
+  .primary-focus {
+    @apply focus:outline-none focus:ring-2 focus:ring-primary-ring focus:border-primary;
+  }
+
   .form-input {
-    @apply w-full rounded-lg placeholder:text-muted-light bg-surface shadow-sm focus:border-primary-focus focus:ring-1 focus:ring-primary-focus focus:ring-opacity-50 p-2;
+    @apply w-full rounded-lg placeholder:text-muted-light bg-surface shadow-sm p-2 primary-focus;
   }
 
   .form-input-borderless {
@@ -44,7 +48,7 @@
   }
 
   .btn {
-    @apply inline-block px-4 py-2.5 rounded-lg cursor-pointer font-medium text-sm text-center;
+    @apply inline-block px-4 py-2.5 rounded-lg cursor-pointer font-medium text-sm text-center primary-focus;
   }
 
   .btn-icon {
@@ -68,7 +72,7 @@
   }
 
   .btn-tertiary {
-    @apply bg-gray-200 hover:bg-gray-300 text-black dark:bg-neutral-800 dark:text-neutral-200 dark:hover:bg-neutral-700;
+    @apply bg-surface-secondary hover:bg-surface-secondary-hover;
   }
 
   .btn-danger {
@@ -84,7 +88,7 @@
   }
 
   .link {
-    @apply transition duration-75 ease-in-out hover:underline focus:underline;
+    @apply transition duration-75 ease-in-out hover:underline focus:underline primary-focus;
   }
 
   .link-muted {
