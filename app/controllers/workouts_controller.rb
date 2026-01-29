@@ -27,7 +27,7 @@ class WorkoutsController < ApplicationController
     @workout.date = Date.current
 
     if @workout.save
-      render :edit, notice: "Workout created successfully!"
+      redirect_to edit_workout_path(@workout)
     else
       render :new, status: :unprocessable_entity
     end
