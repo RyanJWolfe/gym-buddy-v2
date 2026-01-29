@@ -14,22 +14,26 @@
     <%= render "shared/bottom_sheet", title: routine.name, trigger: trigger, fetch_url: share_text_routine_path(routine) do %>
       <div class="space-y-2">
         <div>
-          <button type="button"
-                  data-action="click->bottom-sheet#close click->share-routine#shareRoutine"
-                  class="w-full flex items-center gap-x-3 p-3 rounded-lg hover:bg-body">
-            <%= inline_svg_tag "icons/share.svg", class: "h-6 w-6 text-muted" %>
-            <span>Share Routine</span>
-          </button>
+          <%= render "shared/bottom_sheet_item", options: {
+            label: "Share Routine",
+            icon: "icons/share.svg",
+            action: "click->share-routine#shareRoutine click->bottom-sheet#close"
+          } %>
           <%= turbo_frame_tag dom_id(routine, :share_text), class: "hidden", data: { share_routine_target: "shareText" } %>
         </div>
-        <%= link_to new_duplicate_routine_path(routine), class: "flex items-center gap-x-3 p-3 rounded-lg hover:bg-body" do %>
-          <%= inline_svg_tag "icons/copy.svg", class: "h-6 w-6 text-muted" %>
-          <span>Duplicate Routine</span>
-        <% end %>
-        <%= link_to edit_routine_path(routine), class: "flex items-center gap-x-3 p-3 rounded-lg hover:bg-body" do %>
-          <%= inline_svg_tag "icons/edit.svg", class: "h-6 w-6 text-muted" %>
-          <span>Edit Routine</span>
-        <% end %>
+
+        <%= render "shared/bottom_sheet_item", options: {
+          label: "Duplicate Routine",
+          icon: "icons/copy.svg",
+          path: new_duplicate_routine_path(routine)
+        } %>
+
+        <%= render "shared/bottom_sheet_item", options: {
+          label: "Edit Routine",
+          icon: "icons/edit.svg",
+          path: edit_routine_path(routine)
+        } %>
+
         <%= render "delete_routine_dialog", routine: %>
       </div>
     <% end %>

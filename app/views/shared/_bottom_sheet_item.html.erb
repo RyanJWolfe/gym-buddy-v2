@@ -1,0 +1,15 @@
+<%# locals: options: [] - each option: { label:, icon:, action:, classes: path: (optional) } -%>
+
+<% if options[:path].present? %>
+  <%= link_to options[:path], class: "flex items-center gap-x-3 p-3 rounded-lg hover:bg-body #{options[:classes]}" do %>
+    <%= inline_svg_tag options[:icon], class: "h-6 w-6 text-muted #{options[:icon_classes]}" %>
+    <span><%= options[:label] %></span>
+  <% end %>
+<% else %>
+  <%= button_tag type: :button,
+                 data: { action: "#{options[:action].presence || "click->bottom-sheet#close"}" },
+                 class: "w-full text-left p-3 hover:bg-body flex items-center gap-x-3 #{options[:classes]}" do %>
+    <%= inline_svg_tag options[:icon], class: "h-6 w-6 text-muted #{options[:icon_classes]}" %>
+    <span><%= options[:label] %></span>
+  <% end %>
+<% end %>
