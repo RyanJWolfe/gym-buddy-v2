@@ -11,10 +11,10 @@
 
   <!-- Bottom Sheet / Modal -->
   <div data-bottom-sheet-target="sheet" class="hidden fixed inset-0 z-[100] flex items-end lg:items-center lg:justify-center" data-action="click->bottom-sheet#handleClick">
-    <div data-bottom-sheet-target="overlay" class="absolute inset-0 bg-gray-900 bg-opacity-0 transition-opacity"></div>
-    <div data-bottom-sheet-target="content" class="relative bg-body rounded-t-lg lg:rounded-lg shadow-lg px-4 pt-4 pb-12 lg:pb-4 w-full lg:min-w-96 max-h-[80vh] lg:max-h-[70vh] lg:max-w-md transition-transform transform translate-y-full lg:translate-y-0 lg:scale-95 lg:duration-150 flex flex-col">
+    <div data-bottom-sheet-target="overlay" class="absolute inset-0 bg-neutral-950 bg-opacity-0 transition-opacity"></div>
+    <div data-bottom-sheet-target="content" class="relative bg-bottom-nav rounded-t-lg lg:rounded-lg shadow-lg px-4 pt-4 pb-12 lg:pb-4 w-full lg:min-w-96 max-h-[80vh] lg:max-h-[70vh] lg:max-w-md transition-transform transform translate-y-full lg:translate-y-0 lg:scale-95 lg:duration-150 flex flex-col">
       <div class="flex justify-center mb-4 lg:hidden">
-        <div class="w-10 h-1 bg-gray-300 rounded-full"></div>
+        <div class="w-10 h-1 bg-gray-300 dark:bg-neutral-600 rounded-full"></div>
       </div>
       <% if title %>
         <div class="flex items-center justify-center mb-1">
@@ -23,7 +23,7 @@
       <% else %>
         <div class="hidden lg:block mb-1">&nbsp;</div>
       <% end %>
-      <hr class="my-2 -mx-4">
+      <hr class="my-2 -mx-4 border-gray-200 dark:border-neutral-700" />
       <div class="hidden lg:absolute lg:top-4 lg:right-4 lg:block">
         <button type="button" data-action="click->bottom-sheet#close" class="p-1 hover:bg-gray-200 rounded-lg -mr-2 -mt-2">
           <%= inline_svg_tag "icons/x.svg", class: "h-6 w-6" %>
