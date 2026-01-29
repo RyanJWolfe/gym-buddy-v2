@@ -8,7 +8,7 @@
     <h3 class="font-extramedium text-lg mb-4">Delete Routine</h3>
     <p class="mb-4">Are you sure you want to delete this routine?</p>
     <div class="flex items-center justify-end gap-x-2">
-      <button type="button" class="btn btn-tertiary" data-action="dialog#close" autofocus>Cancel</button>
+      <button type="button" class="btn btn-tertiary" data-action="dialog#close">Cancel</button>
       <%= button_to "Delete", routine_path(routine), method: :delete, class: "btn btn-danger" %>
     </div>
   </dialog>
