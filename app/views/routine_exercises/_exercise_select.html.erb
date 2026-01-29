@@ -8,7 +8,7 @@
      class="relative overflow-y-auto h-full min-h-screen bg-body">
   <%= render 'routine_exercises/exercise_select_header' %>
 
-  <div id="exercise-select-list" class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4 max-w-2xl lg:max-w-3xl mx-auto">
+  <div id="exercise-select-list" class="flex flex-col gap-y-1 pt-4 px-4 max-w-2xl lg:max-w-3xl mx-auto">
     <%= render 'exercise_select_list', exercises: %>
   </div>
 

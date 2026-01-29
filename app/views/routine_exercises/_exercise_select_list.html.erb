@@ -5,8 +5,8 @@
        data-exercise-id="<%= exercise.id %>"
        data-exercise-name="<%= exercise.name %>"
        data-exercise-selector-target="item"
-       class="border-b border-surface-border p-4 hover:shadow-lg transition-shadow duration-200 cursor-pointer">
-    <div class="flex items-center justify-between gap-x-4">
+       class="py-2 hover:shadow-lg transition-[padding] duration-200 cursor-pointer">
+    <div class="flex items-center justify-between gap-x-4 relative">
       <div class="flex items-center w-full">
         <div id="exercise-<%= exercise.id %>-image" class="h-12 w-12 bg-surface-secondary rounded-md flex items-center justify-center mr-4 overflow-hidden">
           <% if false %>
@@ -15,16 +15,18 @@
             <%= inline_svg_tag "icons/triangle.svg", class: "h-6 w-6 text-muted" %>
           <% end %>
         </div>
-        <div>
+        <div class="pr-8">
           <h3 class="text-lg font-semibold mb-1"><%= exercise.name %></h3>
           <p class="text-sm text-muted"><%= exercise.primary_category.name.titleize %></p>
         </div>
       </div>
-      <button type="button">
+      <button type="button" class="absolute top-2 right-2">
         <%= inline_svg_tag "icons/info.svg", class: "h-6 w-6" %>
       </button>
     </div>
   </div>
+
+  <hr class="border-t border-surface-secondary my-1" />
 <% end %>
 
 <% if exercises.empty? %>

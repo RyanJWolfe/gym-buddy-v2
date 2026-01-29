@@ -34,15 +34,15 @@ export default class extends Controller {
 
     if (this.selected.has(id)) {
       this.selected.delete(id)
-      el.classList.remove("bg-blue-100", "ring-2")
+      el.classList.remove("border-l-4", "border-primary", "pl-4")
     } else {
       if (this.replaceMode()) {
         // Clear previous selection
-        this.itemTargets.forEach(t => t.classList.remove("bg-blue-100", "ring-2"))
+        this.itemTargets.forEach(t => t.classList.remove("border-l-4", "border-primary", "pl-4"))
         this.selected.clear()
       }
       this.selected.set(id, name)
-      el.classList.add("bg-blue-100", "ring-2")
+      el.classList.add("border-l-4", "border-primary", "pl-4")
     }
 
     this.updateAddButton()
@@ -105,7 +105,7 @@ export default class extends Controller {
 
   clearSelection() {
     this.selected.clear()
-    this.itemTargets.forEach(t => t.classList.remove("bg-blue-100", "ring-2"))
+    this.itemTargets.forEach(t => t.classList.remove("border-l-4", "border-primary", "pl-4"))
     this.updateAddButton()
   }
 }
