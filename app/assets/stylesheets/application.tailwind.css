@@ -88,7 +88,7 @@
   }
 
   .link {
-    @apply transition duration-75 ease-in-out hover:underline focus:underline primary-focus;
+    @apply transition duration-75 ease-in-out hover:underline focus:underline focus:outline-none;
   }
 
   .link-muted {
