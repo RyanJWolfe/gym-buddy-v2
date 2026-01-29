@@ -1,6 +1,6 @@
 <%# locals: ( icon:, label:, value: "", data_attributes: {} ) -%>
 
-<div data-action="click->bottom-sheet#open" class="flex items-center gap-x-3 cursor-pointer hover:bg-neutral-300 p-2 rounded-lg">
+<div data-action="click->bottom-sheet#open" class="flex items-center gap-x-3 cursor-pointer hover:bg-neutral-300 dark:hover:bg-neutral-900 p-2 rounded-lg">
   <%= inline_svg(icon, class: "h-6 w-6 text-muted") %>
   <span class=""><%= label %></span>
   <div class="flex items-center gap-x-2 ml-auto text-muted">
