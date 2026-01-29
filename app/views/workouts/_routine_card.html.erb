@@ -6,7 +6,7 @@
 
     <% trigger = "routine_card_bottom_sheet_#{routine.id}".to_sym %>
     <% content_for trigger do %>
-      <button type="button" data-action="click->bottom-sheet#open" class="p-1 hover:bg-gray-200 rounded-lg">
+      <button type="button" data-action="click->bottom-sheet#open" class="p-1 hover:bg-surface-secondary-hover rounded-lg">
         <%= inline_svg_tag "icons/more-horizontal.svg", class: "h-5 w-5" %>
       </button>
     <% end %>

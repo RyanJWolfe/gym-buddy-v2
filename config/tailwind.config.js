@@ -47,9 +47,10 @@ module.exports = {
         },
         surface: {
           DEFAULT: 'rgb(var(--color-surface))',
+          hover: 'rgb(var(--color-surface-hover))',
           secondary: 'rgb(var(--color-surface-secondary))',
           'secondary-hover': 'rgb(var(--color-surface-secondary-hover))',
-          border: 'rgb(var(--color-surface-border))',
+          border: 'rgb(var(--color-surface-border))'
         },
         accent: {
           DEFAULT: 'rgb(var(--color-accent))',

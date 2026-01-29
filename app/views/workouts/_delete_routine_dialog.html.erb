@@ -1,8 +1,8 @@
 <%# locals: (routine:) %>
 
 <div data-controller="dialog" data-action="click->dialog#backdropClose">
-  <dialog data-dialog-target="dialog" class="p-4 rounded-lg">
-    <button type="button" class="absolute top-4 right-4 p-1 hover:bg-gray-200 rounded-lg" data-action="click->dialog#close">
+  <dialog data-dialog-target="dialog" class="p-4 rounded-lg bg-surface dark:text-white">
+    <button type="button" class="absolute top-4 right-4 p-1 hover:bg-surface-hover rounded-lg" data-action="click->dialog#close">
       <%= inline_svg_tag "icons/x.svg", class: "h-6 w-6" %>
     </button>
     <h3 class="font-extramedium text-lg mb-4">Delete Routine</h3>
