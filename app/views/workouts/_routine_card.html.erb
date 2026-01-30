@@ -1,51 +1,23 @@
 <%# locals: (routine:) %>
 
-<div id="<%= dom_id(routine) %>" data-controller="share-routine" class="bg-surface-secondary rounded-lg shadow p-4 hover:shadow-md transition">
+<div id="<%= dom_id(routine) %>"
+     data-controller="card-link share-routine"
+     class="bg-surface-secondary rounded-lg shadow p-4 hover:shadow-md hover:cursor-pointer transition"
+     data-action="click->card-link#navigate"
+>
   <div class="flex items-center justify-between">
     <h3 class="font-semibold"><%= routine.name %></h3>
 
-    <% trigger = "routine_card_bottom_sheet_#{routine.id}".to_sym %>
-    <% content_for trigger do %>
-      <button type="button" data-action="click->bottom-sheet#open" class="p-1 hover:bg-surface-secondary-hover rounded-lg">
-        <%= inline_svg_tag "icons/more-horizontal.svg", class: "h-5 w-5" %>
-      </button>
-    <% end %>
-
-    <%= render "shared/bottom_sheet", title: routine.name, trigger: trigger, fetch_url: share_text_routine_path(routine) do %>
-      <div class="space-y-2">
-        <div>
-          <%= render "shared/bottom_sheet_item", options: {
-            label: "Share Routine",
-            icon: "icons/share.svg",
-            action: "click->share-routine#shareRoutine click->bottom-sheet#close"
-          } %>
-          <%= turbo_frame_tag dom_id(routine, :share_text), class: "hidden", data: { share_routine_target: "shareText" } %>
-        </div>
-
-        <%= render "shared/bottom_sheet_item", options: {
-          label: "Duplicate Routine",
-          icon: "icons/copy.svg",
-          path: new_duplicate_routine_path(routine)
-        } %>
-
-        <%= render "shared/bottom_sheet_item", options: {
-          label: "Edit Routine",
-          icon: "icons/edit.svg",
-          path: edit_routine_path(routine)
-        } %>
-
-        <%= render "delete_routine_dialog", routine: %>
-      </div>
-    <% end %>
+    <%= render "routine_card_menu", routine: %>
   </div>
   <div class="text-muted text-xs text-ellipsis line-clamp-2">
     <%= routine.exercises.map(&:name).join(", ") %>
   </div>
 
 
-  <%= button_to start_workout_routine_path(routine.id), method: :post, data: { turbo: false }, class: "mt-2 btn btn-primary btn-icon w-full" do %>
+  <%= button_to start_workout_routine_path(routine.id), method: :post, data: { turbo: false, card_link_target: "button" }, class: "mt-2 btn btn-primary btn-icon w-full child" do %>
     <span>Start Routine</span>
   <% end %>
 
-
+  <%= link_to "Show Routine", routine_path(routine), data: { card_link_target: "link" }, class: "hidden" %>
 </div>

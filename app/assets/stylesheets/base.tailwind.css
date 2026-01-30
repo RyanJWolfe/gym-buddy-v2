@@ -25,6 +25,10 @@
     @apply border-gray-200 dark:border-neutral-700
   }
 
+  .parent:hover:not(:has(*:hover)) {
+    background: red;
+  }
+
 
   :root {
     /* Light (default) theme color variables.

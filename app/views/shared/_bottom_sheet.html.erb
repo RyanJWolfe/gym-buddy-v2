@@ -1,6 +1,6 @@
-<%# locals: ( title: nil, trigger: :trigger, fetch_url: "" ) %>
+<%# locals: ( title: nil, trigger: :trigger, fetch_url: "", data_attributes: {} ) %>
 
-<div data-controller="bottom-sheet" data-bottom-sheet-fetch-url-value="<%= fetch_url %>">
+<%= content_tag :div, data: { controller: "bottom-sheet", bottom_sheet_fetch_url_value: fetch_url, **data_attributes } do %>
   <% if content_for?(trigger) %>
     <%= yield trigger %>
   <% else %>
@@ -23,7 +23,7 @@
       <% else %>
         <div class="hidden lg:block mb-1">&nbsp;</div>
       <% end %>
-      <hr class="my-2 -mx-4 border-gray-200 dark:border-neutral-700" />
+      <hr class="my-2 -mx-4 border-gray-200 dark:border-neutral-700"/>
       <div class="hidden lg:absolute lg:top-4 lg:right-4 lg:block">
         <button type="button" data-action="click->bottom-sheet#close" class="p-1 hover:bg-gray-200 rounded-lg -mr-2 -mt-2">
           <%= inline_svg_tag "icons/x.svg", class: "h-6 w-6" %>
@@ -34,4 +34,4 @@
       </div>
     </div>
   </div>
-</div>
+<% end %>

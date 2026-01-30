@@ -1,6 +1,8 @@
 class RoutinesController < ApplicationController
   before_action :set_routine, only: [ :show, :update, :destroy, :start_workout ]
   before_action :hide_bottom_nav, only: [ :new, :edit, :new_duplicate ]
+  before_action :remember_page, only: [ :show ]
+
   def index
     @routines = current_user.routines.includes(:exercises).order(updated_at: :desc)
   end

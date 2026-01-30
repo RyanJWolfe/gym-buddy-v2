@@ -66,5 +66,12 @@ module.exports = {
     // require('@tailwindcss/forms'),
     // require('@tailwindcss/typography'),
     // require('@tailwindcss/container-queries'),
+    // Variant to apply hover styles when the parent is hovered but none of its descendants are hovered.
+    function({ addVariant }) {
+      // usage: `hover-except-descendant:bg-red-500`
+      addVariant('hover-except-descendant', '&:hover:not(:has(.child:hover))')
+      // variant that also excludes when descendants are focused (keyboard users)
+      addVariant('hover-except-descendant-or-focus', '&:hover:not(:has(*:hover)):not(:has(.child:focus))')
+    }
   ]
 }
