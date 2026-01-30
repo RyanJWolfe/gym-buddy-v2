@@ -1,4 +1,4 @@
-<nav class="bg-top-nav text-white hidden md:block">
+<nav class="bg-top-nav hidden md:block">
   <div class="container mx-auto px-4">
     <div class="flex justify-between items-center py-3">
       <div class="flex items-center space-x-4">
@@ -16,7 +16,7 @@
         <% if user_signed_in? %>
           <%= link_to "#{current_user.email}", profile_path, class: "hover:text-indigo-300" %>
 
-          <%= button_to "Sign Out", destroy_user_session_path, method: :delete, class: "bg-gray-700 px-3 py-1 rounded hover:bg-gray-600" %>
+          <%= button_to "Sign Out", destroy_user_session_path, method: :delete, class: "btn btn-tertiary" %>
         <% else %>
           <%= link_to "Sign In", new_user_session_path, class: "hover:text-indigo-300" %>
           <%= link_to "Sign Up", new_user_registration_path, class: "bg-indigo-700 px-3 py-1 rounded hover:bg-indigo-800" %>
