@@ -5,23 +5,23 @@
         <%= link_to workout.name, workout_path(workout) %>
         <%= render_sequence_number(workout, font_size: "text-sm") %>
       </h3>
-      <span class="text-sm text-gray-500"><%= workout.date.strftime("%b %d, %Y") %></span>
+      <span class="text-sm text-muted"><%= workout.date.strftime("%b %d, %Y") %></span>
     </div>
     <%= render "workouts/workout_card_menu", workout: %>
   </div>
 
   <div class="mt-3 grid grid-cols-3 gap-2 text-center text-sm">
-    <div class="bg-gray-50 p-2 rounded">
+    <div class="bg-surface p-2 rounded-lg">
+      <p class="text-muted text-xs">Exercises</p>
       <p class="font-medium"><%= workout.total_exercises %></p>
-      <p class="text-gray-500 text-xs">Exercises</p>
     </div>
-    <div class="bg-gray-50 p-2 rounded">
+    <div class="bg-surface p-2 rounded-lg">
+      <p class="text-muted text-xs">Sets</p>
       <p class="font-medium"><%= workout.total_sets %></p>
-      <p class="text-gray-500 text-xs">Sets</p>
     </div>
-    <div class="bg-gray-50 p-2 rounded">
+    <div class="bg-surface p-2 rounded-lg">
+      <p class="text-muted text-xs">Duration</p>
       <p class="font-medium"><%= format_duration(workout.duration_minutes) %></p>
-      <p class="text-gray-500 text-xs">Duration</p>
     </div>
   </div>
 </div>

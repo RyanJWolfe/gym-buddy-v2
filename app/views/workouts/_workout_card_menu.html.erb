@@ -1,6 +1,6 @@
-<%# locals: ( workout: ) -%>
+<%# locals: ( workout:, trigger_prefix: "card" ) -%>
 
-<% trigger = "workout_card_bottom_sheet_#{workout.id}".to_sym %>
+<% trigger = "#{trigger_prefix}_workout_card_bottom_sheet_#{workout.id}".to_sym %>
 <% content_for trigger do %>
   <button type="button" data-action="click->bottom-sheet#open" class="p-1 hover:bg-surface-secondary-hover rounded-lg">
     <%= inline_svg_tag "icons/more-horizontal.svg", class: "h-5 w-5" %>
@@ -14,7 +14,7 @@
       icon: "icons/edit.svg",
       path: edit_workout_path(workout)
     } %>
-    <% workout_sheet_trigger = "workout_bottom_sheet_#{workout.id}".to_sym %>
+    <% workout_sheet_trigger = "#{trigger_prefix}_workout_bottom_sheet_#{workout.id}".to_sym %>
     <% content_for workout_sheet_trigger do %>
       <%= render "shared/bottom_sheet_item", options: {
         label: "Delete Workout",
