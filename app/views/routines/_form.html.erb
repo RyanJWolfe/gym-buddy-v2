@@ -46,7 +46,7 @@
   <%= turbo_frame_tag "modal" %>
 
   <div class="fixed bottom-0 left-0 w-full bg-bottom-nav shadow-top flex justify-between md:justify-end md:gap-x-5 items-center px-4 h-16 md:pr-32 z-40">
-    <%= link_to "Cancel", new_workout_path, class: "link link-primary hover:no-underline focus:no-underline w-full md:w-fit text-center" %>
+    <%= link_to "Cancel", path_to_previous_page, class: "link link-primary hover:no-underline focus:no-underline w-full md:w-fit text-center" %>
     <%= f.submit @routine.persisted? ? "Update" : "Save", class: "btn btn-primary w-full md:px-6 md:w-fit", data: { nested_exercise_select_form_target: "submitButton" }, disabled: true %>
   </div>
 <% end %>

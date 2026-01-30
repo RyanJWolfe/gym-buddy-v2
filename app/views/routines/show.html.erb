@@ -3,7 +3,7 @@
 <div class="max-w-4xl mx-auto">
   <div class="flex justify-between items-center mb-6">
     <div class="flex items-center gap-x-1">
-      <%= render "shared/buttons/back_button" %>
+      <%= render "shared/buttons/back_button", path: path_to_previous_page == edit_routine_url(@routine) ? new_workout_path : path_to_previous_page %>
       <h1 class="text-2xl font-extramedium"><%= @routine.name %></h1>
     </div>
     <div class="flex space-x-4">
