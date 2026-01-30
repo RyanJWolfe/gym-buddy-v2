@@ -2,42 +2,45 @@
 
 <div class="max-w-4xl mx-auto">
   <div class="flex justify-between items-center mb-6">
-    <h1 class="text-2xl font-extramedium"><%= @routine.name %></h1>
+    <div class="flex items-center gap-x-1">
+      <%= render "shared/buttons/back_button" %>
+      <h1 class="text-2xl font-extramedium"><%= @routine.name %></h1>
+    </div>
     <div class="flex space-x-4">
-      <%= link_to "Edit", edit_routine_path(@routine), class: "px-4 py-2 border border-gray-300 rounded text-gray-700 bg-white hover:bg-gray-50" %>
-      <%= button_to "Start Workout", root_path, method: :post,
-          class: "px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500" %>
+      <%= link_to "Edit", edit_routine_path(@routine), class: "btn btn-tertiary" %>
+      <%= button_to "Start Workout", root_path, method: :post, class: "btn btn-primary" %>
     </div>
   </div>
 
-  <div class="bg-white rounded-lg shadow p-6 mb-6">
+  <div class="bg-surface-secondary rounded-lg shadow p-6 mb-6">
     <div class="prose max-w-none">
-      <p><%= simple_format @routine.description %></p>
+      <p><%= simple_format @routine.description || "no notes" %></p>
     </div>
   </div>
 
-  <div class="bg-white rounded-lg shadow overflow-hidden">
+  <div class="bg-surface-secondary rounded-lg shadow overflow-hidden">
     <div class="px-6 py-4 border-b border-gray-200">
       <h2 class="text-lg font-semibold">Exercises (<%= @routine_exercises.count %>)</h2>
     </div>
 
     <% if @routine_exercises.any? %>
-      <div class="divide-y divide-gray-200">
+      <div class="divide-y divide-surface-border">
         <% @routine_exercises.each do |routine_exercise| %>
           <div class="px-6 py-4">
             <div class="flex flex-col md:flex-row md:justify-between md:items-center">
               <div class="flex-1">
                 <h3 class="font-medium"><%= routine_exercise.exercise.name %></h3>
-                <div class="text-sm text-gray-500 mt-1">
-                  <%= routine_exercise.exercise.primary_category.name %> • <%= routine_exercise.exercise.equipment_type %>
+                <div class="text-sm text-muted mt-1">
+                  <%= routine_exercise.exercise.primary_category.name %>
+                  • <%= routine_exercise.exercise.equipment_type %>
                 </div>
               </div>
               <div class="flex items-center mt-3 md:mt-0">
-                <span class="px-3 py-1 bg-body rounded-lg text-gray-700 text-sm">
+                <span class="px-3 py-1 bg-body rounded-lg text-muted-light text-sm">
                   <%= pluralize(routine_exercise.suggested_sets, 'set') %> × <%= routine_exercise.suggested_reps %> reps
                 </span>
                 <% if routine_exercise.rest_seconds.present? %>
-                  <span class="ml-3 px-3 py-1 bg-body rounded-lg text-gray-700 text-sm">
+                  <span class="ml-3 px-3 py-1 bg-body rounded-lg text-muted-light text-sm">
                     <%= routine_exercise.rest_seconds %>s rest
                   </span>
                 <% end %>
@@ -53,7 +56,7 @@
         <% end %>
       </div>
     <% else %>
-      <div class="p-6 text-center text-gray-500">
+      <div class="p-6 text-center text-muted">
         No exercises in this routine yet.
         <%= link_to "Edit routine", edit_routine_path(@routine), class: "text-indigo-600" %> to add exercises.
       </div>
