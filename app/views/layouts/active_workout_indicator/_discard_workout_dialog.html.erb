@@ -1,4 +1,4 @@
-<%# locals: ( workout:, font_size: "sm", text: "Discard", turbo: false ) -%>
+<%# locals: ( workout:, font_size: "sm", text: "Discard", turbo: false, trigger_classes: "" ) -%>
 
 <div data-controller="dialog" data-action="click->dialog#backdropClose">
   <dialog data-dialog-target="dialog" class="p-4 rounded-lg bg-surface dark:text-white">
@@ -14,7 +14,7 @@
   </dialog>
   <button type="button"
           data-action="dialog#open"
-          class="rounded-xl text-sm px-3 py-1 flex items-center gap-x-2 hover:bg-body text-danger">
+          class="<%= trigger_classes.presence || "rounded-xl text-sm px-3 py-1 flex items-center gap-x-2 hover:bg-body text-danger" %>">
     <%= inline_svg_tag "icons/x.svg", class: "h-4 w-4" %>
     <span class="text-<%= font_size %>"><%= text %></span>
   </button>

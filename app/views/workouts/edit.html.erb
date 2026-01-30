@@ -1,10 +1,9 @@
 <% content_for :title, "Editing workout" %>
 
 <div class="max-w-2xl mx-auto mb-6">
-  <%# Header with workout name and status %>
   <%= render 'edit_header' %>
 
-  <hr class="my-4 -mx-4 border-gray-300"/>
+  <hr class="my-4 -mx-4"/>
 
   <% if @workout.in_progress? %>
     <%= render 'workouts/autosave_form', workout: @workout %>
@@ -27,13 +26,13 @@
   <% end %>
 
   <% if @workout.in_progress? %>
-    <div class="flex items-center">
-      <div class="w-1/2 flex justify-center">
-        <%= render "layouts/active_workout_indicator/discard_workout_dialog", workout: @workout %>
+    <div class="flex items-center gap-x-2">
+      <div class="flex-1">
+        <%= render "layouts/active_workout_indicator/discard_workout_dialog", workout: @workout, trigger_classes: "btn btn-icon btn-tertiary text-danger w-full" %>
       </div>
-      <div class="w-1/2 flex justify-center">
+      <div class="flex-1">
         <%#= render "workouts/complete_workout_button", workout: @workout %>
-        <%= link_to complete_workout_path(@workout), data: { turbo_stream: true }, class: "link-primary flex items-center gap-x-2" do %>
+        <%= link_to complete_workout_path(@workout), data: { turbo_stream: true }, class: "btn btn-icon btn-tertiary text-primary w-full" do %>
             <%= inline_svg "icons/check.svg", class: "h-4 w-4" %>
             Finish
         <% end %>

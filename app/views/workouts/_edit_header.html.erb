@@ -6,35 +6,14 @@
         <h1 class="text-2xl font-extramedium"><%= @workout.name %> <%= render_sequence_number(@workout) %></h1>
       </div>
       <% if @workout.in_progress? %>
-        <div class="px-2 py-1 bg-indigo-100 text-indigo-700 rounded-lg inline-flex items-center">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
-          </svg>
-          <span class="font-medium">In Progress</span>
+        <div class="flex items-center gap-x-2" data-controller="workout-timer" data-workout-timer-start-value="<%= @workout.start_time.to_i %>">
+          <span class="text-sm text-display text-muted">Duration:</span>
+          <%= render "workouts/workout_timer", workout: @workout %>
         </div>
       <% end %>
     </div>
 
-    <% if @workout.in_progress? %>
-      <div class="flex flex-col sm:flex-row sm:items-center gap-y-1 gap-x-2">
-        <div class="text-gray-600 text-sm flex items-center gap-x-2">
-          <%= inline_svg "icons/calendar.svg", class: "w-4 h-4" %>
-          <%= @workout.date.strftime("%b %d, %Y") %>
-        </div>
-
-        <div class="text-gray-600 text-sm flex items-center gap-x-2">
-          <%= inline_svg "icons/clock.svg", class: "w-4 h-4" %>
-          Started at: <%= format_time(@workout.start_time) %>
-        </div>
-
-        <div class="text-gray-600 text-sm flex items-center gap-x-2" data-controller="workout-timer" data-workout-timer-start-value="<%= @workout.start_time.to_i %>">
-          <%= inline_svg "icons/watch.svg", class: "w-4 h-4" %>
-          <div class="space-x-1">
-            Duration: <span data-workout-timer-target="display">00:00:00</span>
-          </div>
-        </div>
-      </div>
-    <% elsif @workout.completed? && @workout.start_time.present? %>
+    <% if @workout.completed? && @workout.start_time.present? %>
       <div class="flex flex-col sm:flex-row sm:items-center gap-y-1 gap-x-2">
         <div class="text-gray-600 text-sm flex items-center">
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar w-4 h-4 mr-1">
