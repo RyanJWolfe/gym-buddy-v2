@@ -1,7 +1,7 @@
 <% content_for :title, @workout.name %>
 
 <div class="max-w-2xl mx-auto">
-  <div class="bg-white shadow rounded p-6">
+  <div class="bg-surface-secondary shadow rounded p-6">
     <div class="flex items-start justify-between mb-2">
       <div class="flex items-center space-x-1">
         <%= render "shared/buttons/back_button" %>
@@ -14,7 +14,7 @@
       </div>
     </div>
 
-    <div class="text-sm text-gray-600 mb-4 space-y-1">
+    <div class="text-sm text-muted mb-4 space-y-1">
       <p>
         <strong>Start:</strong>
         <%= @workout.start_time ? @workout.start_time.strftime("%b %d, %Y %l:%M %P") : "—" %>
