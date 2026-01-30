@@ -21,6 +21,10 @@
     font-family: 'Montserrat', sans-serif;
   }
 
+  hr {
+    @apply border-gray-200 dark:border-neutral-700
+  }
+
 
   :root {
     /* Light (default) theme color variables.
