@@ -1,13 +1,11 @@
-<div class="">
+<div class="bg-top-nav -mt-6 -mx-4 p-4 shadow sticky top-0">
   <div class="flex flex-col gap-y-2">
     <div class="flex items-center justify-between">
-      <div class="flex items-center">
-        <%= render 'shared/buttons/back_button' %>
-        <h1 class="text-2xl font-extramedium"><%= @workout.name %> <%= render_sequence_number(@workout) %></h1>
-      </div>
+      <%= render 'shared/buttons/back_button' %>
+      <h1 class="text-2xl font-extramedium"><%= @workout.name %> <%= render_sequence_number(@workout) %></h1>
       <% if @workout.in_progress? %>
         <div class="flex items-center gap-x-2" data-controller="workout-timer" data-workout-timer-start-value="<%= @workout.start_time.to_i %>">
-          <span class="text-sm text-display text-muted">Duration:</span>
+          <%= render_inline_svg "icons/timer.svg", class: "w-5 h-5" %>
           <%= render "workouts/workout_timer", workout: @workout %>
         </div>
       <% end %>
