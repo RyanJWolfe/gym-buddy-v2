@@ -1,0 +1,33 @@
+<%# locals: ( workout: ) -%>
+
+<% trigger = "workout_card_bottom_sheet_#{workout.id}".to_sym %>
+<% content_for trigger do %>
+  <button type="button" data-action="click->bottom-sheet#open" class="p-1 hover:bg-surface-secondary-hover rounded-lg">
+    <%= inline_svg_tag "icons/more-horizontal.svg", class: "h-5 w-5" %>
+  </button>
+<% end %>
+
+<%= render "shared/bottom_sheet", title: workout.name, trigger: do %>
+  <div class="space-y-2">
+    <%= render "shared/bottom_sheet_item", options: {
+      label: "Edit Workout",
+      icon: "icons/edit.svg",
+      path: edit_workout_path(workout)
+    } %>
+    <% workout_sheet_trigger = "workout_bottom_sheet_#{workout.id}".to_sym %>
+    <% content_for workout_sheet_trigger do %>
+      <%= render "shared/bottom_sheet_item", options: {
+        label: "Delete Workout",
+        icon: "icons/trash.svg",
+        icon_classes: "text-red-600",
+        action: "click->dialog#open",
+        classes: "text-red-600"
+      } %>
+    <% end %>
+    <%= render "layouts/active_workout_indicator/discard_workout_dialog",
+               workout:,
+               trigger: workout_sheet_trigger,
+               title: "Delete Workout",
+               subtitle: "Are you sure you want to delete this workout?" %>
+  </div>
+<% end %>

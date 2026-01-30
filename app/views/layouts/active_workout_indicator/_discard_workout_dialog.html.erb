@@ -1,21 +1,26 @@
-<%# locals: ( workout:, font_size: "sm", text: "Discard", turbo: false, trigger_classes: "" ) -%>
+<%# locals: ( workout:, font_size: "sm", text: "Discard", turbo: false, trigger_classes: "", trigger: nil, subtitle: nil, title: nil ) -%>
 
 <div data-controller="dialog" data-action="click->dialog#backdropClose">
   <dialog data-dialog-target="dialog" class="p-4 rounded-lg bg-surface dark:text-white">
     <button type="button" class="absolute top-4 right-4 p-1 hover:bg-surface-hover rounded-lg" data-action="click->dialog#close">
       <%= inline_svg_tag "icons/x.svg", class: "h-6 w-6" %>
     </button>
-    <h3 class="font-extramedium text-lg mb-4">Discard Workout</h3>
-    <p class="mb-4">Are you sure you want to discard the workout in progress?</p>
+    <h3 class="font-extramedium text-lg mb-4"><%= title || "Discard Workout" %></h3>
+    <p class="mb-4"><%= subtitle || "Are you sure you want to discard the workout in progress?" %></p>
     <div class="flex items-center justify-end gap-x-2">
       <button type="button" class="btn btn-tertiary" data-action="dialog#close">Cancel</button>
       <%= button_to "Discard", workout_path(workout), method: :delete, data: { turbo: }, class: "btn btn-danger" %>
     </div>
   </dialog>
-  <button type="button"
-          data-action="dialog#open"
-          class="<%= trigger_classes.presence || "rounded-xl text-sm px-3 py-1 flex items-center gap-x-2 hover:bg-body text-danger" %>">
-    <%= inline_svg_tag "icons/x.svg", class: "h-4 w-4" %>
-    <span class="text-<%= font_size %>"><%= text %></span>
-  </button>
+
+  <% if trigger && content_for?(trigger) %>
+    <%= yield trigger %>
+  <% else %>
+    <button type="button"
+            data-action="dialog#open"
+            class="<%= trigger_classes.presence || "rounded-xl text-sm px-3 py-1 flex items-center gap-x-2 hover:bg-body text-danger" %>">
+      <%= inline_svg_tag "icons/x.svg", class: "h-4 w-4" %>
+      <span class="text-<%= font_size %>"><%= text %></span>
+    </button>
+  <% end %>
 </div>
