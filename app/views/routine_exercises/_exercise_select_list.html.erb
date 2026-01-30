@@ -6,7 +6,7 @@
        data-exercise-id="<%= exercise.id %>"
        data-exercise-name="<%= exercise.name %>"
        data-exercise-selector-target="item"
-       class="py-2 hover:opacity-50 transition-[padding] duration-200 cursor-pointer">
+       class="py-2 hover:opacity-50 transition-[padding] duration-200 cursor-pointer flex-grow">
     <div class="flex items-center justify-between gap-x-4 relative">
       <div class="flex items-center w-full">
         <div id="exercise-<%= exercise.id %>-image" class="h-12 w-12 bg-surface-secondary rounded-md flex items-center justify-center mr-4 overflow-hidden">
@@ -24,7 +24,7 @@
     </div>
   </div>
     <a href="https://www.youtube.com/results?search_query=<%= exercise.name %>" type="button" target="_blank">
-      <%= inline_svg_tag "icons/info.svg", class: "h-6 w-6" %>
+      <%= inline_svg_tag "icons/info.svg", class: "h-6 w-6 hover:text-primary" %>
     </a>
   </div>
 
