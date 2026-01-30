@@ -1,0 +1,11 @@
+<%# locals: ( workout: ) -%>
+
+<span
+  data-controller="active-workout-timer"
+  data-active-workout-timer-start-value="<%= workout.started_at.utc.iso8601 %>"
+  data-fallback="<%= workout.started_at ? distance_of_time_in_words(Time.current, workout.started_at) : '--' %>"
+  class="font-mono text-sm text-primary-text"
+  aria-live="polite"
+  data-active-workout-timer-target="timer">
+  <%= workout.started_at ? Time.current.utc.strftime('%M:%S') : '--:--' %>
+</span>
