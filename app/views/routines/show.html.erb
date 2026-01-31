@@ -13,14 +13,14 @@
   </div>
 
   <h2 class="text-lg font-extramedium mb-3">Notes</h2>
-  <div class="bg-surface-secondary rounded-lg shadow p-6 mb-4">
+  <div class="bg-surface-secondary rounded-2xl shadow p-6 mb-4">
     <div class="prose max-w-none">
       <p><%= simple_format @routine.description || "no notes" %></p>
     </div>
   </div>
 
   <h2 class="text-lg font-extramedium mb-3">Exercises (<%= @routine_exercises.count %>)</h2>
-  <div class="bg-surface-secondary rounded-lg shadow overflow-hidden">
+  <div class="bg-surface-secondary rounded-2xl shadow overflow-hidden">
     <% if @routine_exercises.any? %>
       <div class="divide-y divide-surface-border">
         <% @routine_exercises.each do |routine_exercise| %>
