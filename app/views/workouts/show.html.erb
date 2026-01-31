@@ -1,7 +1,7 @@
 <% content_for :title, @workout.name %>
 
 <div class="max-w-2xl mx-auto">
-  <div class="flex items-start justify-between">
+  <div class="flex items-start justify-between mb-4">
     <div class="flex items-center space-x-1">
       <%= render "shared/buttons/back_button" %>
       <div class="flex flex-col">
@@ -25,59 +25,61 @@
     </div>
   </div>
 
-  <div class="text-sm text-muted">
-    <div class="flex items-center justify-evenly">
-      <p class="flex flex-col items-center">
-        <strong>Start Time</strong>
-        <%= @workout.start_time ? @workout.start_time.strftime("%l:%M %P") : "—" %>
-      </p>
+  <div class="flex flex-col gap-y-4">
+    <div class="text-sm">
+      <div class="flex items-center justify-evenly">
+        <p class="flex flex-col items-center gap-y-1">
+          <label class="text-muted font-medium">Start time</label>
+          <%= @workout.start_time ? @workout.start_time.strftime("%l:%M %P") : "—" %>
+        </p>
 
-      <p class="flex flex-col items-center">
-        <strong>Duration</strong>
-        <%= format_duration_seconds(@workout.duration_seconds) %>
-      </p>
+        <p class="flex flex-col items-center gap-y-1">
+          <label class="text-muted font-medium">Duration</label>
+          <%= format_duration_seconds(@workout.duration_seconds) %>
+        </p>
 
-      <p class="flex flex-col items-center"><strong>Exercises</strong> <%= @workout.exercise_logs.size %></p>
-      <p class="flex flex-col items-center"><strong>Sets</strong> <%= @workout.total_sets %></p>
-    </div>
-  </div>
-
-
-  <div>
-    <h2 class="text-xl font-extramedium">Exercises</h2>
-
-    <% if @workout.exercise_logs.any? %>
-      <div class="space-y-4">
-        <% @workout.exercise_logs.each do |log| %>
-          <div class="border rounded p-4">
-            <div class="flex items-center justify-between">
-              <div class="font-semibold"><%= log.exercise&.name || "Unknown Exercise" %></div>
-              <div class="text-sm text-gray-600"><%= pluralize(log.sets.size, "set") %></div>
-            </div>
-
-            <% if log.sets.any? %>
-              <ul class="mt-2 space-y-1">
-                <% log.sets.each do |set| %>
-                  <li class="flex justify-between text-sm">
-                    <span>Set <%= set.set_number %></span>
-                    <span>
-                      <%= set.reps.present? ? "#{set.reps} reps" : "-" %>
-
-                      <% if set.weight.present? %>
-                        &nbsp;•&nbsp;<%= number_with_precision(set.weight, precision: 2) %>
-                      <% end %>
-                    </span>
-                  </li>
-                <% end %>
-              </ul>
-            <% else %>
-              <div class="text-sm text-gray-500 mt-2">No sets recorded</div>
-            <% end %>
-          </div>
-        <% end %>
+        <p class="flex flex-col items-center gap-y-1"><label class="text-muted font-medium">Exercises</label> <%= @workout.exercise_logs.size %></p>
+        <p class="flex flex-col items-center gap-y-1"><label class="text-muted font-medium">Sets</label> <%= @workout.total_sets %></p>
       </div>
-    <% else %>
-      <div class="text-sm text-gray-500">No exercises recorded for this workout.</div>
-    <% end %>
+    </div>
+
+
+    <div>
+      <h2 class="text-lg font-extramedium mb-3">Exercises</h2>
+
+      <% if @workout.exercise_logs.any? %>
+        <div class="space-y-4">
+          <% @workout.exercise_logs.each do |log| %>
+            <div class="border rounded p-4">
+              <div class="flex items-center justify-between">
+                <div class="font-semibold"><%= log.exercise&.name || "Unknown Exercise" %></div>
+                <div class="text-sm text-gray-600"><%= pluralize(log.sets.size, "set") %></div>
+              </div>
+
+              <% if log.sets.any? %>
+                <ul class="mt-2 space-y-1">
+                  <% log.sets.each do |set| %>
+                    <li class="flex justify-between text-sm">
+                      <span>Set <%= set.set_number %></span>
+                      <span>
+                        <%= set.reps.present? ? "#{set.reps} reps" : "-" %>
+
+                        <% if set.weight.present? %>
+                          &nbsp;•&nbsp;<%= number_with_precision(set.weight, precision: 2) %>
+                        <% end %>
+                      </span>
+                    </li>
+                  <% end %>
+                </ul>
+              <% else %>
+                <div class="text-sm text-gray-500 mt-2">No sets recorded</div>
+              <% end %>
+            </div>
+          <% end %>
+        </div>
+      <% else %>
+        <div class="text-sm text-gray-500">No exercises recorded for this workout.</div>
+      <% end %>
+    </div>
   </div>
 </div>
