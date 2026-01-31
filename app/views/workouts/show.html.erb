@@ -1,51 +1,49 @@
 <% content_for :title, @workout.name %>
 
 <div class="max-w-2xl mx-auto">
-    <div class="flex items-start justify-between mb-2">
-      <div class="flex items-center space-x-1">
-        <%= render "shared/buttons/back_button" %>
-        <div class="flex flex-col">
-          <h1 class="text-2xl font-extramedium"><%= @workout.name %></h1>
-          <h2 class="text-sm text-muted"><%= Time.current.strftime("%A, %b %d") %></h2>
-        </div>
+  <div class="flex items-start justify-between">
+    <div class="flex items-center space-x-1">
+      <%= render "shared/buttons/back_button" %>
+      <div class="flex flex-col">
+        <h1 class="text-2xl font-extramedium"><%= @workout.name %></h1>
+        <h2 class="text-sm text-muted"><%= @workout.start_time.strftime("%A, %b %d, %Y") %></h2>
       </div>
-      <div class="flex items-center space-x-2">
-        <%= link_to "Edit", edit_workout_path(@workout), class: "btn btn-primary" %>
-        <% content_for :trigger do %>
-          <button type="button" class="btn btn-tertiary">
+    </div>
+    <div class="flex items-center space-x-2">
+      <%= link_to "Edit", edit_workout_path(@workout), class: "btn btn-primary" %>
+      <% content_for :trigger do %>
+        <button type="button" class="btn btn-tertiary" data-action="dialog#open">
           <%= inline_svg_tag "icons/trash.svg", class: "w-5 h-5 text-danger" %>
-          </button>
-        <% end %>
+        </button>
+      <% end %>
 
-        <%= render "layouts/active_workout_indicator/discard_workout_dialog",
-                   workout: @workout,
-                   trigger: :trigger,
-                   title: "Delete Workout",
-                   subtitle: "Are you sure you want to delete this workout?" %>
-      </div>
+      <%= render "layouts/active_workout_indicator/discard_workout_dialog",
+                 workout: @workout,
+                 trigger: :trigger,
+                 title: "Delete Workout",
+                 subtitle: "Are you sure you want to delete this workout?" %>
     </div>
+  </div>
 
-    <div class="text-sm text-muted mb-4 space-y-1">
-      <p>
-        <strong>Start:</strong>
-        <%= @workout.start_time ? @workout.start_time.strftime("%b %d, %Y %l:%M %P") : "—" %>
+  <div class="text-sm text-muted">
+    <div class="flex items-center justify-evenly">
+      <p class="flex flex-col items-center">
+        <strong>Start Time</strong>
+        <%= @workout.start_time ? @workout.start_time.strftime("%l:%M %P") : "—" %>
       </p>
 
-      <p>
-        <strong>Duration:</strong>
-        <% if @workout.duration_seconds.present? %>
-          <%= (@workout.duration_seconds.to_i / 60) %> min
-        <% elsif @workout.respond_to?(:calculate_duration) && @workout.start_time && @workout.end_time %>
-          <%= @workout.calculate_duration %> min
-        <% else %>
-          —
-        <% end %>
+      <p class="flex flex-col items-center">
+        <strong>Duration</strong>
+        <%= format_duration_seconds(@workout.duration_seconds) %>
       </p>
 
-      <p><strong>Exercises:</strong> <%= @workout.exercise_logs.size %></p>
-      <p><strong>Sets:</strong> <%= @workout.total_sets %></p>
+      <p class="flex flex-col items-center"><strong>Exercises</strong> <%= @workout.exercise_logs.size %></p>
+      <p class="flex flex-col items-center"><strong>Sets</strong> <%= @workout.total_sets %></p>
     </div>
+  </div>
 
+
+  <div>
     <h2 class="text-xl font-extramedium">Exercises</h2>
 
     <% if @workout.exercise_logs.any? %>
@@ -81,4 +79,5 @@
     <% else %>
       <div class="text-sm text-gray-500">No exercises recorded for this workout.</div>
     <% end %>
+  </div>
 </div>

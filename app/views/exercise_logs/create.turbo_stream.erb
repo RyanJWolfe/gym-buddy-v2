@@ -2,4 +2,6 @@
   <%= turbo_stream.append dom_id(@workout, :exercise_logs) do %>
     <%= render partial: "workouts/exercise_log_form", collection: @exercise_logs, as: :exercise_log %>
   <% end %>
+
+  <%= turbo_stream.remove "exercises-empty-state" %>
 <% end %>
