@@ -1,0 +1,7 @@
+<%= turbo_stream.remove @exercise_log %>
+
+<% unless @workout.exercise_logs.any? %>
+  <%= turbo_stream.append dom_id(@workout, :exercise_logs) do %>
+    <%= render partial: "workouts/exercise_empty_state" %>
+  <% end %>
+<% end %>
