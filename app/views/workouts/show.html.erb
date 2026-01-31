@@ -50,10 +50,10 @@
       <% if @workout.exercise_logs.any? %>
         <div class="space-y-4">
           <% @workout.exercise_logs.each do |log| %>
-            <div class="border rounded p-4">
+            <div class="border border-surface-border bg-surface rounded-2xl p-4">
               <div class="flex items-center justify-between">
                 <div class="font-semibold"><%= log.exercise&.name || "Unknown Exercise" %></div>
-                <div class="text-sm text-gray-600"><%= pluralize(log.sets.size, "set") %></div>
+                <div class="text-sm text-muted"><%= pluralize(log.sets.size, "set") %></div>
               </div>
 
               <% if log.sets.any? %>
@@ -65,14 +65,14 @@
                         <%= set.reps.present? ? "#{set.reps} reps" : "-" %>
 
                         <% if set.weight.present? %>
-                          &nbsp;•&nbsp;<%= number_with_precision(set.weight, precision: 2) %>
+                          &nbsp;×&nbsp;<%= number_with_precision(set.weight, precision: 0) %> lbs
                         <% end %>
                       </span>
                     </li>
                   <% end %>
                 </ul>
               <% else %>
-                <div class="text-sm text-gray-500 mt-2">No sets recorded</div>
+                <div class="text-sm text-muted mt-2">No sets recorded</div>
               <% end %>
             </div>
           <% end %>
