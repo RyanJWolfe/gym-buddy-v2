@@ -5,7 +5,7 @@
       <h1 class="text-2xl font-extramedium"><%= @workout.name %> <%= render_sequence_number(@workout) %></h1>
       <% if @workout.in_progress? %>
         <div class="flex items-center gap-x-2" data-controller="workout-timer" data-workout-timer-start-value="<%= @workout.start_time.to_i %>">
-          <%= render_inline_svg "icons/timer.svg", class: "w-5 h-5" %>
+          <%= inline_svg_tag "icons/timer.svg", class: "w-5 h-5" %>
           <%= render "workouts/workout_timer", workout: @workout %>
         </div>
       <% end %>
