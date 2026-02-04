@@ -19,14 +19,6 @@ module ApplicationHelper
     end
   end
 
-  def active_link_class(path)
-    if current_page?(path)
-      "text-primary"
-    else
-      "text-gray-500 hover:text-primary-hover"
-    end
-  end
-
   def format_weight(weight)
     return "-" if weight.nil?
 
