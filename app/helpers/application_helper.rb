@@ -23,7 +23,7 @@ module ApplicationHelper
     if current_page?(path)
       "text-primary"
     else
-      "text-gray-500 hover:text-indigo-600"
+      "text-gray-500 hover:text-primary-hover"
     end
   end
 
