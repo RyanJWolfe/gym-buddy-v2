@@ -6,10 +6,10 @@
         <h1 class="text-2xl font-extramedium">Dashboard</h1>
         <h2 class="text-sm text-muted"><%= Time.current.strftime("%A, %b %d") %></h2>
       </div>
-      <%= link_to new_workout_path, class: "md:hidden btn btn-primary btn-icon rounded-full p-2.5 hover:scale-110 active:scale-95" do %>
+      <%= link_to workout_start_path, class: "md:hidden btn btn-primary btn-icon rounded-full p-2.5 hover:scale-110 active:scale-95" do %>
         <%= inline_svg_tag "icons/plus.svg", class: "h-5 w-5" %>
       <% end %>
-      <%= link_to "New Workout", new_workout_path, class: "hidden md:inline-block btn btn-primary" %>
+      <%= link_to "New Workout", workout_start_path, class: "hidden md:inline-block btn btn-primary" %>
     </div>
 
     <%= render "dashboard/quick_actions" %>

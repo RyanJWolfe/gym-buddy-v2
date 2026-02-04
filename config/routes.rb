@@ -7,6 +7,8 @@ Rails.application.routes.draw do
 
   root to: "static_pages#home"
 
+  get "workout", to: "workouts#new", as: :workout_start
+
   resources :workouts do
     resources :exercise_logs, only: [ :create, :update, :destroy ] do
       resources :exercise_sets, except: [ :index, :show ]

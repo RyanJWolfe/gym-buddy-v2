@@ -1,8 +1,25 @@
 module NavigationHelper
-  def active_tab
-    return session[:active_tab].to_sym if session[:active_tab].present?
+  TAB_MAPPING = {
+    "home#index" => :home,
+    "workouts#index" => :home,
+    "workouts#show" => :home,
+    "workouts#new" => :workout,
+    "workouts#edit" => :workout,
+    "routines#index" => :workout,
+    "routines#show" => :workout,
+    "routines#new" => :workout,
+    "routines#edit" => :workout,
+    "exercises#index" => :workout,
+    "exercises#show" => :workout,
+    "exercises#new" => :workout,
+    "exercises#edit" => :workout,
+    "profiles#show" => :profile,
+    "profiles#edit" => :profile
+  }
 
-    fallback_tab_from_path
+  # Determine active tab based on current controller#action
+  def active_tab
+    TAB_MAPPING["#{controller_name}##{action_name}"] || :home
   end
 
   def tab_active?(tab)

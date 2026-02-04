@@ -41,7 +41,7 @@ class RoutinesController < ApplicationController
 
     if @routine.save
       # TODO: maybe anchor to newly created routine?
-      redirect_to new_workout_path, notice: "#{@routine.name} routine was successfully created."
+      redirect_to workout_start_path, notice: "#{@routine.name} routine was successfully created."
     else
       render :new, status: :unprocessable_entity
     end
@@ -67,7 +67,7 @@ class RoutinesController < ApplicationController
     @routine.destroy # TODO: move to background job if performance becomes an issue
 
     respond_to do |format|
-      format.html { redirect_to new_workout_path, notice: "#{routine_name} was successfully deleted." }
+      format.html { redirect_to workout_start_path, notice: "#{routine_name} was successfully deleted." }
       format.turbo_stream { render turbo_stream: [
         turbo_stream.remove(@routine),
         turbo_stream.update("general-routines-count", "General Routines (#{current_user.routines.count})")

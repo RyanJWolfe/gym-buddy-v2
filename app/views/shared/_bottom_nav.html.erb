@@ -5,7 +5,7 @@
 >
   <div class="max-w-4xl mx-auto flex items-center justify-around px-6 h-16">
 
-    <%= link_to dashboard_path(tab: "home"),
+    <%= link_to dashboard_path,
                 aria: { label: "Home" },
                 class: "flex flex-col items-center gap-0.5 px-4 py-1 rounded-lg transition active:scale-95
               #{active_link_class(:home)}" do %>
@@ -13,7 +13,7 @@
       <span class="text-[11px] font-medium">Home</span>
     <% end %>
 
-    <%= link_to new_workout_path(tab: "workout"),
+    <%= link_to workout_start_path,
                 aria: { label: "New Workout" },
                 class: "flex flex-col items-center gap-0.5 px-4 py-1 rounded-lg transition active:scale-95
               #{active_link_class(:workout)}" do %>
@@ -21,7 +21,7 @@
       <span class="text-[11px] font-medium">Workout</span>
     <% end %>
 
-    <%= link_to profile_path(tab: "profile"),
+    <%= link_to profile_path,
                 aria: { label: "Profile" },
                 class: "flex flex-col items-center gap-0.5 px-4 py-1 rounded-lg transition active:scale-95
               #{active_link_class(:profile)}" do %>
