@@ -86,3 +86,5 @@ gem "amoeba"
 gem "view_component"
 
 gem "openssl", "~> 3.3", ">= 3.3.2" # mac bug on tahoe https://github.com/rails/rails/issues/55886
+
+gem "lograge"
