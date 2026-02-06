@@ -1,32 +1,32 @@
 <nav
   role="navigation"
   aria-label="Primary"
-  class="fixed bottom-0 inset-x-0 bg-bottom-nav backdrop-blur md:hidden z-50 shadow-top"
+  class="fixed bottom-0 inset-x-0 bg-bottom-nav backdrop-blur md:hidden z-50 shadow-top pt-2 pb-safe"
 >
-  <div class="max-w-4xl mx-auto flex items-center justify-around px-6 h-16 pb-safe">
+  <div class="max-w-4xl mx-auto flex items-center justify-around px-6">
 
     <%= link_to dashboard_path,
                 aria: { label: "Home" },
-                class: "flex flex-col items-center gap-0.5 px-4 py-1 rounded-lg transition active:scale-95
+                class: "flex flex-col items-center gap-0.5 px-4 rounded-lg transition active:scale-95
               #{active_link_class(:home)}" do %>
-      <%= inline_svg "icons/home.svg", class: "w-5 h-5 svg-thick", aria: { hidden: "true" } %>
-      <span class="text-[11px] font-medium">Home</span>
+      <%= inline_svg "icons/home.svg", class: "w-6 h-6 svg-thick", aria: { hidden: "true" } %>
+      <span class="text-[10px] font-medium">Home</span>
     <% end %>
 
     <%= link_to workout_start_path,
                 aria: { label: "New Workout" },
-                class: "flex flex-col items-center gap-0.5 px-4 py-1 rounded-lg transition active:scale-95
+                class: "flex flex-col items-center gap-0.5 px-4 rounded-lg transition active:scale-95
               #{active_link_class(:workout)}" do %>
-      <%= inline_svg "icons/dumbbell.svg", class: "w-5 h-5", aria: { hidden: "true" } %>
-      <span class="text-[11px] font-medium">Workout</span>
+      <%= inline_svg "icons/dumbbell.svg", class: "w-6 h-6", aria: { hidden: "true" } %>
+      <span class="text-[10px] font-medium">Workout</span>
     <% end %>
 
     <%= link_to profile_path,
                 aria: { label: "Profile" },
-                class: "flex flex-col items-center gap-0.5 px-4 py-1 rounded-lg transition active:scale-95
+                class: "flex flex-col items-center gap-0.5 px-4 rounded-lg transition active:scale-95
               #{active_link_class(:profile)}" do %>
-      <%= inline_svg "icons/user-round.svg", class: "w-5 h-5", aria: { hidden: "true" } %>
-      <span class="text-[11px] font-medium">Profile</span>
+      <%= inline_svg "icons/user-round.svg", class: "w-6 h-6", aria: { hidden: "true" } %>
+      <span class="text-[10px] font-medium">Profile</span>
     <% end %>
 
   </div>
