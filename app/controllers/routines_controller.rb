@@ -1,7 +1,6 @@
 class RoutinesController < ApplicationController
   before_action :set_routine, only: [ :show, :update, :destroy, :start_workout ]
   before_action :hide_bottom_nav, only: [ :new, :edit, :new_duplicate ]
-  before_action :remember_page, only: [ :show, :edit ]
 
   def index
     @routines = current_user.routines.includes(:exercises).order(updated_at: :desc)
@@ -30,7 +29,7 @@ class RoutinesController < ApplicationController
     source_routine = current_user.routines.includes(routine_exercises: [ :sets ]).find(params[:id])
     @routine = source_routine.amoeba_dup
     @routine.name = "#{source_routine.name} (Copy)"
-    ActiveRecord::Associations::Preloader.new(records: @routine.routine_exercises, associations: [:exercise, :sets]).call
+    ActiveRecord::Associations::Preloader.new(records: @routine.routine_exercises, associations: [ :exercise, :sets ]).call
 
     render :new
   end

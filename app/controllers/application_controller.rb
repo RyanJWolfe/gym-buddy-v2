@@ -20,15 +20,6 @@ class ApplicationController < ActionController::Base
     @active_workout ||= current_user.workouts.where(status: :in_progress).first
   end
 
-  def remember_page
-    session[:previous_pages] ||= []
-    new_page = url_for(params.to_unsafe_h)
-    return unless session[:previous_pages].last != new_page
-
-    session[:previous_pages] << new_page if request.get?
-    session[:previous_pages] = session[:previous_pages].last(2)
-  end
-
   def hide_bottom_nav
     @hide_bottom_nav = true
   end

@@ -1,6 +1,4 @@
 class DashboardController < ApplicationController
-  before_action :remember_page, only: [ :index ]
-
   def index
     @recent_workouts = current_user.workouts.includes(:exercise_logs, :routine).recent.limit(5)
     @workout_count = current_user.workouts.count
