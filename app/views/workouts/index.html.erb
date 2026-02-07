@@ -26,31 +26,22 @@
   </div>
 
   <%# Segmented toggle: List (default) / Calendar - controlled by Stimulus to load into turbo frame and update URL %>
-  <% list_toggle_class = "px-3 py-1 rounded-md text-sm font-medium " + (params[:view] == 'calendar' ? 'text-gray-600' : 'bg-white shadow') %>
-  <% calendar_toggle_class = "px-3 py-1 rounded-md text-sm font-medium " + (params[:view] == 'calendar' ? 'bg-white shadow' : 'text-gray-600') %>
+  <% list_active = params[:view].blank? || params[:view] != 'calendar' %>
+  <% calendar_active = params[:view] == 'calendar' %>
 
-  <div class="mb-4" data-controller="workouts-toggle">
-    <div class="inline-flex rounded-md bg-body p-1">
+  <% base_classes = "px-4 py-1 rounded-full text-sm font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-violet-400" %>
+  <% active_classes = "bg-white shadow text-gray-900" %>
+  <% inactive_classes = "text-gray-600" %>
+
+  <div class="mb-4 flex justify-center" data-controller="workouts-toggle">
+    <div class="inline-flex rounded-full bg-body p-1 border border-gray-200">
       <%# List view link - default (no view param) %>
-      <%= link_to(workouts_path, {
-        data: {
-          action: "click->workouts-toggle#switch",
-          turbo_frame: "workouts_view",
-          turbo_action: "advance" },
-        class: list_toggle_class
-      }) do %>
+      <%= link_to(workouts_path, { class: "#{base_classes} #{list_active ? active_classes : inactive_classes}", data: { action: "click->workouts-toggle#switch", turbo_frame: "workouts_view", turbo_action: "advance", "workouts-toggle-target": "list" }, role: "tab", "aria-pressed": (list_active ? 'true' : 'false') }) do %>
         <span>List</span>
       <% end %>
 
       <%# Calendar view link - sets ?view=calendar %>
-      <%= link_to(workouts_path(view: 'calendar'), {
-        data: {
-          action: "click->workouts-toggle#switch",
-          turbo_frame: "workouts_view",
-          turbo_action: "advance"
-        },
-        class: calendar_toggle_class
-      }) do %>
+      <%= link_to(workouts_path(view: 'calendar'), { class: "#{base_classes} #{calendar_active ? active_classes : inactive_classes}", data: { action: "click->workouts-toggle#switch", turbo_frame: "workouts_view", turbo_action: "advance", "workouts-toggle-target": "calendar" }, role: "tab", "aria-pressed": (calendar_active ? 'true' : 'false') }) do %>
         <span>Calendar</span>
       <% end %>
     </div>
