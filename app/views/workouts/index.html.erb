@@ -29,8 +29,8 @@
   <%= render SegmentedToggleComponent.new(
     frame: "workouts_view",
     items: [
-      { label: 'List', url: workouts_path, target: 'list', value: 'list' },
-      { label: 'Calendar', url: workouts_path(view: 'calendar'), target: 'calendar', value: 'calendar' }
+      { label: 'List', icon: "icons/list.svg", url: workouts_path, target: 'list', value: 'list' },
+      { label: 'Calendar', icon: "icons/calendar.svg", url: workouts_path(view: 'calendar'), target: 'calendar', value: 'calendar' }
     ],
     current: params[:view]
   ) %>

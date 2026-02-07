@@ -7,8 +7,14 @@
       <% value = item[:value] || item[:label].to_s.downcase %>
       <% active = active?(value) %>
       <% text_class = active ? 'text-primary' : 'text-gray-600' %>
+      <% icon = item[:icon] %>
       <%= link_to item[:url], { class: "#{base_classes} "+text_class, data: { action: "click->#{@controller}#switch", turbo_frame: @frame, turbo_action: @turbo_action, "#{@controller.dasherize}-target" => item[:target] }, role: "tab", "aria-pressed": (active ? 'true' : 'false') } do %>
-        <span><%= item[:label] %></span>
+        <div class="flex items-center gap-x-2">
+          <% if icon.present? %>
+            <%= helpers.inline_svg_tag icon, class: "h-4 w-4" %>
+          <% end %>
+          <span><%= item[:label] %></span>
+        </div>
       <% end %>
     <% end %>
   </div>
