@@ -1,0 +1,107 @@
+<%# locals: (workouts:) %>
+<% require 'date' %>
+
+<% # Determine month to show - default to params[:month] or today %>
+<% show_date = if params[:date].present?
+                 begin
+                   Date.parse(params[:date])
+                 rescue StandardError
+                   Date.current
+                 end
+               elsif params[:month].present?
+                 begin
+                   Date.parse(params[:month] + "-01")
+                 rescue StandardError
+                   Date.current
+                 end
+               else
+                 Date.current
+               end %>
+<% start_of_month = show_date.beginning_of_month %>
+<% end_of_month = show_date.end_of_month %>
+<% first_day_of_calendar = start_of_month.beginning_of_week(:sunday) %>
+<% last_day_of_calendar = end_of_month.end_of_week(:sunday) %>
+
+<div class="bg-white rounded-lg shadow p-4">
+  <div class="flex items-center justify-between mb-4">
+    <div class="text-lg font-medium"><%= show_date.strftime("%B %Y") %></div>
+    <div class="flex items-center gap-x-2">
+      <%= link_to workouts_path(view: 'calendar', month: (show_date.prev_month.strftime('%Y-%m'))), class: "btn btn-icon", data: { action: "click->workouts-toggle#switch", turbo_frame: "workouts_view" } do %>
+        &lt;
+      <% end %>
+
+      <%= link_to workouts_path(view: 'calendar', month: (show_date.next_month.strftime('%Y-%m'))), class: "btn btn-icon", data: { action: "click->workouts-toggle#switch", turbo_frame: "workouts_view" } do %>
+        &gt;
+      <% end %>
+    </div>
+  </div>
+
+  <table class="w-full table-fixed text-sm">
+    <thead>
+      <tr>
+        <% Date::ABBR_DAYNAMES.each do |d| %>
+          <th class="py-2 text-left text-xs text-gray-500"><%= d %></th>
+        <% end %>
+      </tr>
+    </thead>
+    <tbody>
+      <% day = first_day_of_calendar %>
+      <% while day <= last_day_of_calendar %>
+        <tr>
+          <% 7.times do %>
+            <% day_workouts = workouts.select { |w| w.date == day } %>
+            <td class="p-2 align-top">
+              <div class="p-2 rounded-md <%= 'bg-gray-100' if day == Date.current %>">
+                <% if day.month == show_date.month %>
+                  <a href="<%= workouts_path(view: 'calendar', date: day.strftime('%Y-%m-%d')) %>"
+                     data-action="click->workouts-toggle#switch"
+                     data-turbo-frame="workouts_view"
+                     class="block text-sm font-medium text-gray-800">
+                    <%= day.day %>
+                  </a>
+
+                  <% if day_workouts.any? %>
+                    <div class="mt-1 flex items-center gap-x-1">
+                      <% day_workouts.first(3).each do |_w| %>
+                        <span class="h-2 w-2 rounded-full bg-primary"></span>
+                      <% end %>
+                      <% if day_workouts.size > 3 %>
+                        <span class="text-xs text-gray-500">+<%= day_workouts.size - 3 %></span>
+                      <% end %>
+                    </div>
+                  <% end %>
+                <% else %>
+                  <div class="text-sm text-gray-300"><%= day.day %></div>
+                <% end %>
+              </div>
+            </td>
+            <% day = day + 1 %>
+          <% end %>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<%# Below calendar: if a date param is present, show workouts for that date %>
+<% if params[:date].present? %>
+  <% selected_date = begin; Date.parse(params[:date]) rescue nil end %>
+  <div class="mt-4">
+    <div class="text-sm text-gray-600 mb-2">Workouts on <strong><%= selected_date.strftime('%b %d, %Y') %></strong></div>
+    <% day_workouts = workouts.select { |w| w.date == selected_date } %>
+    <% if day_workouts.any? %>
+      <div class="space-y-2">
+        <% day_workouts.each do |w| %>
+          <div class="p-3 bg-white rounded border">
+            <%= link_to workout_path(w), class: "block text-sm font-medium" do %>
+              <%= w.name %>
+            <% end %>
+            <div class="text-xs text-gray-500"><%= w.duration_seconds ? Time.at(w.duration_seconds).utc.strftime('%M:%S') : '' %></div>
+          </div>
+        <% end %>
+      </div>
+    <% else %>
+      <div class="text-sm text-gray-500">No workouts for this date.</div>
+    <% end %>
+  </div>
+<% end %>

@@ -5,7 +5,16 @@ class WorkoutsController < ApplicationController
 
   # GET /workouts or /workouts.json
   def index
-    @workouts = current_user.workouts.recent.includes(:exercise_logs)
+    if params[:view] == 'calendar'
+      # show only workouts for the month to power the calendar
+      month = params[:month].present? ? Date.parse("#{params[:month]}-01") : Date.current
+      start_date = month.beginning_of_month
+      end_date = month.end_of_month
+
+      @workouts = current_user.workouts.where(date: start_date..end_date).includes(:exercise_logs).order(date: :asc)
+    else
+      @workouts = current_user.workouts.recent.includes(:exercise_logs)
+    end
   end
 
   # GET /workouts/1 or /workouts/1.json

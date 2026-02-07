@@ -8,7 +8,7 @@
       </div>
     <% end %>
 
-    <%= link_to workouts_path, class: "flex-1 bg-violet-200/60 hover:bg-violet-300/60 dark:bg-purple-900 dark:hover:bg-purple-800 rounded-2xl p-3 shadow-md" do %>
+    <%= link_to workouts_path(view: 'calendar'), class: "flex-1 bg-violet-200/60 hover:bg-violet-300/60 dark:bg-purple-900 dark:hover:bg-purple-800 rounded-2xl p-3 shadow-md" do %>
       <div class="flex flex-col items-center gap-y-2">
         <%= inline_svg_tag "icons/calendar.svg", class: "h-6 w-6 text-violet-500 dark:text-violet-400" %>
         <span class="font-display text-xs tracking-wide dark:text-white/95">Calendar</span>
