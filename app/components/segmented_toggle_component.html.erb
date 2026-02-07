@@ -1,5 +1,5 @@
 <div class="mb-4 flex justify-center" data-controller="<%= @controller %>">
-  <div data-<%= @controller.dasherize %>-target="container" class="relative inline-flex rounded-full bg-body p-1 border border-gray-200">
+  <div data-<%= @controller.dasherize %>-target="container" data-<%= @controller.dasherize %>-frame="<%= @frame %>" class="relative inline-flex rounded-full bg-body p-1 border border-gray-200">
     <div data-<%= @controller.dasherize %>-target="slider" class="absolute top-1 bottom-1 left-0 rounded-full bg-primary-light shadow-sm" style="width:0; transform: translate3d(0,0,0); will-change: transform, width; transition: transform 360ms cubic-bezier(0.2,1.0,0.22,1.0), width 360ms cubic-bezier(0.2,1.0,0.22,1.0), box-shadow 220ms ease;"></div>
 
     <% base_classes = "px-4 py-1 rounded-full text-sm font-medium transition-colors focus:outline-none relative z-10" %>

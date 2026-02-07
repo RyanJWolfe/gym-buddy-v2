@@ -27,12 +27,13 @@
 
   <%# Segmented toggle: List (default) / Calendar - rendered by SegmentedToggleComponent %>
   <%= render SegmentedToggleComponent.new(
-        items: [
-          { label: 'List', url: workouts_path, target: 'list', value: 'list' },
-          { label: 'Calendar', url: workouts_path(view: 'calendar'), target: 'calendar', value: 'calendar' }
-        ],
-        current: params[:view]
-      ) %>
+    frame: "workouts_view",
+    items: [
+      { label: 'List', url: workouts_path, target: 'list', value: 'list' },
+      { label: 'Calendar', url: workouts_path(view: 'calendar'), target: 'calendar', value: 'calendar' }
+    ],
+    current: params[:view]
+  ) %>
 
   <%# Turbo frame - this will be swapped when the toggle links are clicked. Server will render either the list or the calendar partial based on params[:view] %>
   <%= turbo_frame_tag "workouts_view", class: "transition-opacity duration-200" do %>

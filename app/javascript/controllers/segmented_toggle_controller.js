@@ -1,30 +1,31 @@
 import { Controller } from "@hotwired/stimulus"
 
-// Connects to data-controller="workouts-toggle"
+// Generic segmented toggle controller
 export default class extends Controller {
   static targets = ["list", "calendar", "container", "slider"]
 
   connect() {
-    // Ensure role for accessibility
     this.element.setAttribute('role', 'tablist')
 
-    // Make the container focusable for keyboard nav
+    // container target
     if (this.hasContainerTarget) {
       this.containerTarget.setAttribute('tabindex', '0')
       this.containerTarget.addEventListener('keydown', this._onKeydown = this.onKeydown.bind(this))
     }
 
+    // read frame from data attribute (eg data-segmented-toggle-frame)
+    this.frameId = this.hasContainerTarget ? this.containerTarget.getAttribute('data-segmented-toggle-frame') : null
+
     // Initialize slider and active state from URL
     this.updateStateFromUrl()
 
-    // Reposition on resize and when turbo frames load
+    // listeners
     this._onResize = this.positionSlider.bind(this)
     window.addEventListener('resize', this._onResize)
 
     this._onFrameLoad = this.onFrameLoad.bind(this)
     document.addEventListener('turbo:frame-load', this._onFrameLoad)
 
-    // keep history navigation in sync
     this._onPopstate = this.updateStateFromUrl.bind(this)
     window.addEventListener('popstate', this._onPopstate)
   }
@@ -38,10 +39,8 @@ export default class extends Controller {
     window.removeEventListener('popstate', this._onPopstate)
   }
 
-  // Click handler (fires before turbo navigation) — show immediate feedback and fade frame
   switch(event) {
     const anchor = event.currentTarget
-    // Determine which target was clicked and set active immediately
     if (this.hasListTarget && this.listTarget && this.listTarget.isSameNode(anchor)) {
       this.setActive('list')
     } else if (this.hasCalendarTarget && this.calendarTarget && this.calendarTarget.isSameNode(anchor)) {
@@ -52,18 +51,14 @@ export default class extends Controller {
       else this.setActive('list')
     }
 
-    // Micro-interaction: fade the turbo frame while content loads
-    const frame = document.getElementById('workouts_view')
-    if (frame) {
-      frame.classList.add('opacity-40')
-    }
+    // fade frame
+    const frame = document.getElementById(this.frameId)
+    if (frame) frame.classList.add('opacity-40')
   }
 
-  onFrameLoad(event) {
-    // When turbo frame finished loading, remove fade and reposition slider
-    const frame = document.getElementById('workouts_view')
+  onFrameLoad() {
+    const frame = document.getElementById(this.frameId)
     if (frame) frame.classList.remove('opacity-40')
-    // Reposition slider to match the current active button
     this.positionSlider()
   }
 
@@ -71,12 +66,10 @@ export default class extends Controller {
     const KEY = e.key
     if (KEY === 'ArrowRight' || KEY === 'ArrowLeft') {
       e.preventDefault()
-      // determine current active
-      const active = this.currentActive() // 'list' or 'calendar'
+      const active = this.currentActive()
       let next = active === 'list' ? 'calendar' : 'list'
       if (KEY === 'ArrowLeft') next = active === 'calendar' ? 'list' : 'calendar'
       this.setActive(next)
-      // focus the newly active link
       const el = next === 'list' ? this.listTarget : this.calendarTarget
       if (el && typeof el.focus === 'function') el.focus()
       return
@@ -84,7 +77,6 @@ export default class extends Controller {
 
     if (KEY === 'Enter' || KEY === ' ') {
       e.preventDefault()
-      // trigger click on active
       const active = this.currentActive()
       const el = active === 'list' ? this.listTarget : this.calendarTarget
       if (el) el.click()
@@ -110,11 +102,8 @@ export default class extends Controller {
 
   setActive(which) {
     which = (which === 'calendar') ? 'calendar' : 'list'
-
     if (this.hasListTarget) this.applyStateToElement(this.listTarget, which === 'list')
     if (this.hasCalendarTarget) this.applyStateToElement(this.calendarTarget, which === 'calendar')
-
-    // ensure slider is positioned after DOM updated
     setTimeout(() => this.positionSlider(), 0)
   }
 
@@ -139,38 +128,22 @@ export default class extends Controller {
 
   positionSlider() {
     if (!this.hasSliderTarget || !this.hasContainerTarget) return
-
-    // pick the active element
     const active = this.currentActive() === 'calendar' ? this.calendarTarget : this.listTarget
     if (!active) return
-
     const containerRect = this.containerTarget.getBoundingClientRect()
     const activeRect = active.getBoundingClientRect()
-
     const left = activeRect.left - containerRect.left
     const width = activeRect.width
-
-    // Set width immediately
     this.sliderTarget.style.width = `${width}px`
-
-    // Apply an overshoot + pop using scale; use translate3d for GPU acceleration
     const overshootScale = 1.03
     const normalScale = 1
     const translate = `translate3d(${left}px, 0, 0)`
-
-    // First set an overshot transform so it animates from current to overshoot
     this.sliderTarget.style.transform = `${translate} scale(${overshootScale})`
-    // Add a slightly larger shadow during the pop
     this.sliderTarget.classList.add('shadow-md')
-
-    // After a short delay, ease back to normal scale
     clearTimeout(this._popTimeout)
     this._popTimeout = setTimeout(() => {
       this.sliderTarget.style.transform = `${translate} scale(${normalScale})`
-      // remove the enhanced shadow after the transform completes
-      setTimeout(() => {
-        this.sliderTarget.classList.remove('shadow-md')
-      }, 220)
+      setTimeout(() => { this.sliderTarget.classList.remove('shadow-md') }, 220)
     }, 120)
   }
 }
