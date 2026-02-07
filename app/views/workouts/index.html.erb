@@ -29,26 +29,29 @@
   <% list_active = params[:view].blank? || params[:view] != 'calendar' %>
   <% calendar_active = params[:view] == 'calendar' %>
 
-  <% base_classes = "px-4 py-1 rounded-full text-sm font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-violet-400" %>
-  <% active_classes = "bg-white shadow text-gray-900" %>
-  <% inactive_classes = "text-gray-600" %>
+  <% base_classes = "px-4 py-1 rounded-full text-sm font-medium transition-colors focus:outline-none relative z-10" %>
+  <% active_text = "text-primary" %>
+  <% inactive_text = "text-gray-600" %>
 
   <div class="mb-4 flex justify-center" data-controller="workouts-toggle">
-    <div class="inline-flex rounded-full bg-body p-1 border border-gray-200">
+    <div data-workouts-toggle-target="container" class="relative inline-flex rounded-full bg-body p-1 border border-gray-200">
+      <%# Sliding indicator positioned under active button; positioned by Stimulus %>
+      <div data-workouts-toggle-target="slider" class="absolute top-1 bottom-1 left-0 rounded-full bg-primary-light shadow-sm transition-all duration-200" style="width:0; transform: translateX(0);"></div>
+
       <%# List view link - default (no view param) %>
-      <%= link_to(workouts_path, { class: "#{base_classes} #{list_active ? active_classes : inactive_classes}", data: { action: "click->workouts-toggle#switch", turbo_frame: "workouts_view", turbo_action: "advance", "workouts-toggle-target": "list" }, role: "tab", "aria-pressed": (list_active ? 'true' : 'false') }) do %>
+      <%= link_to(workouts_path, { class: "#{base_classes} #{list_active ? active_text : inactive_text}", data: { action: "click->workouts-toggle#switch", turbo_frame: "workouts_view", turbo_action: "advance", "workouts-toggle-target": "list" }, role: "tab", "aria-pressed": (list_active ? 'true' : 'false') }) do %>
         <span>List</span>
       <% end %>
 
       <%# Calendar view link - sets ?view=calendar %>
-      <%= link_to(workouts_path(view: 'calendar'), { class: "#{base_classes} #{calendar_active ? active_classes : inactive_classes}", data: { action: "click->workouts-toggle#switch", turbo_frame: "workouts_view", turbo_action: "advance", "workouts-toggle-target": "calendar" }, role: "tab", "aria-pressed": (calendar_active ? 'true' : 'false') }) do %>
+      <%= link_to(workouts_path(view: 'calendar'), { class: "#{base_classes} #{calendar_active ? active_text : inactive_text}", data: { action: "click->workouts-toggle#switch", turbo_frame: "workouts_view", turbo_action: "advance", "workouts-toggle-target": "calendar" }, role: "tab", "aria-pressed": (calendar_active ? 'true' : 'false') }) do %>
         <span>Calendar</span>
       <% end %>
     </div>
   </div>
 
   <%# Turbo frame - this will be swapped when the toggle links are clicked. Server will render either the list or the calendar partial based on params[:view] %>
-  <%= turbo_frame_tag "workouts_view" do %>
+  <%= turbo_frame_tag "workouts_view", class: "transition-opacity duration-200" do %>
     <% if params[:view] == 'calendar' %>
       <%= render partial: 'workouts/calendar', locals: { workouts: @workouts } %>
     <% else %>
