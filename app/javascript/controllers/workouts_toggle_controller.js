@@ -150,8 +150,27 @@ export default class extends Controller {
     const left = activeRect.left - containerRect.left
     const width = activeRect.width
 
-    // account for container padding (it has p-1 ~ 0.25rem) - but offsetLeft already within container positioning
+    // Set width immediately
     this.sliderTarget.style.width = `${width}px`
-    this.sliderTarget.style.transform = `translateX(${left}px)`
+
+    // Apply an overshoot + pop using scale; use translate3d for GPU acceleration
+    const overshootScale = 1.03
+    const normalScale = 1
+    const translate = `translate3d(${left}px, 0, 0)`
+
+    // First set an overshot transform so it animates from current to overshoot
+    this.sliderTarget.style.transform = `${translate} scale(${overshootScale})`
+    // Add a slightly larger shadow during the pop
+    this.sliderTarget.classList.add('shadow-md')
+
+    // After a short delay, ease back to normal scale
+    clearTimeout(this._popTimeout)
+    this._popTimeout = setTimeout(() => {
+      this.sliderTarget.style.transform = `${translate} scale(${normalScale})`
+      // remove the enhanced shadow after the transform completes
+      setTimeout(() => {
+        this.sliderTarget.classList.remove('shadow-md')
+      }, 220)
+    }, 120)
   }
 }

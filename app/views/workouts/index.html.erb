@@ -35,8 +35,8 @@
 
   <div class="mb-4 flex justify-center" data-controller="workouts-toggle">
     <div data-workouts-toggle-target="container" class="relative inline-flex rounded-full bg-body p-1 border border-gray-200">
-      <%# Sliding indicator positioned under active button; positioned by Stimulus %>
-      <div data-workouts-toggle-target="slider" class="absolute top-1 bottom-1 left-0 rounded-full bg-primary-light shadow-sm transition-all duration-200" style="width:0; transform: translateX(0);"></div>
+      <%# Sliding indicator positioned under active button; positioned by Stimulus. Use a modern cubic-bezier and GPU-friendly translate3d, with will-change hints to improve smoothness. %>
+      <div data-workouts-toggle-target="slider" class="absolute top-1 bottom-1 left-0 rounded-full bg-primary-light shadow-sm" style="width:0; transform: translate3d(0,0,0); will-change: transform, width; transition: transform 360ms cubic-bezier(0.2,1.0,0.22,1.0), width 360ms cubic-bezier(0.2,1.0,0.22,1.0), box-shadow 220ms ease;"></div>
 
       <%# List view link - default (no view param) %>
       <%= link_to(workouts_path, { class: "#{base_classes} #{list_active ? active_text : inactive_text}", data: { action: "click->workouts-toggle#switch", turbo_frame: "workouts_view", turbo_action: "advance", "workouts-toggle-target": "list" }, role: "tab", "aria-pressed": (list_active ? 'true' : 'false') }) do %>
