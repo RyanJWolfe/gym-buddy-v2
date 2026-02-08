@@ -4,7 +4,7 @@
                                      back_href: back_path) do |component| %>
   <% component.with_action do %>
     <% if @workout.in_progress? %>
-      <div class="flex items-center gap-x-2" data-controller="workout-timer" data-workout-timer-start-value="<%= @workout.start_time.to_i %>">
+      <div class="flex items-center gap-x-1" data-controller="workout-timer" data-workout-timer-start-value="<%= @workout.start_time.to_i %>">
         <%= inline_svg_tag "icons/timer.svg", class: "w-5 h-5" %>
         <%= render "workouts/workout_timer", workout: @workout %>
       </div>
