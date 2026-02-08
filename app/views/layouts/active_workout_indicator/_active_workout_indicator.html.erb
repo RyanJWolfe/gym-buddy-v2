@@ -1,13 +1,13 @@
 <%# locals: ( workout: ) %>
 
 <div id="<%= dom_id(workout, :active_workout_indicator) %>"
-     class="fixed inset-x-0 md:inset-x-4 bottom-16 md:bottom-6 z-50"
+     class="fixed inset-x-0 md:inset-x-4 bottom-14 md:bottom-6 z-50"
      role="region"
      aria-label="Active workout in progress">
 
   <!-- Mobile: bottom-centered pill -->
   <div class="w-screen lg:hidden">
-    <div class="shadow-top bg-bottom-nav rounded-t-2xl px-4 pt-4 md:p-4 md:rounded-2xl md:max-w-sm md:mx-auto">
+    <div class="shadow-top bg-bottom-nav rounded-t-2xl px-4 pt-4 pb-4 md:p-4 md:rounded-2xl md:max-w-sm md:mx-auto">
       <div class="flex flex-col gap-1 items-center">
         <div class="flex items-center justify-center flex-wrap gap-x-3">
           <h5 class="text-muted text-sm font-medium truncate">Workout in Progress</h5>
