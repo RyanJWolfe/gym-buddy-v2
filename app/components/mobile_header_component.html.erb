@@ -1,7 +1,7 @@
 <nav data-controller="mobile-header" class="md:hidden fixed top-0 inset-x-0 z-50 bg-surface border-b border-surface-border pt-[env(safe-area-inset-top)]" aria-label="<%= @aria_label %>">
-  <div class="mx-auto max-w-2xl lg:max-w-4xl px-4 h-14 grid grid-cols-[auto,1fr,auto] items-center gap-3">
+  <div class="mx-auto max-w-2xl lg:max-w-4xl px-4 h-14 relative grid grid-cols-[auto,1fr,auto] items-center gap-3">
     <% if @back_href.present? %>
-      <%= link_to @back_href, class: "inline-flex items-center gap-2 text-sm font-medium focus:outline-none focus:underline focus:ring-2 focus:ring-primary-ring" do %>
+      <%= link_to @back_href, class: "inline-flex items-center gap-2 text-sm font-medium focus:outline-none focus:underline focus:ring-2 focus:ring-primary-ring z-20" do %>
         <span><%= helpers.inline_svg_tag "icons/chevron-left.svg", class: "w-6 h-6" %></span>
         <% if @back_label %>
           <span class="text-muted"><%= @back_label %></span>
@@ -11,10 +11,12 @@
       <div class="w-16" aria-hidden="true"></div>
     <% end %>
 
-    <h1 class="text-base font-semibold text-body-text text-center truncate"><%= @title %></h1>
+    <h1 class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-base font-semibold text-body-text truncate max-w-[calc(100%-8rem)] text-center pointer-events-none">
+      <%= @title %>
+    </h1>
 
     <% if action.present? %>
-      <div class="justify-self-end text-muted">
+      <div class="justify-self-end text-muted z-20">
         <%= action %>
       </div>
     <% else %>
