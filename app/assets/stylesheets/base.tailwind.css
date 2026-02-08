@@ -41,7 +41,7 @@
     --color-top-nav: 255 255 255; /* #ffffff */
     --color-bottom-nav: 249 251 252; /* #f9fbfc */
 
-    /* UPDATED: slightly brighter, more modern indigo/purple as the primary hue */
+    /* Primary (kept tuned earlier) */
     --color-primary-text: 88 81 255; /* #5851ff - refined primary text */
     --color-primary-text-hover: 76 68 238; /* #4c44ee */
 
@@ -53,20 +53,23 @@
     --color-primary-ring: 99 102 241; /* #6366f1 */
     --color-primary-outline: 199 210 254; /* #c7d2fe */
 
-    --color-muted: 82 82 82; /* #525252 */
+    /* Muted / copy tones - modernized for better contrast and legibility */
+    --color-muted: 107 114 128; /* #6b7280 - neutral medium */
     --color-muted-hover: 156 163 175; /* #9ca3af */
-    --color-muted-focus: 107 114 128; /* #6b7280 */
-    --color-muted-light: 115 115 115; /* #737373 */
+    --color-muted-focus: 78 85 97; /* #4e5561 - slightly darker for focus */
+    --color-muted-light: 148 163 184; /* #94a3b8 - for lighter muted UI elements */
     --color-muted-light-hover: 163 163 163; /* #a3a3a3 */
 
+    /* Surface / cards / panels */
     --color-surface: 255 255 255; /* #ffffff */
-    --color-surface-hover: 249 250 251; /* #f9fafb */
-    --color-surface-secondary: 249 251 252; /* #f9fbfc */
+    --color-surface-hover: 250 250 250; /* #fafafa - subtle hover */
+    --color-surface-secondary: 249 250 252; /* #f9fafc - gentle secondary surface */
     --color-surface-secondary-hover: 244 246 248; /* #f4f6f8 */
-    --color-surface-border: 229 231 235; /* #e5e7eb */
+    --color-surface-border: 226 232 240; /* #e2e8f0 - slightly cooler border */
 
+    /* Accent color (kept emerald, tuned lightly) */
     --color-accent: 16 185 129; /* #10b981 */
-    --color-accent-hover: 5 150 105; /* #059669 */
+    --color-accent-hover: 6 160 110; /* slightly darker on hover */
     --color-accent-light: 209 250 229; /* #d1fae5 */
     --color-accent-light-hover: 167 243 208; /* #a7f3d0 */
 
@@ -75,37 +78,37 @@
 
   .theme-dark {
     --color-body: 13 13 13; /* #0d0d0d */
-    /*--color-top-nav: 18 20 24; !* #121418 *!*/
     --color-top-nav: 19 19 19; /* #131313 */
     --color-bottom-nav: 20 20 20; /* #141414 */
 
-    /* Keep primary hue consistent in dark mode but tweak light token to be translucent */
+    /* Primary hue consistent in dark mode */
     --color-primary-text: 129 140 248; /* #818cf8 */
     --color-primary-text-hover: 153 163 255; /* #99a3ff */
 
     --color-primary: 99 102 241; /* #6366f1 */
     --color-primary-hover: 79 70 229; /* #4f46e5 */
     --color-primary-focus: 124 108 255; /* #7c6cff */
-    --color-primary-light: 238 242 255; /* #eef2ff (used as base for translucent slider) */
+    --color-primary-light: 238 242 255; /* #eef2ff (base for translucent slider) */
     --color-primary-light-hover: 224 231 255; /* #e0e7ff */
     --color-primary-ring: 99 102 241; /* #6366f1 */
     --color-primary-outline: 199 210 254; /* #c7d2fe */
 
-    --color-muted: 163 163 163; /* #a3a3a3 */
-    --color-muted-hover: 212 212 212; /* #d4d4d4 */
-    --color-muted-focus: 200 200 200; /* #c8c8c8 */
-    --color-muted-light: 160 160 160; /* #a0a0a0 */
-    --color-muted-light-hover: 230 230 230; /* #e6e6e6 */
+    /* Muted tones in dark: ensure readable contrast on dark surfaces */
+    --color-muted: 156 163 175; /* #9ca3af */
+    --color-muted-hover: 203 213 224; /* #cbd5e0 */
+    --color-muted-focus: 220 226 235; /* #dce2eb */
+    --color-muted-light: 115 115 115; /* #737373 */
+    --color-muted-light-hover: 180 180 180; /* softer hover */
 
-    /* Base surfaces */
+    /* Dark surfaces */
     --color-surface: 18 18 18; /* #121212 */
-    --color-surface-hover: 22 22 22; /* #161616 */
-    --color-surface-secondary: 22 22 22; /* #161616 */
-    --color-surface-secondary-hover: 26 26 26; /* #1a1a1a */
-    --color-surface-border: 38 38 38; /* #262626 */
+    --color-surface-hover: 28 28 30; /* subtly lighter on hover */
+    --color-surface-secondary: 28 28 30; /* slightly lighter secondary */
+    --color-surface-secondary-hover: 34 34 36; /* hover for secondary */
+    --color-surface-border: 44 44 46; /* subtle border in dark */
 
     --color-accent: 16 185 129; /* keep accent colors */
-    --color-accent-hover: 5 150 105;
+    --color-accent-hover: 6 160 110;
     --color-accent-light: 20 83 45;
     --color-accent-light-hover: 30 130 80;
 
