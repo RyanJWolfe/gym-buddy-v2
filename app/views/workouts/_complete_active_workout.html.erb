@@ -4,7 +4,13 @@
   <%= form_with model: workout, url: workout_path(workout), data: { turbo: false } do |f| %>
     <%= f.hidden_field :status, value: :completed %>
 
-    <%= render "workouts/complete_workout_header", form: f %>
+    <%= render MobileHeaderComponent.new(title: "Complete Workout", close_modal: true) do |component| %>
+      <% component.with_action do %>
+        <% if @workout.in_progress? %>
+          <%= f.submit "Finish", class: "btn-compact btn-primary" %>
+        <% end %>
+      <% end %>
+    <% end %>
 
     <div class="main-container max-w-2xl">
       <div class="flex flex-col gap-y-4">
