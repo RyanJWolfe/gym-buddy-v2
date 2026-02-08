@@ -53,6 +53,13 @@
     --color-primary-ring: 99 102 241; /* #6366f1 */
     --color-primary-outline: 199 210 254; /* #c7d2fe */
 
+    /* Secondary: semantic secondary color tokens for buttons and accents */
+    --color-secondary: 51 65 85; /* #334155 - slate tone that pairs with primary */
+    --color-secondary-hover: 30 41 59; /* #1e293b - deeper slate on hover */
+    --color-secondary-text: 51 65 85; /* same as --color-secondary for copy */
+    --color-secondary-light: 241 245 249; /* #f1f5f9 - soft background for secondary buttons */
+    --color-secondary-light-hover: 226 232 240; /* #e2e8f0 */
+
     /* Muted / copy tones - modernized for better contrast and legibility */
     --color-muted: 107 114 128; /* #6b7280 - neutral medium */
     --color-muted-hover: 156 163 175; /* #9ca3af */
@@ -92,6 +99,13 @@
     --color-primary-light-hover: 224 231 255; /* #e0e7ff */
     --color-primary-ring: 99 102 241; /* #6366f1 */
     --color-primary-outline: 199 210 254; /* #c7d2fe */
+
+    /* Secondary tokens for dark mode (adapted for legibility on dark surfaces) */
+    --color-secondary: 148 163 184; /* #94a3b8 - lighter slate in dark */
+    --color-secondary-hover: 120 138 160; /* #788aa0 - subtle darker hover in dark */
+    --color-secondary-text: 148 163 184;
+    --color-secondary-light: 36 40 44; /* #24282c - subtle light bg in dark */
+    --color-secondary-light-hover: 44 46 48; /* #2c2e30 */
 
     /* Muted tones in dark: ensure readable contrast on dark surfaces */
     --color-muted: 156 163 175; /* #9ca3af */

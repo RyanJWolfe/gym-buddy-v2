@@ -39,6 +39,13 @@ module.exports = {
           text: 'rgb(var(--color-primary-text))',
           'text-hover': 'rgb(var(--color-primary-text-hover))',
         },
+        secondary: {
+          DEFAULT: 'rgb(var(--color-secondary))',
+          hover: 'rgb(var(--color-secondary-hover))',
+          text: 'rgb(var(--color-secondary-text))',
+          light: 'rgb(var(--color-secondary-light))',
+          'light-hover': 'rgb(var(--color-secondary-light-hover))'
+        },
         muted: {
           DEFAULT: 'rgb(var(--color-muted))',
           hover: 'rgb(var(--color-muted-hover))',

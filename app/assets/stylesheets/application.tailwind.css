@@ -68,7 +68,7 @@
   }
 
   .btn-secondary {
-    @apply bg-indigo-100 text-indigo-700 hover:bg-indigo-200;
+    @apply border border-secondary text-secondary bg-secondary-light hover:bg-secondary-light-hover focus:ring-2 focus:ring-secondary;
   }
 
   .btn-tertiary {
