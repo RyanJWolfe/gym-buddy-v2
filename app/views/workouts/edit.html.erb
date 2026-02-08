@@ -1,7 +1,19 @@
 <% content_for :title, "Editing workout" %>
 
+<%= render MobileHeaderComponent.new(title: "#{@workout.name} #{render_sequence_number(@workout)}",
+                                     back_href: back_path) do |component| %>
+  <% component.with_action do %>
+    <% if @workout.in_progress? %>
+      <div class="flex items-center gap-x-2" data-controller="workout-timer" data-workout-timer-start-value="<%= @workout.start_time.to_i %>">
+        <%= inline_svg_tag "icons/timer.svg", class: "w-5 h-5" %>
+        <%= render "workouts/workout_timer", workout: @workout %>
+      </div>
+    <% end %>
+  <% end %>
+<% end %>
+
 <div class="max-w-2xl mx-auto mb-6">
-  <%= render 'edit_header' %>
+  <%#= render 'edit_header' %>
 
   <% if @workout.in_progress? %>
     <%= render 'workouts/autosave_form', workout: @workout %>
@@ -31,8 +43,8 @@
       <div class="flex-1">
         <%#= render "workouts/complete_workout_button", workout: @workout %>
         <%= link_to complete_workout_path(@workout), data: { turbo_stream: true }, class: "btn btn-icon btn-tertiary text-primary w-full" do %>
-            <%= inline_svg "icons/check.svg", class: "h-4 w-4" %>
-            Finish
+          <%= inline_svg "icons/check.svg", class: "h-4 w-4" %>
+          Finish
         <% end %>
       </div>
     </div>

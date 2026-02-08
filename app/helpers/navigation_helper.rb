@@ -30,6 +30,10 @@ module NavigationHelper
     tab_active?(tab) ? "text-primary" : "text-gray-500 hover:text-primary-hover"
   end
 
+  def back_path
+    "javascript:history.back()"
+  end
+
   private
 
   def fallback_tab_from_path

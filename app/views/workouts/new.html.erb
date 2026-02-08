@@ -1,10 +1,8 @@
 <% content_for :title, "Workout" %>
 
-<%= render MobileHeaderComponent.new(title: "Workout") %>
-
 <div class="max-w-2xl mx-auto">
   <div class="flex flex-col gap-y-4 sm:gap-y-6">
-    <h2 class="text-xl font-extramedium">Quick Start</h2>
+    <h1 class="text-2xl font-extramedium">Workout</h1>
     <%= button_to workouts_path, method: :post, params: { workout: { name: "New Workout" } }, data: { turbo: false }, class: "btn btn-icon btn-tertiary w-full" do %>
       <%= inline_svg_tag "icons/plus.svg", class: "h-4 w-4" %>
       <span>Start Empty Workout</span>
