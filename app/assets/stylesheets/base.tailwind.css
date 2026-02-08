@@ -41,14 +41,15 @@
     --color-top-nav: 255 255 255; /* #ffffff */
     --color-bottom-nav: 249 251 252; /* #f9fbfc */
 
-    --color-primary-text: 79 70 229; /* #4f46e5 */
-    --color-primary-text-hover: 67 56 202; /* #4338ca */
+    /* UPDATED: slightly brighter, more modern indigo/purple as the primary hue */
+    --color-primary-text: 88 81 255; /* #5851ff - refined primary text */
+    --color-primary-text-hover: 76 68 238; /* #4c44ee */
 
-    --color-primary: 79 70 229; /* #4f46e5 */
-    --color-primary-hover: 67 56 202; /* #4338ca */
-    --color-primary-focus: 99 102 241; /* #6366f1 */
-    --color-primary-light: 238 242 255; /* #eef2ff */
-    --color-primary-light-hover: 224 231 255; /* #e0e7ff */
+    --color-primary: 99 102 241; /* #6366f1 - refined primary */
+    --color-primary-hover: 79 70 229; /* #4f46e5 */
+    --color-primary-focus: 124 108 255; /* #7c6cff - slightly lighter focus */
+    --color-primary-light: 232 240 255; /* #e8f0ff - softer light fill for slider */
+    --color-primary-light-hover: 216 226 255; /* #d8e2ff */
     --color-primary-ring: 99 102 241; /* #6366f1 */
     --color-primary-outline: 199 210 254; /* #c7d2fe */
 
@@ -78,13 +79,14 @@
     --color-top-nav: 19 19 19; /* #131313 */
     --color-bottom-nav: 20 20 20; /* #141414 */
 
-    --color-primary-text: 99 102 241; /* #6366f1 */
-    --color-primary-text-hover: 129 140 248; /* #818cf8 */
+    /* Keep primary hue consistent in dark mode but tweak light token to be translucent */
+    --color-primary-text: 129 140 248; /* #818cf8 */
+    --color-primary-text-hover: 153 163 255; /* #99a3ff */
 
-    --color-primary: 79 70 229; /* #4f46e5 */
-    --color-primary-hover: 67 56 202; /* #4338ca */
-    --color-primary-focus: 99 102 241; /* #6366f1 */
-    --color-primary-light: 238 242 255; /* #eef2ff */
+    --color-primary: 99 102 241; /* #6366f1 */
+    --color-primary-hover: 79 70 229; /* #4f46e5 */
+    --color-primary-focus: 124 108 255; /* #7c6cff */
+    --color-primary-light: 238 242 255; /* #eef2ff (used as base for translucent slider) */
     --color-primary-light-hover: 224 231 255; /* #e0e7ff */
     --color-primary-ring: 99 102 241; /* #6366f1 */
     --color-primary-outline: 199 210 254; /* #c7d2fe */
