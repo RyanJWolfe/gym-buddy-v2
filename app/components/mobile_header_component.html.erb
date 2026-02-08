@@ -1,4 +1,4 @@
-<nav class="md:hidden fixed top-0 inset-x-0 z-50 bg-surface border-b border-surface-border pt-[env(safe-area-inset-top)]" aria-label="<%= @aria_label %>">
+<nav data-controller="mobile-header" class="md:hidden fixed top-0 inset-x-0 z-50 bg-surface border-b border-surface-border pt-[env(safe-area-inset-top)]" aria-label="<%= @aria_label %>">
   <div class="mx-auto max-w-2xl lg:max-w-4xl px-4 h-14 grid grid-cols-[auto,1fr,auto] items-center gap-3">
     <% if @back_href.present? %>
       <%= link_to @back_href, class: "inline-flex items-center gap-2 text-sm font-medium text-primary-text hover:text-primary-text-hover focus:outline-none focus:underline" do %>
