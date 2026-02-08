@@ -92,11 +92,11 @@
     --color-primary-text: 129 140 248; /* #818cf8 */
     --color-primary-text-hover: 153 163 255; /* #99a3ff */
 
-    --color-primary: 99 102 241; /* #6366f1 */
-    --color-primary-hover: 79 70 229; /* #4f46e5 */
-    --color-primary-focus: 124 108 255; /* #7c6cff */
-    --color-primary-light: 238 242 255; /* #eef2ff (base for translucent slider) */
-    --color-primary-light-hover: 224 231 255; /* #e0e7ff */
+    --color-primary: 79 70 229; /* #4f46e5 */
+    --color-primary-hover: 67 56 202; /* #4338ca */
+    --color-primary-focus: 99 102 241; /* #6366f1 */
+    --color-primary-light: 99 102 241; /* #6366f1 */
+    --color-primary-light-hover: 79 70 229; /* #4f46e5 */
     --color-primary-ring: 99 102 241; /* #6366f1 */
     --color-primary-outline: 199 210 254; /* #c7d2fe */
 
