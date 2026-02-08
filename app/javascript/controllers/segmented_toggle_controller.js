@@ -110,15 +110,15 @@ export default class extends Controller {
   applyStateToElement(el, active) {
     if (!el) return
     if (active) {
-      el.classList.add('text-primary')
-      el.classList.remove('text-gray-600')
+      el.classList.add('text-white')
+      el.classList.remove('text-gray-600', 'dark:text-neutral-400')
       el.setAttribute('aria-pressed', 'true')
       el.setAttribute('aria-selected', 'true')
       el.setAttribute('tabindex', '0')
       el.setAttribute('role', 'tab')
     } else {
-      el.classList.remove('text-primary')
-      el.classList.add('text-gray-600')
+      el.classList.remove('text-white')
+      el.classList.add('text-gray-600', 'dark:text-neutral-400')
       el.setAttribute('aria-pressed', 'false')
       el.setAttribute('aria-selected', 'false')
       el.setAttribute('tabindex', '-1')

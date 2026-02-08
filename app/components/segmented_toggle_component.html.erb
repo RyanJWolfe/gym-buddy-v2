@@ -1,15 +1,15 @@
 <div class="mb-4 flex justify-center" data-controller="<%= @controller %>">
-  <div data-<%= @controller.dasherize %>-target="container" data-<%= @controller.dasherize %>-frame="<%= @frame %>" class="relative inline-flex rounded-full bg-body p-1 border border-gray-200">
-    <div data-<%= @controller.dasherize %>-target="slider" class="absolute top-1 bottom-1 left-0 rounded-full bg-primary-light shadow-sm" style="width:0; transform: translate3d(0,0,0); will-change: transform, width; transition: transform 360ms cubic-bezier(0.2,1.0,0.22,1.0), width 360ms cubic-bezier(0.2,1.0,0.22,1.0), box-shadow 220ms ease;"></div>
+  <div data-<%= @controller.dasherize %>-target="container" data-<%= @controller.dasherize %>-frame="<%= @frame %>" class="relative inline-flex rounded-2xl bg-surface border border-surface-border">
+    <div data-<%= @controller.dasherize %>-target="slider" class="absolute top-1 bottom-1 left-0 rounded-full bg-primary shadow-sm" style="width:0; transform: translate3d(0,0,0); will-change: transform, width; transition: transform 360ms cubic-bezier(0.2,1.0,0.22,1.0), width 360ms cubic-bezier(0.2,1.0,0.22,1.0), box-shadow 220ms ease;"></div>
 
-    <% base_classes = "px-4 py-1 rounded-full text-sm font-medium transition-colors focus:outline-none relative z-10" %>
+    <% base_classes = "px-4 py-1 rounded-2xl text-sm font-display font-medium transition-colors focus:outline-none relative z-10" %>
     <% @items.each do |item| %>
       <% value = item[:value] || item[:label].to_s.downcase %>
       <% active = active?(value) %>
-      <% text_class = active ? 'text-primary' : 'text-gray-600' %>
+      <% text_class = active ? 'text-white' : 'text-gray-600 dark:text-neutral-400' %>
       <% icon = item[:icon] %>
       <%= link_to item[:url], { class: "#{base_classes} "+text_class, data: { action: "click->#{@controller}#switch", turbo_frame: @frame, turbo_action: @turbo_action, "#{@controller.dasherize}-target" => item[:target] }, role: "tab", "aria-pressed": (active ? 'true' : 'false') } do %>
-        <div class="flex items-center gap-x-2">
+        <div class="flex items-center gap-x-2 p-2">
           <% if icon.present? %>
             <%= helpers.inline_svg_tag icon, class: "h-4 w-4" %>
           <% end %>
