@@ -10,6 +10,7 @@
       </div>
       <%= f.hidden_field :exercise_id, data: { nested_exercise_select_form_target: "exerciseFormField" } %>
       <%= f.hidden_field :position, data: { nested_exercise_select_form_target: "positionField" } %>
+      <%= f.hidden_field :_destroy %>
     </div>
 
     <%= render "shared/bottom_sheet" do %>
@@ -45,6 +46,4 @@
       Add Set
     </button>
   </div>
-
-  <%= f.hidden_field :_destroy %>
 </div>
