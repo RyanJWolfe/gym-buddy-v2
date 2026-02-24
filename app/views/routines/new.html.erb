@@ -1,5 +1,17 @@
 <% content_for :title, "New Routine" %>
 
+<%= render MobileHeaderComponent.new(title: "New Routine", cancel_href: "javascript:history.back()") do |component| %>
+  <% component.with_action do %>
+    <button id="mobile-header-submit"
+            type="submit"
+            form="new_routine"
+            class="btn btn-primary btn-sm opacity-50 pointer-events-none cursor-not-allowed"
+            disabled>
+      Save
+    </button>
+  <% end %>
+<% end %>
+
 <div class="max-w-2xl mx-auto">
   <%= render 'form' %>
 </div>

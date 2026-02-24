@@ -132,17 +132,29 @@ export default class extends RailsNestedForm {
   }
 
   toggleSubmitState() {
-    if (!this.hasSubmitButtonTarget) return;
-
     const shouldEnable = this.hasName() && this.exerciseCount() > 0;
 
-    this.submitButtonTarget.disabled = !shouldEnable;
 
-    // add/remove opacity/disabled styles to match project's button disabled visuals
-    if (shouldEnable) {
-      this.submitButtonTarget.classList.remove("opacity-50", "pointer-events-none", "cursor-not-allowed");
-    } else {
-      this.submitButtonTarget.classList.add("opacity-50", "pointer-events-none", "cursor-not-allowed");
+    if (this.hasSubmitButtonTarget) {
+      this.submitButtonTarget.disabled = !shouldEnable;
+
+      // add/remove opacity/disabled styles to match project's button disabled visuals
+      if (shouldEnable) {
+        this.submitButtonTarget.classList.remove("opacity-50", "pointer-events-none", "cursor-not-allowed");
+      } else {
+        this.submitButtonTarget.classList.add("opacity-50", "pointer-events-none", "cursor-not-allowed");
+      }
+    }
+
+    // Sync state to any external header submit button
+    const headerBtn = document.getElementById("mobile-header-submit");
+    if (headerBtn) {
+      headerBtn.disabled = !shouldEnable;
+      if (shouldEnable) {
+        headerBtn.classList.remove("opacity-50", "pointer-events-none", "cursor-not-allowed");
+      } else {
+        headerBtn.classList.add("opacity-50", "pointer-events-none", "cursor-not-allowed");
+      }
     }
   }
 }

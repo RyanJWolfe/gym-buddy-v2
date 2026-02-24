@@ -1,5 +1,17 @@
 <% content_for :title, "Edit Routine: #{@routine.name}" %>
 
+<%= render MobileHeaderComponent.new(title: @routine.name, back_href: routine_path(@routine)) do |component| %>
+  <% component.with_action do %>
+    <button id="mobile-header-submit"
+            type="submit"
+            form="edit_routine_<%= @routine.id %>"
+            class="btn btn-primary btn-sm opacity-50 pointer-events-none cursor-not-allowed"
+            disabled>
+      Save
+    </button>
+  <% end %>
+<% end %>
+
 <div class="max-w-2xl mx-auto">
   <%= render 'form' %>
 </div>

@@ -51,6 +51,7 @@ class RoutinesController < ApplicationController
   end
 
   def update
+    puts "Updating routine with params: #{routine_params.inspect}"
     if @routine.update(routine_params)
       respond_to do |format|
         format.html { redirect_to @routine, notice: "Routine was successfully updated." }
